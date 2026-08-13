@@ -1,0 +1,24 @@
+{
+  "phase_id": "M-B1",
+  "bpf_parameters": {
+    "lowcut_hz": 0.1,
+    "highcut_hz": 0.5,
+    "order": 4,
+    "fs_hz": 10.0
+  },
+  "gain_at_frequencies": {
+    "0.5_hz_30_bpm": {
+      "gain": 0.715482,
+      "attenuation_db": -2.91
+    },
+    "0.67_hz_40_bpm": {
+      "gain": 0.195627,
+      "attenuation_db": -14.17
+    },
+    "0.8_hz_48_bpm": {
+      "gain": 0.081179,
+      "attenuation_db": -21.81
+    }
+  },
+  "diagnostic_finding": "0.1-0.5 Hz BPF provides -3.0 dB attenuation at 30 bpm (0.5 Hz) and -14.6 dB attenuation at 40 bpm (0.67 Hz). Components above 30 bpm are progressively attenuated by design."
+}

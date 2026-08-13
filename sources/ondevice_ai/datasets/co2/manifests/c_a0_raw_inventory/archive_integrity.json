@@ -1,0 +1,14 @@
+{
+  "repository_relative_archive_path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+  "archive_existence_status": "EXISTS_LOCAL",
+  "archive_visibility_status": "LOCAL_PAYLOAD_VISIBLE",
+  "archive_materialization_status": "MATERIALIZED_LOCAL",
+  "git_ignore_status": "GIT_IGNORED_VIA_RAW_ARCHIVES_RULE",
+  "byte_size": 335713,
+  "sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+  "owner_confirmed_size": 335713,
+  "owner_confirmed_sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+  "integrity_matches_owner_confirmation": true,
+  "archive_format": "zip",
+  "member_count": 3
+}

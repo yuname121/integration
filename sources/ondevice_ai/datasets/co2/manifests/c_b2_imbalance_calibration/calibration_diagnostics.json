@@ -1,0 +1,401 @@
+{
+  "ece_contract": {
+    "bin_count": 10,
+    "binning": "EQUAL_WIDTH",
+    "range": [
+      0.0,
+      1.0
+    ],
+    "selection_criterion": false
+  },
+  "manifest_version": "1.0",
+  "per_stage1_arm": {
+    "BALANCED_RANDOM_OVERSAMPLE": {
+      "ece_diagnostic": {
+        "bin_count": 10,
+        "bins": [
+          {
+            "bin_index": 0,
+            "ece_contribution": 0.016357651296093102,
+            "empirical_occupied_frequency": 0.010273972602739725,
+            "lower_bound": 0.0,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.05998181250022812,
+            "sample_count": 876,
+            "upper_bound": 0.1,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 1,
+            "ece_contribution": 0.018998913840830356,
+            "empirical_occupied_frequency": 0.020737327188940093,
+            "lower_bound": 0.1,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.1372698355859226,
+            "sample_count": 434,
+            "upper_bound": 0.2,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 2,
+            "ece_contribution": 0.008556686240279008,
+            "empirical_occupied_frequency": 0.06299212598425197,
+            "lower_bound": 0.2,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.24234565961907653,
+            "sample_count": 127,
+            "upper_bound": 0.3,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 3,
+            "ece_contribution": 0.005047852096063414,
+            "empirical_occupied_frequency": 0.15714285714285714,
+            "lower_bound": 0.3,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.3491054611388687,
+            "sample_count": 70,
+            "upper_bound": 0.4,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 4,
+            "ece_contribution": 0.0028417359590247374,
+            "empirical_occupied_frequency": 0.3220338983050847,
+            "lower_bound": 0.4,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.4502491715749805,
+            "sample_count": 59,
+            "upper_bound": 0.5,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 5,
+            "ece_contribution": 0.0024215158405643707,
+            "empirical_occupied_frequency": 0.45454545454545453,
+            "lower_bound": 0.5,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.5522132601148841,
+            "sample_count": 66,
+            "upper_bound": 0.6,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 6,
+            "ece_contribution": 0.0029806628502105346,
+            "empirical_occupied_frequency": 0.5416666666666666,
+            "lower_bound": 0.6,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.6518683959341728,
+            "sample_count": 72,
+            "upper_bound": 0.7,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 7,
+            "ece_contribution": 0.005237171578756175,
+            "empirical_occupied_frequency": 0.5882352941176471,
+            "lower_bound": 0.7,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.7522511852076346,
+            "sample_count": 85,
+            "upper_bound": 0.8,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 8,
+            "ece_contribution": 0.00517315349249523,
+            "empirical_occupied_frequency": 0.6867469879518072,
+            "lower_bound": 0.8,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.8526618626147265,
+            "sample_count": 83,
+            "upper_bound": 0.9,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 9,
+            "ece_contribution": 0.016048720108285498,
+            "empirical_occupied_frequency": 0.9329113924050633,
+            "lower_bound": 0.9,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.9869894847193114,
+            "sample_count": 790,
+            "upper_bound": 1.0,
+            "upper_inclusive": true
+          }
+        ],
+        "definition": "10_EQUAL_WIDTH_BINS_OVER_0_1",
+        "expected_calibration_error": 0.08366406330260243,
+        "population_count": 2662
+      },
+      "probability_quality_metrics": {
+        "brier_score": 0.07187688240462474,
+        "expected_calibration_error": 0.08366406330260243,
+        "log_loss": 0.26865810832271075,
+        "pr_auc_average_precision": 0.9520216330221128,
+        "roc_auc": 0.9696650507126716
+      },
+      "probability_vector_sha256": "a765b1d8f44fe1f6e5e65bfd943302f0b095cf62a4850a7dec6bc6492a99d419"
+    },
+    "CLASS_WEIGHT_BALANCED": {
+      "ece_diagnostic": {
+        "bin_count": 10,
+        "bins": [
+          {
+            "bin_index": 0,
+            "ece_contribution": 0.01665202292405846,
+            "empirical_occupied_frequency": 0.01021566401816118,
+            "lower_bound": 0.0,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.06053085700776802,
+            "sample_count": 881,
+            "upper_bound": 0.1,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 1,
+            "ece_contribution": 0.018742530666754898,
+            "empirical_occupied_frequency": 0.02107728337236534,
+            "lower_bound": 0.1,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.1379218188170996,
+            "sample_count": 427,
+            "upper_bound": 0.2,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 2,
+            "ece_contribution": 0.008765379453886047,
+            "empirical_occupied_frequency": 0.06201550387596899,
+            "lower_bound": 0.2,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.24289488454453223,
+            "sample_count": 129,
+            "upper_bound": 0.3,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 3,
+            "ece_contribution": 0.005207050116574117,
+            "empirical_occupied_frequency": 0.14705882352941177,
+            "lower_bound": 0.3,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.3508995207400044,
+            "sample_count": 68,
+            "upper_bound": 0.4,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 4,
+            "ece_contribution": 0.0017418498597795205,
+            "empirical_occupied_frequency": 0.36363636363636365,
+            "lower_bound": 0.4,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.44794189684969243,
+            "sample_count": 55,
+            "upper_bound": 0.5,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 5,
+            "ece_contribution": 0.0029021209740700236,
+            "empirical_occupied_frequency": 0.44285714285714284,
+            "lower_bound": 0.5,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.55322065761392,
+            "sample_count": 70,
+            "upper_bound": 0.6,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 6,
+            "ece_contribution": 0.002588280094473705,
+            "empirical_occupied_frequency": 0.5616438356164384,
+            "lower_bound": 0.6,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.6560274193354658,
+            "sample_count": 73,
+            "upper_bound": 0.7,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 7,
+            "ece_contribution": 0.005923954201525653,
+            "empirical_occupied_frequency": 0.5512820512820513,
+            "lower_bound": 0.7,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.7534559754418114,
+            "sample_count": 78,
+            "upper_bound": 0.8,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 8,
+            "ece_contribution": 0.0053509393897806,
+            "empirical_occupied_frequency": 0.6785714285714286,
+            "lower_bound": 0.8,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.8481452458999519,
+            "sample_count": 84,
+            "upper_bound": 0.9,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 9,
+            "ece_contribution": 0.017084598204543344,
+            "empirical_occupied_frequency": 0.9297365119196989,
+            "lower_bound": 0.9,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.9867994986455387,
+            "sample_count": 797,
+            "upper_bound": 1.0,
+            "upper_inclusive": true
+          }
+        ],
+        "definition": "10_EQUAL_WIDTH_BINS_OVER_0_1",
+        "expected_calibration_error": 0.08495872588544637,
+        "population_count": 2662
+      },
+      "probability_quality_metrics": {
+        "brier_score": 0.07283743273602453,
+        "expected_calibration_error": 0.08495872588544637,
+        "log_loss": 0.2714518724829189,
+        "pr_auc_average_precision": 0.9514076886044784,
+        "roc_auc": 0.9691713039243117
+      },
+      "probability_vector_sha256": "f9259e7c81304dcb3b67e8ea612182501947d19e534ea4e74a3fb31c0c043223"
+    },
+    "NATURAL_DISTRIBUTION": {
+      "ece_diagnostic": {
+        "bin_count": 10,
+        "bins": [
+          {
+            "bin_index": 0,
+            "ece_contribution": 0.009722465346166418,
+            "empirical_occupied_frequency": 0.01753155680224404,
+            "lower_bound": 0.0,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.035681067848173216,
+            "sample_count": 1426,
+            "upper_bound": 0.1,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 1,
+            "ece_contribution": 0.002979474021829075,
+            "empirical_occupied_frequency": 0.2,
+            "lower_bound": 0.1,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.14124918632511854,
+            "sample_count": 135,
+            "upper_bound": 0.2,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 2,
+            "ece_contribution": 0.007043478214151552,
+            "empirical_occupied_frequency": 0.42452830188679247,
+            "lower_bound": 0.2,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.24764397164083557,
+            "sample_count": 106,
+            "upper_bound": 0.3,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 3,
+            "ece_contribution": 0.00822475650560886,
+            "empirical_occupied_frequency": 0.6282051282051282,
+            "lower_bound": 0.3,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.3475089510521694,
+            "sample_count": 78,
+            "upper_bound": 0.4,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 4,
+            "ece_contribution": 0.005352978641672407,
+            "empirical_occupied_frequency": 0.6666666666666666,
+            "lower_bound": 0.4,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.45076319478587956,
+            "sample_count": 66,
+            "upper_bound": 0.5,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 5,
+            "ece_contribution": 0.0005869775017536502,
+            "empirical_occupied_frequency": 0.5909090909090909,
+            "lower_bound": 0.5,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.5553969520529951,
+            "sample_count": 44,
+            "upper_bound": 0.6,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 6,
+            "ece_contribution": 0.0020831745170320115,
+            "empirical_occupied_frequency": 0.7948717948717948,
+            "lower_bound": 0.6,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.6526817804015586,
+            "sample_count": 39,
+            "upper_bound": 0.7,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 7,
+            "ece_contribution": 0.0015970458135285029,
+            "empirical_occupied_frequency": 0.6666666666666666,
+            "lower_bound": 0.7,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.7500261952080955,
+            "sample_count": 51,
+            "upper_bound": 0.8,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 8,
+            "ece_contribution": 0.0022941378067519295,
+            "empirical_occupied_frequency": 0.9107142857142857,
+            "lower_bound": 0.8,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.8561875460573782,
+            "sample_count": 112,
+            "upper_bound": 0.9,
+            "upper_inclusive": false
+          },
+          {
+            "bin_index": 9,
+            "ece_contribution": 0.0010746127079253043,
+            "empirical_occupied_frequency": 0.968595041322314,
+            "lower_bound": 0.9,
+            "lower_inclusive": true,
+            "mean_predicted_occupied_probability": 0.9733233372371853,
+            "sample_count": 605,
+            "upper_bound": 1.0,
+            "upper_inclusive": true
+          }
+        ],
+        "definition": "10_EQUAL_WIDTH_BINS_OVER_0_1",
+        "expected_calibration_error": 0.04095910107641971,
+        "population_count": 2662
+      },
+      "probability_quality_metrics": {
+        "brier_score": 0.06545245594647177,
+        "expected_calibration_error": 0.04095910107641971,
+        "log_loss": 0.22173368638300653,
+        "pr_auc_average_precision": 0.9530449766369559,
+        "roc_auc": 0.9704660177249002
+      },
+      "probability_vector_sha256": "96e7b6e602fe60a95d80a9f5288b505948f8b11b3c9373424de19e175fe7abad"
+    }
+  },
+  "phase": "C-B2",
+  "probability_quality_metrics_are_threshold_independent": true,
+  "probability_recalibration_model_fitted": false
+}

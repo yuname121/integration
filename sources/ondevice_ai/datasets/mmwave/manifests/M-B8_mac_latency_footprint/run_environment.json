@@ -1,0 +1,10 @@
+{
+  "numpy_version": "1.26.4",
+  "phase_id": "M-B8",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "process_architecture": "arm64",
+  "python_version": "3.9.6",
+  "requirements_mac_sha256": "d14da72dfdf6b168dbacaef161adb03e1a171b990b7475ae85ea222fd7ab4f42",
+  "scipy_version": "1.13.1",
+  "tensorflow_version": "2.20.0"
+}

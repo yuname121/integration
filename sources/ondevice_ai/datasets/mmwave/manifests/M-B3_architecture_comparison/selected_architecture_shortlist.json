@@ -1,0 +1,186 @@
+{
+  "selected_architecture_shortlist": [
+    "M-B3_CONV1D_GAP_BASELINE",
+    "M-B3_SEPARABLECONV1D_GAP"
+  ],
+  "shortlist_count": 2,
+  "ranking_rule": "DEPLOYMENT_ELIGIBLE_SINGLE_SEED -> Float Macro F1 (eps=1e-5) -> Min Recall -> APNEA Recall -> Total Params -> INT8 Size -> Lexicographic ID",
+  "shortlisted_architectures": [
+    {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "name": "Conv1D + GAP Baseline",
+      "family": "Conv1D_GAP",
+      "total_params": 9315,
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "42dbb04e98f7da8ea9ce1e1df3b2b4a5e1e1e66fe9bfa6ea26f2fe3f256a9bd7",
+      "float_macro_f1": 0.663708,
+      "float_macro_precision": 0.737179,
+      "float_macro_fpr": 0.158992,
+      "float_accuracy": 0.721519,
+      "float_min_per_class_recall": 0.454545,
+      "float_apnea_recall": 1.0,
+      "float_rapid_recall": 0.5,
+      "float_normal_recall": 0.454545,
+      "float_collapsed": false,
+      "strict_int8_success": true,
+      "strict_int8_bytes": 22080,
+      "strict_int8_macro_f1": 0.666231,
+      "strict_int8_top1_agreement": 0.987342,
+      "select_tf_ops_required": false,
+      "deployment_eligibility": "DEPLOYMENT_ELIGIBLE_SINGLE_SEED",
+      "per_class": {
+        "NORMAL": {
+          "tp": 10,
+          "fp": 2,
+          "tn": 55,
+          "fn": 12,
+          "precision": 0.833333,
+          "recall": 0.454545,
+          "f1_score": 0.588235,
+          "fpr": 0.035088,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 10,
+          "fp": 5,
+          "tn": 54,
+          "fn": 10,
+          "precision": 0.666667,
+          "recall": 0.5,
+          "f1_score": 0.571429,
+          "fpr": 0.084746,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 15,
+          "tn": 27,
+          "fn": 0,
+          "precision": 0.711538,
+          "recall": 1.0,
+          "f1_score": 0.831461,
+          "fpr": 0.357143,
+          "support": 37
+        }
+      }
+    },
+    {
+      "architecture_id": "M-B3_SEPARABLECONV1D_GAP",
+      "name": "SeparableConv1D + GAP",
+      "family": "SeparableConv1D_GAP",
+      "total_params": 3258,
+      "initial_weights_sha256": "f2daec9d96d7e2e35e3abcf6150f785bac06cb11f0a12952269ea8ea68e80611",
+      "final_weights_sha256": "65951b27bed98f1d105de3d794ad3eeeb8cdb39c6fd101ecbdfa7408962ce8ae",
+      "float_macro_f1": 0.470833,
+      "float_macro_precision": 0.542373,
+      "float_macro_fpr": 0.231893,
+      "float_accuracy": 0.594937,
+      "float_min_per_class_recall": 0.181818,
+      "float_apnea_recall": 1.0,
+      "float_rapid_recall": 0.3,
+      "float_normal_recall": 0.181818,
+      "float_collapsed": false,
+      "strict_int8_success": true,
+      "strict_int8_bytes": 19072,
+      "strict_int8_macro_f1": 0.470833,
+      "strict_int8_top1_agreement": 1.0,
+      "select_tf_ops_required": false,
+      "deployment_eligibility": "DEPLOYMENT_ELIGIBLE_SINGLE_SEED",
+      "per_class": {
+        "NORMAL": {
+          "tp": 4,
+          "fp": 4,
+          "tn": 53,
+          "fn": 18,
+          "precision": 0.5,
+          "recall": 0.181818,
+          "f1_score": 0.266667,
+          "fpr": 0.070175,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 6,
+          "fp": 6,
+          "tn": 53,
+          "fn": 14,
+          "precision": 0.5,
+          "recall": 0.3,
+          "f1_score": 0.375,
+          "fpr": 0.101695,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 22,
+          "tn": 20,
+          "fn": 0,
+          "precision": 0.627119,
+          "recall": 1.0,
+          "f1_score": 0.770833,
+          "fpr": 0.52381,
+          "support": 37
+        }
+      }
+    }
+  ],
+  "excluded_or_research_architectures": [
+    {
+      "architecture_id": "M-B3_CONV1D_BILSTM",
+      "name": "Conv1D + BiLSTM",
+      "family": "Conv1D_BiLSTM",
+      "total_params": 19747,
+      "initial_weights_sha256": "2555abc5e99e93810ea7ab29df6789836c889ceec282d3c1ab48001b3b5a705a",
+      "final_weights_sha256": "4769cee62fd7765c644402a08762dac5113677d8c99220d7d59641f40d05ee4f",
+      "float_macro_f1": 0.467728,
+      "float_macro_precision": 0.481605,
+      "float_macro_fpr": 0.216197,
+      "float_accuracy": 0.607595,
+      "float_min_per_class_recall": 0.05,
+      "float_apnea_recall": 0.945946,
+      "float_rapid_recall": 0.05,
+      "float_normal_recall": 0.545455,
+      "float_collapsed": false,
+      "strict_int8_success": false,
+      "strict_int8_bytes": null,
+      "strict_int8_macro_f1": null,
+      "strict_int8_top1_agreement": null,
+      "select_tf_ops_required": true,
+      "deployment_eligibility": "SELECT_TF_OPS_REQUIRED",
+      "per_class": {
+        "NORMAL": {
+          "tp": 12,
+          "fp": 11,
+          "tn": 46,
+          "fn": 10,
+          "precision": 0.521739,
+          "recall": 0.545455,
+          "f1_score": 0.533333,
+          "fpr": 0.192982,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 1,
+          "fp": 3,
+          "tn": 56,
+          "fn": 19,
+          "precision": 0.25,
+          "recall": 0.05,
+          "f1_score": 0.083333,
+          "fpr": 0.050847,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 35,
+          "fp": 17,
+          "tn": 25,
+          "fn": 2,
+          "precision": 0.673077,
+          "recall": 0.945946,
+          "f1_score": 0.786517,
+          "fpr": 0.404762,
+          "support": 37
+        }
+      }
+    }
+  ]
+}

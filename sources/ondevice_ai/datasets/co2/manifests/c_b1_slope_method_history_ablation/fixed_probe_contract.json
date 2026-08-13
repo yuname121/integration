@@ -1,0 +1,15 @@
+{
+  "class_priors": false,
+  "class_weights": false,
+  "dependency_policy": "numpy_only_no_sklearn_required",
+  "deployable": false,
+  "distance": "squared_euclidean",
+  "manifest_version": "1.0",
+  "probability_calibration": false,
+  "probe_type": "NEAREST_CENTROID",
+  "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+  "status": "NOT_A_PRODUCTION_MODEL",
+  "tflite_candidate": false,
+  "threshold_tuning": false,
+  "tie_rule": "exact_equal_distance_predicts_VACANT"
+}

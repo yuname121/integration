@@ -1,0 +1,28 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "status": "B0_EXPERIMENT_REFERENCE_ONLY",
+  "production_scaler_modified": false,
+  "feature_view_id": "HISTORICAL_COMPATIBILITY_REFERENCE",
+  "feature_order": [
+    "CO2_slope",
+    "Humidity",
+    "CO2"
+  ],
+  "train_sample_count": 8140,
+  "fit_population": "TRAIN",
+  "fit_population_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+  "mean": [
+    0.011527303414630624,
+    25.730943407044055,
+    606.5058118345612
+  ],
+  "scale": [
+    5.661675596121919,
+    5.531812455878631,
+    314.3524240597083
+  ],
+  "seed": 20260810,
+  "purpose": "Validate C-B0 preprocessing harness only",
+  "existing_production_scaler_status": "SCALER_FIT_LINEAGE_UNVERIFIED"
+}

@@ -1,0 +1,29 @@
+{
+  "appended_minority_draw_count": 4688,
+  "appended_sequence_sha256": "1322f2a4d539dc65651814e98bdf9dbd754d2ad07698bafd539b27020bed3e1b",
+  "class_weight_stacked": false,
+  "expected_c_b2_appended_sequence_sha256": "1322f2a4d539dc65651814e98bdf9dbd754d2ad07698bafd539b27020bed3e1b",
+  "expected_c_b2_resampled_ordered_sample_ids_sha256": "a3c61800df26a6b995e79f2debb1d7003ba0517985c38ade74e2cdceeba7a551",
+  "locked_test_rows_used": 0,
+  "majority_undersampling_count": 0,
+  "manifest_version": "1.0",
+  "original_class_counts": {
+    "OCCUPIED": 1726,
+    "VACANT": 6414
+  },
+  "oversampled_class_counts": {
+    "OCCUPIED": 6414,
+    "VACANT": 6414
+  },
+  "parity_id": "CO2_B3_B2_OVERSAMPLING_PARITY_001",
+  "parity_status": "PASS",
+  "phase": "C-B3",
+  "policy_id": "CO2_B2_SELECTED_IMBALANCE_POLICY_001",
+  "resampled_ordered_sample_ids_sha256": "a3c61800df26a6b995e79f2debb1d7003ba0517985c38ade74e2cdceeba7a551",
+  "same_oversampled_train_multiset_for_all_architectures_and_seeds": true,
+  "seed": 20260810,
+  "source_population": "TRAIN_ONLY",
+  "source_sample_count": 8140,
+  "strategy_id": "BALANCED_RANDOM_OVERSAMPLE",
+  "validation_rows_used": 0
+}

@@ -1,0 +1,10 @@
+{
+  "actual_window_count": 75,
+  "expected_window_count": 88,
+  "phase_id": "M-B10B",
+  "raw_tensors_persisted": false,
+  "samples": [],
+  "schema_version": "M-B10B_LOCKED_TEST_REGISTRY_V1",
+  "split": "LOCKED_TEST",
+  "status": "NOT_GENERATED_DUE_TO_LOCKED_SPLIT_IDENTITY_MISMATCH"
+}

@@ -1,0 +1,10 @@
+{
+  "phase_id": "M-B0",
+  "total_pairs_audited": 140185,
+  "total_flagged_near_duplicates": 0,
+  "same_recording_near_duplicates": 0,
+  "same_subject_diff_recording_near_duplicates": 0,
+  "cross_subject_same_split_near_duplicates": 0,
+  "cross_split_near_duplicates": 0,
+  "flagged_pairs": []
+}

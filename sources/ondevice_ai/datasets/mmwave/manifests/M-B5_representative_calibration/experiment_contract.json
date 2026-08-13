@@ -1,0 +1,30 @@
+{
+  "phase_id": "M-B5",
+  "description": "Comparison of four preregistered TRAIN-only representative calibration dataset profiles across frozen M-B4 seed weight sets 42, 43, 44",
+  "frozen_preprocessing_profile": "M-B1_D0_B1_Z1",
+  "frozen_imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+  "frozen_primary_architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "frozen_seed_weights": [
+    42,
+    43,
+    44
+  ],
+  "eval_population": "VALIDATION_SET_ONLY",
+  "train_samples": 327,
+  "train_subjects": 77,
+  "eval_samples": 79,
+  "eval_subjects": 17,
+  "locked_test_access": "ZERO_PROHIBITED",
+  "calibration_profiles": [
+    "M-B5_CAL_TRAIN_ORDER_120",
+    "M-B5_CAL_RANDOM_PROPORTIONAL_120",
+    "M-B5_CAL_CLASS_BALANCED_120",
+    "M-B5_CAL_DISTRIBUTION_AWARE_120"
+  ],
+  "calibration_sample_count": 120,
+  "calibration_sampling_seed": 20260810,
+  "new_model_trainings": 0,
+  "profiles_converted_this_run": [
+    "M-B5_CAL_DISTRIBUTION_AWARE_120"
+  ]
+}

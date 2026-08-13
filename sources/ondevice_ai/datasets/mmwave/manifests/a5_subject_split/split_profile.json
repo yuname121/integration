@@ -1,0 +1,29 @@
+{
+  "actual_subject_counts": {
+    "LOCKED_TEST": 16,
+    "TRAIN": 77,
+    "VALIDATION": 17
+  },
+  "allocation_algorithm": "SORT_BY_HASH_THEN_LARGEST_REMAINDER_COUNTS",
+  "deterministic_key": "SHA256(seed:subject_id)",
+  "full_class_distribution_known": false,
+  "hash_algorithm": "SHA-256",
+  "immutability_policy": "CREATE_NEW_PROFILE_VERSION_NEVER_OVERWRITE_AFTER_PHASE_B_USE",
+  "locked_test_policy": "NO_MODEL_SELECTION_ACCESS",
+  "profile_id": "MMWAVE_SUBJECT_SPLIT_PROFILE_001",
+  "recording_cross_split_allowed": false,
+  "selection_inputs": [
+    "datasets/mmwave/manifests/a0_raw_inventory/recording_index.jsonl",
+    "datasets/mmwave/manifests/a4_label_pilot/window_label_manifest.jsonl"
+  ],
+  "split_seed": 20260808,
+  "split_unit": "SUBJECT",
+  "subject_overlap_allowed": false,
+  "target_ratios": {
+    "LOCKED_TEST": 0.15,
+    "TRAIN": 0.7,
+    "VALIDATION": 0.15
+  },
+  "tie_breaking_rule": "RATIO_REMAINDER_THEN_SPLIT_ORDER; HASH_THEN_SUBJECT_ID",
+  "window_cross_split_allowed": false
+}

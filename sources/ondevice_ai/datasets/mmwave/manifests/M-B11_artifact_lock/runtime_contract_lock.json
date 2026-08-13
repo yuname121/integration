@@ -1,0 +1,33 @@
+{
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "flex_select_absent": true,
+  "input_contract": {
+    "dtype": "int8",
+    "scale": 0.041720833629369736,
+    "semantic": "resp_phase_model_ready_bpf_zscore",
+    "shape": [
+      1,
+      300,
+      1
+    ],
+    "zero_point": -3
+  },
+  "live_tflite_matches_runtime_identity": true,
+  "output_contract": {
+    "dtype": "int8",
+    "scale": 0.00390625,
+    "shape": [
+      1,
+      3
+    ],
+    "zero_point": -128
+  },
+  "runtime_identity_source": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json",
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "select_tf_ops_count": 0,
+  "strict_int8": true
+}

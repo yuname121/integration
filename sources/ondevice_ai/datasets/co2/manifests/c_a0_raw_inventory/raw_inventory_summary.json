@@ -1,0 +1,27 @@
+{
+  "dataset_name": "UCI Occupancy Detection Dataset",
+  "archive_relative_path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+  "archive_byte_size": 335713,
+  "archive_sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+  "archive_member_count": 3,
+  "total_data_rows": 20560,
+  "total_occupancy_0_rows": 15810,
+  "total_occupancy_1_rows": 4750,
+  "overall_schema_mismatch": true,
+  "schema_mismatch_summary": "Header contains 7 named columns ('date','Temperature','Humidity','Light','CO2','HumidityRatio','Occupancy'), but data lines contain 8 fields. Field 0 is an exported integer dataframe row index ('1', '2', ...), Field 1 is timestamp string, Fields 2..6 are features, Field 7 is Occupancy label.",
+  "physical_column_mapping": {
+    "0": "exported_row_index",
+    "1": "date_timestamp",
+    "2": "Temperature",
+    "3": "Humidity",
+    "4": "Light",
+    "5": "CO2",
+    "6": "HumidityRatio",
+    "7": "Occupancy"
+  },
+  "audited_files": [
+    "datatest.txt",
+    "datatest2.txt",
+    "datatraining.txt"
+  ]
+}

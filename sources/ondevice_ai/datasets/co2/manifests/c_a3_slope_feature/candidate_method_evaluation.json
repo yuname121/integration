@@ -1,0 +1,52 @@
+{
+  "manifest_version": "1.0",
+  "selection_forbidden_signals": [
+    "occupancy_label_separation",
+    "classifier_accuracy",
+    "LOCKED_TEST_model_metrics"
+  ],
+  "candidates_considered": [
+    {
+      "candidate_id": "A_PREVIOUS_SAMPLE_RATE",
+      "concept": "(CO2_now - CO2_previous) / elapsed_minutes",
+      "status": "REJECTED",
+      "reason": "Active deployment adapter retains a multi-sample history window and computes endpoint difference against the oldest retained sample, not solely the previous sample."
+    },
+    {
+      "candidate_id": "B_ENDPOINT_DIFFERENCE_HISTORY_DURATION",
+      "concept": "(CO2_now - CO2_history_start) / elapsed_minutes",
+      "history_duration_seconds": 150.0,
+      "status": "SELECTED",
+      "offline_baseline_status": "CANONICAL_OFFLINE_BASELINE_DESIGN",
+      "reason": "Endpoint-difference method is VERIFIED in sensors/co2/co2_adapter.py. The 150s offline history threshold is a CANONICAL_OFFLINE_BASELINE_DESIGN derived from configured/intended window_seconds=150.0, NOT from active runtime eligibility (required_history_sec=5.0) and NOT a verified historical training duration. Active runtime uses deque(maxlen=30) with growing span and ~145s nominal full-buffer endpoint span; window_seconds is configured but not applied to the active slope path. Offline UCI cadence yields typical selected endpoints of ~179-181s. Causal, block-isolated, actual source-clock elapsed time."
+    },
+    {
+      "candidate_id": "C_LINEAR_REGRESSION_HISTORY_WINDOW",
+      "concept": "OLS slope of CO2 vs elapsed_minutes over history window",
+      "status": "REJECTED",
+      "reason": "No active repository evidence implements regression slope for CO2_slope; adapter and SENSOR_DATA_CONTRACT document endpoint difference only."
+    }
+  ],
+  "selected_candidate_id": "B_ENDPOINT_DIFFERENCE_HISTORY_DURATION",
+  "evidence_basis": [
+    "sensors/co2/co2_adapter.py calculate_co2_slope (ENDPOINT_DIFFERENCE verified; required_history_sec=5.0 on read())",
+    "sensors/co2/co2_adapter.py window_seconds=150.0 CONFIGURED_BUT_NOT_APPLIED to slope eligibility/endpoint",
+    "docs/reports/SENSOR_DATA_CONTRACT.md Slope Calculation row (method evidence; history duration not runtime-proof)",
+    "docs/reports/sensor_model_data_contract.json history_maxlen/sampling",
+    "models/co2/co2_scaling_metadata_v0.1.0.json feature name presence only",
+    "C-A2 cadence profile (59–61s jitter requires actual elapsed time)",
+    "roadmap C-B1 retains history-length / slope-method ablation; C-C retains SCD40 domain alignment"
+  ],
+  "train_only_secondary_scaler_diagnostic": {
+    "historical_scaler_mean_co2_slope": 0.011184156631440968,
+    "historical_scaler_scale_co2_slope": 4.373409389136896,
+    "reconstructed_train_mean": 0.011527303414630624,
+    "reconstructed_train_stdev": 5.661675596121919,
+    "abs_mean_difference": 0.00034314678318965626,
+    "abs_stdev_scale_difference": 1.288266206985023,
+    "comparison_result": "PARTIAL_MEAN_ALIGNMENT_ONLY",
+    "authoritative_for_formula_lock": false,
+    "authoritative_for_history_lineage": false,
+    "note": "Secondary non-authoritative diagnostic only. Mean proximity without matching scale/stdev is PARTIAL_MEAN_ALIGNMENT_ONLY / insufficient to prove historical training history lineage. Method lock uses verified endpoint-difference evidence; 150s offline threshold is an explicit canonical baseline design, not scaler matching."
+  }
+}

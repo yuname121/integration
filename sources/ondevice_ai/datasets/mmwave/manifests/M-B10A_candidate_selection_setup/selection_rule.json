@@ -1,0 +1,143 @@
+{
+  "architecture_seed_sensitivity_warning_preserved": true,
+  "candidate_pool_scope": {
+    "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+    "calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+    "historical_v0_1_0_in_pool": false,
+    "imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+    "preprocessing_name": "BPF_ZSCORE",
+    "preprocessing_profile": "M-B1_D0_B1_Z1",
+    "real_data_only": true,
+    "reconversion_allowed": false,
+    "retraining_allowed": false,
+    "strict_int8_only": true,
+    "synthetic_v0_2_0_in_pool": false,
+    "training_seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "epsilon": 1e-05,
+  "epsilon_semantics": "Absolute difference <= epsilon is tied and proceeds to the next criterion.",
+  "frozen_before_candidate_winner": true,
+  "hard_eligibility_rule_ids": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6",
+    "E7",
+    "E8",
+    "E9",
+    "E10",
+    "E11"
+  ],
+  "locked_test_policy": "No LOCKED_TEST labels, tensors, predictions, or metrics are accessed during M-B10A.",
+  "moderate_m_b7_profiles": [
+    "M-B7_GAUSSIAN_SNR20",
+    "M-B7_AMP_X0_75",
+    "M-B7_AMP_X1_25",
+    "M-B7_DRIFT_MILD",
+    "M-B7_DROPOUT_SHORT",
+    "M-B7_MISSING_FRAME_1PCT",
+    "M-B7_MOTION_BURST_MILD",
+    "M-B7_COMBINED_MODERATE"
+  ],
+  "no_composite_score": true,
+  "phase_id": "M-B10A",
+  "ranking_criteria": [
+    {
+      "description": "Higher clean strict-INT8 VALIDATION Macro F1",
+      "direction": "higher",
+      "metric": "clean_strict_int8_macro_f1",
+      "rank": 1
+    },
+    {
+      "description": "Higher minimum clean per-class recall",
+      "direction": "higher",
+      "metric": "clean_min_per_class_recall",
+      "rank": 2
+    },
+    {
+      "description": "Higher APNEA proxy recall",
+      "direction": "higher",
+      "metric": "clean_apnea_proxy_recall",
+      "rank": 3
+    },
+    {
+      "description": "Higher APNEA proxy precision",
+      "direction": "higher",
+      "metric": "clean_apnea_proxy_precision",
+      "rank": 4
+    },
+    {
+      "description": "Higher worst-subject clean Macro F1 across fixed VALIDATION subjects",
+      "direction": "higher",
+      "metric": "worst_subject_clean_macro_f1",
+      "rank": 5
+    },
+    {
+      "description": "Lower worst positive Macro-F1 degradation across moderate M-B7 profiles",
+      "direction": "lower",
+      "metric": "moderate_worst_positive_macro_f1_degradation",
+      "rank": 6
+    },
+    {
+      "description": "Lower worst positive per-class recall degradation across moderate profiles",
+      "direction": "lower",
+      "metric": "moderate_worst_positive_recall_degradation",
+      "rank": 7
+    },
+    {
+      "description": "Higher minimum clean-to-perturbed Top-1 agreement across moderate profiles",
+      "direction": "higher",
+      "metric": "moderate_min_top1_agreement",
+      "rank": 8
+    },
+    {
+      "description": "Lower maximum input saturation ratio across moderate profiles",
+      "direction": "lower",
+      "metric": "moderate_max_input_saturation_ratio",
+      "rank": 9
+    },
+    {
+      "description": "Lower positive M-B6 Float Keras to strict INT8 Macro-F1 degradation",
+      "direction": "lower",
+      "metric": "m_b6_positive_float_to_int8_macro_f1_degradation",
+      "rank": 10
+    },
+    {
+      "description": "Higher M-B6 Keras to strict INT8 Top-1 agreement",
+      "direction": "higher",
+      "metric": "m_b6_keras_to_int8_top1_agreement",
+      "rank": 11
+    },
+    {
+      "description": "Lower M-B8 strict INT8 pipeline P99 latency (Mac-only late tie-breaker)",
+      "direction": "lower",
+      "metric": "m_b8_pipeline_p99_ns",
+      "rank": 12
+    },
+    {
+      "description": "Smaller TFLite bytes",
+      "direction": "lower",
+      "metric": "tflite_bytes",
+      "rank": 13
+    },
+    {
+      "description": "Lower training seed",
+      "direction": "lower",
+      "metric": "training_seed",
+      "rank": 14
+    }
+  ],
+  "rule_name": "SAFE_NEST_MMWAVE_PRELOCKED_REAL_DATA_FINALIST_RULE_V1",
+  "rule_version": "1.0.0",
+  "severe_profiles_not_hard_gated": [
+    "M-B7_AMP_X0_50",
+    "M-B7_GAUSSIAN_POST_B1_SNR10",
+    "M-B7_MOTION_BURST_SEVERE"
+  ]
+}

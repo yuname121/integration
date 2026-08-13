@@ -1,0 +1,75 @@
+{
+  "candidate": {
+    "architecture": "LINEAR_LOGISTIC",
+    "class_map_sha256": "e8d9a18cba75092bb2c92212504afadddd2964c9628abfac71c5b0b91db9889a",
+    "feature_order": [
+      "CO2",
+      "Temperature",
+      "Humidity",
+      "CO2_slope"
+    ],
+    "float_reference_sha256": "471b85852f661bd787e0bc130ae032bebb69ef0b51cfacb8e87ea04529970fee",
+    "imbalance_strategy": "BALANCED_RANDOM_OVERSAMPLE",
+    "input_dtype": "int8",
+    "input_quantization": {
+      "scale": 0.03529411926865578,
+      "zero_point": 0
+    },
+    "model_path": "models/co2/candidates/c_b4/full_integer_int8.tflite",
+    "model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+    "output_dtype": "int8",
+    "output_quantization": {
+      "scale": 0.00390625,
+      "zero_point": -128
+    },
+    "scaler_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+    "scaler_path": "datasets/co2/manifests/c_b2_imbalance_calibration/preprocessing_scaler_evidence.json",
+    "slope_profile": "ENDPOINT_H150",
+    "threshold": 0.58
+  },
+  "data": {
+    "locked_test_count": 9749,
+    "locked_test_membership_fingerprint": "0bac8dc1affae1de48ea68f01e866508ea19f31e194a7c0dccbf617e529344e7",
+    "train_count": 8140,
+    "train_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+    "validation_count": 2662,
+    "validation_fingerprint": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef"
+  },
+  "decision_state": {
+    "FEATURE_SELECTION_COMPLETE": true,
+    "IMBALANCE_SELECTION_COMPLETE": true,
+    "LOCKED_TEST_EVALUATION_AUTHORIZED_ONCE": true,
+    "MODEL_SELECTION_COMPLETE": true,
+    "NO_FURTHER_SELECTION_AUTHORIZED": true,
+    "QUANTIZATION_COMPLETE": true,
+    "ROBUSTNESS_REVIEW_COMPLETE": true,
+    "SLOPE_SELECTION_COMPLETE": true,
+    "THRESHOLD_SELECTION_COMPLETE": true
+  },
+  "evidence": {
+    "latency_complete": true,
+    "latency_path": "datasets/co2/manifests/c_b5_robustness_final_lock/host_latency_evidence.json",
+    "latency_sha256": "455bf875a69eb820cb534669d6cf8236494bd3b57f1ea48b1259f8762839061a",
+    "robustness_complete": true,
+    "robustness_protocol_path": "datasets/co2/manifests/c_b5_robustness_final_lock/robustness_protocol.json",
+    "robustness_protocol_sha256": "466bb62b2e09d2082ae9f70d54181aec52ee7b449fae51d962cd246f2c7fdb0b",
+    "robustness_results_path": "datasets/co2/manifests/c_b5_robustness_final_lock/robustness_results.json",
+    "robustness_results_sha256": "dfc43af3a67c15afc23c77f6cd899dbd120d71b7cc8c908387dc287ab5ee9e69"
+  },
+  "freeze_profile_id": "CO2_B5_PRE_LOCKED_TEST_CANDIDATE_FREEZE_001",
+  "freeze_sha256": "97cafb43306d61cf590b69b1db38d6e07b796161d172e79b78fda7bdb71e1a85",
+  "freeze_status": "VALID_PRE_LOCKED_TEST",
+  "historical_production_model_modified": false,
+  "historical_production_scaler_modified": false,
+  "locked_test_prior_access": {
+    "feature_access": 0,
+    "metrics": 0,
+    "predictions": 0,
+    "probabilities": 0,
+    "target_access": 0
+  },
+  "locked_test_robustness_sweeps_prohibited": true,
+  "manifest_version": "1.0",
+  "phase": "C-B5",
+  "predecessor_artifact_drift": false
+}

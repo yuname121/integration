@@ -1,0 +1,24 @@
+{
+  "a3_baseline_method": "ENDPOINT_DIFFERENCE",
+  "a3_baseline_minimum_history_seconds": 150.0,
+  "a3_baseline_slope_profile": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "a_series_artifact_lock_profile": "CO2_A_SERIES_ARTIFACT_LOCK_PROFILE_001",
+  "a_series_artifact_lock_sha256": "b63f5e2da988f8e685cf1a01ec8e79c2c37f5bc77359be647f1147ecfb04e3da",
+  "a_series_release_tag": "co2-a-series-raw-to-canonical",
+  "a_series_release_target": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+  "b0_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "closure_status": "LOCKED",
+  "file_sha256": {
+    "datasets/co2/manifests/c_a3_slope_feature/co2_slope_feature_profile.json": "7d667bb076935e550699997e04c3bbe9738e9240a347d45b08b87104faebff1e",
+    "datasets/co2/manifests/c_a6_final_integrity_lock/artifact_lock_manifest.json": "b63f5e2da988f8e685cf1a01ec8e79c2c37f5bc77359be647f1147ecfb04e3da",
+    "datasets/co2/manifests/c_b0_offline_experiment_contract/experiment_contract.json": "9def229d77623e1218239964c79ad29ef4a03c45f1fe5044656f89718bb9c7a1",
+    "datasets/co2/manifests/c_b0_offline_experiment_contract/feature_view_registry.json": "77756efc0b270cead072388b96cf28d0481a815b86fecf96658b52dab3744374",
+    "datasets/co2/manifests/c_b0_offline_experiment_contract/leakage_audit.json": "68c0a6816733f09579246227f09dc006ac824506a630f52e443dcfaae170d535",
+    "datasets/co2/manifests/c_b0_offline_experiment_contract/metric_contract.json": "705d65a2bd9405b8be74ac95b8b464ddd6c65f1c037830c3b030a3f1413bc6dd",
+    "datasets/co2/manifests/c_b0_offline_experiment_contract/preprocessing_fit_evidence.json": "6f167e74b94b9db4b78e7ad6b5e6b8d37a084e3c18a0db4ac15219ff1c087a3b",
+    "datasets/co2/manifests/c_b0_offline_experiment_contract/sample_universe_manifest.json": "7223f5c6c94aa4cdfdb670c4cfa09c397bc6fb29654617758ddcd145881bf509"
+  },
+  "manifest_version": "1.0",
+  "phase": "C-B1",
+  "registry_id": "CO2_B1_PREDECESSOR_FINGERPRINT_REGISTRY_001"
+}

@@ -1,0 +1,517 @@
+{
+  "acceptance_threshold_source": null,
+  "access_authorization": "Requires separate explicit M-B10B authorization after independent review; no authorization is granted by M-B10A.",
+  "access_mechanism_reference": "PhaseBAccessGuard final-evaluation API is reserved for the separately authorized final pass.",
+  "applicable_predefined_numerical_acceptance_threshold": "FINAL_LOCKED_TEST_NUMERICAL_ACCEPTANCE_THRESHOLD_NOT_PREDEFINED",
+  "candidate_reference": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "candidate_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+  "contract_status": "PREREGISTERED_NOT_EXECUTED",
+  "evaluation_passes": 1,
+  "final_result_claims_prohibited_until_execution": [
+    "MR60",
+    "real_sensor validated",
+    "production",
+    "clinical apnea"
+  ],
+  "forbidden_pretest_artifacts": [
+    "LOCKED_TEST labels",
+    "LOCKED_TEST tensors",
+    "LOCKED_TEST predictions",
+    "LOCKED_TEST performance metrics"
+  ],
+  "metrics_schema": {
+    "apnea_proxy_fields": [
+      "precision",
+      "recall",
+      "misses"
+    ],
+    "diagnostics": [
+      "confusion_matrix",
+      "prediction_distribution",
+      "class_collapse_status"
+    ],
+    "per_class_fields": [
+      "support",
+      "tp",
+      "fp",
+      "tn",
+      "fn",
+      "precision",
+      "recall",
+      "f1_score",
+      "fpr"
+    ],
+    "primary": "macro_f1",
+    "rapid_or_abnormal_fields": [
+      "recall"
+    ],
+    "required": [
+      "accuracy",
+      "macro_f1",
+      "macro_precision",
+      "macro_recall"
+    ],
+    "selected_real_candidate_extra": [
+      "model_sha256",
+      "preprocessing_identity",
+      "strict_int8_structural_identity",
+      "input_saturation_ratio",
+      "runtime_identity"
+    ],
+    "subject_level": [
+      "subject_accuracy",
+      "subject_macro_f1",
+      "per_class_metrics_where_support_exists",
+      "worst_subject_macro_f1",
+      "median_subject_macro_f1"
+    ]
+  },
+  "phase_id": "M-B10A",
+  "planned_models": [
+    {
+      "class_map_compatibility": {
+        "evidence_paths": [
+          "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json",
+          "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+        ],
+        "mapping": {
+          "0": "NORMAL",
+          "1": "RAPID_OR_ABNORMAL",
+          "2": "APNEA"
+        },
+        "status": "FROZEN_COMPATIBLE",
+        "tflite_output_shape": [
+          1,
+          3
+        ]
+      },
+      "exact_native_preprocessing_known": true,
+      "executable_preprocessing_contract": {
+        "class_map": {
+          "0": "NORMAL",
+          "1": "RAPID_OR_ABNORMAL",
+          "2": "APNEA"
+        },
+        "class_map_compatibility": {
+          "evidence_paths": [
+            "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json",
+            "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+          ],
+          "mapping": {
+            "0": "NORMAL",
+            "1": "RAPID_OR_ABNORMAL",
+            "2": "APNEA"
+          },
+          "status": "FROZEN_COMPATIBLE",
+          "tflite_output_shape": [
+            1,
+            3
+          ]
+        },
+        "contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+        "execution_status": "FROZEN_RUNTIME_IDENTITY_FROM_M-B9",
+        "fallback_policy": "NO_HEURISTIC_FALLBACK",
+        "fit_split": "TRAIN",
+        "invalid_input_policy": "FAIL_CLOSED_NO_PREDICTION",
+        "source_profile": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/selected_preprocessing_profile.json",
+        "source_runtime_identity": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_preprocessing_identity.json"
+      },
+      "final_test_interpretation": "REAL_DATA_OFFLINE_FINAL_TEST_CANDIDATE_ONLY",
+      "lineage_status": "FROZEN_REAL_DATA_PHASE_B_LINEAGE",
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "preprocessing_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+      "preprocessing_policy": "BPF_ZSCORE_EXACT_M-B1_RUNTIME_IDENTITY",
+      "role": "SELECTED_NEW_REAL_DATA_CANDIDATE",
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+    },
+    {
+      "class_map_compatibility": {
+        "evidence_paths": [
+          "models/model_manifest.json",
+          "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+          "models/mmwave/mmwave_resp_int8_v0.1.0.tflite"
+        ],
+        "mapping": {
+          "0": "NORMAL",
+          "1": "RAPID_OR_ABNORMAL",
+          "2": "APNEA"
+        },
+        "status": "FROZEN_COMPATIBLE",
+        "tflite_output_shape": [
+          1,
+          3
+        ]
+      },
+      "exact_native_preprocessing_known": false,
+      "executable_preprocessing_contract": {
+        "class_map": {
+          "0": "NORMAL",
+          "1": "RAPID_OR_ABNORMAL",
+          "2": "APNEA"
+        },
+        "class_map_compatibility": {
+          "evidence_paths": [
+            "models/model_manifest.json",
+            "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+            "models/mmwave/mmwave_resp_int8_v0.1.0.tflite"
+          ],
+          "mapping": {
+            "0": "NORMAL",
+            "1": "RAPID_OR_ABNORMAL",
+            "2": "APNEA"
+          },
+          "status": "FROZEN_COMPATIBLE",
+          "tflite_output_shape": [
+            1,
+            3
+          ]
+        },
+        "contract_id": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+        "execution_scope": "LOCKED_TEST_ONLY_AFTER_EXPLICIT_M-B10B_AUTHORIZATION",
+        "execution_status": "EXECUTABLE_COMPATIBILITY_BENCHMARK",
+        "executor": {
+          "entrypoint": "prepare_v01",
+          "path": "scripts/mmwave_m_b10b_baseline_preprocessing.py",
+          "sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f"
+        },
+        "fallback_policy": "NO_HEURISTIC_FALLBACK",
+        "interpretation": "HISTORICAL_MODEL_COMPATIBILITY_BENCHMARK",
+        "invalid_input_policy": "FAIL_CLOSED_NO_PREDICTION",
+        "metadata_sources": [
+          {
+            "bytes": 594,
+            "path": "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+            "sha256": "a875a8369ff7adf5477cec009b99c0c6d0fbb8b0e60e5b0b07a551f3780d2e37"
+          }
+        ],
+        "model_identity": {
+          "bytes": 466616,
+          "input": {
+            "dtype": "int8",
+            "scale": 0.03259856998920441,
+            "shape": [
+              1,
+              300,
+              1
+            ],
+            "zero_point": -13
+          },
+          "model_id": "mmwave_resp_int8",
+          "output": {
+            "dtype": "int8",
+            "scale": 0.00390625,
+            "shape": [
+              1,
+              3
+            ],
+            "zero_point": -128
+          },
+          "path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+          "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158"
+        },
+        "native_preprocessing_status": "UNKNOWN_NOT_CLAIMED",
+        "native_reproduction_claim": false,
+        "preprocessing_fit_policy": "NO_FIT_DURING_M-B10B",
+        "schema_version": "M-B10B_BASELINE_EXECUTABLE_PREPROCESSING_CONTRACT_V1",
+        "source_split": "LOCKED_TEST",
+        "source_window_contract": {
+          "input_dtype": "float32",
+          "input_semantic": "resp_phase_unwrapped_clutter_removed",
+          "input_shape": [
+            300
+          ],
+          "path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+          "sample_rate_hz": 10.0,
+          "window_samples": 300,
+          "window_seconds": 30.0
+        },
+        "steps": [
+          {
+            "operation": "VALIDATE_WINDOW",
+            "parameters": {
+              "allow_padding": false,
+              "allow_resampling": false,
+              "allow_truncation": false,
+              "dtype": "float32",
+              "exact_samples": 300,
+              "require_all_finite": true
+            },
+            "step": 1
+          },
+          {
+            "operation": "IDENTITY_SEMANTIC_ADAPTER",
+            "parameters": {
+              "input_semantic": "resp_phase_unwrapped_clutter_removed",
+              "native_semantic_alignment_claim": false,
+              "transformation": "NONE"
+            },
+            "step": 2
+          },
+          {
+            "operation": "FIXED_Z_SCORE",
+            "parameters": {
+              "fit_split": "NONE_AT_M-B10B",
+              "mean": 0.006091983988881111,
+              "stats_source": "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+              "std": 2.5013835430145264
+            },
+            "step": 3
+          },
+          {
+            "operation": "RESHAPE",
+            "parameters": {
+              "dtype": "float32",
+              "shape": [
+                1,
+                300,
+                1
+              ]
+            },
+            "step": 4
+          },
+          {
+            "operation": "AFFINE_INT8_QUANTIZE",
+            "parameters": {
+              "rounding": "nearest_even_numpy_rint",
+              "saturate_to": [
+                -128,
+                127
+              ],
+              "scale": 0.03259856998920441,
+              "zero_point": -13
+            },
+            "step": 5
+          }
+        ],
+        "unknown_native_steps": [
+          "historical native filtering/detrending/clipping implementation is not present in the repository evidence"
+        ]
+      },
+      "final_test_interpretation": "HISTORICAL_MODEL_COMPATIBILITY_BENCHMARK",
+      "lineage_status": "HISTORICAL_REPOSITORY_MODEL_WITH_CLASS_COLLAPSE",
+      "model_id": "mmwave_resp_int8",
+      "path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+      "preprocessing_contract_id": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+      "preprocessing_policy": "EXECUTABLE_COMPATIBILITY_CONTRACT_NATIVE_UNKNOWN",
+      "role": "HISTORICAL_BASELINE_ONLY",
+      "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158"
+    },
+    {
+      "class_map_compatibility": {
+        "evidence_paths": [
+          "models/model_manifest.json",
+          "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+          "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite"
+        ],
+        "mapping": {
+          "0": "NORMAL",
+          "1": "RAPID_OR_ABNORMAL",
+          "2": "APNEA"
+        },
+        "status": "FROZEN_COMPATIBLE",
+        "tflite_output_shape": [
+          1,
+          3
+        ]
+      },
+      "exact_native_preprocessing_known": false,
+      "executable_preprocessing_contract": {
+        "class_map": {
+          "0": "NORMAL",
+          "1": "RAPID_OR_ABNORMAL",
+          "2": "APNEA"
+        },
+        "class_map_compatibility": {
+          "evidence_paths": [
+            "models/model_manifest.json",
+            "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+            "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite"
+          ],
+          "mapping": {
+            "0": "NORMAL",
+            "1": "RAPID_OR_ABNORMAL",
+            "2": "APNEA"
+          },
+          "status": "FROZEN_COMPATIBLE",
+          "tflite_output_shape": [
+            1,
+            3
+          ]
+        },
+        "contract_id": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1",
+        "execution_scope": "LOCKED_TEST_ONLY_AFTER_EXPLICIT_M-B10B_AUTHORIZATION",
+        "execution_status": "EXECUTABLE_COMPATIBILITY_BENCHMARK",
+        "executor": {
+          "entrypoint": "prepare_v02",
+          "path": "scripts/mmwave_m_b10b_baseline_preprocessing.py",
+          "sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f"
+        },
+        "fallback_policy": "NO_HEURISTIC_FALLBACK",
+        "interpretation": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BENCHMARK",
+        "invalid_input_policy": "FAIL_CLOSED_NO_PREDICTION",
+        "metadata_sources": [
+          {
+            "bytes": 4443,
+            "path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+            "sha256": "36039a6cffbc57162dbb4c720034da6dcfa49ef2f2d33238bee65a62aa133127"
+          }
+        ],
+        "model_identity": {
+          "bytes": 22472,
+          "input": {
+            "dtype": "int8",
+            "scale": 0.012282303534448147,
+            "shape": [
+              1,
+              300,
+              1
+            ],
+            "zero_point": 12
+          },
+          "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+          "output": {
+            "dtype": "int8",
+            "scale": 0.00390625,
+            "shape": [
+              1,
+              3
+            ],
+            "zero_point": -128
+          },
+          "path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+          "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff"
+        },
+        "native_preprocessing_status": "RECORDED_EXPERIMENTAL_PIPELINE_METADATA",
+        "native_reproduction_claim": false,
+        "preprocessing_fit_policy": "NO_FIT_DURING_M-B10B",
+        "schema_version": "M-B10B_BASELINE_EXECUTABLE_PREPROCESSING_CONTRACT_V1",
+        "source_split": "LOCKED_TEST",
+        "source_window_contract": {
+          "input_dtype": "float32",
+          "input_semantic": "resp_phase_unwrapped_clutter_removed",
+          "input_shape": [
+            300
+          ],
+          "path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+          "sample_rate_hz": 10.0,
+          "window_samples": 300,
+          "window_seconds": 30.0
+        },
+        "steps": [
+          {
+            "operation": "VALIDATE_WINDOW",
+            "parameters": {
+              "allow_padding": false,
+              "allow_resampling": false,
+              "allow_truncation": false,
+              "dtype": "float32",
+              "exact_samples": 300,
+              "require_all_finite": true
+            },
+            "step": 1
+          },
+          {
+            "operation": "LINEAR_DETREND",
+            "parameters": {
+              "method": "window_mean_subtraction"
+            },
+            "step": 2
+          },
+          {
+            "operation": "BUTTERWORTH_BANDPASS_ZERO_PHASE",
+            "parameters": {
+              "highcut_hz": 0.5,
+              "implementation": "scipy.signal.butter_and_filtfilt",
+              "lowcut_hz": 0.1,
+              "order": 4,
+              "sample_rate_hz": 10.0
+            },
+            "step": 3
+          },
+          {
+            "operation": "FIXED_Z_SCORE",
+            "parameters": {
+              "fit_split": "NONE_AT_M-B10B",
+              "mean": 0.17212218046188354,
+              "method": "z_score",
+              "stats_source": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+              "std": 1.7171541452407837
+            },
+            "step": 4
+          },
+          {
+            "operation": "CLIP",
+            "parameters": {
+              "max": 5.0,
+              "min": -5.0
+            },
+            "step": 5
+          },
+          {
+            "operation": "RESHAPE",
+            "parameters": {
+              "dtype": "float32",
+              "shape": [
+                1,
+                300,
+                1
+              ]
+            },
+            "step": 6
+          },
+          {
+            "operation": "AFFINE_INT8_QUANTIZE",
+            "parameters": {
+              "rounding": "nearest_even_numpy_rint",
+              "saturate_to": [
+                -128,
+                127
+              ],
+              "scale": 0.012282303534448147,
+              "zero_point": 12
+            },
+            "step": 7
+          }
+        ],
+        "unknown_native_steps": [
+          "synthetic training data generator provenance is external to this real-data repository"
+        ]
+      },
+      "final_test_interpretation": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BENCHMARK",
+      "lineage_status": "SYNTHETIC_TRAINING_EXTERNAL_COMPATIBILITY_ONLY",
+      "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+      "path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+      "preprocessing_contract_id": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1",
+      "preprocessing_policy": "EXECUTABLE_COMPATIBILITY_CONTRACT_METADATA_FROZEN",
+      "role": "HISTORICAL_BASELINE_ONLY",
+      "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff"
+    }
+  ],
+  "post_test_policy": {
+    "new_experiment_cycle_required_for_any_improvement": true,
+    "recalibration_after_access": false,
+    "retraining_after_access": false,
+    "selection_or_tuning_after_access": false,
+    "threshold_tuning_after_access": false
+  },
+  "recalibration_after_access": false,
+  "required_metrics": [
+    "accuracy",
+    "macro_f1",
+    "macro_precision",
+    "macro_recall",
+    "per_class_precision_recall_f1",
+    "confusion_matrix",
+    "APNEA_proxy_recall",
+    "APNEA_proxy_precision",
+    "invalid_or_fallback_count",
+    "input_saturation_ratio"
+  ],
+  "retraining_after_access": false,
+  "selection_and_tuning_after_access": false,
+  "source_split": "LOCKED_TEST",
+  "structural_window_count": 88,
+  "subject_count": 16,
+  "threshold_tuning_after_access": false
+}

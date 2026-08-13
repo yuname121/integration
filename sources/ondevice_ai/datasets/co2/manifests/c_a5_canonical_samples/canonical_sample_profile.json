@@ -1,0 +1,67 @@
+{
+  "manifest_version": "1.0",
+  "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "sample_grain": "ONE_C_A1_SOURCE_ROW",
+  "expected_canonical_source_samples": 20560,
+  "canonical_sample_id_definition": "co2cs_ + sha256(archive_sha256|member|source_row_identifier|physical_line)[:32]",
+  "ordering_rule": "CHRONOLOGICAL_C_A2_MEMBER_ORDER",
+  "ordering_member_sequence": [
+    "datatest.txt",
+    "datatraining.txt",
+    "datatest2.txt"
+  ],
+  "inherited_profiles": {
+    "slope_feature_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+    "occupancy_target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001"
+  },
+  "sample_kinds": {
+    "CANONICAL_SOURCE_SAMPLE": "Every C-A1 source row, including slope warm-up rows.",
+    "MODEL_ELIGIBLE_SAMPLE": "Canonical source sample with FEATURE_AVAILABLE CO2_slope under C-A3; explicit derived view, not a silent reduction of canonical set."
+  },
+  "schema": {
+    "raw_measured_features": [
+      "Temperature",
+      "Humidity",
+      "Light",
+      "CO2",
+      "HumidityRatio"
+    ],
+    "derived_features": [
+      "CO2_slope"
+    ],
+    "target": [
+      "Occupancy"
+    ],
+    "metadata_not_model_inputs": [
+      "canonical_sample_id",
+      "source provenance fields",
+      "temporal_block_id",
+      "future_split_role",
+      "feature availability / lineage"
+    ]
+  },
+  "split_contract": {
+    "TRAIN": "BLOCK_02_DATATRAINING",
+    "VALIDATION": "BLOCK_01_DATATEST",
+    "LOCKED_TEST": "BLOCK_03_DATATEST2",
+    "random_row_wise_split": "PROHIBITED"
+  },
+  "access_semantics": {
+    "scaler_fit_authorized_roles": [
+      "TRAIN"
+    ],
+    "validation_authorized_for_fitting": false,
+    "locked_test_authorized_for_fitting": false,
+    "locked_test_authorized_for_tuning": false,
+    "locked_test_authorized_for_model_selection": false,
+    "locked_test_materialized_for_membership_and_provenance": true
+  },
+  "feature_selection_status": "NOT_PERFORMED_IN_C_A5",
+  "class_imbalance_intervention": "NOT_PERFORMED_IN_C_A5",
+  "a_series_release_status": "DEFERRED_UNTIL_C-A6",
+  "synthetic_npz_isolation": {
+    "path": "datasets/co2/processed/co2_occupancy_v1.npz",
+    "status": "SYNTHETIC_SMOKE_FIXTURE",
+    "used_as_real_source": false
+  }
+}

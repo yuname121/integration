@@ -1,0 +1,73 @@
+{
+  "architecture_family": "LINEAR",
+  "architecture_id": "LINEAR_LOGISTIC",
+  "canonical_reconstruction_seed": 20260810,
+  "coefficient_vector": [
+    3.783859817624365,
+    0.38186075609151626,
+    -1.0730061861380122,
+    2.076063956518759
+  ],
+  "dtype": "float32_for_tflite_transfer",
+  "feature_order": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "intercept": -1.2668080904569734,
+  "manifest_version": "1.0",
+  "negative_class": "VACANT",
+  "oversampled_train_fingerprint": "a3c61800df26a6b995e79f2debb1d7003ba0517985c38ade74e2cdceeba7a551",
+  "phase": "C-B4",
+  "positive_class": "OCCUPIED",
+  "profile_id": "CO2_B4_FLOAT_LOGISTIC_REFERENCE_001",
+  "reconstruction_status": "C_B3_FLOAT_REFERENCE_RECONSTRUCTION_PASS",
+  "reference_threshold": 0.58,
+  "scaler_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+  "scaler_profile_id": "CO2_B2_TRAIN_ONLY_STANDARD_SCALER_001",
+  "source_c_b3_profile": "CO2_B3_SELECTED_ARCHITECTURE_PROFILE_001",
+  "source_float_metrics": {
+    "balanced_accuracy": 0.9148615954604554,
+    "confusion_matrix": {
+      "fn": 78,
+      "fp": 152,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1541,
+          152
+        ],
+        [
+          78,
+          891
+        ]
+      ],
+      "tn": 1541,
+      "tp": 891
+    },
+    "decision_threshold": 0.58,
+    "false_negative_rate": 0.0804953560371517,
+    "false_positive_rate": 0.0897814530419374,
+    "fn": 78,
+    "fp": 152,
+    "macro_f1": 0.9081207201237023,
+    "occupied_recall": 0.9195046439628483,
+    "precision_occupied": 0.8542665388302972,
+    "recall_occupied": 0.9195046439628483,
+    "sensitivity": 0.9195046439628483,
+    "specificity": 0.9102185469580626,
+    "tn": 1541,
+    "tp": 891
+  },
+  "source_library": "sklearn.linear_model.LogisticRegression",
+  "source_library_version": "1.6.1",
+  "source_validation_prediction_fingerprint": "a765b1d8f44fe1f6e5e65bfd943302f0b095cf62a4850a7dec6bc6492a99d419"
+}

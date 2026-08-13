@@ -1,0 +1,554 @@
+{
+  "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+  "authorization_recommendation": "NO — independent review required before M-B10B.",
+  "calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "clinical_performance": "NOT_EVALUATED",
+  "deciding_criterion": {
+    "absolute_difference": 0.224991,
+    "criterion_rank": 1,
+    "description": "Higher clean strict-INT8 VALIDATION Macro F1",
+    "direction": "higher",
+    "metric": "clean_strict_int8_macro_f1",
+    "runner_up_value": 0.44124,
+    "winner_value": 0.666231
+  },
+  "deployment_allowed": false,
+  "limitations": [
+    "INITIALIZATION_SEED_SENSITIVITY",
+    "MAC_ONLY_LATENCY",
+    "OFFLINE_PERTURBATION_ONLY",
+    "MOCK_E2E_ONLY",
+    "NO_MR60_VALIDATION",
+    "APNEA_PROXY_SCOPE",
+    "LOCKED_TEST_NOT_EVALUATED"
+  ],
+  "locked_test_accessed": false,
+  "m_b10b_started": false,
+  "m_b6_stage_equivalence": {
+    "collapse_transition": {
+      "new_collapse_a_to_b": false,
+      "new_collapse_a_to_c": false,
+      "new_collapse_b_to_c": false,
+      "seed": 42,
+      "stage_a_collapsed": false,
+      "stage_b_collapsed": false,
+      "stage_c_collapsed": false,
+      "transition_label": "A(False) -> B(False) -> C(False)"
+    },
+    "pairwise": {
+      "a_to_b": {
+        "max_positive_recall_degradation": 0.0,
+        "mismatch_count": 0,
+        "output_probability_mae": 0.0,
+        "output_probability_max_abs_error": 0.0,
+        "output_probability_rmse": 0.0,
+        "per_class_positive_f1_degradation": {
+          "APNEA": 0.0,
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0
+        },
+        "per_class_positive_recall_degradation": {
+          "APNEA": 0.0,
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0
+        },
+        "positive_accuracy_degradation": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "signed_accuracy_delta": 0.0,
+        "signed_macro_f1_delta": 0.0,
+        "source_accuracy": 0.721519,
+        "source_macro_f1": 0.663708,
+        "source_stage": "Stage A (Float Keras)",
+        "target_accuracy": 0.721519,
+        "target_macro_f1": 0.663708,
+        "target_stage": "Stage B (Float TFLite)",
+        "top1_agreement": 1.0,
+        "top1_matches": 79,
+        "total_samples": 79
+      },
+      "a_to_c": {
+        "max_positive_recall_degradation": 0.0,
+        "mismatch_count": 1,
+        "output_probability_mae": 0.006319,
+        "output_probability_max_abs_error": 0.028184,
+        "output_probability_rmse": 0.008689,
+        "per_class_positive_f1_degradation": {
+          "APNEA": 0.009239,
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0
+        },
+        "per_class_positive_recall_degradation": {
+          "APNEA": 0.0,
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0
+        },
+        "positive_accuracy_degradation": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "signed_accuracy_delta": 0.0,
+        "signed_macro_f1_delta": 0.002522,
+        "source_accuracy": 0.721519,
+        "source_macro_f1": 0.663708,
+        "source_stage": "Stage A (Float Keras)",
+        "target_accuracy": 0.721519,
+        "target_macro_f1": 0.666231,
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_agreement": 0.987342,
+        "top1_matches": 78,
+        "total_samples": 79
+      },
+      "b_to_c": {
+        "max_positive_recall_degradation": 0.0,
+        "mismatch_count": 1,
+        "output_probability_mae": 0.006319,
+        "output_probability_max_abs_error": 0.028184,
+        "output_probability_rmse": 0.008689,
+        "per_class_positive_f1_degradation": {
+          "APNEA": 0.009239,
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0
+        },
+        "per_class_positive_recall_degradation": {
+          "APNEA": 0.0,
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0
+        },
+        "positive_accuracy_degradation": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "signed_accuracy_delta": 0.0,
+        "signed_macro_f1_delta": 0.002522,
+        "source_accuracy": 0.721519,
+        "source_macro_f1": 0.663708,
+        "source_stage": "Stage B (Float TFLite)",
+        "target_accuracy": 0.721519,
+        "target_macro_f1": 0.666231,
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_agreement": 0.987342,
+        "top1_matches": 78,
+        "total_samples": 79
+      },
+      "seed": 42
+    },
+    "source_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/pairwise_equivalence_metrics.json"
+  },
+  "m_b9_runtime_identity": {
+    "model_identity": {
+      "actual_bytes": 22080,
+      "actual_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "bytes_match": true,
+      "expected_bytes": 22080,
+      "expected_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "flex_select_absent": true,
+      "interpreter_allocated": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "runtime_manifest_path": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json",
+      "seed": 42,
+      "sha256_match": true,
+      "strict_int8": true,
+      "tensor_contract": {
+        "flex_select_absent": true,
+        "input_dtype": "int8",
+        "input_scale": 0.041720833629369736,
+        "input_shape": [
+          1,
+          300,
+          1
+        ],
+        "input_zero_point": -3,
+        "op_types": [
+          "EXPAND_DIMS",
+          "CONV_2D",
+          "MUL",
+          "ADD",
+          "RESHAPE",
+          "EXPAND_DIMS",
+          "MAX_POOL_2D",
+          "RESHAPE",
+          "EXPAND_DIMS",
+          "CONV_2D",
+          "MUL",
+          "ADD",
+          "RESHAPE",
+          "EXPAND_DIMS",
+          "MAX_POOL_2D",
+          "RESHAPE",
+          "EXPAND_DIMS",
+          "CONV_2D",
+          "RESHAPE",
+          "MEAN",
+          "FULLY_CONNECTED",
+          "SOFTMAX",
+          "DELEGATE",
+          "DELEGATE",
+          "DELEGATE",
+          "DELEGATE",
+          "DELEGATE"
+        ],
+        "output_dtype": "int8",
+        "output_scale": 0.00390625,
+        "output_shape": [
+          1,
+          3
+        ],
+        "output_zero_point": -128,
+        "select_tf_ops_count": 0
+      },
+      "version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120"
+    },
+    "prediction_identity": {
+      "all_int8_outputs_exact": true,
+      "all_probability_vectors_exact": true,
+      "all_top1_exact": true,
+      "row_count": 3,
+      "runtime_stage": "MMWaveInterpreter.EXPLICIT_RUNTIME_MANIFEST",
+      "seed_gate": {
+        "aggregate_exact": {
+          "all_int8_outputs_exact": true,
+          "all_probability_vectors_exact": true,
+          "all_top1_exact": true
+        },
+        "exact": true,
+        "expected_row_count": 3,
+        "row_checks": [
+          {
+            "canonical_sample_index": 59,
+            "output_int8_exact": true,
+            "probabilities_exact": true,
+            "seed": 42,
+            "top1_exact": true,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          },
+          {
+            "canonical_sample_index": 43,
+            "output_int8_exact": true,
+            "probabilities_exact": true,
+            "seed": 42,
+            "top1_exact": true,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+          },
+          {
+            "canonical_sample_index": 44,
+            "output_int8_exact": true,
+            "probabilities_exact": true,
+            "seed": 42,
+            "top1_exact": true,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+          }
+        ],
+        "row_count": 3,
+        "seed": 42,
+        "source_path": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_prediction_identity.json"
+      },
+      "source_stage": "DIRECT_FRESH_STRICT_INT8_TFLITE"
+    },
+    "preprocessing_identity_rows": [
+      {
+        "bpf_exact": true,
+        "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+        "direct_output_int8": [
+          -53,
+          -27,
+          -48
+        ],
+        "input_int8_exact": true,
+        "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+        "model_ready_exact": true,
+        "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+        "preprocessing_profile": "BPF_ZSCORE",
+        "probabilities_exact": true,
+        "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+        "runtime_output_int8": [
+          -53,
+          -27,
+          -48
+        ],
+        "saturation_exact": true,
+        "seed": 42,
+        "top1_exact": true,
+        "zscore_exact": true
+      },
+      {
+        "bpf_exact": true,
+        "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+        "direct_output_int8": [
+          6,
+          -47,
+          -87
+        ],
+        "input_int8_exact": true,
+        "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+        "model_ready_exact": true,
+        "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+        "preprocessing_profile": "BPF_ZSCORE",
+        "probabilities_exact": true,
+        "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+        "runtime_output_int8": [
+          6,
+          -47,
+          -87
+        ],
+        "saturation_exact": true,
+        "seed": 42,
+        "top1_exact": true,
+        "zscore_exact": true
+      },
+      {
+        "bpf_exact": true,
+        "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+        "direct_output_int8": [
+          -101,
+          -95,
+          68
+        ],
+        "input_int8_exact": true,
+        "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+        "model_ready_exact": true,
+        "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+        "preprocessing_profile": "BPF_ZSCORE",
+        "probabilities_exact": true,
+        "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+        "runtime_output_int8": [
+          -101,
+          -95,
+          68
+        ],
+        "saturation_exact": true,
+        "seed": 42,
+        "top1_exact": true,
+        "zscore_exact": true
+      }
+    ],
+    "summary": {
+      "all_required_scenarios_present": {
+        "A_NORMAL": true,
+        "B_RAPID_OR_ABNORMAL": true,
+        "C_APNEA": true,
+        "D_INSUFFICIENT_HISTORY": true,
+        "E_INVALID_SHAPE": true,
+        "F_NAN": true,
+        "G_INF": true,
+        "H_STALE": true,
+        "I_PROVIDER_SENSOR_FAULT": true,
+        "J_READ_EXCEPTION": true,
+        "K_TIMEOUT": true,
+        "L_MISSING_MODEL": true,
+        "M_SHA_MISMATCH": true,
+        "N_VALID_EXPLICIT_FINALIST": true,
+        "O_NOT_CONNECTED_PROVIDER": true
+      },
+      "formal_m_b8_latency_measurement_rerun_during_m_b9": false,
+      "frozen_seeds": [
+        42,
+        43,
+        44
+      ],
+      "gate_status": "PASS_WITH_WARNINGS",
+      "json_audit_exact": true,
+      "locked_test_accesses": 0,
+      "m_b8_prior_formal_latency_benchmark_completed": true,
+      "model_selection_performed": false,
+      "next_phase": "M-B10_REVIEW_ONLY_NO_AUTOMATIC_START",
+      "phase_id": "M-B9",
+      "report_path": "docs/reports/20260812_Codex_M-B9_Mock_E2E_Runtime_01.md",
+      "risk_recomputation_exact": true,
+      "runtime_identity_exact": true,
+      "scenario_count": 21
+    },
+    "valid_finalist_fallback": {
+      "all_valid_finalist_no_fallback": true,
+      "expected_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "fallback_audit_exact": true,
+      "fault_scenarios_are_diagnostic_only": true,
+      "record_checks": [
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "fallback_used": false,
+          "model_id_match": true,
+          "scenario_id": "A_NORMAL",
+          "score_source_model_prediction": true,
+          "seed": 42,
+          "valid": true
+        },
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "fallback_used": false,
+          "model_id_match": true,
+          "scenario_id": "B_RAPID_OR_ABNORMAL",
+          "score_source_model_prediction": true,
+          "seed": 42,
+          "valid": true
+        },
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "fallback_used": false,
+          "model_id_match": true,
+          "scenario_id": "C_APNEA",
+          "score_source_model_prediction": true,
+          "seed": 42,
+          "valid": true
+        },
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "fallback_used": false,
+          "model_id_match": true,
+          "scenario_id": "N_VALID_EXPLICIT_FINALIST",
+          "score_source_model_prediction": true,
+          "seed": 42,
+          "valid": true
+        }
+      ],
+      "record_count": 4,
+      "runtime_record_checks": [
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "model_id_match": true,
+          "scenario_id": "A_NORMAL",
+          "score_source_model_prediction": true,
+          "valid": true
+        },
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "model_id_match": true,
+          "scenario_id": "B_RAPID_OR_ABNORMAL",
+          "score_source_model_prediction": true,
+          "valid": true
+        },
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "model_id_match": true,
+          "scenario_id": "C_APNEA",
+          "score_source_model_prediction": true,
+          "valid": true
+        },
+        {
+          "fallback_absent": true,
+          "fallback_reason_absent": true,
+          "model_id_match": true,
+          "scenario_id": "N_VALID_EXPLICIT_FINALIST",
+          "score_source_model_prediction": true,
+          "valid": true
+        }
+      ],
+      "runtime_record_count": 4,
+      "runtime_scenario_exact": true,
+      "scenario_ids": [
+        "A_NORMAL",
+        "B_RAPID_OR_ABNORMAL",
+        "C_APNEA",
+        "N_VALID_EXPLICIT_FINALIST"
+      ],
+      "seed": 42,
+      "source_paths": [
+        "datasets/mmwave/manifests/M-B9_mock_e2e/fallback_audit.json",
+        "datasets/mmwave/manifests/M-B9_mock_e2e/scenario_results.json"
+      ]
+    }
+  },
+  "model": {
+    "bytes": 22080,
+    "expected_stage_artifact": {
+      "bytes": 22080,
+      "input_dtype": "int8",
+      "m_b5_selected_int8_reused": true,
+      "output_dtype": "int8",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "seed": 42,
+      "select_tf_ops_count": 0,
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "stage": "Stage C (Strict INT8 TFLite)"
+    },
+    "input_dtype": "int8",
+    "input_scale": 0.041720833629369736,
+    "input_shape": [
+      1,
+      300,
+      1
+    ],
+    "input_zero_point": -3,
+    "operator_inventory": [
+      "EXPAND_DIMS",
+      "CONV_2D",
+      "MUL",
+      "ADD",
+      "RESHAPE",
+      "EXPAND_DIMS",
+      "MAX_POOL_2D",
+      "RESHAPE",
+      "EXPAND_DIMS",
+      "CONV_2D",
+      "MUL",
+      "ADD",
+      "RESHAPE",
+      "EXPAND_DIMS",
+      "MAX_POOL_2D",
+      "RESHAPE",
+      "EXPAND_DIMS",
+      "CONV_2D",
+      "RESHAPE",
+      "MEAN",
+      "FULLY_CONNECTED",
+      "SOFTMAX",
+      "DELEGATE",
+      "DELEGATE",
+      "DELEGATE",
+      "DELEGATE",
+      "DELEGATE"
+    ],
+    "output_dtype": "int8",
+    "output_scale": 0.00390625,
+    "output_shape": [
+      1,
+      3
+    ],
+    "output_zero_point": -128,
+    "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+    "select_tf_ops_count": 0,
+    "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+  },
+  "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "mr60_validation": "NOT_PERFORMED",
+  "phase_id": "M-B10A",
+  "preprocessing": {
+    "metadata_identity": {
+      "bpf": true,
+      "detrend": false,
+      "phase_id": "M-B1",
+      "selected_profile_id": "M-B1_D0_B1_Z1",
+      "selected_profile_name": "BPF_ZSCORE",
+      "selection_rationale": "Selected M-B1_D0_B1_Z1 (BPF_ZSCORE) with highest VALIDATION Macro F1 = 0.663708 under pre-registered 6-step ranking rule in pinned environment.",
+      "validation_performance": {
+        "accuracy": 0.721519,
+        "apnea_proxy_miss_rate": 0.0,
+        "apnea_proxy_recall": 1.0,
+        "macro_f1": 0.663708,
+        "min_per_class_recall": 0.454545
+      },
+      "zscore": true
+    },
+    "profile_id": "M-B1_D0_B1_Z1",
+    "profile_name": "BPF_ZSCORE"
+  },
+  "production_claim": false,
+  "real_sensor_validation": "NOT_PERFORMED",
+  "seed": 42,
+  "selection_evidence_sha256": "6ab4551ee9d5257951477a21b7013426368c1804b423b93924483b9605adacf7",
+  "selection_rule_sha256": "cddf98cbcf2231075bcfc02db2223fbc80fa33f7c52e23820609b5a273046f84",
+  "status": "M-B10_PRELOCKED_REAL_DATA_CANDIDATE",
+  "training_identity": {
+    "final_weights_sha256": "42dbb04e98f7da8ea9ce1e1df3b2b4a5e1e1e66fe9bfa6ea26f2fe3f256a9bd7",
+    "seed": 42
+  }
+}

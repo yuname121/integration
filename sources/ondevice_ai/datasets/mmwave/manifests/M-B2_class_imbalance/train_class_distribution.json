@@ -1,0 +1,500 @@
+{
+  "phase_id": "M-B2",
+  "total_pure_class_train_windows": 327,
+  "total_pure_class_train_subjects": 77,
+  "total_pure_class_train_recordings": 298,
+  "class_counts": {
+    "NORMAL": 102,
+    "RAPID_OR_ABNORMAL": 80,
+    "APNEA": 145
+  },
+  "class_fractions": {
+    "NORMAL": 0.311927,
+    "RAPID_OR_ABNORMAL": 0.244648,
+    "APNEA": 0.443425
+  },
+  "unique_subject_count_per_class": {
+    "NORMAL": 63,
+    "RAPID_OR_ABNORMAL": 51,
+    "APNEA": 74
+  },
+  "unique_recording_count_per_class": {
+    "NORMAL": 94,
+    "RAPID_OR_ABNORMAL": 73,
+    "APNEA": 143
+  },
+  "per_subject_total_window_stats": {
+    "min": 2,
+    "median": 4.0,
+    "mean": 4.2468,
+    "max": 7
+  },
+  "class_ratios": {
+    "largest_to_smallest": 1.8125,
+    "APNEA_to_RAPID": 1.8125
+  },
+  "per_subject_class_distribution": {
+    "dataset-10_5281_zenodo_18599983-p001": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p002": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p003": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p004": {
+      "total_windows": 6,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p005": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p006": {
+      "total_windows": 3,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 1
+    },
+    "dataset-10_5281_zenodo_18599983-p007": {
+      "total_windows": 7,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 3
+    },
+    "dataset-10_5281_zenodo_18599983-p008": {
+      "total_windows": 6,
+      "NORMAL": 4,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p010": {
+      "total_windows": 6,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 3,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p011": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p014": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p015": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p018": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p020": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p021": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p022": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p026": {
+      "total_windows": 5,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 3,
+      "APNEA": 0
+    },
+    "dataset-10_5281_zenodo_18599983-p028": {
+      "total_windows": 7,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 3
+    },
+    "dataset-10_5281_zenodo_18599983-p030": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p032": {
+      "total_windows": 6,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 3,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p034": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 0
+    },
+    "dataset-10_5281_zenodo_18599983-p035": {
+      "total_windows": 6,
+      "NORMAL": 3,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p037": {
+      "total_windows": 6,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 3,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p038": {
+      "total_windows": 6,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 3,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p040": {
+      "total_windows": 2,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 0
+    },
+    "dataset-10_5281_zenodo_18599983-p041": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p042": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p043": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p045": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p048": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p049": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p051": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p052": {
+      "total_windows": 7,
+      "NORMAL": 5,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p053": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p054": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p056": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p057": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p058": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p061": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p062": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p064": {
+      "total_windows": 6,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p065": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p066": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p068": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p069": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p070": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p071": {
+      "total_windows": 3,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 1
+    },
+    "dataset-10_5281_zenodo_18599983-p072": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p076": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p077": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p078": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p080": {
+      "total_windows": 3,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 1
+    },
+    "dataset-10_5281_zenodo_18599983-p081": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p082": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p083": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p084": {
+      "total_windows": 3,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 1
+    },
+    "dataset-10_5281_zenodo_18599983-p085": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p088": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p089": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p090": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p092": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p093": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p094": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p095": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p096": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p097": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p098": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p099": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p100": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p102": {
+      "total_windows": 3,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 1
+    },
+    "dataset-10_5281_zenodo_18599983-p103": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p105": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p106": {
+      "total_windows": 4,
+      "NORMAL": 0,
+      "RAPID_OR_ABNORMAL": 2,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p107": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p108": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p109": {
+      "total_windows": 4,
+      "NORMAL": 1,
+      "RAPID_OR_ABNORMAL": 1,
+      "APNEA": 2
+    },
+    "dataset-10_5281_zenodo_18599983-p110": {
+      "total_windows": 4,
+      "NORMAL": 2,
+      "RAPID_OR_ABNORMAL": 0,
+      "APNEA": 2
+    }
+  }
+}

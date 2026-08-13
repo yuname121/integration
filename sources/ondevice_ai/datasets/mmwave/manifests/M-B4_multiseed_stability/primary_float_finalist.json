@@ -1,0 +1,78 @@
+{
+  "phase_id": "M-B4",
+  "selection_status": "PRIMARY_STABLE_FLOAT_FINALIST",
+  "primary_stable_float_finalist": "M-B3_CONV1D_GAP_BASELINE",
+  "finalist_details": {
+    "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+    "seeds_evaluated": [
+      42,
+      43,
+      44
+    ],
+    "total_params": 9315,
+    "strict_int8_bytes": 22080,
+    "collapsed_seed_count": 0,
+    "apnea_zero_recall_seeds": 0,
+    "rapid_zero_recall_seeds": 0,
+    "macro_f1": {
+      "mean": 0.481275,
+      "median": 0.45101,
+      "std": 0.138266,
+      "min": 0.329107,
+      "max": 0.663708,
+      "worst_seed_val": 0.329107,
+      "worst_seed_id": 44,
+      "per_seed": {
+        "42": 0.663708,
+        "43": 0.45101,
+        "44": 0.329107
+      }
+    },
+    "accuracy": {
+      "mean": 0.57384,
+      "std": 0.10557,
+      "min": 0.481013,
+      "per_seed": {
+        "42": 0.721519,
+        "43": 0.481013,
+        "44": 0.518987
+      }
+    },
+    "min_per_class_recall": {
+      "mean": 0.243939,
+      "std": 0.165575,
+      "min": 0.05,
+      "worst_seed_val": 0.05
+    },
+    "per_class": {
+      "NORMAL": {
+        "recall_mean": 0.272727,
+        "recall_std": 0.133814,
+        "recall_min": 0.136364,
+        "worst_seed_id": 44,
+        "f1_mean": 0.348377,
+        "f1_std": 0.170515,
+        "f1_min": 0.206897
+      },
+      "RAPID_OR_ABNORMAL": {
+        "recall_mean": 0.383333,
+        "recall_std": 0.239212,
+        "recall_min": 0.05,
+        "worst_seed_id": 44,
+        "f1_mean": 0.367677,
+        "f1_std": 0.200379,
+        "f1_min": 0.095238
+      },
+      "APNEA": {
+        "recall_mean": 0.855856,
+        "recall_std": 0.20385,
+        "recall_min": 0.567568,
+        "worst_seed_id": 43,
+        "f1_mean": 0.727771,
+        "f1_std": 0.073709,
+        "f1_min": 0.666667
+      }
+    }
+  },
+  "selection_rationale": "Preregistered M-B4 multi-seed stability rule: Non-collapsed, highest worst-seed Macro F1, highest mean Macro F1."
+}

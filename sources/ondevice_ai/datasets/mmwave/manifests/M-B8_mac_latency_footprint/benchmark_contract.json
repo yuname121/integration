@@ -1,0 +1,143 @@
+{
+  "architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "clock": {
+    "monotonic": true,
+    "name": "time.perf_counter_ns",
+    "raw_unit": "ns"
+  },
+  "confirmation": {
+    "measured_iterations": 300,
+    "median_difference_warning_ratio": 0.2,
+    "metric": "TFLITE_INVOKE_ONLY",
+    "warmup_iterations": 100
+  },
+  "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+  "float_tflite_reference": {
+    "measured": false,
+    "reason": "STRICT_INT8_PRIMARY_SCOPE_NOT_EXPANDED"
+  },
+  "formal_measured_iterations_per_series": 1000,
+  "formal_seed_order_by_series": [
+    [
+      42,
+      43,
+      44
+    ],
+    [
+      43,
+      44,
+      42
+    ],
+    [
+      44,
+      42,
+      43
+    ]
+  ],
+  "formal_series_count": 3,
+  "frozen_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "frozen_imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+  "frozen_preprocessing_name": "BPF_ZSCORE",
+  "frozen_preprocessing_profile": "M-B1_D0_B1_Z1",
+  "frozen_seeds": [
+    42,
+    43,
+    44
+  ],
+  "idle_stabilization": {
+    "environment_disturbed_policy": "ABORT_SERIES_AND_REQUIRE_NEW_IDLE_STABILIZATION",
+    "known_safenest_workload_must_be_absent": true,
+    "required_seconds": 30.0
+  },
+  "input_policy": {
+    "dataset_loading_in_timed_region": false,
+    "file_loading_in_timed_region": false,
+    "input_cycle": "DETERMINISTIC_ROUND_ROBIN_79_WINDOWS",
+    "interpreter_construction_in_timed_region": false,
+    "locked_test_access": "PROHIBITED",
+    "m_b1_preprocessing_provenance_dtype": "float64",
+    "m_b6_model_ready_dtype": "float32",
+    "source_split": "VALIDATION",
+    "source_window_count": 79,
+    "window_acquisition_in_timed_region": false
+  },
+  "metrics": {
+    "PREPROCESSING_ONLY": {
+      "excluded_operations": [
+        "quantization",
+        "set_tensor",
+        "interpreter.invoke",
+        "output_dequantization",
+        "argmax"
+      ],
+      "timed_operations": [
+        "BPF",
+        "TRAIN_FITTED_ZSCORE",
+        "FLOAT64_TO_FLOAT32_MODEL_READY_CAST"
+      ]
+    },
+    "PREPROCESSING_QUANTIZATION_INVOKE": {
+      "canonical_window_already_resident_in_memory": true,
+      "excluded_operations": [
+        "output_dequantization",
+        "argmax",
+        "InferenceResult_construction"
+      ],
+      "timed_operations": [
+        "BPF",
+        "TRAIN_FITTED_ZSCORE",
+        "FLOAT64_TO_FLOAT32_MODEL_READY_CAST",
+        "INT8_INPUT_QUANTIZATION",
+        "set_tensor",
+        "interpreter.invoke"
+      ]
+    },
+    "QUANTIZATION_ONLY": {
+      "excluded_operations": [
+        "BPF",
+        "Z_SCORE",
+        "set_tensor",
+        "interpreter.invoke",
+        "output_dequantization",
+        "argmax"
+      ],
+      "timed_operations": [
+        "INT8_INPUT_QUANTIZATION"
+      ]
+    },
+    "TFLITE_INVOKE_ONLY": {
+      "excluded_operations": [
+        "set_tensor",
+        "output_dequantization",
+        "argmax",
+        "input_quantization"
+      ],
+      "quantized_inputs_precomputed_outside_timed_region": true,
+      "timed_operations": [
+        "interpreter.invoke"
+      ]
+    }
+  },
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "outlier_policy": "NO_VALID_TIMING_OUTLIERS_REMOVED",
+  "percentile": {
+    "all_valid_samples_included": true,
+    "method": "linear"
+  },
+  "phase_id": "M-B8",
+  "scientific_scope": [
+    "MAC_OFFLINE_LATENCY",
+    "OFFLINE_MODEL_FOOTPRINT"
+  ],
+  "thread_configuration": {
+    "exploratory_configurations": [],
+    "primary_num_threads": 1
+  },
+  "warmup_iterations": 100,
+  "window_semantics": {
+    "claim_term": "MAC_STEADY_STATE_INFERENCE_LATENCY",
+    "compute_latency_excludes_window_acquisition": true,
+    "window_acquisition_duration_seconds": 30.0
+  }
+}

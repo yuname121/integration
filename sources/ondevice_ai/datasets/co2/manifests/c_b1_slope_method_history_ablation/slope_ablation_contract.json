@@ -1,0 +1,85 @@
+{
+  "a_series_slope_profile_immutable": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "candidate_registry_fingerprint": "dc77642f01c256ed85fdf4707df09c63e363ff6c5d92b23b23a836f983b890a1",
+  "candidate_registry_id": "CO2_B1_SLOPE_CANDIDATE_REGISTRY_001",
+  "comparison_universe": {
+    "locked_test": 9749,
+    "locked_test_status": "SEALED",
+    "train": 8140,
+    "validation": 2662,
+    "warmup": 9
+  },
+  "contract_id": "CO2_B1_SLOPE_ABLATION_CONTRACT_001",
+  "device_claims": {
+    "device_uci_cadence_domain_gap": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+    "runtime_equivalence_claimed": false,
+    "winner_classification": [
+      "OFFLINE_UCI_SELECTED",
+      "DEVICE_DOMAIN_UNVALIDATED"
+    ]
+  },
+  "experimental_factors": [
+    "slope_reconstruction_method",
+    "slope_minimum_history_threshold"
+  ],
+  "feature_context": {
+    "historical_compatibility_view_used_for_ranking": false,
+    "humidity_ratio_excluded": true,
+    "light_excluded": true,
+    "no_slope_control_features": [
+      "CO2",
+      "Temperature",
+      "Humidity"
+    ],
+    "slope_candidate_features": [
+      "CO2",
+      "Temperature",
+      "Humidity",
+      "candidate_CO2_slope"
+    ]
+  },
+  "final_feature_selection": "NOT_PERFORMED",
+  "fixed_factors": [
+    "b0_comparison_universe",
+    "scd40_native_feature_context",
+    "train_only_standardization",
+    "nearest_centroid_reference_probe",
+    "b0_metric_contract",
+    "occupancy_target_semantics"
+  ],
+  "lineage_limitations": [
+    "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+    "DEVICE_UCI_CADENCE_DOMAIN_GAP"
+  ],
+  "locked_test_policy": {
+    "candidate_ranking_use": false,
+    "feature_value_access": false,
+    "metrics": 0,
+    "predictions": 0,
+    "probe_fit": false,
+    "scaler_fit": false,
+    "target_access_for_evaluation": false
+  },
+  "manifest_version": "1.0",
+  "objective": "Determine which pre-registered causal CO2_slope reconstruction candidate provides the strongest VALIDATION evidence under one fixed comparison universe, feature context, preprocessing policy, reference probe, and metric contract.",
+  "phase": "C-B1",
+  "phase_name": "CO2_SLOPE_METHOD_HISTORY_ABLATION",
+  "predecessor_fingerprint_registry_id": "CO2_B1_PREDECESSOR_FINGERPRINT_REGISTRY_001",
+  "primary_selection_metric": "validation_macro_f1",
+  "reference_probe": {
+    "architecture_candidate": false,
+    "deployable": false,
+    "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+    "status": "NOT_A_PRODUCTION_MODEL",
+    "tflite_candidate": false
+  },
+  "selected_profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "tie_break_policy": [
+    "higher_validation_macro_f1",
+    "higher_validation_balanced_accuracy",
+    "higher_validation_occupied_recall",
+    "shorter_minimum_history_threshold",
+    "simpler_method_ENDPOINT_DIFFERENCE_over_CAUSAL_LINEAR_REGRESSION",
+    "lexicographically_smaller_candidate_id"
+  ]
+}

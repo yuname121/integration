@@ -1,0 +1,26 @@
+{
+  "blockers": [],
+  "clinical_claim": false,
+  "deferred_shared_integration_update": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+  "locked_test_feature_access": 0,
+  "locked_test_metrics": 0,
+  "locked_test_predictions": 0,
+  "locked_test_probabilities": 0,
+  "locked_test_target_access": 0,
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "production_model_modified": false,
+  "production_scaler_modified": false,
+  "safety_threshold_calibrated": false,
+  "synthetic_npz_used": false,
+  "warnings": [
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "description": "UCI occupancy cadence/domain equivalence to SCD40 is not validated."
+    },
+    {
+      "code": "INT8_INPUT_SATURATION_OBSERVED",
+      "description": "The fixed TRAIN-derived activation range clips a small number of standardized slope inputs; C-B5 owns robustness interpretation."
+    }
+  ]
+}

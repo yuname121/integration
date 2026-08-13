@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "source": "SafeNest intermediate plan and MMWAVE_TUNING.md",
+  "breath_normal_min_rpm": 12.0,
+  "breath_normal_max_rpm": 20.0,
+  "require_thermal_confirmation_for_mmwave_danger": true,
+  "heart_rate_used_for_risk": false,
+  "notes": [
+    "Missing, zero, NaN, timeout, WARMUP and FAULT never mean normal or apnea.",
+    "CO2 elevated is supplied by the Pi environmental rule; no ppm threshold is fixed here.",
+    "Heart rate remains display-only until separately validated."
+  ]
+}

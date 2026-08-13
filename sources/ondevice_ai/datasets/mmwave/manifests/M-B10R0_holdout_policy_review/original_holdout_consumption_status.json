@@ -1,0 +1,13 @@
+{
+  "consumption_status": "LOCKED_TEST_CONSUMED_FOR_FINAL_PHASE_B_EVALUATION_INCOMPLETE",
+  "future_recovery_accessor_invocations_during_m_b10r0": 0,
+  "historical_total_payload_release_events": 1,
+  "locked_test_consumed": true,
+  "locked_test_pristine": false,
+  "must_not_reuse_for_phase_b_model_selection": true,
+  "original_access_phase": "M-B10B",
+  "original_final_accessor_invocations": 1,
+  "phase_b_model_selection_reuse_allowed": false,
+  "phase_id": "M-B10R0",
+  "schema_version": "M-B10R0_ORIGINAL_CONSUMPTION_V1"
+}

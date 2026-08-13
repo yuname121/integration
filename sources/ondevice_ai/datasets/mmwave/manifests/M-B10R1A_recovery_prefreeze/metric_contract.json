@@ -1,0 +1,58 @@
+{
+  "acceptance_threshold": "NOT_PREDEFINED",
+  "applicable_predefined_numerical_acceptance_threshold": "FINAL_LOCKED_TEST_NUMERICAL_ACCEPTANCE_THRESHOLD_NOT_PREDEFINED",
+  "deep_equal_to_m_b10a_metrics_schema": true,
+  "m_b10a_contract_sha256": "ba6429ecfe685de1807ec85b55e697ee12e24138e6b96e94715b0a1a6b19e0f7",
+  "metrics_populated": false,
+  "metrics_schema": {
+    "apnea_proxy_fields": [
+      "precision",
+      "recall",
+      "misses"
+    ],
+    "diagnostics": [
+      "confusion_matrix",
+      "prediction_distribution",
+      "class_collapse_status"
+    ],
+    "per_class_fields": [
+      "support",
+      "tp",
+      "fp",
+      "tn",
+      "fn",
+      "precision",
+      "recall",
+      "f1_score",
+      "fpr"
+    ],
+    "primary": "macro_f1",
+    "rapid_or_abnormal_fields": [
+      "recall"
+    ],
+    "required": [
+      "accuracy",
+      "macro_f1",
+      "macro_precision",
+      "macro_recall"
+    ],
+    "selected_real_candidate_extra": [
+      "model_sha256",
+      "preprocessing_identity",
+      "strict_int8_structural_identity",
+      "input_saturation_ratio",
+      "runtime_identity"
+    ],
+    "subject_level": [
+      "subject_accuracy",
+      "subject_macro_f1",
+      "per_class_metrics_where_support_exists",
+      "worst_subject_macro_f1",
+      "median_subject_macro_f1"
+    ]
+  },
+  "metrics_schema_source": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/locked_test_evaluation_contract.json",
+  "phase_id": "M-B10R1-A",
+  "schema_version": "M-B10R1A_METRIC_CONTRACT_V1",
+  "status": "PREREGISTERED_NOT_EXECUTED"
+}

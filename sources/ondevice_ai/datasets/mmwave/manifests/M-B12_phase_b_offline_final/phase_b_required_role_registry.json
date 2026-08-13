@@ -1,0 +1,313 @@
+{
+  "required_m11_lock_file_role_count": 2,
+  "required_m11_registry_role_count": 36,
+  "required_role_count": 38,
+  "roles": [
+    {
+      "artifact_role": "raw_source_archive",
+      "binding": "m_b11_registry",
+      "category": "A/source lineage",
+      "expected_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+      "phase": "A0",
+      "repo_relative_path": "datasets/raw_archives/external_datasets/db_records.zip"
+    },
+    {
+      "artifact_role": "a0_source_identity",
+      "binding": "m_b11_registry",
+      "category": "A/source lineage",
+      "expected_sha256": "791540a14c41877fffb10904c0bed42b99a34f0716daf45063bc6f1ea976dc5e",
+      "phase": "A0",
+      "repo_relative_path": "datasets/mmwave/manifests/a0_raw_inventory/source_identity.json"
+    },
+    {
+      "artifact_role": "a5_subject_split",
+      "binding": "m_b11_registry",
+      "category": "A5 split",
+      "expected_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+      "phase": "A5",
+      "repo_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json"
+    },
+    {
+      "artifact_role": "a5_summary",
+      "binding": "m_b11_registry",
+      "category": "A5 split",
+      "expected_sha256": "5fb8537d8e94aca01744b19807e152984d4da2f9a91ee19156c5c6f17e0b945b",
+      "phase": "A5",
+      "repo_relative_path": "datasets/mmwave/manifests/a5_subject_split/a5_summary.json"
+    },
+    {
+      "artifact_role": "a5_split_profile",
+      "binding": "m_b11_registry",
+      "category": "A5 split",
+      "expected_sha256": "d022295eed222712927c4a8c7edea4613a5ba650dcbb84710af72f95a72b0c93",
+      "phase": "A5",
+      "repo_relative_path": "datasets/mmwave/manifests/a5_subject_split/split_profile.json"
+    },
+    {
+      "artifact_role": "a6_window_manifest",
+      "binding": "m_b11_registry",
+      "category": "A6 conversion/window manifest",
+      "expected_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+      "phase": "A6",
+      "repo_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl"
+    },
+    {
+      "artifact_role": "a6_summary",
+      "binding": "m_b11_registry",
+      "category": "A6 conversion/window manifest",
+      "expected_sha256": "2657c703d691e1e4a2aea6033b351e64ff124ac09438ab02b843210596189d34",
+      "phase": "A6",
+      "repo_relative_path": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json"
+    },
+    {
+      "artifact_role": "canonical_npy",
+      "binding": "m_b11_registry",
+      "category": "A6 conversion/window manifest",
+      "expected_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+      "phase": "A6",
+      "repo_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy"
+    },
+    {
+      "artifact_role": "b0_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B0",
+      "expected_sha256": "010f6c2f4fa88a82050645c0f238022c3c6db9232d866991503d0bbab6b78a37",
+      "phase": "M-B0",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/m_b0_summary.json"
+    },
+    {
+      "artifact_role": "b1_selected_profile",
+      "binding": "m_b11_registry",
+      "category": "M-B1",
+      "expected_sha256": "583befc9a85d0cd48624a107ab741889f106fcbd3ca39a93f6a3ff5d0db95ed9",
+      "phase": "M-B1",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/selected_preprocessing_profile.json"
+    },
+    {
+      "artifact_role": "b1_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B1",
+      "expected_sha256": "e4246966e17842cb751c4ff7d3beae6325ba30eb5e32af516749a1cfc9a3b4f9",
+      "phase": "M-B1",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/m_b1_summary.json"
+    },
+    {
+      "artifact_role": "b1_executor",
+      "binding": "m_b11_registry",
+      "category": "M-B1",
+      "expected_sha256": "c3aa8bad796e3202aa7f7046783fc4638406ce482b33c5907800a8607d3c945e",
+      "phase": "M-B1",
+      "repo_relative_path": "scripts/mmwave_m_b1_preprocessing.py"
+    },
+    {
+      "artifact_role": "b2_selected_strategy",
+      "binding": "m_b11_registry",
+      "category": "M-B2",
+      "expected_sha256": "36d8125614af2d0e952954a90e4fc8eb616a702100dd0a996dc8e0051e9b3ba7",
+      "phase": "M-B2",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/selected_imbalance_strategy.json"
+    },
+    {
+      "artifact_role": "b2_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B2",
+      "expected_sha256": "705004ffbe5213027ccbbc1dc9896810ee3ebf28e088aa4fad478676b84d829d",
+      "phase": "M-B2",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/m_b2_summary.json"
+    },
+    {
+      "artifact_role": "b3_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B3",
+      "expected_sha256": "0ece3590c9c563973c7e77620165e04b52f98aa997b658981e60d8ae6dad1e77",
+      "phase": "M-B3",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B3_architecture_comparison/m_b3_summary.json"
+    },
+    {
+      "artifact_role": "b4_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B4",
+      "expected_sha256": "2ef74a5f087289f5bcc97696a0c9af0b7de4cd7634c0e252b68694de4c8cc49c",
+      "phase": "M-B4",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/m_b4_summary.json"
+    },
+    {
+      "artifact_role": "b5_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B5",
+      "expected_sha256": "4fe686c2e3da573b15e31395370cc7506f753e8c748a33738bd77c0b911701e4",
+      "phase": "M-B5",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/m_b5_summary.json"
+    },
+    {
+      "artifact_role": "b6_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B6",
+      "expected_sha256": "a6ba110745cf7667ebd32105c45680882a18c6a3b979b2a75e781acb8b1bac74",
+      "phase": "M-B6",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/m_b6_summary.json"
+    },
+    {
+      "artifact_role": "b6_stage_artifact_manifest",
+      "binding": "m_b11_registry",
+      "category": "M-B6",
+      "expected_sha256": "3f3a4b169c3a62a0edbbb640c5be6be7a3c6afb869fd63db1ceece5fc6572731",
+      "phase": "M-B6",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/stage_artifact_manifest.json"
+    },
+    {
+      "artifact_role": "selected_tflite",
+      "binding": "m_b11_registry",
+      "category": "selected seed42 model artifact",
+      "expected_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "phase": "M-B6",
+      "repo_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+    },
+    {
+      "artifact_role": "b7_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B7",
+      "expected_sha256": "88c97a724ba7a3fa4b546c616510e79adc2f1541589653f0751b38c371b1132c",
+      "phase": "M-B7",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B7_perturbation_robustness/m_b7_summary.json"
+    },
+    {
+      "artifact_role": "b8_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B8",
+      "expected_sha256": "853d9a420de55fea4d6fced559650f17ada70a2f1e9a1804129b363fc97924d2",
+      "phase": "M-B8",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B8_mac_latency_footprint/m_b8_summary.json"
+    },
+    {
+      "artifact_role": "b9_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B9",
+      "expected_sha256": "59c803f769f180a97415a27c0612e57afce4008c346280279dcf5a3c2e395123",
+      "phase": "M-B9",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B9_mock_e2e/m_b9_summary.json"
+    },
+    {
+      "artifact_role": "b9_seed42_runtime_manifest",
+      "binding": "m_b11_registry",
+      "category": "M-B9",
+      "expected_sha256": "7b5a85e4c0482cccc8eaa43dcd84a9b565c1005857663e6c68555d171f0efccb",
+      "phase": "M-B9",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json"
+    },
+    {
+      "artifact_role": "b10a_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B10A",
+      "expected_sha256": "ed8148cc9014309249550c2490ca8d5f8e80e3ca44713ae3400b14730c2521d9",
+      "phase": "M-B10A",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/m_b10a_summary.json"
+    },
+    {
+      "artifact_role": "b10b_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B10B summary",
+      "expected_sha256": "95133b271a14b13bac6b638655a044501ef2488fa5c0611768bcc54669b6acdf",
+      "phase": "M-B10B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/m_b10b_summary.json"
+    },
+    {
+      "artifact_role": "b10b_incident_root_cause",
+      "binding": "m_b11_registry",
+      "category": "M-B10B incident/root cause",
+      "expected_sha256": "d3a16d0daf454e0c0ba2a24c9c8fb28653cd1b3d50915b4ad675670315cc3585",
+      "phase": "M-B10B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/incident_root_cause.json"
+    },
+    {
+      "artifact_role": "b10r0_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B10R0",
+      "expected_sha256": "546a050a82cd5163216d4f74970ade2028501a455194fe7434484511d086ecf4",
+      "phase": "M-B10R0",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R0_holdout_policy_review/m_b10r0_summary.json"
+    },
+    {
+      "artifact_role": "b10r1a_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B10R1-A",
+      "expected_sha256": "9501574d67b7a252f0febf4a0dd19113a7f268603adf59f2930023e75df9599c",
+      "phase": "M-B10R1-A",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1A_recovery_prefreeze/m_b10r1a_summary.json"
+    },
+    {
+      "artifact_role": "b10r1b_summary",
+      "binding": "m_b11_registry",
+      "category": "M-B10R1-B",
+      "expected_sha256": "b419fce1747d20c873418d1308334bd7e9c86ee418c15877d0c6712d0dd90eed",
+      "phase": "M-B10R1-B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/m_b10r1b_summary.json"
+    },
+    {
+      "artifact_role": "b10r1b_registry",
+      "binding": "m_b11_registry",
+      "category": "final recovery registry",
+      "expected_sha256": "731e09244736afaedd9974bf74d65b7eaceabdf7e6ab8bafbf79d723fa1226f9",
+      "phase": "M-B10R1-B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/recovery_registry.json"
+    },
+    {
+      "artifact_role": "b10r1b_ledger",
+      "binding": "m_b11_registry",
+      "category": "final recovery ledger",
+      "expected_sha256": "ddfa44f910f2023dda420c075920c599c3cf5bb8dd607f4632f32ec189c8cc24",
+      "phase": "M-B10R1-B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/recovery_sample_predictions.jsonl"
+    },
+    {
+      "artifact_role": "v0_1_tflite",
+      "binding": "m_b11_registry",
+      "category": "historical v0.1 baseline artifact",
+      "expected_sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158",
+      "phase": "historical_baseline",
+      "repo_relative_path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite"
+    },
+    {
+      "artifact_role": "v0_2_tflite",
+      "binding": "m_b11_registry",
+      "category": "historical v0.2 baseline artifact",
+      "expected_sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+      "phase": "historical_baseline",
+      "repo_relative_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite"
+    },
+    {
+      "artifact_role": "b10b_baseline_preprocessing_executor",
+      "binding": "m_b11_registry",
+      "category": "M-B10B",
+      "expected_sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f",
+      "phase": "M-B10B",
+      "repo_relative_path": "scripts/mmwave_m_b10b_baseline_preprocessing.py"
+    },
+    {
+      "artifact_role": "sensor_local_candidate_lock",
+      "binding": "m_b11_registry",
+      "category": "M-B11 sensor-local lock",
+      "expected_sha256": "380cbb09f41cd550bdbd8a0f8a54fd7165b76703de95dfcb827fcbad065be5a6",
+      "phase": "M-B11",
+      "repo_relative_path": "models/mmwave/mmwave_offline_candidate_lock_v1.json"
+    },
+    {
+      "artifact_role": "m_b11_lock_identity",
+      "binding": "m_b11_lock_file",
+      "category": "M-B11 lock identity/summary",
+      "expected_sha256": "f61ecf2434b4eb4b507ce39bdcf8f295c0b5b65566c6b44fb11f581dbf140052",
+      "phase": "M-B11",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B11_artifact_lock/artifact_lock_identity.json"
+    },
+    {
+      "artifact_role": "m_b11_lock_summary",
+      "binding": "m_b11_lock_file",
+      "category": "M-B11 lock identity/summary",
+      "expected_sha256": "30ea20d1da7e846d8ca8daf5c30eafd266fbc0fed529305f510bb7d81ba0d334",
+      "phase": "M-B11",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B11_artifact_lock/artifact_lock_summary.json"
+    }
+  ],
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1",
+  "source_m_b11_registry": "datasets/mmwave/manifests/M-B11_artifact_lock/immutable_artifact_registry.json"
+}

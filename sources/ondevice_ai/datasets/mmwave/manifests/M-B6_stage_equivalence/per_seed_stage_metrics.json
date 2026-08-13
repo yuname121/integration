@@ -1,0 +1,374 @@
+{
+  "phase_id": "M-B6",
+  "per_seed_stage_metrics": {
+    "M-B3_CONV1D_GAP_BASELINE_seed_42": {
+      "seed": 42,
+      "stage_a_float_keras": {
+        "macro_f1": 0.6637083333333332,
+        "accuracy": 0.7215189873417721,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 5,
+            "tn": 54,
+            "fn": 10,
+            "precision": 0.666667,
+            "recall": 0.5,
+            "f1_score": 0.571429,
+            "fpr": 0.084746,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 15,
+            "tn": 27,
+            "fn": 0,
+            "precision": 0.711538,
+            "recall": 1.0,
+            "f1_score": 0.831461,
+            "fpr": 0.357143,
+            "support": 37
+          }
+        }
+      },
+      "stage_b_float_tflite": {
+        "macro_f1": 0.6637083333333332,
+        "accuracy": 0.7215189873417721,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 5,
+            "tn": 54,
+            "fn": 10,
+            "precision": 0.666667,
+            "recall": 0.5,
+            "f1_score": 0.571429,
+            "fpr": 0.084746,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 15,
+            "tn": 27,
+            "fn": 0,
+            "precision": 0.711538,
+            "recall": 1.0,
+            "f1_score": 0.831461,
+            "fpr": 0.357143,
+            "support": 37
+          }
+        }
+      },
+      "stage_c_int8_tflite": {
+        "macro_f1": 0.666231,
+        "accuracy": 0.721519,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 4,
+            "tn": 55,
+            "fn": 10,
+            "precision": 0.714286,
+            "recall": 0.5,
+            "f1_score": 0.588235,
+            "fpr": 0.067797,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 16,
+            "tn": 26,
+            "fn": 0,
+            "precision": 0.698113,
+            "recall": 1.0,
+            "f1_score": 0.822222,
+            "fpr": 0.380952,
+            "support": 37
+          }
+        }
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43": {
+      "seed": 43,
+      "stage_a_float_keras": {
+        "macro_f1": 0.45101033333333335,
+        "accuracy": 0.4810126582278481,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 5,
+            "fp": 13,
+            "tn": 44,
+            "fn": 17,
+            "precision": 0.277778,
+            "recall": 0.227273,
+            "f1_score": 0.25,
+            "fpr": 0.22807,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 21,
+            "fp": 5,
+            "tn": 37,
+            "fn": 16,
+            "precision": 0.807692,
+            "recall": 0.567568,
+            "f1_score": 0.666667,
+            "fpr": 0.119048,
+            "support": 37
+          }
+        }
+      },
+      "stage_b_float_tflite": {
+        "macro_f1": 0.45101033333333335,
+        "accuracy": 0.4810126582278481,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 5,
+            "fp": 13,
+            "tn": 44,
+            "fn": 17,
+            "precision": 0.277778,
+            "recall": 0.227273,
+            "f1_score": 0.25,
+            "fpr": 0.22807,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 21,
+            "fp": 5,
+            "tn": 37,
+            "fn": 16,
+            "precision": 0.807692,
+            "recall": 0.567568,
+            "f1_score": 0.666667,
+            "fpr": 0.119048,
+            "support": 37
+          }
+        }
+      },
+      "stage_c_int8_tflite": {
+        "macro_f1": 0.44124,
+        "accuracy": 0.455696,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 6,
+            "fp": 17,
+            "tn": 40,
+            "fn": 16,
+            "precision": 0.26087,
+            "recall": 0.272727,
+            "f1_score": 0.266667,
+            "fpr": 0.298246,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 18,
+            "fp": 3,
+            "tn": 39,
+            "fn": 19,
+            "precision": 0.857143,
+            "recall": 0.486486,
+            "f1_score": 0.62069,
+            "fpr": 0.071429,
+            "support": 37
+          }
+        }
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44": {
+      "seed": 44,
+      "stage_a_float_keras": {
+        "macro_f1": 0.32910666666666666,
+        "accuracy": 0.5189873417721519,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 3,
+            "fp": 4,
+            "tn": 53,
+            "fn": 19,
+            "precision": 0.428571,
+            "recall": 0.136364,
+            "f1_score": 0.206897,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 34,
+            "tn": 8,
+            "fn": 0,
+            "precision": 0.521127,
+            "recall": 1.0,
+            "f1_score": 0.685185,
+            "fpr": 0.809524,
+            "support": 37
+          }
+        }
+      },
+      "stage_b_float_tflite": {
+        "macro_f1": 0.32910666666666666,
+        "accuracy": 0.5189873417721519,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 3,
+            "fp": 4,
+            "tn": 53,
+            "fn": 19,
+            "precision": 0.428571,
+            "recall": 0.136364,
+            "f1_score": 0.206897,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 34,
+            "tn": 8,
+            "fn": 0,
+            "precision": 0.521127,
+            "recall": 1.0,
+            "f1_score": 0.685185,
+            "fpr": 0.809524,
+            "support": 37
+          }
+        }
+      },
+      "stage_c_int8_tflite": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987,
+        "collapsed": false,
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 3,
+            "fp": 4,
+            "tn": 53,
+            "fn": 19,
+            "precision": 0.428571,
+            "recall": 0.136364,
+            "f1_score": 0.206897,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 34,
+            "tn": 8,
+            "fn": 0,
+            "precision": 0.521127,
+            "recall": 1.0,
+            "f1_score": 0.685185,
+            "fpr": 0.809524,
+            "support": 37
+          }
+        }
+      }
+    }
+  }
+}

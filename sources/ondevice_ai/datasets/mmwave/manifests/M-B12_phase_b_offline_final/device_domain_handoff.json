@@ -1,0 +1,16 @@
+{
+  "apnea_labels_remain_safenest_proxies": true,
+  "future_m_c_must_independently_investigate": [
+    "physical MR60BHA2 signal-domain compatibility with this offline candidate",
+    "device preprocessing correspondence to M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+    "observed team approximately-20-rpm behavior",
+    "domain shift between the offline Zenodo dataset and the physical sensor",
+    "runtime input identity on device",
+    "Raspberry Pi / device execution behavior"
+  ],
+  "m_b8_is_mac_m2_latency_only": true,
+  "m_b9_is_mock_runtime_not_physical_sensor": true,
+  "m_c_started": false,
+  "old_team_ondevice_ai_is_not_validation_evidence": true,
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1"
+}

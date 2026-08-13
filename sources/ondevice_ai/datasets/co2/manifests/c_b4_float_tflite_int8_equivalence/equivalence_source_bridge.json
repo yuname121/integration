@@ -1,0 +1,97 @@
+{
+  "label_disagreement_count": 0,
+  "label_disagreement_fraction": 0.0,
+  "label_disagreement_gate": 0,
+  "max_probability_drift_gate": 1e-05,
+  "pearson_correlation": 0.9999999999999981,
+  "probability_mae": 1.7745524402059027e-08,
+  "probability_max_absolute_drift": 1.5797368602132877e-07,
+  "probability_p95_absolute_drift": 5.322263026130702e-08,
+  "probability_rmse": 2.5331249161451362e-08,
+  "source_metrics": {
+    "balanced_accuracy": 0.9148615954604554,
+    "confusion_matrix": {
+      "fn": 78,
+      "fp": 152,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1541,
+          152
+        ],
+        [
+          78,
+          891
+        ]
+      ],
+      "tn": 1541,
+      "tp": 891
+    },
+    "decision_threshold": 0.58,
+    "false_negative_rate": 0.0804953560371517,
+    "false_positive_rate": 0.0897814530419374,
+    "fn": 78,
+    "fp": 152,
+    "macro_f1": 0.9081207201237023,
+    "occupied_recall": 0.9195046439628483,
+    "precision_occupied": 0.8542665388302972,
+    "recall_occupied": 0.9195046439628483,
+    "sensitivity": 0.9195046439628483,
+    "specificity": 0.9102185469580626,
+    "tn": 1541,
+    "tp": 891
+  },
+  "source_probability_fingerprint": "a765b1d8f44fe1f6e5e65bfd943302f0b095cf62a4850a7dec6bc6492a99d419",
+  "source_stage": "SOURCE_FLOAT_SKLEARN",
+  "status": "PASS",
+  "target_metrics": {
+    "balanced_accuracy": 0.9148615954604554,
+    "confusion_matrix": {
+      "fn": 78,
+      "fp": 152,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1541,
+          152
+        ],
+        [
+          78,
+          891
+        ]
+      ],
+      "tn": 1541,
+      "tp": 891
+    },
+    "decision_threshold": 0.58,
+    "false_negative_rate": 0.0804953560371517,
+    "false_positive_rate": 0.0897814530419374,
+    "fn": 78,
+    "fp": 152,
+    "macro_f1": 0.9081207201237023,
+    "occupied_recall": 0.9195046439628483,
+    "precision_occupied": 0.8542665388302972,
+    "recall_occupied": 0.9195046439628483,
+    "sensitivity": 0.9195046439628483,
+    "specificity": 0.9102185469580626,
+    "tn": 1541,
+    "tp": 891
+  },
+  "target_probability_fingerprint": "55f41d0cc5ef3e002d9268520d67e87b146e4a6607befdc3758f67a388aa2a3e",
+  "target_stage": "KERAS_FLOAT_BRIDGE",
+  "threshold": 0.58
+}

@@ -1,0 +1,31 @@
+{
+  "blocker_count": 0,
+  "findings": [
+    {
+      "classification": "NON-BLOCKING IMPROVEMENT",
+      "code": "INITIALIZATION_SEED_SENSITIVITY_PRESERVED",
+      "detail": "M-B4 initialization sensitivity remains authoritative; M-B7 reports every seed separately and does not select a best seed."
+    },
+    {
+      "classification": "NON-BLOCKING IMPROVEMENT",
+      "code": "TIMESTAMP_JITTER_OPTIONAL_PROFILE_NOT_ADDED",
+      "detail": "A3 resampling machinery exists, but no timestamp-jitter magnitude was preregistered in the fixed 17-profile matrix. No post-hoc profile was added."
+    },
+    {
+      "classification": "REQUIRED REFINEMENT",
+      "code": "PERTURBATION_CLASS_COLLAPSE_OBSERVED",
+      "detail": "Scientific offline stress finding for M-B7_AMP_X0_50 on seeds [42, 44]; it is not an implementation blocker."
+    },
+    {
+      "classification": "REQUIRED REFINEMENT",
+      "code": "PERTURBATION_CLASS_COLLAPSE_OBSERVED",
+      "detail": "Scientific offline stress finding for M-B7_AMP_X0_75 on seeds [44]; it is not an implementation blocker."
+    },
+    {
+      "classification": "REQUIRED REFINEMENT",
+      "code": "PERTURBATION_CLASS_COLLAPSE_OBSERVED",
+      "detail": "Scientific offline stress finding for M-B7_COMBINED_MODERATE on seeds [44]; it is not an implementation blocker."
+    }
+  ],
+  "phase_id": "M-B7"
+}

@@ -1,0 +1,6 @@
+{
+  "phase_id": "M-B5",
+  "performance_access_attempts": 0,
+  "lock_preserved": true,
+  "notes": "No model predictions or calibration calculations evaluated on LOCKED_TEST set during Phase M-B5."
+}

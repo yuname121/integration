@@ -1,0 +1,195 @@
+{
+  "phase_id": "M-B9",
+  "records": [
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "A_NORMAL",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "C_APNEA",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "A_NORMAL",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 43,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 43,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "C_APNEA",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 43,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "A_NORMAL",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 44,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 44,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "C_APNEA",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 44,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "mmwave_finalist_unavailable",
+      "reason": "INSUFFICIENT_HISTORY",
+      "scenario_id": "D_INSUFFICIENT_HISTORY",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": false,
+      "model_id": "mmwave_finalist_unavailable",
+      "reason": "INVALID_SHAPE",
+      "scenario_id": "E_INVALID_SHAPE",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": false,
+      "model_id": "mmwave_finalist_unavailable",
+      "reason": "NAN_OR_INF",
+      "scenario_id": "F_NAN",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": false,
+      "model_id": "mmwave_finalist_unavailable",
+      "reason": "NAN_OR_INF",
+      "scenario_id": "G_INF",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "H_STALE",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "fallback_used": false,
+      "model_id": "mmwave_finalist_unavailable",
+      "reason": "SIMULATED_MMWAVE_SENSOR_FAULT",
+      "scenario_id": "I_PROVIDER_SENSOR_FAULT",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": null,
+      "model_id": null,
+      "reason": null,
+      "scenario_id": "J_READ_EXCEPTION",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": null,
+      "model_id": null,
+      "reason": null,
+      "scenario_id": "K_TIMEOUT",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": true,
+      "model_id": "mmwave_heuristic_fallback",
+      "reason": "M-B9_FINALIST_MODEL_MANIFEST_MISSING",
+      "scenario_id": "L_MISSING_MODEL",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": null,
+      "valid": false
+    },
+    {
+      "fallback_used": true,
+      "model_id": "mmwave_heuristic_fallback",
+      "reason": "M-B9_FINALIST_ARTIFACT_IDENTITY_MISMATCH",
+      "scenario_id": "M_SHA_MISMATCH",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": null,
+      "model_id": null,
+      "reason": null,
+      "scenario_id": "O_NOT_CONNECTED_PROVIDER",
+      "score_source": "NO_VALID_PREDICTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "fallback_used": false,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "reason": null,
+      "scenario_id": "N_VALID_EXPLICIT_FINALIST",
+      "score_source": "MODEL_PREDICTION",
+      "seed": 42,
+      "valid": true
+    }
+  ],
+  "valid_finalist_records_have_no_fallback": true
+}

@@ -1,0 +1,24 @@
+{
+  "subject_counts": {
+    "TRAIN": 77,
+    "VALIDATION": 17,
+    "LOCKED_TEST": 16
+  },
+  "recording_counts": {
+    "TRAIN": 308,
+    "VALIDATION": 68,
+    "LOCKED_TEST": 64
+  },
+  "window_counts": {
+    "TRAIN": 358,
+    "VALIDATION": 84,
+    "LOCKED_TEST": 88
+  },
+  "eligibility_counts": {
+    "training_eligible": 327,
+    "validation_eligible": 79,
+    "locked_test_evaluation_eligible": 75,
+    "ambiguous_pure_class_eligible": 0,
+    "locked_test_training_eligible": 0
+  }
+}

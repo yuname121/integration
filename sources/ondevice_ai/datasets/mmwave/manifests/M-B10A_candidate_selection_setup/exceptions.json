@@ -1,0 +1,55 @@
+{
+  "blockers": [],
+  "closed_review_refinements": [
+    {
+      "evidence": "historical_baseline_registry.json and locked_test_evaluation_contract.json",
+      "id": "HISTORICAL_BASELINE_EXECUTABLE_PREPROCESSING_CONTRACT",
+      "status": "CLOSED"
+    },
+    {
+      "evidence": "M-B9 fallback_audit.json independently reconstructed by selector and validator",
+      "id": "M_B9_VALID_FINALIST_FALLBACK_E6",
+      "status": "CLOSED"
+    },
+    {
+      "evidence": "M-B9 runtime_prediction_identity.json is a hard E5 eligibility gate",
+      "id": "M_B9_RUNTIME_PREDICTION_IDENTITY_E5",
+      "status": "CLOSED"
+    },
+    {
+      "evidence": "M-B8 cross_seed_latency_summary.json independently reconstructed by validator",
+      "id": "M_B8_PIPELINE_P99_SOURCE_RECONSTRUCTION",
+      "status": "CLOSED"
+    },
+    {
+      "evidence": "model_manifest.json, baseline metadata, executable contracts, and TFLite output shape [1,3] independently matched",
+      "id": "BASELINE_CLASS_MAP_FREEZE",
+      "status": "CLOSED"
+    }
+  ],
+  "non_blocking_improvements": [
+    {
+      "description": "Severe M-B7 profiles remain diagnostic and are not hard-gated by the frozen rule.",
+      "finding_class": "NON-BLOCKING IMPROVEMENT",
+      "id": "SEVERE_PROFILE_DIAGNOSTIC"
+    },
+    {
+      "description": "M-B8 latency is macOS-only offline evidence; no Raspberry Pi or MR60 claim is made.",
+      "finding_class": "NON-BLOCKING IMPROVEMENT",
+      "id": "MAC_ONLY_LATENCY"
+    }
+  ],
+  "phase_id": "M-B10A",
+  "required_refinements": [
+    {
+      "description": "Independent review must approve the frozen rule, lineage, gates, and winner before M-B10B.",
+      "finding_class": "REQUIRED REFINEMENT",
+      "id": "INDEPENDENT_REVIEW"
+    },
+    {
+      "description": "M-B4 architecture-level seed sensitivity remains a warning; a single-seed winner does not erase it.",
+      "finding_class": "REQUIRED REFINEMENT",
+      "id": "SEED_SENSITIVITY"
+    }
+  ]
+}

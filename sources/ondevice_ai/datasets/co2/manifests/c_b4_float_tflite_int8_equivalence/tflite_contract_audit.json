@@ -1,0 +1,107 @@
+{
+  "float_tflite": {
+    "full_integer_ops": false,
+    "input_count": 1,
+    "input_dtype": "float32",
+    "input_name": "serving_default_standardized_features:0",
+    "input_quantization": {
+      "quantized_dimension": 0,
+      "scale": 0.0,
+      "scales": [],
+      "zero_point": 0,
+      "zero_points": []
+    },
+    "input_shape": [
+      1,
+      4
+    ],
+    "input_shape_signature": [
+      -1,
+      4
+    ],
+    "model_byte_size": 1432,
+    "model_sha256": "a4767363faf0cc47dcc907cd411b4664eb0821c2926262cce25e3fffc4f04a35",
+    "op_names": [
+      "FULLY_CONNECTED",
+      "LOGISTIC"
+    ],
+    "operator_tensor_types": [
+      "float32"
+    ],
+    "output_count": 1,
+    "output_dtype": "float32",
+    "output_name": "StatefulPartitionedCall_1:0",
+    "output_quantization": {
+      "quantized_dimension": 0,
+      "scale": 0.0,
+      "scales": [],
+      "zero_point": 0,
+      "zero_points": []
+    },
+    "output_shape": [
+      1,
+      1
+    ],
+    "output_shape_signature": [
+      -1,
+      1
+    ]
+  },
+  "int8_tflite": {
+    "full_integer_ops": true,
+    "input_count": 1,
+    "input_dtype": "int8",
+    "input_name": "serving_default_standardized_features:0",
+    "input_quantization": {
+      "quantized_dimension": 0,
+      "scale": 0.03529411926865578,
+      "scales": [
+        0.03529411926865578
+      ],
+      "zero_point": 0,
+      "zero_points": [
+        0
+      ]
+    },
+    "input_shape": [
+      1,
+      4
+    ],
+    "input_shape_signature": [
+      -1,
+      4
+    ],
+    "model_byte_size": 1544,
+    "model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+    "op_names": [
+      "FULLY_CONNECTED",
+      "LOGISTIC"
+    ],
+    "operator_tensor_types": [
+      "int32",
+      "int8"
+    ],
+    "output_count": 1,
+    "output_dtype": "int8",
+    "output_name": "StatefulPartitionedCall_1:0",
+    "output_quantization": {
+      "quantized_dimension": 0,
+      "scale": 0.00390625,
+      "scales": [
+        0.00390625
+      ],
+      "zero_point": -128,
+      "zero_points": [
+        -128
+      ]
+    },
+    "output_shape": [
+      1,
+      1
+    ],
+    "output_shape_signature": [
+      -1,
+      1
+    ]
+  }
+}

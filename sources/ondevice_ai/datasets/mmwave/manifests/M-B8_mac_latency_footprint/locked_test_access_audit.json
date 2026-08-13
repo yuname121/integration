@@ -1,0 +1,9 @@
+{
+  "benchmark_input_split": "VALIDATION",
+  "label_access_attempts": 0,
+  "lock_preserved": true,
+  "locked_test_inputs_loaded": false,
+  "performance_access_attempts": 0,
+  "phase_id": "M-B8",
+  "prediction_access_attempts": 0
+}

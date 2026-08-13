@@ -1,0 +1,9 @@
+{
+  "deterministic_ops_requested": true,
+  "numpy_version": "1.26.4",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python_version": "3.9.6",
+  "scikit_learn_version": "1.6.1",
+  "single_thread_requested": true,
+  "tensorflow_version": "2.20.0"
+}

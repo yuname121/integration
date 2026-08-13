@@ -1,0 +1,21 @@
+{
+  "co2_danger_probability": false,
+  "contract_id": "CO2_B2_OCCUPANCY_PROBABILITY_SEMANTIC_001",
+  "decision_threshold_role": "OFFLINE_OCCUPANCY_CLASSIFICATION",
+  "fatality_probability": false,
+  "manifest_version": "1.0",
+  "multisensor_risk_score": false,
+  "phase": "C-B2",
+  "probability_class": "OCCUPIED",
+  "probability_interpretation": "P(Occupancy=OCCUPIED | fixed B2 model features)",
+  "probability_range": [
+    0.0,
+    1.0
+  ],
+  "risk_logic_modified": false,
+  "risk_semantic": "NONE",
+  "safety_semantic": "NONE",
+  "target": "ROOM_OCCUPANCY",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "ventilation_danger_probability": false
+}

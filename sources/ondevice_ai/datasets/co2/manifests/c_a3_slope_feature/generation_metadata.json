@@ -1,0 +1,24 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A3",
+  "feature_contract_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "generator_script": "scripts/audit_co2_slope_feature.py",
+  "reconstruction_module": "datasets/co2/slope_feature.py",
+  "total_source_rows": 20560,
+  "total_feature_records": 20560,
+  "member_order": [
+    "datatest.txt",
+    "datatraining.txt",
+    "datatest2.txt"
+  ],
+  "synthetic_npz_used_as_real_source": false,
+  "scaler_fitted": false,
+  "model_trained": false,
+  "occupancy_labels_used_for_contract_selection": false,
+  "locked_test_used_for_contract_selection": false,
+  "determinism": {
+    "host_timezone_independent": true,
+    "locale_independent": true,
+    "random_values_used": false
+  }
+}

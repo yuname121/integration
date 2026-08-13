@@ -1,0 +1,19 @@
+{
+  "calibration": 0,
+  "conversion": 0,
+  "m_b11_artifact_status": "REAL_DATA_OFFLINE_CANDIDATE",
+  "m_b11_checksums_sha256": "989c455851b15bb161fbefb54db56ab6d3d214b8c8d5ef038a7fc15058209092",
+  "m_b11_immutable_registry_sha256": "d01d145c3c0a2f485cbd224322537055c6ec909f884f37118bed103fa0f9bac2",
+  "m_b11_lock_dir": "datasets/mmwave/manifests/M-B11_artifact_lock",
+  "m_b11_schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "m_b11_sensor_lock": "models/mmwave/mmwave_offline_candidate_lock_v1.json",
+  "m_b11_validator_required": true,
+  "model_reselection": 0,
+  "new_locked_test_access": 0,
+  "new_model_inference": 0,
+  "new_recovery_access": 0,
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1",
+  "standalone_m_b11_validator": "scripts/validate_mmwave_m_b11.py",
+  "threshold_tuning": 0,
+  "training": 0
+}

@@ -1,0 +1,132 @@
+{
+  "evaluation_population": "VALIDATION_ONLY",
+  "fit_population": "TRAIN_ONLY",
+  "manifest_version": "1.0",
+  "per_strategy": {
+    "BALANCED_RANDOM_OVERSAMPLE": {
+      "architecture_search_performed": false,
+      "class_weight": null,
+      "classes": [
+        0,
+        1
+      ],
+      "coefficient_feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "CO2_slope"
+      ],
+      "coefficients": [
+        3.783859817624365,
+        0.38186075609151626,
+        -1.0730061861380122,
+        2.076063956518759
+      ],
+      "convergence_warning_count": 0,
+      "fit_population": "TRAIN_ONLY",
+      "fit_row_count": 12828,
+      "fit_unique_original_row_count": 8140,
+      "intercept": [
+        -1.2668080904569734
+      ],
+      "multi_seed_search_performed": false,
+      "n_iter": [
+        11
+      ],
+      "parameters": {
+        "C": 1.0,
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": "l2",
+        "random_state": 20260810,
+        "solver": "lbfgs"
+      },
+      "strategy_id": "BALANCED_RANDOM_OVERSAMPLE"
+    },
+    "CLASS_WEIGHT_BALANCED": {
+      "architecture_search_performed": false,
+      "class_weight": {
+        "OCCUPIED": 2.358053302433372,
+        "VACANT": 0.634549423136888
+      },
+      "classes": [
+        0,
+        1
+      ],
+      "coefficient_feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "CO2_slope"
+      ],
+      "coefficients": [
+        3.7674876922782436,
+        0.4149380580910489,
+        -1.0682740512018247,
+        2.0162948588101925
+      ],
+      "convergence_warning_count": 0,
+      "fit_population": "TRAIN_ONLY",
+      "fit_row_count": 8140,
+      "fit_unique_original_row_count": 8140,
+      "intercept": [
+        -1.2716404088140083
+      ],
+      "multi_seed_search_performed": false,
+      "n_iter": [
+        11
+      ],
+      "parameters": {
+        "C": 1.0,
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": "l2",
+        "random_state": 20260810,
+        "solver": "lbfgs"
+      },
+      "strategy_id": "CLASS_WEIGHT_BALANCED"
+    },
+    "NATURAL_DISTRIBUTION": {
+      "architecture_search_performed": false,
+      "class_weight": null,
+      "classes": [
+        0,
+        1
+      ],
+      "coefficient_feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "CO2_slope"
+      ],
+      "coefficients": [
+        3.4518045866142626,
+        0.35745594848649437,
+        -1.4077586583395614,
+        1.7773675061945213
+      ],
+      "convergence_warning_count": 0,
+      "fit_population": "TRAIN_ONLY",
+      "fit_row_count": 8140,
+      "fit_unique_original_row_count": 8140,
+      "intercept": [
+        -2.5763964451075916
+      ],
+      "multi_seed_search_performed": false,
+      "n_iter": [
+        13
+      ],
+      "parameters": {
+        "C": 1.0,
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": "l2",
+        "random_state": 20260810,
+        "solver": "lbfgs"
+      },
+      "strategy_id": "NATURAL_DISTRIBUTION"
+    }
+  },
+  "phase": "C-B2",
+  "probe_profile_id": "B2_FIXED_LOGISTIC_PROBE_001"
+}

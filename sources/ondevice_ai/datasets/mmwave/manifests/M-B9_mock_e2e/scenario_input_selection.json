@@ -1,0 +1,56 @@
+{
+  "canonical_dataset_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+  "canonical_validation_tensor_sha256": "ff01ef7708f0e6c419d860f6e0e20758f7403b34705775d027822f9f2c4ce1d5",
+  "locked_test_access": 0,
+  "provenance_manifest_sha256": "7b94b73fea7ed51be2813e1014a1760fa22325c9399490b855c9ea59093a6dc2",
+  "selected": [
+    {
+      "canonical_sample_index": 59,
+      "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+      "posture": "Lying",
+      "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+      "safenest_label": "NORMAL",
+      "safenest_label_id": 0,
+      "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+      "session_id": null,
+      "source_test_condition": "Post-exercise",
+      "split": "VALIDATION",
+      "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+      "validation_local_index": 4,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 43,
+      "canonical_signal_hash": "bac1a0c8ca140e8d8c966a8c7e927ffdb9798b2ceb19a21a4858dbd2e778f404",
+      "posture": "Lying",
+      "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise",
+      "safenest_label": "RAPID_OR_ABNORMAL",
+      "safenest_label_id": 1,
+      "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+      "session_id": null,
+      "source_test_condition": "Post-exercise",
+      "split": "VALIDATION",
+      "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+      "validation_local_index": 0,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 44,
+      "canonical_signal_hash": "4e12cc92381a9ba10a4892aa93aa26641efc596dc812f55891f687ef0ae2a172",
+      "posture": "Lying",
+      "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest",
+      "safenest_label": "APNEA",
+      "safenest_label_id": 2,
+      "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+      "session_id": null,
+      "source_test_condition": "Rest",
+      "split": "VALIDATION",
+      "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+      "validation_local_index": 1,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+    }
+  ],
+  "validation_subject_count": 17,
+  "validation_window_count": 79,
+  "window_manifest_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf"
+}

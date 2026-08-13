@@ -1,0 +1,41 @@
+{
+  "candidate_policies": {
+    "legacy_15s_rule": {
+      "assigned_apnea_windows": 0,
+      "captured_events": 0,
+      "lost_events": 6,
+      "rule": "overlap >= 15.0s (50% of 30s window)",
+      "utility": "UNUSABLE (discards 100% of dataset non-breathing events)"
+    },
+    "policy_a_10s_candidate": {
+      "assigned_apnea_windows": 0,
+      "captured_events": 0,
+      "lost_events": 6,
+      "rule": "overlap >= 10.0s in fixed 30s window",
+      "utility": "DISCARDED (discards all 6 of 6 dataset events due to window boundary truncation)"
+    },
+    "policy_b_duration_and_overlap": {
+      "assigned_apnea_windows": 6,
+      "captured_events": 6,
+      "lost_events": 0,
+      "rule": "overlap >= 6.0s AND total event duration >= 8.0s",
+      "utility": "VALID_EQUIVALENT"
+    },
+    "policy_c_event_centered_diagnostic": {
+      "assigned_apnea_windows": 6,
+      "captured_events": 6,
+      "lost_events": 0,
+      "rule": "30s window centered on annotation event midpoint",
+      "utility": "DIAGNOSTIC_ONLY (requires non-standard event-centered window grid)"
+    },
+    "selected_6s_overlap_canonical": {
+      "assigned_apnea_windows": 6,
+      "captured_events": 6,
+      "lost_events": 0,
+      "rule": "overlap >= 6.0s (20% of 30s window)",
+      "utility": "SELECTED_CANONICAL_PROFILE"
+    }
+  },
+  "justification": "Dataset voluntary breath-hold events last 9.77s to 12.21s (mean 11.32s). Because A3 canonical 30s windows use fixed 0-overlap grid boundaries [0, 30), [30, 60), events starting at t=21-23s span across t=30.0s, yielding window overlaps of 6.79s to 9.00s inside Window 0. A 10.0s threshold would discard 5 out of 6 valid breath-hold events due to window boundary truncation. The selected 6.0s threshold (20% non-breathing presence) successfully captures all 6 voluntary breath-hold proxy windows while maintaining clear separation from normal breathing windows (0.0s overlap).",
+  "selected_policy": "selected_6s_overlap_canonical"
+}

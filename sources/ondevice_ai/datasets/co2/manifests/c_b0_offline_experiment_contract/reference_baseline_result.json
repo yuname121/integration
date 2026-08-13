@@ -1,0 +1,56 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "baseline_id": "MAJORITY_CLASS_BASELINE",
+  "status": "REFERENCE_BASELINE_ONLY",
+  "candidate": false,
+  "deployable": false,
+  "train_population_count": 8140,
+  "train_population_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+  "evaluation_population": "VALIDATION",
+  "evaluation_population_count": 2662,
+  "evaluation_population_fingerprint": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+  "majority_label": 0,
+  "majority_class_name": "VACANT",
+  "feature_view_id": "HISTORICAL_COMPATIBILITY_REFERENCE",
+  "uses_features": false,
+  "metrics": {
+    "accuracy": 0.6359879789631856,
+    "balanced_accuracy": 0.5,
+    "precision_occupied": 0.0,
+    "recall_occupied": 0.0,
+    "f1_occupied": 0.0,
+    "precision_vacant": 0.6359879789631856,
+    "recall_vacant": 1.0,
+    "f1_vacant": 0.7774971297359357,
+    "macro_f1": 0.3887485648679678,
+    "confusion_matrix": {
+      "labels": [
+        0,
+        1
+      ],
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "tn": 1693,
+      "fp": 0,
+      "fn": 969,
+      "tp": 0,
+      "matrix": [
+        [
+          1693,
+          0
+        ],
+        [
+          969,
+          0
+        ]
+      ]
+    }
+  },
+  "locked_test_used": false,
+  "threshold_optimization_performed": false,
+  "complex_model_comparison_performed": false,
+  "prediction_id_list_sha256": "d179182e53a8b4a3211e006e6243be033124a35cadd6e7c54c46cadb208fa1a2"
+}

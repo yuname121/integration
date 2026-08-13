@@ -1,0 +1,75 @@
+{
+  "manifest_version": "1.0",
+  "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "canonical_source_samples": 20560,
+  "co2_slope_eligible": 20551,
+  "co2_slope_unavailable": 9,
+  "model_eligible_view_definition": "Canonical samples with co2_slope_status == FEATURE_AVAILABLE",
+  "model_eligible_sample_ids_sha256": "9bca93adf1bf7120d119651cc11f5a6ee818fe9de0ed6fe940f685dc5b38e70b",
+  "excluded_from_model_eligible_view": [
+    {
+      "canonical_sample_id": "co2cs_15c818a510bc23a2b0ebb85ad754c1a3",
+      "canonical_sample_index": 0,
+      "future_split_role": "VALIDATION",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_173374afe2ec1a89bdec1c3699ff7fb2",
+      "canonical_sample_index": 1,
+      "future_split_role": "VALIDATION",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_c82f1c2ad978a151490cb118e0fe933c",
+      "canonical_sample_index": 2,
+      "future_split_role": "VALIDATION",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_c67fa909a540cceeb471d1e17c7add84",
+      "canonical_sample_index": 2665,
+      "future_split_role": "TRAIN",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_3f97ee8c55dad6bd16ee717431d11406",
+      "canonical_sample_index": 2666,
+      "future_split_role": "TRAIN",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_a61aa8a6211a83c1abb2e063c73add87",
+      "canonical_sample_index": 2667,
+      "future_split_role": "TRAIN",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_f7293c43df5310b7273c7bc5b486ed19",
+      "canonical_sample_index": 10808,
+      "future_split_role": "LOCKED_TEST",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_e4dee9c24fc4db965491e65dcd2c2e16",
+      "canonical_sample_index": 10809,
+      "future_split_role": "LOCKED_TEST",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    },
+    {
+      "canonical_sample_id": "co2cs_76626bf646996285a0d6ada7bb50bb70",
+      "canonical_sample_index": 10810,
+      "future_split_role": "LOCKED_TEST",
+      "exclusion_reason": "FEATURE_UNAVAILABLE_WARMUP",
+      "co2_slope_status": "FEATURE_UNAVAILABLE_WARMUP"
+    }
+  ],
+  "note": "Canonical lineage retains all source samples; model-eligible view is explicitly derived and must not replace the 20560-row canonical set."
+}

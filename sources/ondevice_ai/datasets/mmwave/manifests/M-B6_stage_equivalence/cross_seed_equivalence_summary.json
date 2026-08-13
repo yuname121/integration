@@ -1,0 +1,315 @@
+{
+  "phase_id": "M-B6",
+  "cross_seed_a_to_b": {
+    "min_top1_agreement": 1.0,
+    "mean_top1_agreement": 1.0,
+    "max_top1_agreement": 1.0,
+    "worst_macro_f1_degradation": 0.0,
+    "mean_macro_f1_degradation": 0.0,
+    "worst_recall_degradation": 0.0,
+    "mean_recall_degradation": 0.0,
+    "maximum_output_probability_mae": 0.0,
+    "mean_output_probability_mae": 0.0,
+    "worst_seed": 42,
+    "per_seed": {
+      "42": {
+        "source_stage": "Stage A (Float Keras)",
+        "target_stage": "Stage B (Float TFLite)",
+        "top1_matches": 79,
+        "total_samples": 79,
+        "top1_agreement": 1.0,
+        "mismatch_count": 0,
+        "output_probability_mae": 0.0,
+        "output_probability_rmse": 0.0,
+        "output_probability_max_abs_error": 0.0,
+        "source_macro_f1": 0.663708,
+        "target_macro_f1": 0.663708,
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.721519,
+        "target_accuracy": 0.721519,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        }
+      },
+      "43": {
+        "source_stage": "Stage A (Float Keras)",
+        "target_stage": "Stage B (Float TFLite)",
+        "top1_matches": 79,
+        "total_samples": 79,
+        "top1_agreement": 1.0,
+        "mismatch_count": 0,
+        "output_probability_mae": 0.0,
+        "output_probability_rmse": 0.0,
+        "output_probability_max_abs_error": 0.0,
+        "source_macro_f1": 0.45101,
+        "target_macro_f1": 0.45101,
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.481013,
+        "target_accuracy": 0.481013,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        }
+      },
+      "44": {
+        "source_stage": "Stage A (Float Keras)",
+        "target_stage": "Stage B (Float TFLite)",
+        "top1_matches": 79,
+        "total_samples": 79,
+        "top1_agreement": 1.0,
+        "mismatch_count": 0,
+        "output_probability_mae": 0.0,
+        "output_probability_rmse": 0.0,
+        "output_probability_max_abs_error": 0.0,
+        "source_macro_f1": 0.329107,
+        "target_macro_f1": 0.329107,
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.518987,
+        "target_accuracy": 0.518987,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        }
+      }
+    }
+  },
+  "cross_seed_b_to_c": {
+    "min_top1_agreement": 0.936709,
+    "mean_top1_agreement": 0.974684,
+    "max_top1_agreement": 1.0,
+    "worst_macro_f1_degradation": 0.00977,
+    "mean_macro_f1_degradation": 0.003257,
+    "worst_recall_degradation": 0.081082,
+    "mean_recall_degradation": 0.027027,
+    "maximum_output_probability_mae": 0.008439,
+    "mean_output_probability_mae": 0.005263,
+    "worst_seed": 43,
+    "per_seed": {
+      "42": {
+        "source_stage": "Stage B (Float TFLite)",
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_matches": 78,
+        "total_samples": 79,
+        "top1_agreement": 0.987342,
+        "mismatch_count": 1,
+        "output_probability_mae": 0.006319,
+        "output_probability_rmse": 0.008689,
+        "output_probability_max_abs_error": 0.028184,
+        "source_macro_f1": 0.663708,
+        "target_macro_f1": 0.666231,
+        "signed_macro_f1_delta": 0.002522,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.721519,
+        "target_accuracy": 0.721519,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.009239
+        }
+      },
+      "43": {
+        "source_stage": "Stage B (Float TFLite)",
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_matches": 74,
+        "total_samples": 79,
+        "top1_agreement": 0.936709,
+        "mismatch_count": 5,
+        "output_probability_mae": 0.00103,
+        "output_probability_rmse": 0.001225,
+        "output_probability_max_abs_error": 0.002901,
+        "source_macro_f1": 0.45101,
+        "target_macro_f1": 0.44124,
+        "signed_macro_f1_delta": -0.00977,
+        "positive_macro_f1_degradation": 0.00977,
+        "source_accuracy": 0.481013,
+        "target_accuracy": 0.455696,
+        "signed_accuracy_delta": -0.025316,
+        "positive_accuracy_degradation": 0.025316,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.081082
+        },
+        "max_positive_recall_degradation": 0.081082,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.045977
+        }
+      },
+      "44": {
+        "source_stage": "Stage B (Float TFLite)",
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_matches": 79,
+        "total_samples": 79,
+        "top1_agreement": 1.0,
+        "mismatch_count": 0,
+        "output_probability_mae": 0.008439,
+        "output_probability_rmse": 0.011981,
+        "output_probability_max_abs_error": 0.046653,
+        "source_macro_f1": 0.329107,
+        "target_macro_f1": 0.329107,
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.518987,
+        "target_accuracy": 0.518987,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        }
+      }
+    }
+  },
+  "cross_seed_a_to_c": {
+    "min_top1_agreement": 0.936709,
+    "mean_top1_agreement": 0.974684,
+    "max_top1_agreement": 1.0,
+    "worst_macro_f1_degradation": 0.00977,
+    "mean_macro_f1_degradation": 0.003257,
+    "worst_recall_degradation": 0.081082,
+    "mean_recall_degradation": 0.027027,
+    "maximum_output_probability_mae": 0.008439,
+    "mean_output_probability_mae": 0.005263,
+    "worst_seed": 43,
+    "per_seed": {
+      "42": {
+        "source_stage": "Stage A (Float Keras)",
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_matches": 78,
+        "total_samples": 79,
+        "top1_agreement": 0.987342,
+        "mismatch_count": 1,
+        "output_probability_mae": 0.006319,
+        "output_probability_rmse": 0.008689,
+        "output_probability_max_abs_error": 0.028184,
+        "source_macro_f1": 0.663708,
+        "target_macro_f1": 0.666231,
+        "signed_macro_f1_delta": 0.002522,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.721519,
+        "target_accuracy": 0.721519,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.009239
+        }
+      },
+      "43": {
+        "source_stage": "Stage A (Float Keras)",
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_matches": 74,
+        "total_samples": 79,
+        "top1_agreement": 0.936709,
+        "mismatch_count": 5,
+        "output_probability_mae": 0.00103,
+        "output_probability_rmse": 0.001225,
+        "output_probability_max_abs_error": 0.002901,
+        "source_macro_f1": 0.45101,
+        "target_macro_f1": 0.44124,
+        "signed_macro_f1_delta": -0.00977,
+        "positive_macro_f1_degradation": 0.00977,
+        "source_accuracy": 0.481013,
+        "target_accuracy": 0.455696,
+        "signed_accuracy_delta": -0.025316,
+        "positive_accuracy_degradation": 0.025316,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.081082
+        },
+        "max_positive_recall_degradation": 0.081082,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.045977
+        }
+      },
+      "44": {
+        "source_stage": "Stage A (Float Keras)",
+        "target_stage": "Stage C (Strict INT8 TFLite)",
+        "top1_matches": 79,
+        "total_samples": 79,
+        "top1_agreement": 1.0,
+        "mismatch_count": 0,
+        "output_probability_mae": 0.008439,
+        "output_probability_rmse": 0.011981,
+        "output_probability_max_abs_error": 0.046653,
+        "source_macro_f1": 0.329107,
+        "target_macro_f1": 0.329107,
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "source_accuracy": 0.518987,
+        "target_accuracy": 0.518987,
+        "signed_accuracy_delta": 0.0,
+        "positive_accuracy_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "per_class_positive_f1_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "blockers": [],
+  "errors": [],
+  "info": [
+    {
+      "count": 1,
+      "exception_id": "AMBIGUOUS_WINDOW_RETAINED",
+      "severity": "INFO"
+    }
+  ],
+  "warnings": [
+    {
+      "detail": "Participant demographics are unavailable; no demographic fields were inferred.",
+      "exception_id": "STRATIFICATION_METADATA_UNAVAILABLE",
+      "severity": "WARNING"
+    },
+    {
+      "detail": "Full split-level class distribution is deferred to A6.",
+      "exception_id": "A4_PILOT_ONLY_CLASS_STATISTICS",
+      "severity": "WARNING"
+    }
+  ]
+}

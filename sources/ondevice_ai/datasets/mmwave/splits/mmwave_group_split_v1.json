@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "split_version": "1.0.0",
+  "project": "SafeNest_V6",
+  "dataset_name": "mmwave_respiration_v1",
+  "data_scope": "SYNTHETIC_SMOKE_TEST_NPZ",
+  "synthetic_group_isolation": "CONFIRMED_SYNTHETIC_ONLY",
+  "real_subject_provenance": "NOT_VERIFIABLE",
+  "split_seed": 42,
+  "grouping_key": "synthetic_subject_group_id",
+  "total_subjects": 110,
+  "subject_distribution": {
+    "train_subjects": 80,
+    "val_subjects": 15,
+    "test_subjects": 15
+  },
+  "window_distribution": {
+    "train_windows": 2491,
+    "val_windows": 474,
+    "test_windows": 468,
+    "total_windows": 3433
+  },
+  "class_distribution": {
+    "train": {
+      "NORMAL": 1016,
+      "RAPID_OR_ABNORMAL": 1246,
+      "APNEA": 229
+    },
+    "val": {
+      "NORMAL": 193,
+      "RAPID_OR_ABNORMAL": 237,
+      "APNEA": 44
+    },
+    "test": {
+      "NORMAL": 192,
+      "RAPID_OR_ABNORMAL": 234,
+      "APNEA": 42
+    }
+  },
+  "overlap_policy": {
+    "mode": "DISJOINT_SYNTHETIC_SUBJECT_GROUP",
+    "enforced_window_stride_seconds": 1.0,
+    "same_subject_train_test_overlap_allowed": false
+  },
+  "leakage_audit": {
+    "status": "PASSED",
+    "train_val_subject_intersection": [],
+    "train_test_subject_intersection": [],
+    "val_test_subject_intersection": [],
+    "audited_at": "2026-08-06T14:02:15+09:00"
+  },
+  "limitations": [
+    "A synthetic group-isolation mechanism was implemented for pipeline testing.",
+    "Real subject/session leakage cannot be verified because the source NPZ lacks sample-level subject and session provenance."
+  ]
+}

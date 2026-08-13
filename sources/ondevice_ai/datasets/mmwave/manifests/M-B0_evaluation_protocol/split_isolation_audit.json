@@ -1,0 +1,22 @@
+{
+  "phase_id": "M-B0",
+  "split_profile_id": "MMWAVE_SUBJECT_SPLIT_PROFILE_001",
+  "split_unit": "SUBJECT",
+  "total_subjects": 110,
+  "split_counts": {
+    "TRAIN_subjects": 77,
+    "VALIDATION_subjects": 17,
+    "LOCKED_TEST_subjects": 16
+  },
+  "window_counts": {
+    "TRAIN_windows": 358,
+    "VALIDATION_windows": 84,
+    "LOCKED_TEST_windows": 88
+  },
+  "isolation_results": {
+    "cross_split_subject_overlap": 0,
+    "cross_split_recording_overlap": 0,
+    "cross_split_window_id_overlap": 0
+  },
+  "isolation_verified": true
+}

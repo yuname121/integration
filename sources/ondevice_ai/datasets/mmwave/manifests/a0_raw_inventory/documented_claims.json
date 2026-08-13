@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "claims": [
+    {
+      "field": "doi",
+      "documented_value": "10.5281/zenodo.18599983",
+      "locally_measured_value": "10.5281/zenodo.18599983",
+      "official_remote_value": "10.5281/zenodo.18599983",
+      "comparison_status": "MATCH"
+    },
+    {
+      "field": "participant_count",
+      "documented_value": 110,
+      "locally_measured_value": 110,
+      "official_remote_value": 110,
+      "comparison_status": "MATCH"
+    },
+    {
+      "field": "recording_count",
+      "documented_value": 440,
+      "locally_measured_value": 440,
+      "official_remote_value": 440,
+      "comparison_status": "MATCH"
+    },
+    {
+      "field": "archive_size_bytes",
+      "documented_value": 246597320,
+      "locally_measured_value": 246597320,
+      "official_remote_value": 245284102,
+      "comparison_status": "PARTIAL_MATCH"
+    },
+    {
+      "field": "archive_sha256",
+      "documented_value": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+      "locally_measured_value": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+      "official_remote_value": null,
+      "comparison_status": "MATCH"
+    },
+    {
+      "field": "postures",
+      "documented_value": [
+        "Sitting",
+        "Lying"
+      ],
+      "locally_measured_value": [
+        "Lying",
+        "Sitting"
+      ],
+      "official_remote_value": [
+        "Sitting",
+        "Lying"
+      ],
+      "comparison_status": "MATCH"
+    },
+    {
+      "field": "activities",
+      "documented_value": [
+        "Rest",
+        "Post-exercise"
+      ],
+      "locally_measured_value": [
+        "Post-exercise",
+        "Rest"
+      ],
+      "official_remote_value": [
+        "Rest",
+        "Post-exercise"
+      ],
+      "comparison_status": "MATCH"
+    }
+  ]
+}

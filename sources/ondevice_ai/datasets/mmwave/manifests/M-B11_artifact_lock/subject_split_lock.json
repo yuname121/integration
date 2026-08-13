@@ -1,0 +1,25 @@
+{
+  "a5_summary_subject_counts": {
+    "LOCKED_TEST": 16,
+    "TRAIN": 77,
+    "VALIDATION": 17
+  },
+  "overlap": 0,
+  "pilot_eligibility_counts_not_full_population": {
+    "locked_test_evaluation_eligible": 0,
+    "training_eligible": 13,
+    "validation_eligible": 1
+  },
+  "profile_id": "MMWAVE_SUBJECT_SPLIT_PROFILE_001",
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "split_artifact_repo_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+  "split_seed": 20260808,
+  "split_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+  "split_unit": "SUBJECT",
+  "subject_counts": {
+    "LOCKED_TEST": 16,
+    "TRAIN": 77,
+    "VALIDATION": 17
+  },
+  "union": 110
+}

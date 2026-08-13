@@ -1,0 +1,54 @@
+{
+  "manifest_version": "1.0",
+  "lineages": {
+    "Lineage_A_Real_UCI_Raw_Source": {
+      "lineage_id": "LINEAGE_A_REAL_UCI_RAW",
+      "classification": "REAL_EXTERNAL_SOURCE",
+      "git_visibility": "GIT_IGNORED_RAW_ARCHIVE",
+      "path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+      "byte_size": 335713,
+      "sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+      "verified_real_data": true
+    },
+    "Lineage_B_Synthetic_Smoke_Fixture": {
+      "lineage_id": "LINEAGE_B_SYNTHETIC_NPZ",
+      "classification": "SYNTHETIC_SMOKE_FIXTURE",
+      "git_visibility": "GIT_TRACKED",
+      "path": "datasets/co2/processed/co2_occupancy_v1.npz",
+      "byte_size": 236127,
+      "sha256": "bff5cd76ed7200149942715a8530eb72833b9fd5949b85b520691876936f6eea",
+      "generating_script": "datasets/build_processed_npz.py",
+      "verified_real_data": false,
+      "note": "co2_occupancy_v1.npz is a synthetic smoke fixture generated via build_processed_npz.py. It does NOT represent real UCI data conversion."
+    },
+    "Lineage_C_Existing_CO2_Model": {
+      "lineage_id": "LINEAGE_C_EXISTING_MODEL",
+      "classification": "CURRENT_MODEL_ARTIFACT",
+      "git_visibility": "GIT_TRACKED",
+      "path": "models/co2/co2_occupancy_int8_v0.1.0.tflite",
+      "byte_size": 4464,
+      "sha256": "3a8c86c4c132df0f1edaac668d9a136c3f6234789df48f02bdda8e92f29d0462",
+      "manifest_validation_status": "CONFIRMED_SYNTHETIC_ONLY",
+      "training_lineage_status": "HISTORICAL_TRAINING_LINEAGE_UNVERIFIED",
+      "verified_real_data": false,
+      "note": "Existing model is classified as CONFIRMED_SYNTHETIC_ONLY in models/model_manifest.json. Lineage to local UCI raw zip is unverified."
+    },
+    "Lineage_D_Existing_Scaling_Metadata": {
+      "lineage_id": "LINEAGE_D_EXISTING_SCALING_METADATA",
+      "classification": "CURRENT_SCALING_METADATA",
+      "git_visibility": "GIT_TRACKED",
+      "path": "models/co2/co2_scaling_metadata_v0.1.0.json",
+      "byte_size": 289,
+      "sha256": "9195be0097544919aaf976a727c27c35858f843a0cbe5dfe311715c7abf901e5",
+      "feature_contract": [
+        "CO2_slope",
+        "Humidity",
+        "CO2"
+      ],
+      "fit_lineage_status": "FIT_DATA_LINEAGE_UNVERIFIED",
+      "verified_real_data": false,
+      "note": "Recorded scaling mean/std values differ from tracked synthetic NPZ statistics, indicating distinct historical lineage. Raw source dataset for scaler fit remains unverified in C-A0."
+    }
+  },
+  "separation_assertion": "Lineage A (Real UCI Raw Source), Lineage B (Synthetic NPZ), Lineage C (Existing Model), and Lineage D (Scaling Metadata) are strictly isolated and not cross-promoted without explicit checksum-backed proof."
+}

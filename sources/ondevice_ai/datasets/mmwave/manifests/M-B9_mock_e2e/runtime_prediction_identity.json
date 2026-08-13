@@ -1,0 +1,307 @@
+{
+  "all_int8_outputs_exact": true,
+  "all_probability_vectors_exact": true,
+  "all_top1_exact": true,
+  "phase_id": "M-B9",
+  "rows": [
+    {
+      "canonical_sample_index": 59,
+      "class_truth": "NORMAL",
+      "direct_class_index": 1,
+      "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "direct_output_int8": [
+        -53,
+        -27,
+        -48
+      ],
+      "direct_probabilities": [
+        0.29296875,
+        0.39453125,
+        0.3125
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 1,
+      "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "runtime_output_int8": [
+        -53,
+        -27,
+        -48
+      ],
+      "runtime_probabilities": [
+        0.29296875,
+        0.39453125,
+        0.3125
+      ],
+      "seed": 42,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 43,
+      "class_truth": "RAPID_OR_ABNORMAL",
+      "direct_class_index": 0,
+      "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "direct_output_int8": [
+        6,
+        -47,
+        -87
+      ],
+      "direct_probabilities": [
+        0.5234375,
+        0.31640625,
+        0.16015625
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 0,
+      "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "runtime_output_int8": [
+        6,
+        -47,
+        -87
+      ],
+      "runtime_probabilities": [
+        0.5234375,
+        0.31640625,
+        0.16015625
+      ],
+      "seed": 42,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 44,
+      "class_truth": "APNEA",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "direct_output_int8": [
+        -101,
+        -95,
+        68
+      ],
+      "direct_probabilities": [
+        0.10546875,
+        0.12890625,
+        0.765625
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "runtime_output_int8": [
+        -101,
+        -95,
+        68
+      ],
+      "runtime_probabilities": [
+        0.10546875,
+        0.12890625,
+        0.765625
+      ],
+      "seed": 42,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+    },
+    {
+      "canonical_sample_index": 59,
+      "class_truth": "NORMAL",
+      "direct_class_index": 1,
+      "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "direct_output_int8": [
+        -42,
+        -38,
+        -48
+      ],
+      "direct_probabilities": [
+        0.3359375,
+        0.3515625,
+        0.3125
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 1,
+      "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "runtime_output_int8": [
+        -42,
+        -38,
+        -48
+      ],
+      "runtime_probabilities": [
+        0.3359375,
+        0.3515625,
+        0.3125
+      ],
+      "seed": 43,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 43,
+      "class_truth": "RAPID_OR_ABNORMAL",
+      "direct_class_index": 1,
+      "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "direct_output_int8": [
+        -39,
+        -36,
+        -53
+      ],
+      "direct_probabilities": [
+        0.34765625,
+        0.359375,
+        0.29296875
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 1,
+      "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "runtime_output_int8": [
+        -39,
+        -36,
+        -53
+      ],
+      "runtime_probabilities": [
+        0.34765625,
+        0.359375,
+        0.29296875
+      ],
+      "seed": 43,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 44,
+      "class_truth": "APNEA",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "direct_output_int8": [
+        -42,
+        -48,
+        -38
+      ],
+      "direct_probabilities": [
+        0.3359375,
+        0.3125,
+        0.3515625
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "runtime_output_int8": [
+        -42,
+        -48,
+        -38
+      ],
+      "runtime_probabilities": [
+        0.3359375,
+        0.3125,
+        0.3515625
+      ],
+      "seed": 43,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+    },
+    {
+      "canonical_sample_index": 59,
+      "class_truth": "NORMAL",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "direct_output_int8": [
+        -55,
+        -64,
+        -9
+      ],
+      "direct_probabilities": [
+        0.28515625,
+        0.25,
+        0.46484375
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "runtime_output_int8": [
+        -55,
+        -64,
+        -9
+      ],
+      "runtime_probabilities": [
+        0.28515625,
+        0.25,
+        0.46484375
+      ],
+      "seed": 44,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 43,
+      "class_truth": "RAPID_OR_ABNORMAL",
+      "direct_class_index": 0,
+      "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "direct_output_int8": [
+        -20,
+        -58,
+        -51
+      ],
+      "direct_probabilities": [
+        0.421875,
+        0.2734375,
+        0.30078125
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 0,
+      "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "runtime_output_int8": [
+        -20,
+        -58,
+        -51
+      ],
+      "runtime_probabilities": [
+        0.421875,
+        0.2734375,
+        0.30078125
+      ],
+      "seed": 44,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    {
+      "canonical_sample_index": 44,
+      "class_truth": "APNEA",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "direct_output_int8": [
+        -58,
+        -98,
+        27
+      ],
+      "direct_probabilities": [
+        0.2734375,
+        0.1171875,
+        0.60546875
+      ],
+      "output_int8_exact": true,
+      "probabilities_exact": true,
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "runtime_output_int8": [
+        -58,
+        -98,
+        27
+      ],
+      "runtime_probabilities": [
+        0.2734375,
+        0.1171875,
+        0.60546875
+      ],
+      "seed": 44,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+    }
+  ],
+  "runtime_stage": "MMWaveInterpreter.EXPLICIT_RUNTIME_MANIFEST",
+  "source_stage": "DIRECT_FRESH_STRICT_INT8_TFLITE"
+}

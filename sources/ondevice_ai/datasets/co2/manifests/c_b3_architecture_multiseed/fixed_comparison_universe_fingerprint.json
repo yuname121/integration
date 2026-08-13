@@ -1,0 +1,23 @@
+{
+  "architecture_specific_sample_population": false,
+  "locked_test_count": 9749,
+  "locked_test_feature_matrix_materialized": false,
+  "locked_test_membership_fingerprint": "0bac8dc1affae1de48ea68f01e866508ea19f31e194a7c0dccbf617e529344e7",
+  "locked_test_status": "SEALED",
+  "locked_test_target_matrix_materialized": false,
+  "manifest_version": "1.0",
+  "overlap_counts": {
+    "train_locked_test": 0,
+    "train_validation": 0,
+    "validation_locked_test": 0,
+    "warmup_in_eligible": 0
+  },
+  "phase": "C-B3",
+  "same_ordered_train_and_validation_identities_for_every_run": true,
+  "train_count": 8140,
+  "train_ordered_id_sha256": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+  "universe_id": "CO2_B3_FIXED_COMPARISON_UNIVERSE_001",
+  "validation_count": 2662,
+  "validation_ordered_id_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+  "warmup_records_outside_comparison_universe": 9
+}

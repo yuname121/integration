@@ -1,0 +1,20 @@
+{
+  "all_original_train_rows_retained": true,
+  "class_counts": {
+    "OCCUPIED": 1726,
+    "VACANT": 6414
+  },
+  "derivation_population": "TRAIN_ONLY",
+  "explicit_class_weights": {
+    "OCCUPIED": 2.358053302433372,
+    "VACANT": 0.634549423136888
+  },
+  "formula": "N_train / (N_classes * N_class_c)",
+  "locked_test_rows_used": 0,
+  "manifest_version": "1.0",
+  "n_classes": 2,
+  "n_train": 8140,
+  "phase": "C-B2",
+  "strategy_id": "CLASS_WEIGHT_BALANCED",
+  "validation_rows_used": 0
+}

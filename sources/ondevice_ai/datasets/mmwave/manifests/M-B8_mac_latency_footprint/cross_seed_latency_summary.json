@@ -1,0 +1,419 @@
+{
+  "cross_seed_metrics": {
+    "PREPROCESSING_ONLY": {
+      "maximum_seed_median_ns": 128208.0,
+      "maximum_seed_p99_ns": 163178.24999999974,
+      "mean_of_seed_medians_ns": 123444.33333333333,
+      "median_relative_spread": 0.06766153410557697,
+      "minimum_seed_median_ns": 120083.0,
+      "minimum_seed_p99_ns": 142669.91999999993,
+      "per_seed_pooled_statistics": {
+        "42": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.102267995913,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.635417,
+            "mean": 0.123177569,
+            "median": 0.122042,
+            "min": 0.117792,
+            "p50": 0.122042,
+            "p90": 0.1285,
+            "p95": 0.133458,
+            "p99": 0.14266992,
+            "std": 0.012597123
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 635417,
+            "mean": 123177.56866666667,
+            "median": 122042.0,
+            "min": 117792,
+            "p50": 122042.0,
+            "p90": 128500.0,
+            "p95": 133458.0,
+            "p99": 142669.91999999993,
+            "std": 12597.123088941838
+          },
+          "summary_unit": "ms"
+        },
+        "43": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.126638648099,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.609834,
+            "mean": 0.127853898,
+            "median": 0.128208,
+            "min": 0.117625,
+            "p50": 0.128208,
+            "p90": 0.1349202,
+            "p95": 0.14041605,
+            "p99": 0.16317825,
+            "std": 0.016191245
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 609834,
+            "mean": 127853.89766666667,
+            "median": 128208.0,
+            "min": 117625,
+            "p50": 128208.0,
+            "p90": 134920.19999999998,
+            "p95": 140416.05,
+            "p99": 163178.24999999974,
+            "std": 16191.244754677178
+          },
+          "summary_unit": "ms"
+        },
+        "44": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.106074946217,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.639916,
+            "mean": 0.123528209,
+            "median": 0.120083,
+            "min": 0.118042,
+            "p50": 0.120083,
+            "p90": 0.1287131,
+            "p95": 0.1303351,
+            "p99": 0.1433825,
+            "std": 0.013103248
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 639916,
+            "mean": 123528.20866666667,
+            "median": 120083.0,
+            "min": 118042,
+            "p50": 120083.0,
+            "p90": 128713.09999999999,
+            "p95": 130335.09999999999,
+            "p99": 143382.49999999983,
+            "std": 13103.248090548323
+          },
+          "summary_unit": "ms"
+        }
+      }
+    },
+    "PREPROCESSING_QUANTIZATION_INVOKE": {
+      "maximum_seed_median_ns": 139292.0,
+      "maximum_seed_p99_ns": 166379.99999999988,
+      "mean_of_seed_medians_ns": 138278.0,
+      "median_relative_spread": 0.013032727272727272,
+      "minimum_seed_median_ns": 137500.0,
+      "minimum_seed_p99_ns": 164212.32999999993,
+      "per_seed_pooled_statistics": {
+        "42": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.102853003628,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.723916,
+            "mean": 0.140238336,
+            "median": 0.1375,
+            "min": 0.134875,
+            "p50": 0.1375,
+            "p90": 0.147208,
+            "p95": 0.15016605,
+            "p99": 0.16446175,
+            "std": 0.014423934
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 723916,
+            "mean": 140238.33566666668,
+            "median": 137500.0,
+            "min": 134875,
+            "p50": 137500.0,
+            "p90": 147208.0,
+            "p95": 150166.05,
+            "p99": 164461.7499999999,
+            "std": 14423.93404714289
+          },
+          "summary_unit": "ms"
+        },
+        "43": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.089037275436,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.514625,
+            "mean": 0.142909127,
+            "median": 0.139292,
+            "min": 0.134333,
+            "p50": 0.139292,
+            "p90": 0.149583,
+            "p95": 0.15275,
+            "p99": 0.16421233,
+            "std": 0.012724239
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 514625,
+            "mean": 142909.12666666668,
+            "median": 139292.0,
+            "min": 134333,
+            "p50": 139292.0,
+            "p90": 149583.0,
+            "p95": 152750.0,
+            "p99": 164212.32999999993,
+            "std": 12724.239273290781
+          },
+          "summary_unit": "ms"
+        },
+        "44": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.101893310872,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.634083,
+            "mean": 0.141912389,
+            "median": 0.138042,
+            "min": 0.135333,
+            "p50": 0.138042,
+            "p90": 0.1484631,
+            "p95": 0.15020805,
+            "p99": 0.16638,
+            "std": 0.014459923
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 634083,
+            "mean": 141912.389,
+            "median": 138042.0,
+            "min": 135333,
+            "p50": 138042.0,
+            "p90": 148463.1,
+            "p95": 150208.05,
+            "p99": 166379.99999999988,
+            "std": 14459.923168918027
+          },
+          "summary_unit": "ms"
+        }
+      }
+    },
+    "QUANTIZATION_ONLY": {
+      "maximum_seed_median_ns": 5167.0,
+      "maximum_seed_p99_ns": 12877.90999999993,
+      "mean_of_seed_medians_ns": 5097.333333333333,
+      "median_relative_spread": 0.02479174930583102,
+      "minimum_seed_median_ns": 5042.0,
+      "minimum_seed_p99_ns": 5959.409999999991,
+      "per_seed_pooled_statistics": {
+        "42": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.265883870583,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.053208,
+            "mean": 0.005156412,
+            "median": 0.005083,
+            "min": 0.004833,
+            "p50": 0.005083,
+            "p90": 0.005291,
+            "p95": 0.005375,
+            "p99": 0.00595941,
+            "std": 0.001371007
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 53208,
+            "mean": 5156.411666666667,
+            "median": 5083.0,
+            "min": 4833,
+            "p50": 5083.0,
+            "p90": 5291.0,
+            "p95": 5375.0,
+            "p99": 5959.409999999991,
+            "std": 1371.0066922510707
+          },
+          "summary_unit": "ms"
+        },
+        "43": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.536435433243,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.090583,
+            "mean": 0.005505501,
+            "median": 0.005167,
+            "min": 0.004875,
+            "p50": 0.005167,
+            "p90": 0.005625,
+            "p95": 0.00591605,
+            "p99": 0.01287791,
+            "std": 0.002953346
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 90583,
+            "mean": 5505.501,
+            "median": 5167.0,
+            "min": 4875,
+            "p50": 5167.0,
+            "p90": 5625.0,
+            "p95": 5916.049999999999,
+            "p99": 12877.90999999993,
+            "std": 2953.3458141570554
+          },
+          "summary_unit": "ms"
+        },
+        "44": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.315486576429,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.064125,
+            "mean": 0.005208511,
+            "median": 0.005042,
+            "min": 0.004875,
+            "p50": 0.005042,
+            "p90": 0.005375,
+            "p95": 0.005458,
+            "p99": 0.00600083,
+            "std": 0.001643215
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 64125,
+            "mean": 5208.511333333333,
+            "median": 5042.0,
+            "min": 4875,
+            "p50": 5042.0,
+            "p90": 5375.0,
+            "p95": 5458.0,
+            "p99": 6000.82999999998,
+            "std": 1643.2154088467996
+          },
+          "summary_unit": "ms"
+        }
+      }
+    },
+    "TFLITE_INVOKE_ONLY": {
+      "maximum_seed_median_ns": 6667.0,
+      "maximum_seed_p99_ns": 9333.01,
+      "mean_of_seed_medians_ns": 6625.0,
+      "median_relative_spread": 0.01276013975391159,
+      "minimum_seed_median_ns": 6583.0,
+      "minimum_seed_p99_ns": 8917.0,
+      "per_seed_pooled_statistics": {
+        "42": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.200589227904,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.050542,
+            "mean": 0.006795217,
+            "median": 0.006583,
+            "min": 0.006333,
+            "p50": 0.006583,
+            "p90": 0.006917,
+            "p95": 0.007375,
+            "p99": 0.00933301,
+            "std": 0.001363047
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 50542,
+            "mean": 6795.217333333333,
+            "median": 6583.0,
+            "min": 6333,
+            "p50": 6583.0,
+            "p90": 6917.0,
+            "p95": 7375.0,
+            "p99": 9333.01,
+            "std": 1363.0473983319712
+          },
+          "summary_unit": "ms"
+        },
+        "43": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.164556448027,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.041167,
+            "mean": 0.006876546,
+            "median": 0.006625,
+            "min": 0.006375,
+            "p50": 0.006625,
+            "p90": 0.007084,
+            "p95": 0.008209,
+            "p99": 0.008917,
+            "std": 0.00113158
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 41167,
+            "mean": 6876.546,
+            "median": 6625.0,
+            "min": 6375,
+            "p50": 6625.0,
+            "p90": 7084.0,
+            "p95": 8209.0,
+            "p99": 8917.0,
+            "std": 1131.579984454185
+          },
+          "summary_unit": "ms"
+        },
+        "44": {
+          "all_valid_samples_included": true,
+          "coefficient_of_variation": 0.097683024455,
+          "numpy_percentile_method": "linear",
+          "raw_unit": "ns",
+          "statistics_ms": {
+            "count": 3000,
+            "max": 0.0255,
+            "mean": 0.006775251,
+            "median": 0.006667,
+            "min": 0.006334,
+            "p50": 0.006667,
+            "p90": 0.007,
+            "p95": 0.007084,
+            "p99": 0.00895941,
+            "std": 0.000661827
+          },
+          "statistics_ns": {
+            "count": 3000,
+            "max": 25500,
+            "mean": 6775.251,
+            "median": 6667.0,
+            "min": 6334,
+            "p50": 6667.0,
+            "p90": 7000.0,
+            "p95": 7084.0,
+            "p99": 8959.40999999999,
+            "std": 661.8270091186971
+          },
+          "summary_unit": "ms"
+        }
+      }
+    }
+  },
+  "interpretation": "SEED_RUNTIME_DIFFERENCES_ARE_DESCRIPTIVE_ONLY",
+  "phase_id": "M-B8",
+  "seed_selection_performed": false
+}

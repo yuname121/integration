@@ -1,0 +1,129 @@
+{
+  "closure_status": "LOCKED",
+  "entries": [
+    {
+      "byte_size": 1558,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/preprocessing_scaler_evidence.json",
+      "sha256": "732c8d4b57cd27e097aabab12b2fcfb67ed38392afe638e3f7be3a3eb5ad954a"
+    },
+    {
+      "byte_size": 1358,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/artifact_identity.json",
+      "sha256": "88aa76b651e303d3b1611f3f9cbd14676b000ccbe14bf715af610f54caf175b4"
+    },
+    {
+      "byte_size": 517,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/bridge_contract.json",
+      "sha256": "36d18404775ea9779b55dc9b92a43b3cdcadfe288977bdd4bf03fca2a9de3958"
+    },
+    {
+      "byte_size": 250,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/conversion_environment.json",
+      "sha256": "8243273cab0a723569a4a574ccb39dce229753ebad95760e0eb01746d97f4d44"
+    },
+    {
+      "byte_size": 373,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/conversion_range_policy.json",
+      "sha256": "b71d48860a2e278ae28eda1853c0de9db5727e4f8c9e60d944fb9c94c2177bde"
+    },
+    {
+      "byte_size": 804,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/determinism_report.json",
+      "sha256": "fea05e6d3133f6c970bdf1dbc089148da454d80f0c7151af4d549dd6bcbf7f18"
+    },
+    {
+      "byte_size": 2412,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/equivalence_bridge_float_tflite.json",
+      "sha256": "c0eb1c0b80a703381cd0dcc77920a43f6312986624db137389807ab639e550aa"
+    },
+    {
+      "byte_size": 2423,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/equivalence_source_bridge.json",
+      "sha256": "f870eed87af17a4264ae5905c32b6231d155fbb7d86cde6ad3c4b6f39a6692b9"
+    },
+    {
+      "byte_size": 2345,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/equivalence_source_float_tflite.json",
+      "sha256": "848f36782b9898dbafee06d666c2e34dbbf727dd068d4e4c994bef31a480f40e"
+    },
+    {
+      "byte_size": 2977,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/equivalence_source_int8_tflite.json",
+      "sha256": "29049b7c586cf1b1c9678ac84ec6bc63a4dd31e1b513c7a919bb1dc20c1a0598"
+    },
+    {
+      "byte_size": 869,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/exceptions_and_limitations.json",
+      "sha256": "0eca2612286bf5cbcd693f1263b6090b57dac929917bc9c5c0cb56a91a21572a"
+    },
+    {
+      "byte_size": 2190,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/experiment_contract.json",
+      "sha256": "379d7a0df33d4d076fa63bfea5520fa8ad1812e94a0145f724bcd79ffd4744d7"
+    },
+    {
+      "byte_size": 10268,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/predecessor_fingerprint_registry.json",
+      "sha256": "6c41a725f5e3851a42f384dcf8dc7fba2ca44835fd0f5bc751e4839c59a70614"
+    },
+    {
+      "byte_size": 375174,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/representative_dataset_manifest.json",
+      "sha256": "4f337aee8acb5595480dd231e79161eb9d2567e053537553f2bdf848895ec2bd"
+    },
+    {
+      "byte_size": 1600,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/saturation_report.json",
+      "sha256": "1e4e5b2998183fca6d97819ade66d78f3d759d02f0a55c7101166082b67ccc6d"
+    },
+    {
+      "byte_size": 2177,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/tflite_contract_audit.json",
+      "sha256": "da2806aea7c17e643a6d6f13adf79d42a57575b47aa852ade2706f7142b8cc73"
+    },
+    {
+      "byte_size": 1108335,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/validation_prediction_drift.jsonl",
+      "sha256": "9e561f0fceeb1d4bdcc0107905c4bde5e6bf6ec162f315f0a7713f68dde407c6"
+    },
+    {
+      "byte_size": 17939,
+      "path": "models/co2/candidates/c_b4/candidate_metadata.json",
+      "sha256": "67874e8dd116619bb5e94db998cf094127d6806905d5eb2957a42f5e7f6a8269"
+    },
+    {
+      "byte_size": 338,
+      "path": "models/co2/candidates/c_b4/class_map.json",
+      "sha256": "e8d9a18cba75092bb2c92212504afadddd2964c9628abfac71c5b0b91db9889a"
+    },
+    {
+      "byte_size": 1432,
+      "path": "models/co2/candidates/c_b4/float_reference.tflite",
+      "sha256": "a4767363faf0cc47dcc907cd411b4664eb0821c2926262cce25e3fffc4f04a35"
+    },
+    {
+      "byte_size": 2076,
+      "path": "models/co2/candidates/c_b4/float_reference_parameters.json",
+      "sha256": "471b85852f661bd787e0bc130ae032bebb69ef0b51cfacb8e87ea04529970fee"
+    },
+    {
+      "byte_size": 1544,
+      "path": "models/co2/candidates/c_b4/full_integer_int8.tflite",
+      "sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816"
+    },
+    {
+      "byte_size": 561,
+      "path": "models/co2/candidates/c_b4/input_contract.json",
+      "sha256": "114dacfba1493aeddd23413062e4930cfb07e9e657b621b7747e13dd1b549def"
+    },
+    {
+      "byte_size": 308,
+      "path": "models/co2/candidates/c_b4/threshold_contract.json",
+      "sha256": "18102dc4bd81b5b52a7ac3d3d784d4a426ebd7a216ed14aa1570d5f86e6b5221"
+    }
+  ],
+  "entry_count": 24,
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "self_referential": false
+}

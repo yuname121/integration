@@ -1,0 +1,29 @@
+{
+  "expected_dt_seconds": 0.1,
+  "gap_policy": {
+    "large_gap_min_seconds": 0.5,
+    "small_gap_max_seconds": 0.5
+  },
+  "jitter_policy": {
+    "normal_max_dt_seconds": 0.105,
+    "tolerance_seconds": 0.005
+  },
+  "label_independent": true,
+  "native_timeline_preferred": true,
+  "profile_id": "MMWAVE_TIMELINE_PROFILE_001",
+  "resampling": {
+    "enabled_when_required": true,
+    "extrapolation_allowed": false,
+    "large_gap_interpolation_allowed": false,
+    "method": "LINEAR_INTERPOLATION"
+  },
+  "target_sampling_rate_hz": 10.0,
+  "window": {
+    "boundary_convention": "[start,end)",
+    "duration_seconds": 30.0,
+    "incomplete_tail_policy": "DROP_INCOMPLETE_TAIL",
+    "overlap_samples": 0,
+    "samples": 300,
+    "stride_samples": 300
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "actual_structural_windows": 75,
+  "expected_structural_windows": 88,
+  "inference_started": false,
+  "labels_or_tensors_persisted": false,
+  "phase_id": "M-B10B",
+  "schema_version": "M-B10B_INPUT_IDENTITY_V1",
+  "source_split": "LOCKED_TEST",
+  "structural_identity_match": false
+}

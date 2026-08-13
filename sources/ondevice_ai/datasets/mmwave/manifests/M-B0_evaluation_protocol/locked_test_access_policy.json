@@ -1,0 +1,21 @@
+{
+  "phase_id": "M-B0",
+  "policy_name": "SafeNest Phase B LOCKED_TEST Access Control Policy",
+  "roles": {
+    "TRAIN": "Model parameter learning, scaling statistics fitting (fit on TRAIN only)",
+    "VALIDATION": "Preprocessing ablation, model architecture selection, hyperparameter tuning, imbalance strategy comparison",
+    "LOCKED_TEST": "Single final independent evaluation of locked finalist model candidate ONLY"
+  },
+  "prohibitions": [
+    "LOCKED_TEST shall NOT be accessed for preprocessing selection.",
+    "LOCKED_TEST shall NOT be accessed for feature selection.",
+    "LOCKED_TEST shall NOT be accessed for model architecture selection.",
+    "LOCKED_TEST shall NOT be accessed for hyperparameter tuning.",
+    "LOCKED_TEST shall NOT be accessed for class imbalance strategy selection.",
+    "LOCKED_TEST shall NOT be accessed for decision threshold tuning.",
+    "LOCKED_TEST shall NOT be accessed for quantization calibration sample selection.",
+    "LOCKED_TEST shall NOT be accessed for multi-seed finalist ranking."
+  ],
+  "access_guard_module": "scripts/mmwave_phase_b_access.py",
+  "structural_audit_separation": "STRUCTURAL_LEAKAGE_AUDIT mode returns sanitized structural metadata without exposing safenest_label or annotation-derived class attributes."
+}

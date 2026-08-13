@@ -1,0 +1,70 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B3",
+  "ranking": [
+    {
+      "architecture_family": "LINEAR",
+      "architecture_id": "LINEAR_LOGISTIC",
+      "mean_calibrated_balanced_accuracy": 0.9148615954604555,
+      "mean_calibrated_false_positive_rate": 0.0897814530419374,
+      "mean_calibrated_macro_f1": 0.9081207201237023,
+      "mean_calibrated_occupied_recall": 0.9195046439628483,
+      "rank": 1,
+      "simplicity_rank": 0,
+      "std_calibrated_macro_f1": 0.0,
+      "worst_seed_calibrated_macro_f1": 0.9081207201237023,
+      "worst_seed_identity": 20260810
+    },
+    {
+      "architecture_family": "MLP",
+      "architecture_id": "TINY_MLP",
+      "mean_calibrated_balanced_accuracy": 0.9080645308765469,
+      "mean_calibrated_false_positive_rate": 0.07241582988777319,
+      "mean_calibrated_macro_f1": 0.906805699705408,
+      "mean_calibrated_occupied_recall": 0.8885448916408668,
+      "rank": 2,
+      "simplicity_rank": 1,
+      "std_calibrated_macro_f1": 0.019711929056938585,
+      "worst_seed_calibrated_macro_f1": 0.8776944348788895,
+      "worst_seed_identity": 20260812
+    },
+    {
+      "architecture_family": "MLP",
+      "architecture_id": "SMALL_MLP",
+      "mean_calibrated_balanced_accuracy": 0.8970606826994173,
+      "mean_calibrated_false_positive_rate": 0.11588895451860604,
+      "mean_calibrated_macro_f1": 0.8875691536224067,
+      "mean_calibrated_occupied_recall": 0.9100103199174407,
+      "rank": 3,
+      "simplicity_rank": 2,
+      "std_calibrated_macro_f1": 0.02400346900855288,
+      "worst_seed_calibrated_macro_f1": 0.8625942074573615,
+      "worst_seed_identity": 20260810
+    },
+    {
+      "architecture_family": "TREE",
+      "architecture_id": "TREE_RANDOM_FOREST",
+      "mean_calibrated_balanced_accuracy": 0.8890729568788375,
+      "mean_calibrated_false_positive_rate": 0.18511518015357353,
+      "mean_calibrated_macro_f1": 0.8651036812426497,
+      "mean_calibrated_occupied_recall": 0.9632610939112487,
+      "rank": 4,
+      "simplicity_rank": 3,
+      "std_calibrated_macro_f1": 0.003771267645512104,
+      "worst_seed_calibrated_macro_f1": 0.860011644825839,
+      "worst_seed_identity": 20260810
+    }
+  ],
+  "ranking_rule": [
+    "higher_mean_calibrated_macro_f1",
+    "higher_worst_seed_calibrated_macro_f1",
+    "higher_mean_calibrated_occupied_recall",
+    "lower_std_calibrated_macro_f1",
+    "higher_mean_calibrated_balanced_accuracy",
+    "lower_mean_false_positive_rate",
+    "simpler_architecture_LINEAR_THEN_TINY_THEN_SMALL_THEN_TREE",
+    "lexicographically_smaller_architecture_id"
+  ],
+  "ranking_rule_id": "CO2_B3_ARCHITECTURE_RANKING_RULE_001",
+  "selected_architecture": "LINEAR_LOGISTIC"
+}

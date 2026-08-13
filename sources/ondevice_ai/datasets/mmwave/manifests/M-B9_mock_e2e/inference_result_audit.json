@@ -1,0 +1,1119 @@
+{
+  "phase_id": "M-B9",
+  "records": [
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.39453125,
+        "error": null,
+        "latency_ms": 0.2710409999995278,
+        "metadata": {
+          "class_index": 1,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+          "model_predicted_class": "RAPID_OR_ABNORMAL",
+          "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "066a571ee9e4586f03bf5737e5ac4b63db8ce0bcbfc7fef5d76292b6eb22c95c",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.29296875,
+            0.39453125,
+            0.3125
+          ],
+          "scenario_truth_class": "NORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.5,
+        "sensor_id": "mmwave",
+        "state": "RAPID_OR_ABNORMAL",
+        "timestamp": 1786465957.627727,
+        "valid": true
+      },
+      "scenario_id": "A_NORMAL",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.5234375,
+        "error": null,
+        "latency_ms": 0.28683300000054146,
+        "metadata": {
+          "class_index": 0,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+          "model_predicted_class": "NORMAL",
+          "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "bfe55ea06ddfba07eae2dce5a69de155a6598c71816470793fb95817975052fa",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.5234375,
+            0.31640625,
+            0.16015625
+          ],
+          "scenario_truth_class": "RAPID_OR_ABNORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 43,
+            "canonical_signal_hash": "bac1a0c8ca140e8d8c966a8c7e927ffdb9798b2ceb19a21a4858dbd2e778f404",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise",
+            "safenest_label": "RAPID_OR_ABNORMAL",
+            "safenest_label_id": 1,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+            "validation_local_index": 0,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "NORMAL",
+        "timestamp": 1786465957.6335769,
+        "valid": true
+      },
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.765625,
+        "error": null,
+        "latency_ms": 0.24629099999984305,
+        "metadata": {
+          "class_index": 2,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+          "model_predicted_class": "APNEA",
+          "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "86b56ec96a8139d31704c05f56da22f7378b1c032abae462d3a99931ca2463b9",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.10546875,
+            0.12890625,
+            0.765625
+          ],
+          "scenario_truth_class": "APNEA",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 44,
+            "canonical_signal_hash": "4e12cc92381a9ba10a4892aa93aa26641efc596dc812f55891f687ef0ae2a172",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest",
+            "safenest_label": "APNEA",
+            "safenest_label_id": 2,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Rest",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+            "validation_local_index": 1,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+          }
+        },
+        "score": 1.0,
+        "sensor_id": "mmwave",
+        "state": "APNEA",
+        "timestamp": 1786465957.63904,
+        "valid": true
+      },
+      "scenario_id": "C_APNEA",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.3515625,
+        "error": null,
+        "latency_ms": 0.2420829999998375,
+        "metadata": {
+          "class_index": 1,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+          "model_predicted_class": "RAPID_OR_ABNORMAL",
+          "model_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "19593b0d8fd992e629c9129db438b28a5acbb1659031ebe967a94426c0435fd7",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.3359375,
+            0.3515625,
+            0.3125
+          ],
+          "scenario_truth_class": "NORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.5,
+        "sensor_id": "mmwave",
+        "state": "RAPID_OR_ABNORMAL",
+        "timestamp": 1786465957.644325,
+        "valid": true
+      },
+      "scenario_id": "A_NORMAL",
+      "seed": 43,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.359375,
+        "error": null,
+        "latency_ms": 0.27245800000041953,
+        "metadata": {
+          "class_index": 1,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+          "model_predicted_class": "RAPID_OR_ABNORMAL",
+          "model_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "e8c396d250d603cc7410e1c153941956481fd7b461715c815f1ac90d59ce939d",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.34765625,
+            0.359375,
+            0.29296875
+          ],
+          "scenario_truth_class": "RAPID_OR_ABNORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 43,
+            "canonical_signal_hash": "bac1a0c8ca140e8d8c966a8c7e927ffdb9798b2ceb19a21a4858dbd2e778f404",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise",
+            "safenest_label": "RAPID_OR_ABNORMAL",
+            "safenest_label_id": 1,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+            "validation_local_index": 0,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.5,
+        "sensor_id": "mmwave",
+        "state": "RAPID_OR_ABNORMAL",
+        "timestamp": 1786465957.6499588,
+        "valid": true
+      },
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "seed": 43,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.3515625,
+        "error": null,
+        "latency_ms": 0.24570800000045523,
+        "metadata": {
+          "class_index": 2,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+          "model_predicted_class": "APNEA",
+          "model_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "69d29e74ff316f054317e774329bd6f1fb3f2091ebb052c0ff7538d657ee450a",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.3359375,
+            0.3125,
+            0.3515625
+          ],
+          "scenario_truth_class": "APNEA",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 44,
+            "canonical_signal_hash": "4e12cc92381a9ba10a4892aa93aa26641efc596dc812f55891f687ef0ae2a172",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest",
+            "safenest_label": "APNEA",
+            "safenest_label_id": 2,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Rest",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+            "validation_local_index": 1,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+          }
+        },
+        "score": 1.0,
+        "sensor_id": "mmwave",
+        "state": "APNEA",
+        "timestamp": 1786465957.655458,
+        "valid": true
+      },
+      "scenario_id": "C_APNEA",
+      "seed": 43,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.46484375,
+        "error": null,
+        "latency_ms": 0.23749999999989058,
+        "metadata": {
+          "class_index": 2,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+          "model_predicted_class": "APNEA",
+          "model_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "68caedfb7d8a605b15827ac2785707c71aee005b40b8fe982f8ce53bd251e26c",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.28515625,
+            0.25,
+            0.46484375
+          ],
+          "scenario_truth_class": "NORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 1.0,
+        "sensor_id": "mmwave",
+        "state": "APNEA",
+        "timestamp": 1786465957.660774,
+        "valid": true
+      },
+      "scenario_id": "A_NORMAL",
+      "seed": 44,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.421875,
+        "error": null,
+        "latency_ms": 0.2589579999998648,
+        "metadata": {
+          "class_index": 0,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+          "model_predicted_class": "NORMAL",
+          "model_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "2bce09ef3be0d5c59d82d115a18347384df5af05ad8945b1cbd9149ab7254a0f",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.421875,
+            0.2734375,
+            0.30078125
+          ],
+          "scenario_truth_class": "RAPID_OR_ABNORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 43,
+            "canonical_signal_hash": "bac1a0c8ca140e8d8c966a8c7e927ffdb9798b2ceb19a21a4858dbd2e778f404",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise",
+            "safenest_label": "RAPID_OR_ABNORMAL",
+            "safenest_label_id": 1,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+            "validation_local_index": 0,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "NORMAL",
+        "timestamp": 1786465957.666377,
+        "valid": true
+      },
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "seed": 44,
+      "valid": true
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.60546875,
+        "error": null,
+        "latency_ms": 0.24920800000050036,
+        "metadata": {
+          "class_index": 2,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+          "model_predicted_class": "APNEA",
+          "model_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "bfc35d204fdd83608ce3695a471a78eae71caaf9e47bf7b77182bb728f88b2d8",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.2734375,
+            0.1171875,
+            0.60546875
+          ],
+          "scenario_truth_class": "APNEA",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 44,
+            "canonical_signal_hash": "4e12cc92381a9ba10a4892aa93aa26641efc596dc812f55891f687ef0ae2a172",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest",
+            "safenest_label": "APNEA",
+            "safenest_label_id": 2,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Rest",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p009",
+            "validation_local_index": 1,
+            "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000"
+          }
+        },
+        "score": 1.0,
+        "sensor_id": "mmwave",
+        "state": "APNEA",
+        "timestamp": 1786465957.671793,
+        "valid": true
+      },
+      "scenario_id": "C_APNEA",
+      "seed": 44,
+      "valid": true
+    },
+    {
+      "error": "INSUFFICIENT_HISTORY",
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "INSUFFICIENT_HISTORY",
+        "latency_ms": 0.0,
+        "metadata": {
+          "buffer_len": 0,
+          "fallback_reason": "INSUFFICIENT_HISTORY",
+          "fallback_used": false,
+          "model_id": "mmwave_finalist_unavailable",
+          "model_version": null,
+          "remaining_samples": 300,
+          "required_samples": 300,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "WARMING_UP",
+        "timestamp": 1786465957.6770601,
+        "valid": false
+      },
+      "scenario_id": "D_INSUFFICIENT_HISTORY",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "INVALID_SHAPE",
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "INVALID_SHAPE",
+        "latency_ms": 0.0,
+        "metadata": {
+          "fallback_reason": "INVALID_SHAPE",
+          "fallback_used": false,
+          "model_id": "mmwave_finalist_unavailable",
+          "model_version": null,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "INVALID_SHAPE",
+        "timestamp": 1786465957.682017,
+        "valid": false
+      },
+      "scenario_id": "E_INVALID_SHAPE",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "NAN_OR_INF",
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "NAN_OR_INF",
+        "latency_ms": 0.0,
+        "metadata": {
+          "fallback_reason": "NAN_OR_INF",
+          "fallback_used": false,
+          "model_id": "mmwave_finalist_unavailable",
+          "model_version": null,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "NAN_OR_INF",
+        "timestamp": 1786465957.6871629,
+        "valid": false
+      },
+      "scenario_id": "F_NAN",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "NAN_OR_INF",
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "NAN_OR_INF",
+        "latency_ms": 0.0,
+        "metadata": {
+          "fallback_reason": "NAN_OR_INF",
+          "fallback_used": false,
+          "model_id": "mmwave_finalist_unavailable",
+          "model_version": null,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "NAN_OR_INF",
+        "timestamp": 1786465957.692128,
+        "valid": false
+      },
+      "scenario_id": "G_INF",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.39453125,
+        "error": null,
+        "latency_ms": 0.2726250000000263,
+        "metadata": {
+          "class_index": 1,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+          "model_predicted_class": "RAPID_OR_ABNORMAL",
+          "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "066a571ee9e4586f03bf5737e5ac4b63db8ce0bcbfc7fef5d76292b6eb22c95c",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.29296875,
+            0.39453125,
+            0.3125
+          ],
+          "scenario_truth_class": null,
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.5,
+        "sensor_id": "mmwave",
+        "state": "RAPID_OR_ABNORMAL",
+        "timestamp": 1786465953.696966,
+        "valid": true
+      },
+      "scenario_id": "H_STALE",
+      "seed": 42,
+      "valid": true
+    },
+    {
+      "error": "SIMULATED_MMWAVE_SENSOR_FAULT",
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "SIMULATED_MMWAVE_SENSOR_FAULT",
+        "latency_ms": 0.0,
+        "metadata": {
+          "fallback_reason": "SIMULATED_MMWAVE_SENSOR_FAULT",
+          "fallback_used": false,
+          "model_id": "mmwave_finalist_unavailable",
+          "model_version": null,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "FAULT",
+        "timestamp": 1786465957.702568,
+        "valid": false
+      },
+      "scenario_id": "I_PROVIDER_SENSOR_FAULT",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "PROVIDER_READ_EXCEPTION",
+      "metadata_contract": {
+        "fallback_used": null,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "PROVIDER_READ_EXCEPTION",
+        "latency_ms": 0.0,
+        "metadata": {
+          "detail": "RuntimeError: M-B9_SIMULATED_PROVIDER_READ_EXCEPTION"
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "PROVIDER_READ_EXCEPTION",
+        "timestamp": 1786465957.707516,
+        "valid": false
+      },
+      "scenario_id": "J_READ_EXCEPTION",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "PROVIDER_READ_TIMEOUT",
+      "metadata_contract": {
+        "fallback_used": null,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "PROVIDER_READ_TIMEOUT",
+        "latency_ms": 0.0,
+        "metadata": {
+          "elapsed_sec": 2.0601471670000002,
+          "timeout_sec": 2.0
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "PROVIDER_READ_TIMEOUT",
+        "timestamp": 1786465959.772445,
+        "valid": false
+      },
+      "scenario_id": "K_TIMEOUT",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "M-B9_FINALIST_MODEL_MANIFEST_MISSING",
+      "metadata_contract": {
+        "fallback_used": true,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "M-B9_FINALIST_MODEL_MANIFEST_MISSING",
+        "latency_ms": 0.0,
+        "metadata": {
+          "fallback_reason": "M-B9_FINALIST_MODEL_MANIFEST_MISSING",
+          "fallback_used": true,
+          "legacy_fallback_behavior": "HEURISTIC_NOT_ACCEPTED_AS_FINALIST",
+          "model_id": "mmwave_heuristic_fallback",
+          "model_version": null,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "MODEL_UNAVAILABLE",
+        "timestamp": 1786465959.787714,
+        "valid": false
+      },
+      "scenario_id": "L_MISSING_MODEL",
+      "seed": null,
+      "valid": false
+    },
+    {
+      "error": "M-B9_FINALIST_ARTIFACT_IDENTITY_MISMATCH",
+      "metadata_contract": {
+        "fallback_used": true,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "M-B9_FINALIST_ARTIFACT_IDENTITY_MISMATCH",
+        "latency_ms": 0.0,
+        "metadata": {
+          "fallback_reason": "M-B9_FINALIST_ARTIFACT_IDENTITY_MISMATCH",
+          "fallback_used": true,
+          "legacy_fallback_behavior": "HEURISTIC_NOT_ACCEPTED_AS_FINALIST",
+          "model_id": "mmwave_heuristic_fallback",
+          "model_version": null,
+          "scenario_truth_class": null,
+          "score_source": "NO_VALID_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "MODEL_UNAVAILABLE",
+        "timestamp": 1786465959.799513,
+        "valid": false
+      },
+      "scenario_id": "M_SHA_MISMATCH",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": "PROVIDER_CONNECT_FAILED",
+      "metadata_contract": {
+        "fallback_used": null,
+        "score_source": "NO_VALID_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.0,
+        "error": "PROVIDER_CONNECT_FAILED",
+        "latency_ms": 0.0,
+        "metadata": {
+          "detail": "connect() returned False; expected True",
+          "mode": "real"
+        },
+        "score": 0.0,
+        "sensor_id": "mmwave",
+        "state": "PROVIDER_CONNECT_FAILED",
+        "timestamp": 1786465959.808152,
+        "valid": false
+      },
+      "scenario_id": "O_NOT_CONNECTED_PROVIDER",
+      "seed": 42,
+      "valid": false
+    },
+    {
+      "error": null,
+      "metadata_contract": {
+        "fallback_used": false,
+        "score_source": "MODEL_PREDICTION"
+      },
+      "mmwave_result": {
+        "confidence": 0.39453125,
+        "error": null,
+        "latency_ms": 0.5645410000001405,
+        "metadata": {
+          "class_index": 1,
+          "fallback_reason": null,
+          "fallback_used": false,
+          "input_quantized_dtype": "int8",
+          "input_quantized_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+          "input_quantized_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_saturation_count": 0,
+          "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+          "model_predicted_class": "RAPID_OR_ABNORMAL",
+          "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+          "output_int8_dtype": "int8",
+          "output_int8_sha256": "066a571ee9e4586f03bf5737e5ac4b63db8ce0bcbfc7fef5d76292b6eb22c95c",
+          "output_int8_shape": [
+            1,
+            3
+          ],
+          "preprocessing_profile": "BPF_ZSCORE",
+          "probabilities": [
+            0.29296875,
+            0.39453125,
+            0.3125
+          ],
+          "scenario_truth_class": "NORMAL",
+          "scenario_truth_source": "METADATA_ONLY",
+          "score_source": "MODEL_PREDICTION",
+          "selection_metadata": {
+            "canonical_sample_index": 59,
+            "canonical_signal_hash": "71c71ef911d98904ac758fac2bb1d0b1a98e5f374d78b1bbefbebf2da398d8b6",
+            "posture": "Lying",
+            "recording_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise",
+            "safenest_label": "NORMAL",
+            "safenest_label_id": 0,
+            "selection_rule": "LOWEST_CANONICAL_SAMPLE_INDEX_AMONG_PURE_VALIDATION_WINDOWS",
+            "session_id": null,
+            "source_test_condition": "Post-exercise",
+            "split": "VALIDATION",
+            "subject_id": "dataset-10_5281_zenodo_18599983-p012",
+            "validation_local_index": 4,
+            "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000"
+          }
+        },
+        "score": 0.5,
+        "sensor_id": "mmwave",
+        "state": "RAPID_OR_ABNORMAL",
+        "timestamp": 1786465959.815841,
+        "valid": true
+      },
+      "scenario_id": "N_VALID_EXPLICIT_FINALIST",
+      "seed": 42,
+      "valid": true
+    }
+  ]
+}

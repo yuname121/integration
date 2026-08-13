@@ -1,0 +1,10 @@
+{
+  "architecture": "arm64",
+  "formal_accessor_invocations": 1,
+  "formal_m_b8_benchmark_rerun": false,
+  "formal_model_inference_invocations": 0,
+  "os": "macOS-26.5.2-arm64-arm-64bit",
+  "phase_id": "M-B10B",
+  "python": "3.9.6",
+  "timestamp_utc": "2026-08-12T03:52:15Z"
+}

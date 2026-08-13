@@ -1,0 +1,26 @@
+[2026-08-07T08:50:02.893954+00:00] Starting Phase A0 Audit script at datasets/mmwave/manifests/a0_raw_inventory
+[2026-08-07T08:50:02.894247+00:00] Repository Root: <ondevice_ai_root>
+[2026-08-07T08:50:02.894257+00:00] Archive Target: datasets/raw_archives/external_datasets/db_records.zip
+[2026-08-07T08:50:02.894383+00:00] Measuring streaming SHA-256 and MD5 for archive (246597320 bytes)...
+[2026-08-07T08:50:03.387312+00:00] SHA-256 Before: f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0
+[2026-08-07T08:50:03.387390+00:00] MD5 Before:    370de95033f1a98b78e57dbbea92a8bc
+[2026-08-07T08:50:03.387399+00:00] Checking official Zenodo API for DOI 10.5281/zenodo.18599983...
+[2026-08-07T08:50:04.685894+00:00] Zenodo Remote Verification Status: REMOTE_VERIFIED
+[2026-08-07T08:50:04.686025+00:00] Auditing ZIP container integrity & verifying CRCs...
+[2026-08-07T08:50:05.429336+00:00] ZIP Integrity Status: PASS
+[2026-08-07T08:50:05.701087+00:00] Total archive members inventoried: 6382
+[2026-08-07T08:50:05.701134+00:00] Total unique subjects found: 110
+[2026-08-07T08:50:05.701144+00:00] Total logical recordings reconstructed: 440
+[2026-08-07T08:50:05.701152+00:00] Actual Generated Identifier Collisions: 0
+[2026-08-07T08:50:05.704008+00:00] Unique Observation-Derived Schema Signatures measured: 2
+[2026-08-07T08:50:05.746929+00:00] Verifying archive immutability after audit operations...
+[2026-08-07T08:50:06.220006+00:00] Archive Unchanged After Audit: True
+[2026-08-07T08:50:06.220134+00:00] Running live Machine-Readable Inventory Object Validator...
+[2026-08-07T08:50:06.224087+00:00] Live Object Validator PASSED with 0 errors.
+[2026-08-07T08:50:06.224107+00:00] Writing machine-readable audit artifacts...
+[2026-08-07T08:50:06.266392+00:00] Generating Markdown audit report at docs/reports/20260806_Antigravity_A0_Zenodo_Raw_Identity_Inventory_Audit_01.md...
+[2026-08-07T08:50:06.266779+00:00] Calculating output manifest file SHA-256 checksums...
+[2026-08-07T08:50:06.278695+00:00] Phase A0 Audit execution completed successfully.
+[2026-08-07T08:50:06.278705+00:00] Validation Success: True
+[2026-08-07T08:50:06.278711+00:00] A0 Gate Status: PASS_WITH_WARNINGS
+[2026-08-07T08:50:06.278718+00:00] A1 Entry Status: READY_WITH_CONDITIONS

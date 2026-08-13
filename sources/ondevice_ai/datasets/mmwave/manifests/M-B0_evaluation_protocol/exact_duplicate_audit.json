@@ -1,0 +1,8 @@
+{
+  "phase_id": "M-B0",
+  "total_windows_audited": 530,
+  "unique_signal_hashes": 530,
+  "total_exact_duplicates": 0,
+  "cross_split_exact_duplicates": 0,
+  "exact_duplicate_groups": []
+}

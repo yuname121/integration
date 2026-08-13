@@ -1,0 +1,151 @@
+{
+  "all_r1_r10_pass": true,
+  "failed_gates": [],
+  "gates": {
+    "R10_contamination_disclosure_accepted": {
+      "checks": {
+        "accessor_invocation_count_1": true,
+        "allowed_wording_clean": true,
+        "completed_model_inference_0": true,
+        "designation_correct": true,
+        "forbidden_wording_list_complete": true,
+        "locked_test_consumed": true,
+        "locked_test_reopen_authorized_false": true,
+        "metrics_generated_false": true,
+        "original_model_inferences_0": true,
+        "original_pristine_consumed": true,
+        "predictions_generated_false": true,
+        "recovery_execution_authorized_false": true,
+        "result_not_pristine": true,
+        "status_proposed_not_authorized": true
+      },
+      "forbidden_scientific_wording": [
+        "PRISTINE_REAL_SUBJECT_FINAL_TEST",
+        "PRISTINE_ONE_TIME_LOCKED_TEST",
+        "PRISTINE_LOCKED_TEST",
+        "FIRST_LOCKED_TEST_EVALUATION",
+        "LOCKED_TEST_NOT_CONSUMED",
+        "NO_INFORMATION_EXPOSURE",
+        "ORIGINAL_ACCESS_UNUSED"
+      ],
+      "original_model_inferences": 0,
+      "original_pristine_final_access_consumed": true,
+      "pass": true,
+      "recovery_contract_status": "PROPOSED_NOT_AUTHORIZED",
+      "required_future_designation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+      "result_not_pristine": true
+    },
+    "R1_incident_truth_closed": {
+      "evidence": [
+        "incident_root_cause.json",
+        "validate_mmwave_m_b10b_incident.py"
+      ],
+      "pass": true
+    },
+    "R2_exactly_one_previous_access": {
+      "accessor_invocations": 1,
+      "pass": true
+    },
+    "R3_zero_model_evaluation": {
+      "model_inference_invocations": 0,
+      "pass": true
+    },
+    "R4_no_persisted_sample_level_payload": {
+      "actual_registry_rows": 0,
+      "input_id_labels_tensors_not_persisted": true,
+      "labels_persisted": false,
+      "metrics_results_available": false,
+      "pass": true,
+      "prediction_ledger_rows": 0,
+      "raw_tensors_persisted": false,
+      "sample_ids_persisted": false,
+      "subject_ids_persisted": false
+    },
+    "R5_candidate_immutable": {
+      "pass": true
+    },
+    "R6_baselines_immutable": {
+      "details": {
+        "mmwave_resp_int8": {
+          "baseline_id": "mmwave_resp_int8",
+          "bytes_match": true,
+          "class_map_match": true,
+          "contract_id_match": true,
+          "executor_exists": true,
+          "executor_sha_match": true,
+          "failure_reasons": [],
+          "fallback_policy_match": true,
+          "input_tensor_match": true,
+          "interpretation_match": true,
+          "metadata_exists": true,
+          "metadata_sha_match": true,
+          "model_exists": true,
+          "model_path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+          "output_class_count_3": true,
+          "output_tensor_match": true,
+          "sha256_match": true,
+          "steps_match": true
+        },
+        "mmwave_resp_int8_v0.2.0_candidate": {
+          "baseline_id": "mmwave_resp_int8_v0.2.0_candidate",
+          "bytes_match": true,
+          "class_map_match": true,
+          "contract_id_match": true,
+          "executor_exists": true,
+          "executor_sha_match": true,
+          "failure_reasons": [],
+          "fallback_policy_match": true,
+          "input_tensor_match": true,
+          "interpretation_match": true,
+          "metadata_exists": true,
+          "metadata_sha_match": true,
+          "model_exists": true,
+          "model_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+          "output_class_count_3": true,
+          "output_tensor_match": true,
+          "sha256_match": true,
+          "steps_match": true
+        }
+      },
+      "pass": true
+    },
+    "R7_count_semantics_correction_only": {
+      "pass": true
+    },
+    "R8_no_post_access_tuning": {
+      "calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+      "model_conversions": 0,
+      "no_post_test_tuning": true,
+      "pass": true,
+      "post_test_selection": false,
+      "preprocessing_name": "BPF_ZSCORE",
+      "preprocessing_profile": "M-B1_D0_B1_Z1",
+      "recalibrations": 0,
+      "selected_candidate_unchanged": true,
+      "selected_sha": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "threshold_tuning": false
+    },
+    "R9_future_contract_unchanged_models_metrics": {
+      "checks": {
+        "acceptance_threshold_unchanged": true,
+        "ambiguous_windows_13": true,
+        "eligible_windows_75": true,
+        "expected_inference_225": true,
+        "locked_test_reopen_authorized_false": true,
+        "mb10a_contract_sha_match": true,
+        "metrics_schema_deep_equal": true,
+        "model_ids_exact": true,
+        "model_shas_exact": true,
+        "models_list_length_3": true,
+        "no_seed43_seed44": true,
+        "planned_models_length_3": true,
+        "recovery_execution_authorized_false": true,
+        "status_proposed_not_authorized": true,
+        "structural_total_windows_88": true
+      },
+      "pass": true
+    }
+  },
+  "phase_id": "M-B10R0",
+  "schema_version": "M-B10R0_REUSE_GATE_RESULTS_V1"
+}

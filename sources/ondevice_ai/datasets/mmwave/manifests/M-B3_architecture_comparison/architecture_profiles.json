@@ -1,0 +1,22 @@
+{
+  "architectures": [
+    {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "name": "Conv1D + GAP Baseline",
+      "family": "Conv1D_GAP",
+      "topology": "Input(300,1)->Conv1D(16,k7,s2)->BN->MaxPool(2)->Conv1D(32,k5,s2)->BN->MaxPool(2)->Conv1D(64,k3,s1)->GAP->Dropout(0.3)->Dense(3)"
+    },
+    {
+      "architecture_id": "M-B3_SEPARABLECONV1D_GAP",
+      "name": "SeparableConv1D + GAP",
+      "family": "SeparableConv1D_GAP",
+      "topology": "Input(300,1)->SepConv1D(16,k7,s2,d1)->BN->MaxPool(2)->SepConv1D(32,k5,s2,d1)->BN->MaxPool(2)->SepConv1D(64,k3,s1,d1)->GAP->Dropout(0.3)->Dense(3)"
+    },
+    {
+      "architecture_id": "M-B3_CONV1D_BILSTM",
+      "name": "Conv1D + BiLSTM",
+      "family": "Conv1D_BiLSTM",
+      "topology": "Input(300,1)->Conv1D(16,k7,s2)->BN->MaxPool(2)->Conv1D(32,k5,s2)->BN->MaxPool(2)->BiLSTM(32)->Dropout(0.3)->Dense(3)"
+    }
+  ]
+}

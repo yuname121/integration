@@ -1,0 +1,24 @@
+{
+  "allowed_if_supported": [
+    "LIMITED_LOCKED_TEST_REUSE_EXCEPTION_RECOMMENDED",
+    "PREINFERENCE_STRUCTURAL_ABORT",
+    "NO_PERFORMANCE_INFORMATION_OBSERVED",
+    "NO_EXISTING_UNUSED_SUBJECT_HOLDOUT",
+    "RECOVERY_REQUIRES_INDEPENDENT_AUTHORIZATION"
+  ],
+  "forbidden": [
+    "LOCKED_TEST_PRISTINE",
+    "RECOVERY_ALREADY_AUTHORIZED",
+    "SECOND_FINAL_TEST_ALLOWED",
+    "FINAL_PERFORMANCE_VALIDATED",
+    "M-B11_READY"
+  ],
+  "new_holdout_policy": {
+    "a5_reshuffle_allowed": false,
+    "legitimate_new_holdout_source": "NEW_UNSEEN_SUBJECT_DATA",
+    "new_data_required_classification": "NEW_DATA_REQUIRED",
+    "train_validation_reuse_allowed": false
+  },
+  "phase_id": "M-B10R0",
+  "schema_version": "M-B10R0_CLAIM_LIMITATIONS_V1"
+}

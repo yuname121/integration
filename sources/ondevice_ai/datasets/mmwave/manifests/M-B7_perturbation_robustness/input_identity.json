@@ -1,0 +1,216 @@
+{
+  "inputs": [
+    {
+      "evidence_role": "Pinned macOS dependency contract",
+      "measured_sha256": "d14da72dfdf6b168dbacaef161adb03e1a171b990b7475ae85ea222fd7ab4f42",
+      "repository_relative_path": "requirements-mac.txt"
+    },
+    {
+      "evidence_role": "M-B0 validator-passed summary",
+      "measured_sha256": "010f6c2f4fa88a82050645c0f238022c3c6db9232d866991503d0bbab6b78a37",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/m_b0_summary.json"
+    },
+    {
+      "evidence_role": "M-B0 evaluation contract",
+      "measured_sha256": "d2ee24968dfe68e2ca5c3ecacef9a7b6acaa474fb3307536c533df4a36ca796d",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/evaluation_contract.json"
+    },
+    {
+      "evidence_role": "M-B0 checksum closure",
+      "measured_sha256": "dd31fdf7d861f63829b2b352010072822c883f00a71a83efcb0dbde289a8e77a",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/checksums.sha256"
+    },
+    {
+      "evidence_role": "M-B1 validator-passed summary",
+      "measured_sha256": "e4246966e17842cb751c4ff7d3beae6325ba30eb5e32af516749a1cfc9a3b4f9",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/m_b1_summary.json"
+    },
+    {
+      "evidence_role": "Frozen M-B1 preprocessing",
+      "measured_sha256": "583befc9a85d0cd48624a107ab741889f106fcbd3ca39a93f6a3ff5d0db95ed9",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/selected_preprocessing_profile.json"
+    },
+    {
+      "evidence_role": "Frozen TRAIN-fit Z-score statistics",
+      "measured_sha256": "ca7b4cd743ac2d799f9d83d0b4f428c934bf1e76a5285eecae1e6273077060a5",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/train_fit_statistics.json"
+    },
+    {
+      "evidence_role": "Frozen preprocessing tensor fingerprints",
+      "measured_sha256": "34c14a72b56450ec1974545988ab93fac38821d55b191d45ae89e57e6e5a334e",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/preprocessing_fingerprints.json"
+    },
+    {
+      "evidence_role": "M-B1 checksum closure",
+      "measured_sha256": "11d8d5828523298e7258d370c0298c794d6dc77b3c6f834d866ba636ca630075",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/checksums.sha256"
+    },
+    {
+      "evidence_role": "M-B2 validator-passed summary",
+      "measured_sha256": "705004ffbe5213027ccbbc1dc9896810ee3ebf28e088aa4fad478676b84d829d",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/m_b2_summary.json"
+    },
+    {
+      "evidence_role": "Frozen M-B2 imbalance strategy",
+      "measured_sha256": "36d8125614af2d0e952954a90e4fc8eb616a702100dd0a996dc8e0051e9b3ba7",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/selected_imbalance_strategy.json"
+    },
+    {
+      "evidence_role": "M-B2 checksum closure",
+      "measured_sha256": "0feb2c18ee058b08b8d595ed59a9981fd5c6b418de8a82665950e4fe48f94fee",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/checksums.sha256"
+    },
+    {
+      "evidence_role": "M-B3 validator-passed summary",
+      "measured_sha256": "0ece3590c9c563973c7e77620165e04b52f98aa997b658981e60d8ae6dad1e77",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B3_architecture_comparison/m_b3_summary.json"
+    },
+    {
+      "evidence_role": "Frozen architecture profiles",
+      "measured_sha256": "23a7e526fa229314013d50fbc165f645c4ca7a281062f22fbb36fb17aeb039c0",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B3_architecture_comparison/architecture_profiles.json"
+    },
+    {
+      "evidence_role": "Frozen M-B3 shortlist",
+      "measured_sha256": "25fb4c73c83cc09289338fca2c7456776151dcdc5e368be012c11dd961711acf",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B3_architecture_comparison/selected_architecture_shortlist.json"
+    },
+    {
+      "evidence_role": "M-B3 checksum closure",
+      "measured_sha256": "926943b591da44ba18a5628ab02ed3b42ec9dabb95841a3396c8fdf3e1052f34",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B3_architecture_comparison/checksums.sha256"
+    },
+    {
+      "evidence_role": "M-B4 validator-passed summary",
+      "measured_sha256": "2ef74a5f087289f5bcc97696a0c9af0b7de4cd7634c0e252b68694de4c8cc49c",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/m_b4_summary.json"
+    },
+    {
+      "evidence_role": "Frozen M-B4 primary finalist",
+      "measured_sha256": "686361b9cbcc256890f819f0dd4d08a3f6dff385941a334a88ff0f5149d226ed",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/primary_float_finalist.json"
+    },
+    {
+      "evidence_role": "Frozen M-B4 three-seed weights",
+      "measured_sha256": "702bf35dfa08a089ea36193e63ff1e9d28e78fce3b1dbc7e69649cec3cf99399",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/seed_weights.npz"
+    },
+    {
+      "evidence_role": "Frozen M-B4 per-seed evidence",
+      "measured_sha256": "7e6abedfde66bb00efcaefc717c367da67b7c24a47a94edc76e3d6394450d581",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/per_seed_results.json"
+    },
+    {
+      "evidence_role": "M-B4 checksum closure",
+      "measured_sha256": "489cda54cde049290d416fa967b113ea65839c2e71b97722ea4b80dae28763a4",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/checksums.sha256"
+    },
+    {
+      "evidence_role": "M-B5 validator-passed summary",
+      "measured_sha256": "4fe686c2e3da573b15e31395370cc7506f753e8c748a33738bd77c0b911701e4",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/m_b5_summary.json"
+    },
+    {
+      "evidence_role": "Frozen M-B5 calibration selection",
+      "measured_sha256": "859ef60bacfe965cc57413304018033ef4bb3a715a4fec9d83316a1e5d90d5f5",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/selected_calibration_profile.json"
+    },
+    {
+      "evidence_role": "Frozen representative indices",
+      "measured_sha256": "e3d7d6f9b83d7fc81dc83e5cd40cc47531465dfeff92ff0bb70a74247275ac00",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/representative_dataset_indices.json"
+    },
+    {
+      "evidence_role": "M-B5 strict-INT8 identities",
+      "measured_sha256": "cbba67e95c9793235ff68eda700411a33878fe0f4d66a7907d52ae9b43a51ff9",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/tflite_artifact_manifest.json"
+    },
+    {
+      "evidence_role": "M-B5 checksum closure",
+      "measured_sha256": "f6858a12039c10b7117f8f3e2d00ed9ecf8c83168df0d6d6d0bc5b340b17dae1",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/checksums.sha256"
+    },
+    {
+      "evidence_role": "M-B6 validator-passed summary",
+      "measured_sha256": "a6ba110745cf7667ebd32105c45680882a18c6a3b979b2a75e781acb8b1bac74",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/m_b6_summary.json"
+    },
+    {
+      "evidence_role": "M-B6 experiment contract",
+      "measured_sha256": "54b26cd9f87e39dfe9e55912f857a9a16578da75e37ef73d67fd73bb7f156a9c",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/experiment_contract.json"
+    },
+    {
+      "evidence_role": "M-B6 stage artifact identities",
+      "measured_sha256": "3f3a4b169c3a62a0edbbb640c5be6be7a3c6afb869fd63db1ceece5fc6572731",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/stage_artifact_manifest.json"
+    },
+    {
+      "evidence_role": "M-B6 per-seed Stage-C metrics",
+      "measured_sha256": "ec1bf919a6bde9064f379a86399165baa31ea0ee73569891f2cb28a1335fe4b2",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/per_seed_stage_metrics.json"
+    },
+    {
+      "evidence_role": "M-B6 clean strict-INT8 top-1 vectors",
+      "measured_sha256": "ad645967b0eb428d747f9ff8f75b6df052a5eda7e4ba10f869fa37f9c11c67c5",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/int8_tflite_predictions.npz"
+    },
+    {
+      "evidence_role": "M-B6 clean quantization diagnostics",
+      "measured_sha256": "6eb021ec3cd6fd4a477575b8bd9a3493e40d5888ac406cc7aa4662ddadf1f90e",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/quantization_diagnostics.json"
+    },
+    {
+      "evidence_role": "M-B6 checksum closure",
+      "measured_sha256": "d7d98ed94b35ee8f5225c892b9ed1aecd77e4dfafcf0e69254764e1946d12f17",
+      "repository_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/checksums.sha256"
+    },
+    {
+      "evidence_role": "Immutable A5 subject assignment",
+      "measured_sha256": "777cdaa1a8cda54ab0db63dcc916d3ba208c10f30cc2f48d3bc91e94bcb2dfc7",
+      "repository_relative_path": "datasets/mmwave/manifests/a5_subject_split/subject_split_manifest.jsonl"
+    },
+    {
+      "evidence_role": "Immutable A5 split lookup",
+      "measured_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+      "repository_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json"
+    },
+    {
+      "evidence_role": "A6 canonical numeric matrix",
+      "measured_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+      "repository_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy"
+    },
+    {
+      "evidence_role": "A6 canonical window manifest",
+      "measured_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl"
+    },
+    {
+      "evidence_role": "A6 provenance manifest",
+      "measured_sha256": "7b94b73fea7ed51be2813e1014a1760fa22325c9399490b855c9ea59093a6dc2",
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_provenance_manifest.jsonl"
+    },
+    {
+      "evidence_role": "A6 checksum closure",
+      "measured_sha256": "6f3ec5de637df07d99799798ac1e1fb68b03ef3ab35a198042ccd6f255104992",
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/checksums.sha256"
+    },
+    {
+      "evidence_role": "Frozen M-B6-qualified strict-INT8 artifact for seed 42",
+      "measured_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "repository_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+    },
+    {
+      "evidence_role": "Frozen M-B6-qualified strict-INT8 artifact for seed 43",
+      "measured_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+      "repository_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+    },
+    {
+      "evidence_role": "Frozen M-B6-qualified strict-INT8 artifact for seed 44",
+      "measured_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+      "repository_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+    }
+  ],
+  "phase_id": "M-B7",
+  "total_inputs": 42
+}

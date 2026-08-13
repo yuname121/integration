@@ -1,0 +1,48 @@
+{
+  "classification": "C_B2_EXPERIMENT_REFERENCE_ONLY",
+  "existing_production_scaler_status": "SCALER_FIT_LINEAGE_UNVERIFIED",
+  "feature_order": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "fit_once": true,
+  "fit_population": "ORIGINAL_NATURALLY_DISTRIBUTED_TRAIN_ONLY",
+  "fit_population_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+  "fit_sample_count": 8140,
+  "implementation": "sklearn.preprocessing.StandardScaler",
+  "locked_test_fit_rows": 0,
+  "manifest_version": "1.0",
+  "mean": [
+    606.5058118345612,
+    20.618147184685405,
+    25.730943407044055,
+    0.011527303414630624
+  ],
+  "n_samples_seen": 8140,
+  "oversampled_fit_rows": 0,
+  "per_arm_scaler_fingerprint": {
+    "BALANCED_RANDOM_OVERSAMPLE": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+    "CLASS_WEIGHT_BALANCED": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+    "NATURAL_DISTRIBUTION": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89"
+  },
+  "phase": "C-B2",
+  "production_scaler_modified": false,
+  "reused_for_every_imbalance_arm": true,
+  "scale": [
+    314.3524240597083,
+    1.0158704274304289,
+    5.531812455878631,
+    5.661675596121919
+  ],
+  "scaler_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+  "scaler_profile_id": "CO2_B2_TRAIN_ONLY_STANDARD_SCALER_001",
+  "validation_fit_rows": 0,
+  "variance": [
+    98817.44651221468,
+    1.0319927253276822,
+    30.600949047013973,
+    32.054570555722485
+  ]
+}

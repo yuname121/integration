@@ -1,0 +1,31 @@
+{
+  "formal_m_b8_latency_measurement_performed": false,
+  "frozen_upstream_phases": [
+    "A5",
+    "A6",
+    "M-B0",
+    "M-B1",
+    "M-B2",
+    "M-B3",
+    "M-B4",
+    "M-B5",
+    "M-B6",
+    "M-B7",
+    "M-B8",
+    "M-B9"
+  ],
+  "locked_test_access": "PROHIBITED_DURING_M-B10A",
+  "m_b10b_started": false,
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "phase_id": "M-B10A",
+  "phase_title": "Pre-LOCKED_TEST Real-Data Offline Candidate Selection Setup",
+  "real_data_only": true,
+  "retraining_or_reconversion_allowed": false,
+  "selection_rule_path": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/selection_rule.json",
+  "selection_rule_sha256": "cddf98cbcf2231075bcfc02db2223fbc80fa33f7c52e23820609b5a273046f84",
+  "source_split": "VALIDATION",
+  "source_subject_count": 17,
+  "source_window_count": 79,
+  "status": "M-B10_PRELOCKED_REAL_DATA_CANDIDATE"
+}

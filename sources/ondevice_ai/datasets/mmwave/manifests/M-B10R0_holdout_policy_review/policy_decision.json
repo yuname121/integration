@@ -1,0 +1,19 @@
+{
+  "candidate_changed_after_access": false,
+  "decision": "LIMITED_LOCKED_TEST_REUSE_EXCEPTION_RECOMMENDED",
+  "decision_basis": "No untouched existing replacement holdout is available and all reuse exception gates R1\u2013R10 pass; a limited reuse exception may be scientifically defensible subject to independent review.",
+  "existing_independent_holdout_available": false,
+  "failed_reuse_gates": [],
+  "independent_review_required": true,
+  "locked_test_reopen_authorized": false,
+  "m_b11_authorized": false,
+  "new_performance_information_used_for_policy": false,
+  "original_locked_test_consumed": true,
+  "original_metrics_generated": false,
+  "original_predictions_generated": false,
+  "phase_id": "M-B10R0",
+  "recovery_execution_authorized": false,
+  "required_result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "reuse_exception_eligible": true,
+  "schema_version": "M-B10R0_POLICY_DECISION_V1"
+}

@@ -1,0 +1,138 @@
+{
+  "audit_name": "mmwave_dataset_integrity_audit",
+  "audit_scope": "SYNTHETIC_NPZ_INTEGRITY_ONLY",
+  "overall_status": "NOT_VERIFIABLE",
+  "dataset_integrity_status": "PASSED",
+  "index_split_status": "PASSED",
+  "signal_leakage_status": "PASSED",
+  "group_isolation_status": "NOT_VERIFIABLE",
+  "execution_metadata": {
+    "script_version": "1.0.0",
+    "execution_timestamp": "2026-08-06T05:41:23.427455+00:00",
+    "python_version": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "numpy_version": "2.0.2"
+  },
+  "inputs": {
+    "dataset_path": "datasets/mmwave/processed/mmwave_respiration_v1.npz",
+    "dataset_sha256": "a08072f3d9b55cd95b530c7b5b90f17ef80f6015ee76119f217b9d834c1107fb",
+    "split_path": "datasets/mmwave/splits/mmwave_group_split_v1.json",
+    "split_sha256": "6fb8a2a11f19afb4318cb4e4b20f08040f96bc5cfcede788b4bbb29dc5ee4e9c"
+  },
+  "schema": {
+    "npz_keys": [
+      "X_train",
+      "y_train",
+      "X_val",
+      "y_val",
+      "X_test",
+      "y_test",
+      "mean",
+      "std",
+      "class_map",
+      "subject_split"
+    ],
+    "x_key": "X_train,X_val,X_test",
+    "y_key": "y_train,y_val,y_test",
+    "group_key": null,
+    "x_shape": [
+      3433,
+      300,
+      1
+    ],
+    "x_dtype": "float32",
+    "y_shape": [
+      3433
+    ],
+    "y_dtype": "int64",
+    "observed_windows": 3433,
+    "expected_windows": 3118,
+    "count_matches_expectation": false,
+    "count_mismatch_reason": "Observed total window count (3433) differs from CLI expected count (3118).",
+    "schema_failures": []
+  },
+  "duplicates": {
+    "total_windows": 3433,
+    "unique_window_hashes": 3433,
+    "duplicate_hash_group_count": 0,
+    "duplicate_instance_count": 0,
+    "windows_in_duplicate_groups": 0,
+    "duplicate_examples": []
+  },
+  "label_consistency": {
+    "has_label_inconsistency": false,
+    "inconsistent_hash_count": 0,
+    "inconsistent_window_count": 0,
+    "inconsistent_examples": [],
+    "class_map_used": {
+      "0": "NORMAL",
+      "1": "RAPID_OR_ABNORMAL",
+      "2": "APNEA"
+    }
+  },
+  "split_integrity": {
+    "status": "PASSED",
+    "split_index_checks": {
+      "train": {
+        "count": 2491,
+        "unique_count": 2491,
+        "duplicate_index_count": 0,
+        "non_int_count": 0,
+        "negative_index_count": 0,
+        "out_of_bounds_count": 0
+      },
+      "val": {
+        "count": 474,
+        "unique_count": 474,
+        "duplicate_index_count": 0,
+        "non_int_count": 0,
+        "negative_index_count": 0,
+        "out_of_bounds_count": 0
+      },
+      "test": {
+        "count": 468,
+        "unique_count": 468,
+        "duplicate_index_count": 0,
+        "non_int_count": 0,
+        "negative_index_count": 0,
+        "out_of_bounds_count": 0
+      }
+    },
+    "train_val_index_overlap_count": 0,
+    "train_test_index_overlap_count": 0,
+    "val_test_index_overlap_count": 0,
+    "train_val_index_overlap": [],
+    "train_test_index_overlap": [],
+    "val_test_index_overlap": [],
+    "unassigned_index_count": 0,
+    "unassigned_indices": [],
+    "unexpected_index_count": 0,
+    "unexpected_indices": [],
+    "coverage_ratio": 1.0,
+    "split_failures": []
+  },
+  "cross_split_signal_leakage": {
+    "status": "PASSED",
+    "has_cross_split_signal_leakage": false,
+    "train_val_duplicate_hash_count": 0,
+    "train_test_duplicate_hash_count": 0,
+    "val_test_duplicate_hash_count": 0,
+    "cross_split_leakage_examples": [],
+    "signal_leakage_failures": []
+  },
+  "group_isolation": {
+    "status": "NOT_VERIFIABLE",
+    "reason": "SAMPLE_LEVEL_GROUP_IDS_MISSING_OR_UNLINKED",
+    "synthetic_group_isolation": "NOT_VERIFIABLE",
+    "real_subject_provenance": "NOT_VERIFIABLE",
+    "has_group_leakage": null,
+    "train_val_group_overlap_count": null,
+    "train_test_group_overlap_count": null,
+    "val_test_group_overlap_count": null,
+    "overlap_group_examples": []
+  },
+  "limitations": {
+    "real_subject_provenance": "NOT_VERIFIABLE",
+    "real_sensor_performance": "NOT_VERIFIABLE",
+    "note": "Source NPZ dataset lacks sample-level subject/session provenance. Group isolation audit reports NOT_VERIFIABLE."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "eligible_evaluated": 75,
+  "invalid": 0,
+  "not_final_locked_test_pristine": true,
+  "result_designation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "selected_runtime_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "source": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/selected_candidate_recovery_result.json",
+  "tflite_invocations_all_models": 225,
+  "tflite_invocations_selected": 75,
+  "valid": 75
+}

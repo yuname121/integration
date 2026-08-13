@@ -1,0 +1,66 @@
+{
+  "definition": "q_unclipped < -128 or q_unclipped > 127 before int8 clipping",
+  "input_quantization": {
+    "scale": 0.03529411926865578,
+    "zero_point": 0
+  },
+  "interpretation": "INT8_INPUT_SATURATION_OBSERVED",
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "train": {
+    "feature_count": 4,
+    "maximum_overflow_distance": 1125.0,
+    "per_feature": {
+      "CO2": {
+        "count": 10,
+        "fraction": 0.0012285012285012285
+      },
+      "CO2_slope": {
+        "count": 14,
+        "fraction": 0.0017199017199017199
+      },
+      "Humidity": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "Temperature": {
+        "count": 0,
+        "fraction": 0.0
+      }
+    },
+    "population": "TRAIN_REPRESENTATIVE",
+    "sample_count": 8140,
+    "samples_with_at_least_one_saturated_feature": 24,
+    "saturated_element_count": 24,
+    "saturation_fraction": 0.0007371007371007371,
+    "saturation_observed": true
+  },
+  "validation": {
+    "feature_count": 4,
+    "maximum_overflow_distance": 79.0,
+    "per_feature": {
+      "CO2": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "CO2_slope": {
+        "count": 3,
+        "fraction": 0.0011269722013523666
+      },
+      "Humidity": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "Temperature": {
+        "count": 0,
+        "fraction": 0.0
+      }
+    },
+    "population": "VALIDATION",
+    "sample_count": 2662,
+    "samples_with_at_least_one_saturated_feature": 3,
+    "saturated_element_count": 3,
+    "saturation_fraction": 0.00028174305033809165,
+    "saturation_observed": true
+  }
+}

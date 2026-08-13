@@ -1,0 +1,29 @@
+{
+  "phase_id": "M-B5",
+  "exceptions_registry": [
+    {
+      "exception_id": "HISTORICAL_DETREND_MEAN_CENTERING_DISCREPANCY",
+      "severity": "WARNING",
+      "status": "APPROVED_HISTORICAL_DISCREPANCY",
+      "impact": "Non-blocking historical pilot discrepancy in A6 annotations."
+    },
+    {
+      "exception_id": "INITIALIZATION_SEED_SENSITIVITY",
+      "severity": "WARNING",
+      "status": "REGISTERED_SEED_SENSITIVITY",
+      "impact": "M-B4 primary Conv1D GAP baseline exhibits substantial initialization-seed sensitivity (seed42 Macro F1\u22480.663708, seed43\u22480.451010, seed44\u22480.329107). M-B5 evaluates calibration profiles across all three frozen seeds; it does not select seeds."
+    },
+    {
+      "exception_id": "SEED_CLASS_COLLAPSE",
+      "severity": "WARNING",
+      "status": "REGISTERED_SEED_COLLAPSE",
+      "impact": "SeparableConv1D GAP collapsed on seed 44. Excluded from M-B4/M-B5 considerations."
+    },
+    {
+      "exception_id": "PROFILE_D_METADATA_SEMANTIC_REPAIR",
+      "severity": "INFO",
+      "status": "REPAIRED",
+      "impact": "Distribution-Aware Profile D now derives posture/source_test_condition vocabularies from authoritative TRAIN metadata (Lying/Sitting, Rest/Post-exercise) instead of the prior incorrect supine/left/right and class-like test_condition encoding."
+    }
+  ]
+}

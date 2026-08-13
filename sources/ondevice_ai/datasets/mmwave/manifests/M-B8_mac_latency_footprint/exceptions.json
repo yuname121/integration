@@ -1,0 +1,16 @@
+{
+  "blocker_count": 0,
+  "findings": [
+    {
+      "classification": "NON-BLOCKING IMPROVEMENT",
+      "code": "MAC_SPECIFIC_RUNTIME_EVIDENCE_ONLY",
+      "detail": "M-B8 measures this Mac environment only, not Raspberry Pi, MR60, or sensor-to-alarm latency."
+    },
+    {
+      "classification": "NON-BLOCKING IMPROVEMENT",
+      "code": "PROCESS_RSS_PROXY_LIMITATION",
+      "detail": "Process RSS is observational and is not exact TFLite arena or model RAM evidence."
+    }
+  ],
+  "phase_id": "M-B8"
+}

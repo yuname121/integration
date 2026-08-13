@@ -1,0 +1,23 @@
+{
+  "phase_id": "M-B4",
+  "exceptions_registry": [
+    {
+      "exception_id": "HISTORICAL_DETREND_MEAN_CENTERING_DISCREPANCY",
+      "severity": "WARNING",
+      "status": "APPROVED_HISTORICAL_DISCREPANCY",
+      "impact": "Non-blocking historical pilot discrepancy in A6 annotations."
+    },
+    {
+      "exception_id": "INITIALIZATION_SEED_SENSITIVITY",
+      "severity": "WARNING",
+      "status": "REGISTERED_SEED_SENSITIVITY",
+      "impact": "Conv1D GAP baseline exhibits high initialization seed sensitivity across seeds 42, 43, 44 (mean Macro F1 = 0.481275, std = 0.138266, worst seed 44 = 0.329107). Non-collapsed, selected as primary finalist."
+    },
+    {
+      "exception_id": "SEED_CLASS_COLLAPSE",
+      "severity": "WARNING",
+      "status": "REGISTERED_SEED_COLLAPSE",
+      "impact": "SeparableConv1D GAP collapsed on seed 44 (RAPID_OR_ABNORMAL recall = 0.0, 0 predictions). Excluded from stable backup architecture consideration."
+    }
+  ]
+}

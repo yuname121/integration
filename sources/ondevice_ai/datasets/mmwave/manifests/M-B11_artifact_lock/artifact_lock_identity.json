@@ -1,0 +1,19 @@
+{
+  "apnea_is_proxy": true,
+  "artifact_identity_is_sha256_not_git_commit": true,
+  "artifact_status": "REAL_DATA_OFFLINE_CANDIDATE",
+  "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "git_commit_sha_supplementary_only": true,
+  "m_b11_creates_new_model": false,
+  "phase_id": "M-B11",
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "runtime_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "selected_candidate_changed": false
+}

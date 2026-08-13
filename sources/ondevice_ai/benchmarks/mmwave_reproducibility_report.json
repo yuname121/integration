@@ -1,0 +1,78 @@
+{
+  "audit_name": "mmwave_mac_reproducibility_verification",
+  "scope": "MACOS_CPU_ONLY",
+  "overall_status": "PASSED",
+  "exact_binary_target": true,
+  "seed": 42,
+  "epochs": 2,
+  "environment": {
+    "python_version": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "tensorflow_version": "2.20.0",
+    "numpy_version": "2.0.2",
+    "pyyaml_version": "6.0.3",
+    "visible_cpus": 1,
+    "visible_gpus": 0,
+    "deterministic_env_vars": {
+      "PYTHONHASHSEED": null,
+      "TF_DETERMINISTIC_OPS": null,
+      "TF_CUDNN_DETERMINISTIC": null,
+      "CUDA_VISIBLE_DEVICES": null,
+      "OMP_NUM_THREADS": null,
+      "TF_NUM_INTRAOP_THREADS": null,
+      "TF_NUM_INTEROP_THREADS": null
+    }
+  },
+  "input_fingerprints": {
+    "dataset_sha256": "a08072f3d9b55cd95b530c7b5b90f17ef80f6015ee76119f217b9d834c1107fb",
+    "split_sha256": "6fb8a2a11f19afb4318cb4e4b20f08040f96bc5cfcede788b4bbb29dc5ee4e9c"
+  },
+  "run_1": {
+    "output_dir": "/var/folders/2x/xzhl_j893ql4llg7_k0f1q1r0000gn/T/safenest_repro_mhnxb0oc/run_1",
+    "canonical_weight_sha256": "b07e5dffdeb2e0ff76aa78311ee75c9d469db05348f76f602b889dab145c60e5",
+    "float_tflite_sha256": "ccefc17880898febab03be3110a2864454577ef14cfeea57d4a09ce4d1d3a0c2",
+    "int8_tflite_sha256": "4fc0539352264e30ea4b2cb01ab7c45fa9114e8be444f050930786bc52cef140",
+    "int8_accuracy": 1.0,
+    "int8_macro_f1": 1.0,
+    "prediction_distribution": {
+      "NORMAL": 187,
+      "RAPID_OR_ABNORMAL": 239,
+      "APNEA": 42
+    }
+  },
+  "run_2": {
+    "output_dir": "/var/folders/2x/xzhl_j893ql4llg7_k0f1q1r0000gn/T/safenest_repro_mhnxb0oc/run_2",
+    "canonical_weight_sha256": "b07e5dffdeb2e0ff76aa78311ee75c9d469db05348f76f602b889dab145c60e5",
+    "float_tflite_sha256": "ccefc17880898febab03be3110a2864454577ef14cfeea57d4a09ce4d1d3a0c2",
+    "int8_tflite_sha256": "4fc0539352264e30ea4b2cb01ab7c45fa9114e8be444f050930786bc52cef140",
+    "int8_accuracy": 1.0,
+    "int8_macro_f1": 1.0,
+    "prediction_distribution": {
+      "NORMAL": 187,
+      "RAPID_OR_ABNORMAL": 239,
+      "APNEA": 42
+    }
+  },
+  "comparisons": {
+    "resolved_config_match": true,
+    "dataset_sha_match": true,
+    "split_sha_match": true,
+    "scaler_stats_match": true,
+    "training_history_match": true,
+    "canonical_weight_sha_match": true,
+    "float_tflite_sha_match": true,
+    "int8_tflite_sha_match": true,
+    "evaluation_metrics_match": true,
+    "prediction_array_match": true
+  },
+  "limitations": {
+    "cross_platform_reproducibility": "NOT_VERIFIABLE",
+    "raspberry_pi_validation": "BLOCKED_HARDWARE",
+    "real_sensor_performance": "NOT_VERIFIABLE",
+    "dependency_versions": "LOCKED",
+    "offline_reinstallation": "NOT_VERIFIABLE",
+    "offline_reinstallation_reason": "LOCAL_WHEELHOUSE_NOT_CONFIRMED"
+  }
+}

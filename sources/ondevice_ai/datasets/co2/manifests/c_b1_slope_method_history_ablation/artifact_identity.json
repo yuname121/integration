@@ -1,0 +1,11 @@
+{
+  "a_series_slope_profile_modified": false,
+  "artifact_count": 17,
+  "artifact_dir": "datasets/co2/manifests/c_b1_slope_method_history_ablation",
+  "manifest_version": "1.0",
+  "phase": "C-B1",
+  "production_model_modified": false,
+  "production_scaler_modified": false,
+  "selected_profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "winning_candidate_id": "ENDPOINT_H150"
+}

@@ -1,0 +1,49 @@
+{
+  "blockers": [],
+  "candidate_count": 3,
+  "deciding_criterion": {
+    "absolute_difference": 0.224991,
+    "criterion_rank": 1,
+    "description": "Higher clean strict-INT8 VALIDATION Macro F1",
+    "direction": "higher",
+    "metric": "clean_strict_int8_macro_f1",
+    "runner_up_value": 0.44124,
+    "winner_value": 0.666231
+  },
+  "eligible_candidate_count": 2,
+  "final_access_mechanism_ready": true,
+  "finding_classes": [
+    "BLOCKER",
+    "REQUIRED REFINEMENT",
+    "NON-BLOCKING IMPROVEMENT"
+  ],
+  "formal_m_b8_latency_measurement_rerun": false,
+  "historical_baselines_registered": true,
+  "locked_test_access_readiness_used": false,
+  "locked_test_accesses": 0,
+  "locked_test_evaluation_contract_registered": true,
+  "locked_test_performance_computed": false,
+  "m_b10b_authorization_recommendation": "NO — independent review required.",
+  "m_b10b_started": false,
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "phase_id": "M-B10A",
+  "phase_title": "Pre-LOCKED_TEST Real-Data Offline Candidate Selection Setup",
+  "review_refinements_closed": [
+    "HISTORICAL_BASELINE_EXECUTABLE_PREPROCESSING_CONTRACT",
+    "M_B9_VALID_FINALIST_FALLBACK_E6",
+    "M_B9_RUNTIME_PREDICTION_IDENTITY_E5",
+    "M_B8_PIPELINE_P99_SOURCE_RECONSTRUCTION",
+    "BASELINE_CLASS_MAP_FREEZE"
+  ],
+  "selected_candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "selection_epsilon": 1e-05,
+  "selection_rule_sha256": "cddf98cbcf2231075bcfc02db2223fbc80fa33f7c52e23820609b5a273046f84",
+  "selection_status": "SELECTED_PRELOCKED_REAL_DATA_CANDIDATE",
+  "validation_success": true,
+  "warnings": [
+    "INITIALIZATION_SEED_SENSITIVITY_PRESERVED",
+    "SEVERE_M-B7_PROFILES_NOT_HARD_GATED",
+    "MAC_ONLY_LATENCY_EVIDENCE"
+  ]
+}

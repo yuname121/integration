@@ -1,0 +1,251 @@
+{
+  "a_series_release_tag": "co2-a-series-raw-to-canonical",
+  "a_series_release_target": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+  "b0_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "b1_selected_slope_profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "b2_policy_id": "CO2_B2_SELECTED_IMBALANCE_POLICY_001",
+  "b2_scaler_profile_id": "CO2_B2_TRAIN_ONLY_STANDARD_SCALER_001",
+  "b2_threshold_protocol_id": "CO2_B2_THRESHOLD_CALIBRATION_PROTOCOL_001",
+  "b3_profile_id": "CO2_B3_SELECTED_ARCHITECTURE_PROFILE_001",
+  "closure_fingerprint": "388d201aa0ecc9743648b65d0ec6af8a25142bf6273df743ceb3b44147951104",
+  "closure_status": "LOCKED",
+  "entries": [
+    {
+      "byte_size": 14204,
+      "path": "datasets/co2/manifests/c_a6_final_integrity_lock/artifact_lock_manifest.json",
+      "phase": "C-A6",
+      "role": "A_SERIES_ARTIFACT_LOCK",
+      "sha256": "b63f5e2da988f8e685cf1a01ec8e79c2c37f5bc77359be647f1147ecfb04e3da"
+    },
+    {
+      "byte_size": 2549,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/experiment_contract.json",
+      "phase": "C-B0",
+      "role": "B0_EXPERIMENT_CONTRACT",
+      "sha256": "9def229d77623e1218239964c79ad29ef4a03c45f1fe5044656f89718bb9c7a1"
+    },
+    {
+      "byte_size": 487,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/leakage_audit.json",
+      "phase": "C-B0",
+      "role": "B0_LEAKAGE_CONTRACT",
+      "sha256": "68c0a6816733f09579246227f09dc006ac824506a630f52e443dcfaae170d535"
+    },
+    {
+      "byte_size": 732,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/metric_contract.json",
+      "phase": "C-B0",
+      "role": "B0_METRIC_CONTRACT",
+      "sha256": "705d65a2bd9405b8be74ac95b8b464ddd6c65f1c037830c3b030a3f1413bc6dd"
+    },
+    {
+      "byte_size": 745,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/preprocessing_fit_evidence.json",
+      "phase": "C-B0",
+      "role": "B0_PREPROCESSING_CONTRACT",
+      "sha256": "6f167e74b94b9db4b78e7ad6b5e6b8d37a084e3c18a0db4ac15219ff1c087a3b"
+    },
+    {
+      "byte_size": 1336,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/sample_universe_manifest.json",
+      "phase": "C-B0",
+      "role": "B0_COMPARISON_UNIVERSE",
+      "sha256": "7223f5c6c94aa4cdfdb670c4cfa09c397bc6fb29654617758ddcd145881bf509"
+    },
+    {
+      "byte_size": 3296,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/candidate_feature_fingerprint_registry.json",
+      "phase": "C-B1",
+      "role": "B1_FEATURE_FINGERPRINTS",
+      "sha256": "937915209a2414a3d711b2fcc66cd5e891a17c174df6a887ff50d6011bf587d1"
+    },
+    {
+      "byte_size": 619,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/leakage_audit.json",
+      "phase": "C-B1",
+      "role": "B1_LEAKAGE_AUDIT",
+      "sha256": "8865476ad35a52795b7673bf7280743091e05cce370ff803570bab155c36ee47"
+    },
+    {
+      "byte_size": 2026,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/selected_slope_profile.json",
+      "phase": "C-B1",
+      "role": "B1_SELECTED_SLOPE_PROFILE",
+      "sha256": "83a7b07af2fa5e24c4b4806369627ab838491de8e137607b9e7b8c7816f4a4fa"
+    },
+    {
+      "byte_size": 385889,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/balanced_sampling_evidence.json",
+      "phase": "C-B2",
+      "role": "B2_OVERSAMPLING_EVIDENCE",
+      "sha256": "ee79f948ffe358c8bee923b9b962933261fa481cefa07e8d3b666f1523974751"
+    },
+    {
+      "byte_size": 1189,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/experiment_contract.json",
+      "phase": "C-B2",
+      "role": "B2_EXPERIMENT_CONTRACT",
+      "sha256": "4b108b8d245230524db78d91391138cf207312ca6a5a034c0597eb94da4e7484"
+    },
+    {
+      "byte_size": 9190,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/imbalance_selection_decision.json",
+      "phase": "C-B2",
+      "role": "B2_SELECTED_IMBALANCE_POLICY",
+      "sha256": "794650a2d245b0cc86305316915218dc7dbc3edb6b248c29aff5c0a3892eb42b"
+    },
+    {
+      "byte_size": 2494,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/leakage_audit.json",
+      "phase": "C-B2",
+      "role": "B2_LEAKAGE_AUDIT",
+      "sha256": "c05a60d90924a3c935f3255f9ff0263803066a67660921f3cacb51eb81e1afc4"
+    },
+    {
+      "byte_size": 666,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/occupancy_probability_semantic_contract.json",
+      "phase": "C-B2",
+      "role": "B2_PROBABILITY_SEMANTICS",
+      "sha256": "4142e645de1f4315d649f11153ad47d6ad00359ad950f0e4184fc67f771aedc2"
+    },
+    {
+      "byte_size": 5214,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/predecessor_fingerprint_registry.json",
+      "phase": "C-B2",
+      "role": "B2_PREDECESSOR_CLOSURE",
+      "sha256": "0f84ee17a0bcef037db66fc25c2357ec3de480306fb97b09381cd9b3701c7450"
+    },
+    {
+      "byte_size": 1558,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/preprocessing_scaler_evidence.json",
+      "phase": "C-B2",
+      "role": "B2_SCALER_EVIDENCE",
+      "sha256": "732c8d4b57cd27e097aabab12b2fcfb67ed38392afe638e3f7be3a3eb5ad954a"
+    },
+    {
+      "byte_size": 2175,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/threshold_calibration_protocol.json",
+      "phase": "C-B2",
+      "role": "B2_THRESHOLD_PROTOCOL",
+      "sha256": "6b9d7075b1199b461f5f985280c25bce919a44b45d7ededa2542c13aa09a58fd"
+    },
+    {
+      "byte_size": 4489,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/architecture_candidate_registry.json",
+      "phase": "C-B3",
+      "role": "B3_ARCHITECTURE_REGISTRY",
+      "sha256": "1190c3350b02293bc588109796ea1d7fd9b4e73412e3bc4e4e49f3bb86ab267b"
+    },
+    {
+      "byte_size": 40464,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/architecture_multiseed_aggregate.json",
+      "phase": "C-B3",
+      "role": "B3_AGGREGATE_RESULTS",
+      "sha256": "7d0a791ece50342b067cae193298b978e5c601fbeba01c59016672e88e74d9d6"
+    },
+    {
+      "byte_size": 1190,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/determinism_report.json",
+      "phase": "C-B3",
+      "role": "B3_DETERMINISM",
+      "sha256": "3f4b36b71dce585568fbd233e24a805281c2dcb7cf0921d834b45d0299856f33"
+    },
+    {
+      "byte_size": 1592,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/experiment_contract.json",
+      "phase": "C-B3",
+      "role": "B3_EXPERIMENT_CONTRACT",
+      "sha256": "ebc8a809bc127424eac87aaf27973df4a3939e6c6ca21018df976d317ea4c4b5"
+    },
+    {
+      "byte_size": 948,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/fixed_comparison_universe_fingerprint.json",
+      "phase": "C-B3",
+      "role": "B3_COMPARISON_UNIVERSE",
+      "sha256": "d327fa9eeb531fa1343117227089e772beac672accb9fda63fdc273fe5521601"
+    },
+    {
+      "byte_size": 3073,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/leakage_audit.json",
+      "phase": "C-B3",
+      "role": "B3_LEAKAGE_AUDIT",
+      "sha256": "58b15373496afab26935fd58b184abaa1cf45dea6e15895441f08cfd9e236efd"
+    },
+    {
+      "byte_size": 1159,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/oversampling_parity_evidence.json",
+      "phase": "C-B3",
+      "role": "B3_OVERSAMPLING_PARITY",
+      "sha256": "2704502e34d22cec7bf2d6210c40688939b021e42a1d26aa88743d56de25cd17"
+    },
+    {
+      "byte_size": 231333,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/per_run_results.json",
+      "phase": "C-B3",
+      "role": "B3_PER_RUN_RESULTS",
+      "sha256": "cbfee5a20cc84f1e1cf03eb5cc7f5f78e8afbd727588d18664393ea05154b909"
+    },
+    {
+      "byte_size": 6529,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/predecessor_fingerprint_registry.json",
+      "phase": "C-B3",
+      "role": "B3_PREDECESSOR_CLOSURE",
+      "sha256": "4d774578896d074a93682d94300d6c9e7d38cacd0efde9e86637e160ac89235c"
+    },
+    {
+      "byte_size": 1160,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/preprocessing_parity_evidence.json",
+      "phase": "C-B3",
+      "role": "B3_SCALER_PARITY",
+      "sha256": "9653895901f722ac8cbb38c172ca795db819f8d75eef10d9dd29f67a885fe69c"
+    },
+    {
+      "byte_size": 14044,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/selected_architecture_profile.json",
+      "phase": "C-B3",
+      "role": "B3_SELECTED_ARCHITECTURE",
+      "sha256": "10ec98eb6b1d18f5bc6e69cfff842f73c736ba7406333892ab3ee5bad9557753"
+    },
+    {
+      "byte_size": 1535,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/threshold_stability_summary.json",
+      "phase": "C-B3",
+      "role": "B3_THRESHOLD_STABILITY",
+      "sha256": "1fa4e45b1a5384e9e1611da2ff4f782d0de171d0f2f796071edb225880206c33"
+    },
+    {
+      "byte_size": 1679019,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/validation_predictions.json",
+      "phase": "C-B3",
+      "role": "B3_VALIDATION_PREDICTIONS",
+      "sha256": "e6d38ba26fb64af954e6b07106aebb2d0ad8f57ee04cc85636aadaebd648f10c"
+    },
+    {
+      "byte_size": 236127,
+      "path": "datasets/co2/processed/co2_occupancy_v1.npz",
+      "phase": "PREEXISTING_FIXTURE",
+      "role": "SYNTHETIC_SMOKE_FIXTURE_EXCLUDED",
+      "sha256": "bff5cd76ed7200149942715a8530eb72833b9fd5949b85b520691876936f6eea"
+    },
+    {
+      "byte_size": 4464,
+      "path": "models/co2/co2_occupancy_int8_v0.1.0.tflite",
+      "phase": "PREEXISTING_PRODUCTION",
+      "role": "PRODUCTION_MODEL_READ_ONLY",
+      "sha256": "3a8c86c4c132df0f1edaac668d9a136c3f6234789df48f02bdda8e92f29d0462"
+    },
+    {
+      "byte_size": 289,
+      "path": "models/co2/co2_scaling_metadata_v0.1.0.json",
+      "phase": "PREEXISTING_PRODUCTION",
+      "role": "PRODUCTION_SCALER_READ_ONLY",
+      "sha256": "9195be0097544919aaf976a727c27c35858f843a0cbe5dfe311715c7abf901e5"
+    }
+  ],
+  "entry_count": 33,
+  "manifest_version": "1.0",
+  "mismatch_status": "C_B0_B1_B2_B3_PREDECESSOR_FINGERPRINT_MISMATCH_ON_DRIFT",
+  "phase": "C-B4",
+  "registry_id": "CO2_B4_PREDECESSOR_FINGERPRINT_REGISTRY_001",
+  "required_c_b3_merged_main_commit": "7344997beacf82ff21df7f3dd2b9bc78405f32d7"
+}

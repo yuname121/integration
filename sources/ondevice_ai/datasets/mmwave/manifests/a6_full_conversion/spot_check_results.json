@@ -1,0 +1,67 @@
+[
+  {
+    "sample_index": 0,
+    "window_id": "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise__W0000",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise",
+    "subject_id": "dataset-10_5281_zenodo_18599983-p001",
+    "split": "TRAIN",
+    "safenest_label": "RAPID_OR_ABNORMAL",
+    "mapping_rule_id": "A4_RULE_RAPID_MOVESENSE_ACC_REF",
+    "canonical_signal_hash": "95112f50dc15f46bcb509de55c18d1f27a2c1855cdd01ca6bf7d11cd48e2fd3f",
+    "npy_row_signal_hash": "95112f50dc15f46bcb509de55c18d1f27a2c1855cdd01ca6bf7d11cd48e2fd3f",
+    "source_radar_member": "db_records/P001/Lying/Post-exercise/radar_rFFTs.zlib",
+    "lineage_verified": true
+  },
+  {
+    "sample_index": 132,
+    "window_id": "dataset-10_5281_zenodo_18599983-p026-lying-post_exercise__W0001",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p026-lying-post_exercise",
+    "subject_id": "dataset-10_5281_zenodo_18599983-p026",
+    "split": "TRAIN",
+    "safenest_label": "RAPID_OR_ABNORMAL",
+    "mapping_rule_id": "A4_RULE_RAPID_MOVESENSE_ACC_REF",
+    "canonical_signal_hash": "e571e52ecf5a1f264b278f1d53f9c44ee662c3c65a9a1c78963a996b7f8c51e5",
+    "npy_row_signal_hash": "e571e52ecf5a1f264b278f1d53f9c44ee662c3c65a9a1c78963a996b7f8c51e5",
+    "source_radar_member": "db_records/P026/Lying/Post-exercise/radar_rFFTs.zlib",
+    "lineage_verified": true
+  },
+  {
+    "sample_index": 265,
+    "window_id": "dataset-10_5281_zenodo_18599983-p047-sitting-rest__W0000",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p047-sitting-rest",
+    "subject_id": "dataset-10_5281_zenodo_18599983-p047",
+    "split": "VALIDATION",
+    "safenest_label": "APNEA",
+    "mapping_rule_id": "A4_RULE_APNEA_VOLUNTARY_PROXY",
+    "canonical_signal_hash": "6dd338958000fc149714561a83940553f232667b6f3576ded23fe4415b334c68",
+    "npy_row_signal_hash": "6dd338958000fc149714561a83940553f232667b6f3576ded23fe4415b334c68",
+    "source_radar_member": "db_records/P047/Sitting/Rest/radar_rFFTs.zlib",
+    "lineage_verified": true
+  },
+  {
+    "sample_index": 397,
+    "window_id": "dataset-10_5281_zenodo_18599983-p077-sitting-rest__W0000",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p077-sitting-rest",
+    "subject_id": "dataset-10_5281_zenodo_18599983-p077",
+    "split": "TRAIN",
+    "safenest_label": "APNEA",
+    "mapping_rule_id": "A4_RULE_APNEA_VOLUNTARY_PROXY",
+    "canonical_signal_hash": "59ea31e18f3d7305a6a7541aa82ae0d00f60db677d9d41238bb51325ec0001f1",
+    "npy_row_signal_hash": "59ea31e18f3d7305a6a7541aa82ae0d00f60db677d9d41238bb51325ec0001f1",
+    "source_radar_member": "db_records/P077/Sitting/Rest/radar_rFFTs.zlib",
+    "lineage_verified": true
+  },
+  {
+    "sample_index": 529,
+    "window_id": "dataset-10_5281_zenodo_18599983-p110-sitting-rest__W0000",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-sitting-rest",
+    "subject_id": "dataset-10_5281_zenodo_18599983-p110",
+    "split": "TRAIN",
+    "safenest_label": "APNEA",
+    "mapping_rule_id": "A4_RULE_APNEA_VOLUNTARY_PROXY",
+    "canonical_signal_hash": "f9450a1a3a2272013f73788a8fe11caaadd63135c65d46b5539ea9cfedd07059",
+    "npy_row_signal_hash": "f9450a1a3a2272013f73788a8fe11caaadd63135c65d46b5539ea9cfedd07059",
+    "source_radar_member": "db_records/P110/Sitting/Rest/radar_rFFTs.zlib",
+    "lineage_verified": true
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "evaluation_started": false,
+  "final_accessor_invocations": 1,
+  "model_inference_invocations": 0,
+  "phase_id": "M-B10B",
+  "results_available": false,
+  "status": "NOT_GENERATED_DUE_TO_LOCKED_SPLIT_IDENTITY_MISMATCH"
+}

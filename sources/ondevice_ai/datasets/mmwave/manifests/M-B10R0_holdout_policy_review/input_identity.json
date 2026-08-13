@@ -1,0 +1,32 @@
+{
+  "m_b10b_incident_closure_commit": "807a50316f750e1e877931b46fe9ea87113418e4",
+  "no_locked_test_payload_access": true,
+  "phase_id": "M-B10R0",
+  "schema_version": "M-B10R0_INPUT_IDENTITY_V1",
+  "upstream_evidence": [
+    {
+      "path": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/incident_root_cause.json",
+      "sha256": "d3a16d0daf454e0c0ba2a24c9c8fb28653cd1b3d50915b4ad675670315cc3585"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/locked_test_evaluation_contract.json",
+      "sha256": "ba6429ecfe685de1807ec85b55e697ee12e24138e6b96e94715b0a1a6b19e0f7"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/selected_candidate_pretest.json",
+      "sha256": "b6ba2516b5e9a46c0f3a7dec408973c7eb1bdc333adff6ac17c322bbc6875db8"
+    },
+    {
+      "path": "datasets/mmwave/manifests/a0_raw_inventory/recording_index.jsonl",
+      "sha256": "31cb924ab7821913c760773bfb22aebc3a3252c14afc073da933e0f6f274dd8c"
+    },
+    {
+      "path": "datasets/mmwave/manifests/a5_subject_split/subject_split_manifest.jsonl",
+      "sha256": "777cdaa1a8cda54ab0db63dcc916d3ba208c10f30cc2f48d3bc91e94bcb2dfc7"
+    },
+    {
+      "path": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json",
+      "sha256": "2657c703d691e1e4a2aea6033b351e64ff124ac09438ab02b843210596189d34"
+    }
+  ]
+}

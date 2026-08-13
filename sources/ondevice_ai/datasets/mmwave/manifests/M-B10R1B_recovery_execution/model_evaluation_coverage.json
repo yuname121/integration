@@ -1,0 +1,35 @@
+{
+  "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8": {
+    "evaluation_rows_attempted": 75,
+    "invalid_count": 0,
+    "invalid_inference_count": 0,
+    "invalid_preprocessing_count": 0,
+    "planned_count": 75,
+    "preprocessing_success_count": 75,
+    "tflite_invoke_attempts": 75,
+    "tflite_invoke_count": 75,
+    "valid_count": 75
+  },
+  "mmwave_resp_int8": {
+    "evaluation_rows_attempted": 75,
+    "invalid_count": 0,
+    "invalid_inference_count": 0,
+    "invalid_preprocessing_count": 0,
+    "planned_count": 75,
+    "preprocessing_success_count": 75,
+    "tflite_invoke_attempts": 75,
+    "tflite_invoke_count": 75,
+    "valid_count": 75
+  },
+  "mmwave_resp_int8_v0.2.0_candidate": {
+    "evaluation_rows_attempted": 75,
+    "invalid_count": 0,
+    "invalid_inference_count": 0,
+    "invalid_preprocessing_count": 0,
+    "planned_count": 75,
+    "preprocessing_success_count": 75,
+    "tflite_invoke_attempts": 75,
+    "tflite_invoke_count": 75,
+    "valid_count": 75
+  }
+}

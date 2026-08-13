@@ -1,0 +1,16 @@
+{
+  "phase_id": "M-B2",
+  "python_version": "3.9.6",
+  "tensorflow_version": "2.20.0",
+  "numpy_version": "1.26.4",
+  "scipy_version": "1.13.1",
+  "platform": "darwin",
+  "processor_architecture": "arm64",
+  "visible_device_types": [
+    "CPU"
+  ],
+  "tf_deterministic_ops": "1",
+  "training_seed": 42,
+  "requirements_mac_sha256": "d14da72dfdf6b168dbacaef161adb03e1a171b990b7475ae85ea222fd7ab4f42",
+  "pinned_environment_verified": true
+}

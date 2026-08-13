@@ -1,0 +1,89 @@
+{
+  "a4_pilot_only": {
+    "assignment_status_counts": {
+      "AMBIGUOUS": 1,
+      "ASSIGNED": 14
+    },
+    "label_counts": {
+      "APNEA": 6,
+      "NORMAL": 5,
+      "None": 1,
+      "RAPID_OR_ABNORMAL": 3
+    },
+    "scope": "A4_PILOT_ONLY_NOT_FULL_CLASS_BALANCE",
+    "window_counts": {
+      "TRAIN": 14,
+      "VALIDATION": 1
+    }
+  },
+  "actual_subject_ratios": {
+    "LOCKED_TEST": 0.14545454545454545,
+    "TRAIN": 0.7,
+    "VALIDATION": 0.15454545454545454
+  },
+  "class_balance_limitation": "FULL_CLASS_DISTRIBUTION_UNKNOWN_UNTIL_A6",
+  "demographic_grouping": "NOT_REPORTED_VERIFIED_METADATA_UNAVAILABLE",
+  "full_dataset_source_metadata": {
+    "annotation_present_recordings_by_split": {
+      "LOCKED_TEST": 32,
+      "TRAIN": 154,
+      "VALIDATION": 34
+    },
+    "posture_by_split": {
+      "LOCKED_TEST": {
+        "Lying": 32,
+        "Sitting": 32
+      },
+      "TRAIN": {
+        "Lying": 154,
+        "Sitting": 154
+      },
+      "VALIDATION": {
+        "Lying": 34,
+        "Sitting": 34
+      }
+    },
+    "recording_counts": {
+      "LOCKED_TEST": 64,
+      "TRAIN": 308,
+      "VALIDATION": 68
+    },
+    "recordings_per_subject": {
+      "distribution": {
+        "4": 110
+      },
+      "maximum": 4,
+      "minimum": 4
+    },
+    "scope": "FULL_DATASET_SOURCE_METADATA",
+    "source_condition_by_split": {
+      "LOCKED_TEST": {
+        "Post-exercise": 32,
+        "Rest": 32
+      },
+      "TRAIN": {
+        "Post-exercise": 154,
+        "Rest": 154
+      },
+      "VALIDATION": {
+        "Post-exercise": 34,
+        "Rest": 34
+      }
+    },
+    "subject_counts": {
+      "LOCKED_TEST": 16,
+      "TRAIN": 77,
+      "VALIDATION": 17
+    }
+  },
+  "ratio_deviation": {
+    "LOCKED_TEST": -0.004545454545454547,
+    "TRAIN": 0.0,
+    "VALIDATION": 0.004545454545454547
+  },
+  "target_ratios": {
+    "LOCKED_TEST": 0.15,
+    "TRAIN": 0.7,
+    "VALIDATION": 0.15
+  }
+}

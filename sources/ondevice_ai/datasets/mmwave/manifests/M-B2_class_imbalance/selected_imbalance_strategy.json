@@ -1,0 +1,55 @@
+{
+  "phase_id": "M-B2",
+  "selected_strategy_id": "M-B2_CE_UNWEIGHTED",
+  "selected_strategy_name": "CE_UNWEIGHTED",
+  "validation_performance": {
+    "macro_f1": 0.663708,
+    "accuracy": 0.721519,
+    "min_per_class_recall": 0.454545,
+    "apnea_proxy_recall": 1.0,
+    "rapid_recall": 0.5,
+    "per_class": {
+      "NORMAL": {
+        "tp": 10,
+        "fp": 2,
+        "tn": 55,
+        "fn": 12,
+        "precision": 0.833333,
+        "recall": 0.454545,
+        "f1_score": 0.588235,
+        "fpr": 0.035088,
+        "support": 22
+      },
+      "RAPID_OR_ABNORMAL": {
+        "tp": 10,
+        "fp": 5,
+        "tn": 54,
+        "fn": 10,
+        "precision": 0.666667,
+        "recall": 0.5,
+        "f1_score": 0.571429,
+        "fpr": 0.084746,
+        "support": 20
+      },
+      "APNEA": {
+        "tp": 37,
+        "fp": 15,
+        "tn": 27,
+        "fn": 0,
+        "precision": 0.711538,
+        "recall": 1.0,
+        "f1_score": 0.831461,
+        "fpr": 0.357143,
+        "support": 37
+      }
+    }
+  },
+  "baseline_comparison": {
+    "baseline_strategy_id": "M-B2_CE_UNWEIGHTED",
+    "baseline_macro_f1": 0.663708,
+    "baseline_accuracy": 0.721519,
+    "delta_macro_f1": 0.0,
+    "delta_accuracy": 0.0
+  },
+  "selection_rationale": "Selected M-B2_CE_UNWEIGHTED (CE_UNWEIGHTED) with highest VALIDATION Macro F1 = 0.663708 under pre-registered 7-step ranking rule in pinned environment."
+}

@@ -1,0 +1,55 @@
+{
+  "authorized_strategy_ids": [
+    "NATURAL_DISTRIBUTION",
+    "CLASS_WEIGHT_BALANCED",
+    "BALANCED_RANDOM_OVERSAMPLE"
+  ],
+  "manifest_version": "1.0",
+  "phase": "C-B2",
+  "ranking_rule": [
+    "higher_validation_macro_f1",
+    "higher_validation_occupied_recall",
+    "higher_validation_balanced_accuracy",
+    "lower_validation_false_positive_rate",
+    "simpler_intervention_NATURAL_then_CLASS_WEIGHT_then_OVERSAMPLE",
+    "lexicographically_smaller_strategy_id"
+  ],
+  "registration_timing": "BEFORE_VALIDATION_EVALUATION",
+  "registry_fingerprint": "51a498c5f5b5b02d4e7653c57b458ebfacedba450f26b1c50f9ac9b02ec0e751",
+  "registry_id": "CO2_B2_IMBALANCE_STRATEGY_REGISTRY_001",
+  "stage1_threshold": 0.5,
+  "strategies": [
+    {
+      "class_weight": "NONE",
+      "participates_in_stage1_ranking": true,
+      "sampling": "NONE",
+      "strategy_id": "NATURAL_DISTRIBUTION",
+      "training_population": "ORIGINAL_TRAIN_8140"
+    },
+    {
+      "class_weight": "EXPLICIT_BALANCED_FROM_TRAIN_ONLY",
+      "participates_in_stage1_ranking": true,
+      "sampling": "NONE",
+      "strategy_id": "CLASS_WEIGHT_BALANCED",
+      "training_population": "ALL_ORIGINAL_TRAIN_8140"
+    },
+    {
+      "class_weight": "NONE",
+      "participates_in_stage1_ranking": true,
+      "sampling": "MINORITY_RANDOM_OVERSAMPLE_WITH_REPLACEMENT",
+      "seed": 20260810,
+      "strategy_id": "BALANCED_RANDOM_OVERSAMPLE",
+      "training_population": "ORIGINAL_TRAIN_PLUS_TRAIN_MINORITY_REPLACEMENT_DRAWS"
+    }
+  ],
+  "strategy_count": 3,
+  "unauthorized_examples": [
+    "SMOTE",
+    "ADASYN",
+    "MAJORITY_UNDERSAMPLING",
+    "FOCAL_LOSS",
+    "CUSTOM_ASYMMETRIC_LOSS",
+    "MANUAL_DUPLICATION_RATIO",
+    "COST_SENSITIVE_THRESHOLD"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "a5_gate_status": "PASS_WITH_WARNINGS",
+  "a6_entry_status": "READY_WITH_CONDITIONS",
+  "archive_sha256_after_a5": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_sha256_before_a5": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "cross_split_recording_overlap_count": 0,
+  "cross_split_window_id_overlap_count": 0,
+  "eligibility_counts": {
+    "locked_test_evaluation_eligible": 0,
+    "training_eligible": 13,
+    "validation_eligible": 1
+  },
+  "phase": "A5",
+  "pilot_assignment_status_counts": {
+    "AMBIGUOUS": 1,
+    "ASSIGNED": 14
+  },
+  "pilot_cross_split_duplicate_signal_hash_count": 0,
+  "pilot_label_counts": {
+    "APNEA": 6,
+    "NORMAL": 5,
+    "None": 1,
+    "RAPID_OR_ABNORMAL": 3
+  },
+  "pilot_window_counts": {
+    "TRAIN": 14,
+    "VALIDATION": 1
+  },
+  "profile_id": "MMWAVE_SUBJECT_SPLIT_PROFILE_001",
+  "recording_count": 440,
+  "recording_count_per_subject": {
+    "distribution": {
+      "4": 110
+    },
+    "maximum": 4,
+    "minimum": 4
+  },
+  "recording_counts": {
+    "LOCKED_TEST": 64,
+    "TRAIN": 308,
+    "VALIDATION": 68
+  },
+  "subject_count": 110,
+  "subject_counts": {
+    "LOCKED_TEST": 16,
+    "TRAIN": 77,
+    "VALIDATION": 17
+  },
+  "subject_overlap_counts": {
+    "TRAIN_LOCKED_TEST": 0,
+    "TRAIN_VALIDATION": 0,
+    "VALIDATION_LOCKED_TEST": 0
+  },
+  "unique_recording_id_count": 440,
+  "validation_errors": [],
+  "validation_success": true
+}

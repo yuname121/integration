@@ -1,0 +1,12 @@
+{
+  "locked_test_reopen_during_m_b10r0": false,
+  "new_label_accesses": 0,
+  "new_m_b10r0_accessor_invocations": 0,
+  "new_metric_accesses": 0,
+  "new_prediction_accesses": 0,
+  "new_tensor_accesses": 0,
+  "phase_id": "M-B10R0",
+  "previous_historical_original_access_events": 1,
+  "recovery_runner_executions": 0,
+  "schema_version": "M-B10R0_LOCKED_TEST_ACCESS_AUDIT_V1"
+}

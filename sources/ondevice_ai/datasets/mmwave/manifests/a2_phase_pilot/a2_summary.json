@@ -1,0 +1,85 @@
+{
+  "a0_schema_profiles_covered": [
+    "SCHEMA_PROFILE_001",
+    "SCHEMA_PROFILE_002"
+  ],
+  "a1_decoder_profiles_covered": [
+    "RFFT_DECODER_PROFILE_001"
+  ],
+  "a2_gate_status": "PASS_WITH_WARNINGS",
+  "a3_entry_status": "READY_WITH_CONDITIONS",
+  "activity_or_test_conditions_covered": [
+    "Post-exercise",
+    "Rest"
+  ],
+  "annotation_present_count": 6,
+  "archive_sha256_after_a2": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_sha256_before_a2": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_unchanged_after_a2": true,
+  "candidate_strategy_recording_count": 13,
+  "exception_count": 4,
+  "explicit_non_scope": {
+    "30_second_windowing": "NOT_PERFORMED",
+    "a3": "NOT_PERFORMED",
+    "full_440_recording_conversion": "NOT_PERFORMED",
+    "model_training": "NOT_PERFORMED",
+    "npz_generation": "NOT_PERFORMED",
+    "permanent_bandpass_filtering": "NOT_PERFORMED",
+    "permanent_detrending": "NOT_PERFORMED",
+    "resampling": "NOT_PERFORMED",
+    "safenest_label_mapping": "NOT_PERFORMED",
+    "subject_split": "NOT_PERFORMED",
+    "z_score_normalization": "NOT_PERFORMED"
+  },
+  "extraction_failure_count": 0,
+  "extraction_success_count": 13,
+  "extraction_warning_count": 1,
+  "frame_count_variants": [
+    400,
+    500,
+    600
+  ],
+  "near_zero_magnitude_sample_count": 11,
+  "neighbor_bin_strategies_evaluated": [
+    "SINGLE_BIN",
+    "PLUS_MINUS_ONE_INDIVIDUAL_PHASE_CENTER_THEN_MEDIAN_DIAGNOSTIC"
+  ],
+  "nonfinite_phase_sample_count": 0,
+  "phase_length_match_count": 13,
+  "pilot_recording_count": 13,
+  "pilot_subject_count": 6,
+  "postures_covered": [
+    "Lying",
+    "Sitting"
+  ],
+  "range_bin_strategies_evaluated": [
+    "A_MEAN_MAGNITUDE_PER_CHANNEL",
+    "A_MEAN_MAGNITUDE_CHANNEL_AGGREGATED",
+    "B_DYNAMIC_ENERGY_PER_CHANNEL",
+    "B_DYNAMIC_ENERGY_CHANNEL_AGGREGATED",
+    "C_RESPIRATION_BAND_ENERGY",
+    "D_PHASE_QUALITY",
+    "E_NEIGHBOR_BIN_SUPPORT"
+  ],
+  "schema_version": "1.0",
+  "selected_bin_distribution": {
+    "2": 13
+  },
+  "selected_profile_id": "MMWAVE_PHASE_EXTRACTION_PROFILE_001",
+  "selected_range_distribution_m": {
+    "0.634481392593": 13
+  },
+  "selected_virtual_channel_distribution": {
+    "0": 1,
+    "1": 2,
+    "4": 1,
+    "5": 5,
+    "6": 4
+  },
+  "validation_success": true,
+  "virtual_channel_strategies_evaluated": [
+    "V1_SINGLE_BEST",
+    "V2_QUALITY_WEIGHTED_PHASE",
+    "V3_MEDIAN_CONSENSUS_PHASE"
+  ]
+}

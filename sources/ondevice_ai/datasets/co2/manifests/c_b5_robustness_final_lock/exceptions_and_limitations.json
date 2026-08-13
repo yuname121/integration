@@ -1,0 +1,54 @@
+{
+  "blockers": [],
+  "cross_sensor_changes": false,
+  "manifest_version": "1.0",
+  "phase": "C-B5",
+  "production_artifacts_modified": false,
+  "robustness_classification": "ROBUSTNESS_DIAGNOSTIC_ONLY_UNDER_OFFLINE_TECHNICAL_STRESS",
+  "warnings": [
+    {
+      "code": "SOURCE_TIMEZONE_UNVERIFIED",
+      "severity": "WARNING"
+    },
+    {
+      "code": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+      "severity": "WARNING"
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "WARNING"
+    },
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "WARNING"
+    },
+    {
+      "code": "SAFETY_RULE_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING"
+    },
+    {
+      "code": "SENSOR_HEALTH_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING"
+    },
+    {
+      "code": "MULTISENSOR_RISK_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING"
+    },
+    {
+      "code": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+      "severity": "WARNING"
+    },
+    {
+      "code": "INT8_INPUT_SATURATION_OBSERVED",
+      "severity": "WARNING"
+    },
+    {
+      "code": "HOST_MAC_LATENCY_SANITY_ONLY",
+      "severity": "WARNING"
+    },
+    {
+      "code": "SCD40_DEVICE_DOMAIN_VALIDATION_NOT_YET_COMPLETE",
+      "severity": "WARNING"
+    }
+  ]
+}

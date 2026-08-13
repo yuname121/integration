@@ -1,0 +1,47 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A5",
+  "warnings": [
+    {
+      "code": "SOURCE_TIMEZONE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Source timestamps remain timezone-naive SOURCE_ACQUISITION_CLOCK."
+    },
+    {
+      "code": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+      "severity": "WARNING",
+      "description": "All temporal blocks originate from a single office room."
+    },
+    {
+      "code": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing TFLite training lineage remains unverified; C-A5 does not promote it."
+    },
+    {
+      "code": "SCALER_FIT_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing scaling metadata lineage remains unverified; C-A5 does not fit scalers."
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Inherited C-A3 history-duration lineage limitation remains."
+    },
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "WARNING",
+      "description": "Inherited SCD40 vs UCI cadence domain gap remains out of C-A5 scope."
+    },
+    {
+      "code": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+      "severity": "WARNING",
+      "description": "Shared inventory/contract refresh deferred to later integration commit."
+    },
+    {
+      "code": "A_SERIES_RELEASE_DEFERRED_UNTIL_C_A6",
+      "severity": "WARNING",
+      "description": "CO₂ A-series release/tag is deferred until C-A6 final integrity lock."
+    }
+  ],
+  "blockers": []
+}

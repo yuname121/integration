@@ -1,0 +1,69 @@
+{
+  "phase_id": "M-B1",
+  "profiles": [
+    {
+      "profile_id": "M-B1_D0_B0_Z0",
+      "name": "RAW",
+      "detrend": false,
+      "bpf": false,
+      "zscore": false,
+      "description": "Raw canonical phase window without preprocessing"
+    },
+    {
+      "profile_id": "M-B1_D1_B0_Z0",
+      "name": "DETREND_ONLY",
+      "detrend": true,
+      "bpf": false,
+      "zscore": false,
+      "description": "Linear detrending only"
+    },
+    {
+      "profile_id": "M-B1_D0_B1_Z0",
+      "name": "BPF_ONLY",
+      "detrend": false,
+      "bpf": true,
+      "zscore": false,
+      "description": "Fixed 0.1-0.5 Hz 4th-order Butterworth BPF only"
+    },
+    {
+      "profile_id": "M-B1_D1_B1_Z0",
+      "name": "DETREND_BPF",
+      "detrend": true,
+      "bpf": true,
+      "zscore": false,
+      "description": "Linear detrending followed by fixed 0.1-0.5 Hz BPF"
+    },
+    {
+      "profile_id": "M-B1_D0_B0_Z1",
+      "name": "ZSCORE_ONLY",
+      "detrend": false,
+      "bpf": false,
+      "zscore": true,
+      "description": "TRAIN-fitted global Z-score standardization only"
+    },
+    {
+      "profile_id": "M-B1_D1_B0_Z1",
+      "name": "DETREND_ZSCORE",
+      "detrend": true,
+      "bpf": false,
+      "zscore": true,
+      "description": "Linear detrending followed by TRAIN-fitted global Z-score"
+    },
+    {
+      "profile_id": "M-B1_D0_B1_Z1",
+      "name": "BPF_ZSCORE",
+      "detrend": false,
+      "bpf": true,
+      "zscore": true,
+      "description": "Fixed 0.1-0.5 Hz BPF followed by TRAIN-fitted global Z-score"
+    },
+    {
+      "profile_id": "M-B1_D1_B1_Z1",
+      "name": "DETREND_BPF_ZSCORE",
+      "detrend": true,
+      "bpf": true,
+      "zscore": true,
+      "description": "Linear detrending, fixed 0.1-0.5 Hz BPF, and TRAIN-fitted global Z-score"
+    }
+  ]
+}

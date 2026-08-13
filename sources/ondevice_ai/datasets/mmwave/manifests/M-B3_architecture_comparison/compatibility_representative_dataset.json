@@ -1,0 +1,12 @@
+{
+  "dataset_id": "M-B3_COMPATIBILITY_REPSET_ALL_TRAIN_001",
+  "purpose": "STRICT_INT8_ARCHITECTURE_COMPATIBILITY_ONLY",
+  "later_calibration_optimization": "M-B5 / NOT PERFORMED HERE",
+  "source_split": "TRAIN",
+  "sample_count": 327,
+  "input_shape": [
+    300,
+    1
+  ],
+  "dtype": "float32"
+}

@@ -1,0 +1,52 @@
+{
+  "profiles": [
+    {
+      "antenna_axis": 1,
+      "chirp_config_requirements": {
+        "a0_compatible_chirp_config_hash": "bd48b829076ed279",
+        "adc_samples": 64,
+        "rx_antenna_count": 4,
+        "tx_antenna_count": 2
+      },
+      "complex_representation": "NATIVE_NUMPY_COMPLEX_INTERLEAVED_REAL_IMAG_FLOAT64",
+      "compression": "zlib",
+      "decoder_profile_id": "RFFT_DECODER_PROFILE_001",
+      "dtype": "complex128",
+      "endianness": "little",
+      "frame_axis": 0,
+      "is_complex": true,
+      "observed_frame_counts": [
+        400,
+        500,
+        600
+      ],
+      "payload_format": "PYTHON_PICKLE_PROTOCOL_5_NUMPY_ARRAY_PAIR",
+      "radar_header_signatures": [
+        "78da"
+      ],
+      "range_bin_axis": 2,
+      "recording_count": 12,
+      "remaining_unknowns": [
+        "TX/RX-to-virtual-antenna channel ordering is not encoded in chirp config.",
+        "Stored rBins spacing differs from configured R_BIN; A2 must use the stored rBins vector for physical coordinates and preserve the discrepancy."
+      ],
+      "safe_decode_method": "PICKLETOOLS_ALLOWLISTED_SYMBOLIC_VM",
+      "safe_decoder": true,
+      "shape_pattern": [
+        null,
+        8,
+        64
+      ],
+      "supported_a0_schema_profiles": [
+        "SCHEMA_PROFILE_001",
+        "SCHEMA_PROFILE_002"
+      ],
+      "timestamp_requirements": {
+        "expected_median_dt_seconds": 0.1,
+        "format": "ISO8601_HEADERLESS_UTF8",
+        "required_alignment": "EXACT_ALIGNMENT"
+      }
+    }
+  ],
+  "schema_version": "1.0"
+}

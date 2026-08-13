@@ -1,0 +1,11 @@
+{
+  "phase_id": "M-B3",
+  "exceptions_registry": [
+    {
+      "exception_id": "HISTORICAL_DETREND_MEAN_CENTERING_DISCREPANCY",
+      "severity": "WARNING",
+      "status": "APPROVED_HISTORICAL_DISCREPANCY",
+      "impact": "Non-blocking historical pilot discrepancy in A6 annotations."
+    }
+  ]
+}

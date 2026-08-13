@@ -1,0 +1,24 @@
+{
+  "architecture_search_performed": false,
+  "class_weight": "STRATEGY_DEPENDENT_ONLY",
+  "classification": "REFERENCE_PROBABILISTIC_PROBE_ONLY",
+  "dependency": "scikit-learn",
+  "dependency_version": "1.6.1",
+  "final_architecture": false,
+  "hyperparameter_search_performed": false,
+  "implementation": "sklearn.linear_model.LogisticRegression",
+  "manifest_version": "1.0",
+  "multi_seed_search_performed": false,
+  "parameters": {
+    "C": 1.0,
+    "fit_intercept": true,
+    "max_iter": 2000,
+    "penalty": "l2",
+    "random_state": 20260810,
+    "solver": "lbfgs"
+  },
+  "phase": "C-B2",
+  "probe_profile_id": "B2_FIXED_LOGISTIC_PROBE_001",
+  "production_model": false,
+  "tflite_candidate": false
+}

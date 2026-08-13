@@ -1,0 +1,63 @@
+{
+  "E0_accessor_occurrence": {
+    "historical_final_accessor_invocations": 1,
+    "interpretation": "Withheld evaluation payload was returned to the M-B10B process once; pristine LOCKED_TEST status is lost.",
+    "payload_release_occurred": true
+  },
+  "E1_model_outputs": {
+    "prediction_exposure": false,
+    "predictions_generated": false
+  },
+  "E2_metrics": {
+    "metrics_generated": false,
+    "performance_exposure": false
+  },
+  "E3_persistent_sample_registry": {
+    "actual_registry_rows": 0,
+    "labels_persisted": false,
+    "persisted_sample_registry_exposure": false,
+    "placeholder_registry_exists": true,
+    "prediction_ledger_rows": 0,
+    "raw_tensors_persisted": false,
+    "sample_ids_persisted": false,
+    "subject_ids_persisted": false
+  },
+  "E4_payload_logging": {
+    "input_id_labels_tensors_not_persisted": true,
+    "metrics_results_available": false,
+    "post_access_labels_logged": false,
+    "post_access_sample_ids_logged": false,
+    "post_access_subject_ids_logged": false,
+    "post_access_tensor_values_logged": false
+  },
+  "E5_human_agent_decision_exposure": {
+    "labels_used_for_configuration": false,
+    "model_performance_used": false,
+    "prediction_errors_used": false,
+    "subject_behavior_used": false
+  },
+  "E6_new_information_learned": {
+    "new_performance_information": false,
+    "preexisting_a6_eligible_count": 75,
+    "preexisting_eligible_count_confirmed": true,
+    "returned_count_classification": "PREEXISTING_STRUCTURAL_INFORMATION_CONFIRMED_BY_ABORT",
+    "returned_row_count": 75
+  },
+  "evidence_paths": [
+    "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/one_time_access_audit.json",
+    "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/locked_test_registry.json",
+    "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/locked_test_sample_predictions.jsonl",
+    "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/metrics_by_model.json",
+    "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/input_identity.json",
+    "datasets/mmwave/manifests/a6_full_conversion/full_split_distribution.json"
+  ],
+  "phase_id": "M-B10R0",
+  "schema_version": "M-B10R0_EXPOSURE_ASSESSMENT_V1",
+  "summary": {
+    "PAYLOAD_RELEASE_OCCURRED": true,
+    "PERFORMANCE_EXPOSURE": false,
+    "PERSISTED_SAMPLE_REGISTRY_EXPOSURE": false,
+    "PREDICTION_EXPOSURE": false,
+    "PREEXISTING_ELIGIBLE_COUNT_CONFIRMED": true
+  }
+}

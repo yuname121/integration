@@ -1,0 +1,20 @@
+{
+  "phase_id": "M-B3",
+  "frozen_preprocessing_profile": "M-B1_D0_B1_Z1",
+  "frozen_imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+  "training_seed": 42,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "loss": "sparse_categorical_crossentropy",
+  "batch_size": 32,
+  "max_epochs": 25,
+  "early_stopping": {
+    "monitor": "val_loss",
+    "patience": 7,
+    "restore_best_weights": true
+  },
+  "numerical_precision_policy": {
+    "tie_tolerance": 1e-05
+  },
+  "architectures_count": 3
+}

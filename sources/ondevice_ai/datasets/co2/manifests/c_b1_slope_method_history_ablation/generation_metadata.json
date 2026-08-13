@@ -1,0 +1,11 @@
+{
+  "artifact_dir": "datasets/co2/manifests/c_b1_slope_method_history_ablation",
+  "determinism_required": true,
+  "generated_at_utc": null,
+  "generation_clock_policy": "OMITTED_FOR_BIT_IDENTICAL_RERUNS",
+  "manifest_version": "1.0",
+  "numpy_version": "1.26.4",
+  "phase": "C-B1",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python_version": "3.9.6"
+}

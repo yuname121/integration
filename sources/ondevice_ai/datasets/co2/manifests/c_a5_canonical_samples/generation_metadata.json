@@ -1,0 +1,21 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A5",
+  "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "generator_script": "scripts/audit_co2_canonical_samples.py",
+  "module": "datasets/co2/canonical_samples.py",
+  "canonical_source_samples": 20560,
+  "model_eligible_samples": 20551,
+  "warmup_unavailable_samples": 9,
+  "scaler_fitted": false,
+  "model_trained": false,
+  "class_balancing_performed": false,
+  "feature_selection_performed": false,
+  "synthetic_npz_used_as_real_source": false,
+  "a_series_release_status": "DEFERRED_UNTIL_C-A6",
+  "determinism": {
+    "host_timezone_independent": true,
+    "locale_independent": true,
+    "random_values_used": false
+  }
+}

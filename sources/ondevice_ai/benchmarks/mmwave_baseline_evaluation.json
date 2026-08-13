@@ -1,0 +1,78 @@
+{
+  "total_samples": 468,
+  "accuracy": 0.3995726495726496,
+  "macro_precision": 0.1331908831908832,
+  "macro_recall": 0.3333333333333333,
+  "macro_f1": 0.19033078880407128,
+  "per_class_precision": {
+    "NORMAL": 0.3995726495726496,
+    "RAPID_OR_ABNORMAL": 0.0,
+    "APNEA": 0.0
+  },
+  "per_class_recall": {
+    "NORMAL": 1.0,
+    "RAPID_OR_ABNORMAL": 0.0,
+    "APNEA": 0.0
+  },
+  "per_class_f1": {
+    "NORMAL": 0.5709923664122138,
+    "RAPID_OR_ABNORMAL": 0.0,
+    "APNEA": 0.0
+  },
+  "confusion_matrix": [
+    [
+      187,
+      0,
+      0
+    ],
+    [
+      239,
+      0,
+      0
+    ],
+    [
+      42,
+      0,
+      0
+    ]
+  ],
+  "apnea_window_miss_rate": 1.0,
+  "false_alarm_per_hour": null,
+  "false_alarm_status": "NOT_COMPUTABLE",
+  "false_alarm_reason": "CONTINUOUS_SESSION_TIMELINE_MISSING",
+  "prediction_distribution": {
+    "NORMAL": 468,
+    "RAPID_OR_ABNORMAL": 0,
+    "APNEA": 0
+  },
+  "class_collapse": true,
+  "model_path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+  "model_sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158",
+  "model_type": "INT8 TFLite",
+  "input_saturation_count": 0,
+  "input_saturation_ratio": 0.0,
+  "output_saturation_count": 0,
+  "output_saturation_ratio": 0.0,
+  "input_contract": {
+    "shape": [
+      1,
+      300,
+      1
+    ],
+    "dtype": "int8",
+    "scale": 0.03259856998920441,
+    "zero_point": -13
+  },
+  "output_contract": {
+    "shape": [
+      1,
+      3
+    ],
+    "dtype": "int8",
+    "scale": 0.00390625,
+    "zero_point": -128
+  },
+  "dataset_path": "datasets/mmwave/processed/mmwave_respiration_v1.npz",
+  "dataset_split": "test",
+  "synthetic_data": true
+}

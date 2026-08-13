@@ -1,0 +1,10 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "profile_id": "CO2_B4_EQUIVALENCE_THRESHOLD_001",
+  "retuned_in_c_b4": false,
+  "selected_on": "C-B3 VALIDATION_ONLY",
+  "source_protocol": "CO2_B2_THRESHOLD_CALIBRATION_PROTOCOL_001",
+  "status": "OFFLINE_VALIDATION_REFERENCE_ONLY",
+  "threshold": 0.58
+}

@@ -1,0 +1,35 @@
+{
+  "forbidden_future_reinterpretations": {
+    "pristine_locked_test": false,
+    "recovery_access_0": false,
+    "recovery_access_gt_1": false,
+    "rerun_true": false,
+    "total_release_1": false,
+    "total_release_3": false
+  },
+  "historical_total_payload_releases": 2,
+  "m_b10r1b_recovery_accessor_invocations": 1,
+  "m_b10r1b_recovery_payload_releases": 1,
+  "original_m_b10b_accessor_invocations": 1,
+  "original_m_b10b_model_inference": 0,
+  "original_m_b10b_payload_releases": 1,
+  "payload_consumed": true,
+  "recovery_model_inference": 225,
+  "rerun": false,
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "second_recovery": false,
+  "source_audit": {
+    "m_b10b_access_consumed": true,
+    "m_b10b_final_accessor_invocations": 1,
+    "m_b10b_model_inference_invocations": 0,
+    "m_b10b_rows_returned": 75,
+    "m_b10r1b_historical_total_payload_release_events": 2,
+    "m_b10r1b_recovery_accessor_invocations": 1,
+    "m_b10r1b_recovery_payload_release_events": 1,
+    "m_b10r1b_rerun_performed": false,
+    "runtime_original_final_accessor_invocations": 1,
+    "runtime_recovery_accessor_invocations": 1
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "authorization_for_locked_test": "NO",
+  "final_access_mechanism": {
+    "final_accessor_called": false,
+    "final_accessor_requires_explicit_authorization": true,
+    "final_evaluation_accessor_exists": true,
+    "model_selection_denies_locked_test": true,
+    "ready": true,
+    "sanitized_fields_exclude_labels": true,
+    "source_path": "scripts/mmwave_phase_b_access.py",
+    "structural_audit_is_sanitized": true
+  },
+  "final_access_mechanism_ready": true,
+  "final_accessor_calls": 0,
+  "independent_review_required": true,
+  "labels_loaded": 0,
+  "performance_metrics_computed": 0,
+  "phase_id": "M-B10A",
+  "prediction_tensors_loaded": 0,
+  "readiness_status": "M-B10_PRELOCKED_REAL_DATA_CANDIDATE",
+  "selected_candidate_pretest_path": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/selected_candidate_pretest.json",
+  "structural_split_counts_only": {
+    "LOCKED_TEST_subjects": 16,
+    "LOCKED_TEST_windows": 88
+  }
+}

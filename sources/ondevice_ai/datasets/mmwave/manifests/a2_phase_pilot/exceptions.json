@@ -1,0 +1,33 @@
+{
+  "exceptions": [
+    {
+      "category": "CONFIG_RBIN_MISMATCH",
+      "exception_id": "A2-EXC-0001",
+      "message": "Configured R_BIN differs from authoritative stored rBins spacing.",
+      "scope": "PILOT",
+      "severity": "WARNING"
+    },
+    {
+      "category": "VIRTUAL_CHANNEL_SELECTION",
+      "exception_id": "A2-EXC-0002",
+      "message": "Physical TX/RX mapping for virtual_channel_0..7 remains unknown.",
+      "scope": "PILOT",
+      "severity": "WARNING"
+    },
+    {
+      "category": "A1_CONTRADICTION",
+      "exception_id": "A2-EXC-0003",
+      "message": "A1 restricted symbolic pickle decoder remains required; arbitrary object execution is not used.",
+      "scope": "PILOT",
+      "severity": "INFO"
+    },
+    {
+      "category": "NEAR_ZERO_MAGNITUDE",
+      "exception_id": "A2-EXC-0004",
+      "message": "11 selected complex samples are near zero and were preserved without interpolation.",
+      "scope": "dataset-10_5281_zenodo_18599983-p004-lying-rest",
+      "severity": "WARNING"
+    }
+  ],
+  "schema_version": "1.0"
+}

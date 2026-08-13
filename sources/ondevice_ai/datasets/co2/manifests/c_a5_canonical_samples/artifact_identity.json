@@ -1,0 +1,51 @@
+{
+  "manifest_version": "1.0",
+  "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "artifacts": [
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/canonical_sample_profile.json",
+      "byte_size": 2200,
+      "sha256": "af7d298059ecd1ec8077cc4918209149be97f75d0aa7f7784f7e55980cc5b097"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/predecessor_fingerprint_registry.json",
+      "byte_size": 3597,
+      "sha256": "e2a788255d946b326a0eb92fa34b5dc12e918459b8ab885a757d3fb9a6452dbc"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/split_membership_manifest.json",
+      "byte_size": 1381,
+      "sha256": "492a74cc9faedfe65ea75d3504333074f72dd7add42cd755d3cab34242f0bbba"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/feature_availability_manifest.json",
+      "byte_size": 3032,
+      "sha256": "55737b24fedff0b3e62de790abfe0c664a232e409894b7de356c43e488e4b34b"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/materialization_integrity_summary.json",
+      "byte_size": 570,
+      "sha256": "8079c3df611b50de6970d58f0168dbe4894bc310a645cf6922d74358eef01b05"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/exceptions_and_limitations.json",
+      "byte_size": 1565,
+      "sha256": "6725bfee82e53a1439854c358a877c1c8f5552488d1e5685dbc4a561ca6a54c8"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/generation_metadata.json",
+      "byte_size": 678,
+      "sha256": "28e81f940cd2f75584a804ae160e538080a92d9fdefa73b1c008409923dee29b"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/canonical_source_samples.jsonl",
+      "byte_size": 26975652,
+      "sha256": "d157290a6ddcb7ff14f99f37331b713d897f64ca480e91912acde40f11d229f7"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/model_eligible_sample_ids.jsonl",
+      "byte_size": 2609033,
+      "sha256": "5c69db52bf86e4045c54b65277e623c7920dcd7e8e685f970799a6a5530f5863"
+    }
+  ]
+}

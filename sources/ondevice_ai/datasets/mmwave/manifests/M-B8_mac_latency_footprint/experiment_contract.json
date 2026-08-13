@@ -1,0 +1,28 @@
+{
+  "architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "claim_limits": [
+    "NOT_RASPBERRY_PI_LATENCY",
+    "NOT_REAL_SENSOR_LATENCY",
+    "NOT_SENSOR_TO_ALARM_LATENCY",
+    "NOT_PRODUCTION_REALTIME_VALIDATED",
+    "NOT_MR60_RUNTIME_VALIDATED"
+  ],
+  "evaluation_population": "AUTHORITATIVE_PURE_CLASS_VALIDATION_INPUTS_ONLY",
+  "frozen_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "frozen_imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+  "frozen_preprocessing_profile": "M-B1_D0_B1_Z1",
+  "frozen_training_seeds": [
+    42,
+    43,
+    44
+  ],
+  "input_identity_count": 32,
+  "locked_test_performance_access": 0,
+  "locked_test_policy": "ZERO_PERFORMANCE_PREDICTION_LABEL_ACCESS",
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "phase_id": "M-B8",
+  "scientific_scope": "MAC_OFFLINE_LATENCY_AND_FOOTPRINT",
+  "validation_pure_class_windows": 79,
+  "validation_subjects": 17
+}

@@ -1,0 +1,67 @@
+{
+  "phase_id": "M-B1",
+  "title": "Authoritative Input Identity Record",
+  "total_inputs": 10,
+  "inputs": [
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/input_identity.json",
+      "measured_sha256": "00f757fc912f72bbc13e9829ef74ec16a70b6f2c72b8da7ee7ceeb85ea6c9956",
+      "evidence_role": "Authoritative M-B0 input identity lock",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/evaluation_contract.json",
+      "measured_sha256": "d2ee24968dfe68e2ca5c3ecacef9a7b6acaa474fb3307536c533df4a36ca796d",
+      "evidence_role": "Authoritative M-B0 evaluation contract",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/locked_test_access_policy.json",
+      "measured_sha256": "9e9fb5eb9caafedea397bf688899cfd4005763156baee93531b92172d8585b53",
+      "evidence_role": "Authoritative LOCKED_TEST access policy",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/near_duplicate_policy.json",
+      "measured_sha256": "6e4f3718a29671c7e1974d6df62536806c238dce62a4d9fc908552fafab3e065",
+      "evidence_role": "Authoritative near-duplicate policy",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/near_duplicate_audit.json",
+      "measured_sha256": "f879258511ad9b67dc9189e354609c2995ccdbd8c2c2936ccbf1a628f344dad2",
+      "evidence_role": "Authoritative near-duplicate audit record",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/m_b0_summary.json",
+      "measured_sha256": "010f6c2f4fa88a82050645c0f238022c3c6db9232d866991503d0bbab6b78a37",
+      "evidence_role": "Authoritative M-B0 exit summary",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/checksums.sha256",
+      "measured_sha256": "dd31fdf7d861f63829b2b352010072822c883f00a71a83efcb0dbde289a8e77a",
+      "evidence_role": "M-B0 checksum manifest",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+      "measured_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+      "evidence_role": "Real-data subject split contract lookup mapping",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+      "measured_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+      "evidence_role": "Canonical float64 phase matrix (530x300)",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+      "measured_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+      "evidence_role": "530 canonical 30s window manifest",
+      "validation_status": "PASS_WITH_WARNINGS"
+    }
+  ]
+}

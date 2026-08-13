@@ -1,0 +1,34 @@
+{
+  "class_counts_window": {
+    "RAPID_OR_ABNORMAL": 119,
+    "APNEA": 213,
+    "NORMAL": 149,
+    "AMBIGUOUS": 49
+  },
+  "split_label_breakdown": {
+    "TRAIN": {
+      "RAPID_OR_ABNORMAL": 80,
+      "APNEA": 145,
+      "NORMAL": 102,
+      "AMBIGUOUS": 31
+    },
+    "VALIDATION": {
+      "RAPID_OR_ABNORMAL": 20,
+      "APNEA": 37,
+      "NORMAL": 22,
+      "AMBIGUOUS": 5
+    },
+    "LOCKED_TEST": {
+      "RAPID_OR_ABNORMAL": 19,
+      "NORMAL": 25,
+      "APNEA": 31,
+      "AMBIGUOUS": 13
+    }
+  },
+  "total_windows": 530,
+  "annotation_coverage_accounting": {
+    "annotation_bearing_recordings": 220,
+    "annotation_absent_recordings": 220,
+    "total_non_breathing_events": 220
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "access_consumed": true,
+  "classification": "BLOCKER",
+  "code": "M-B10B_LOCKED_SPLIT_IDENTITY_MISMATCH",
+  "completed_model_inference_invocations": 0,
+  "detail": "Authorized accessor returned 75 pure-class rows while M-B10A preregistered structural identity requires 88 LOCKED_TEST windows.",
+  "forensic_root_cause": "PRETEST_CONTRACT_COUNT_SEMANTICS_CONFLATION",
+  "forensic_status": "INCIDENT_ROOT_CAUSE_CLOSED",
+  "no_rerun_performed": true,
+  "phase_id": "M-B10B",
+  "runtime_detection_code": "M-B10B_LOCKED_SPLIT_IDENTITY_MISMATCH",
+  "status": "BLOCKER"
+}

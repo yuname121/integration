@@ -1,0 +1,128 @@
+{
+  "a_series_release_tag": "co2-a-series-raw-to-canonical",
+  "a_series_release_target": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+  "b0_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "b1_selected_slope_profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "closure_fingerprint": "1d407e486775994a96f7134e6a50c112c205d7e79587bf03d3c2dc8a717f9c8f",
+  "closure_status": "LOCKED",
+  "entries": [
+    {
+      "byte_size": 14204,
+      "path": "datasets/co2/manifests/c_a6_final_integrity_lock/artifact_lock_manifest.json",
+      "phase": "C-A6",
+      "role": "A_SERIES_ARTIFACT_LOCK",
+      "sha256": "b63f5e2da988f8e685cf1a01ec8e79c2c37f5bc77359be647f1147ecfb04e3da"
+    },
+    {
+      "byte_size": 2549,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/experiment_contract.json",
+      "phase": "C-B0",
+      "role": "B0_EXPERIMENT_CONTRACT",
+      "sha256": "9def229d77623e1218239964c79ad29ef4a03c45f1fe5044656f89718bb9c7a1"
+    },
+    {
+      "byte_size": 4162,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/feature_view_registry.json",
+      "phase": "C-B0",
+      "role": "B0_FEATURE_VIEW_REGISTRY",
+      "sha256": "77756efc0b270cead072388b96cf28d0481a815b86fecf96658b52dab3744374"
+    },
+    {
+      "byte_size": 487,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/leakage_audit.json",
+      "phase": "C-B0",
+      "role": "B0_LEAKAGE_POLICY",
+      "sha256": "68c0a6816733f09579246227f09dc006ac824506a630f52e443dcfaae170d535"
+    },
+    {
+      "byte_size": 732,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/metric_contract.json",
+      "phase": "C-B0",
+      "role": "B0_METRIC_CONTRACT",
+      "sha256": "705d65a2bd9405b8be74ac95b8b464ddd6c65f1c037830c3b030a3f1413bc6dd"
+    },
+    {
+      "byte_size": 1336,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/sample_universe_manifest.json",
+      "phase": "C-B0",
+      "role": "B0_COMPARISON_UNIVERSE",
+      "sha256": "7223f5c6c94aa4cdfdb670c4cfa09c397bc6fb29654617758ddcd145881bf509"
+    },
+    {
+      "byte_size": 3296,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/candidate_feature_fingerprint_registry.json",
+      "phase": "C-B1",
+      "role": "B1_FEATURE_FINGERPRINTS",
+      "sha256": "937915209a2414a3d711b2fcc66cd5e891a17c174df6a887ff50d6011bf587d1"
+    },
+    {
+      "byte_size": 3099,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/candidate_registry.json",
+      "phase": "C-B1",
+      "role": "B1_SLOPE_CANDIDATE_REGISTRY",
+      "sha256": "e6e47d1679ff907d2bba22f619257240ec29eb45cc0641d5b0595f2c9a93f52e"
+    },
+    {
+      "byte_size": 619,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/leakage_audit.json",
+      "phase": "C-B1",
+      "role": "B1_LEAKAGE_EVIDENCE",
+      "sha256": "8865476ad35a52795b7673bf7280743091e05cce370ff803570bab155c36ee47"
+    },
+    {
+      "byte_size": 1942,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/predecessor_fingerprint_registry.json",
+      "phase": "C-B1",
+      "role": "B1_PREDECESSOR_CLOSURE",
+      "sha256": "ac77f5128a6ece52be5cac2107d359643a785fa523bac36401473e20c94c3414"
+    },
+    {
+      "byte_size": 2026,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/selected_slope_profile.json",
+      "phase": "C-B1",
+      "role": "B1_SELECTED_SLOPE_PROFILE",
+      "sha256": "83a7b07af2fa5e24c4b4806369627ab838491de8e137607b9e7b8c7816f4a4fa"
+    },
+    {
+      "byte_size": 5893,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/selection_decision.json",
+      "phase": "C-B1",
+      "role": "B1_CANDIDATE_SELECTION_RESULT",
+      "sha256": "efb57acbb5546965d07063b4e4c90dd3c9cc80437a4531184c743470de5271d4"
+    },
+    {
+      "byte_size": 6397,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/validation_metric_results.json",
+      "phase": "C-B1",
+      "role": "B1_CANDIDATE_RESULTS",
+      "sha256": "b1fbc6191aba805e5a5f9b7a9edf36296e31118c4e200a0503b5dafaf37ee575"
+    },
+    {
+      "byte_size": 236127,
+      "path": "datasets/co2/processed/co2_occupancy_v1.npz",
+      "phase": "PREEXISTING_FIXTURE",
+      "role": "SYNTHETIC_SMOKE_FIXTURE_EXCLUDED",
+      "sha256": "bff5cd76ed7200149942715a8530eb72833b9fd5949b85b520691876936f6eea"
+    },
+    {
+      "byte_size": 4464,
+      "path": "models/co2/co2_occupancy_int8_v0.1.0.tflite",
+      "phase": "PREEXISTING_PRODUCTION",
+      "role": "PRODUCTION_MODEL_READ_ONLY",
+      "sha256": "3a8c86c4c132df0f1edaac668d9a136c3f6234789df48f02bdda8e92f29d0462"
+    },
+    {
+      "byte_size": 289,
+      "path": "models/co2/co2_scaling_metadata_v0.1.0.json",
+      "phase": "PREEXISTING_PRODUCTION",
+      "role": "PRODUCTION_SCALER_READ_ONLY",
+      "sha256": "9195be0097544919aaf976a727c27c35858f843a0cbe5dfe311715c7abf901e5"
+    }
+  ],
+  "entry_count": 16,
+  "manifest_version": "1.0",
+  "mismatch_status": "C_B0_OR_B1_PREDECESSOR_FINGERPRINT_MISMATCH_ON_DRIFT",
+  "phase": "C-B2",
+  "registry_id": "CO2_B2_PREDECESSOR_FINGERPRINT_REGISTRY_001",
+  "required_b1_merged_main_commit": "d549cc890f40d9f0398ed346b744533625fdd775"
+}

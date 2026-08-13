@@ -1,0 +1,2923 @@
+{
+  "baseline_metrics": {
+    "accuracy": 0.9139744552967694,
+    "balanced_accuracy": 0.9158189156223313,
+    "brier_score": 0.07183837890625,
+    "confusion_matrix": {
+      "fn": 75,
+      "fp": 154,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1539,
+          154
+        ],
+        [
+          75,
+          894
+        ]
+      ],
+      "tn": 1539,
+      "tp": 894
+    },
+    "decision_threshold": 0.58,
+    "ece": 0.0835632278362134,
+    "f1_occupied": 0.886465047099653,
+    "f1_vacant": 0.9307529482915029,
+    "false_negative_rate": 0.07739938080495357,
+    "false_positive_rate": 0.09096278795038393,
+    "fn": 75,
+    "fp": 154,
+    "log_loss": 0.26485964759399666,
+    "macro_f1": 0.908608997695578,
+    "occupied_recall": 0.9226006191950464,
+    "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+    "pr_auc_average_precision": 0.9493714086704265,
+    "precision_occupied": 0.8530534351145038,
+    "precision_vacant": 0.9535315985130112,
+    "recall_occupied": 0.9226006191950464,
+    "recall_vacant": 0.9090372120496161,
+    "roc_auc": 0.9694123864610972,
+    "sample_count": 2662,
+    "sensitivity": 0.9226006191950464,
+    "specificity": 0.9090372120496161,
+    "tn": 1539,
+    "tp": 894
+  },
+  "baseline_saturation": {
+    "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+    "feature_count": 4,
+    "maximum_overflow_distance": 79.0,
+    "per_feature": {
+      "CO2": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "CO2_slope": {
+        "count": 3,
+        "fraction": 0.0011269722013523666
+      },
+      "Humidity": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "Temperature": {
+        "count": 0,
+        "fraction": 0.0
+      }
+    },
+    "population": "VALIDATION",
+    "sample_count": 2662,
+    "samples_with_at_least_one_saturated_feature": 3,
+    "saturated_element_count": 3,
+    "saturation_fraction": 0.00028174305033809165
+  },
+  "candidate_model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+  "classification": "ROBUSTNESS_DIAGNOSTIC_ONLY_UNDER_OFFLINE_TECHNICAL_STRESS",
+  "contract_failures": [],
+  "feature_order": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "locked_test_feature_access": 0,
+  "locked_test_metrics": 0,
+  "locked_test_predictions": 0,
+  "locked_test_probabilities": 0,
+  "locked_test_target_access": 0,
+  "locked_test_used": false,
+  "manifest_version": "1.0",
+  "perturbation_result_fingerprint": "f370b4ef717a9797d70382f2b90912519bcef8c5602568a9aa299109de163ad0",
+  "phase": "C-B5",
+  "protocol_id": "CO2_B5_ROBUSTNESS_PROTOCOL_001",
+  "results": [
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": false,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "2e20cf4986d24182456841774a8f130405664a94d68b436cfa62e66ab398936d",
+      "kind": "baseline",
+      "level": null,
+      "metrics": {
+        "accuracy": 0.9139744552967694,
+        "balanced_accuracy": 0.9158189156223313,
+        "brier_score": 0.07183837890625,
+        "confusion_matrix": {
+          "fn": 75,
+          "fp": 154,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1539,
+              154
+            ],
+            [
+              75,
+              894
+            ]
+          ],
+          "tn": 1539,
+          "tp": 894
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.0835632278362134,
+        "f1_occupied": 0.886465047099653,
+        "f1_vacant": 0.9307529482915029,
+        "false_negative_rate": 0.07739938080495357,
+        "false_positive_rate": 0.09096278795038393,
+        "fn": 75,
+        "fp": 154,
+        "log_loss": 0.26485964759399666,
+        "macro_f1": 0.908608997695578,
+        "occupied_recall": 0.9226006191950464,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9493714086704265,
+        "precision_occupied": 0.8530534351145038,
+        "precision_vacant": 0.9535315985130112,
+        "recall_occupied": 0.9226006191950464,
+        "recall_vacant": 0.9090372120496161,
+        "roc_auc": 0.9694123864610972,
+        "sample_count": 2662,
+        "sensitivity": 0.9226006191950464,
+        "specificity": 0.9090372120496161,
+        "tn": 1539,
+        "tp": 894
+      },
+      "paired_sample_count": 2662,
+      "probability_vector_sha256": "d08cff105efce7c62a151b96ec0ae5344cc35195e0880409410efe20c1bdac0c",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "baseline",
+      "seed": null
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 200.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 200.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "300bfc3806d77515de2caf92c35836a11105a378c14c9471c1bfac375177c189",
+      "kind": "co2_offset_ppm",
+      "label_disagreement_count_vs_unperturbed": 298,
+      "label_disagreement_rate_vs_unperturbed": 0.11194590533433509,
+      "level": -200,
+      "metrics": {
+        "accuracy": 0.8854244928625093,
+        "balanced_accuracy": 0.8521097312615473,
+        "brier_score": 0.07956146996868543,
+        "confusion_matrix": {
+          "fn": 262,
+          "fp": 43,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1650,
+              43
+            ],
+            [
+              262,
+              707
+            ]
+          ],
+          "tn": 1650,
+          "tp": 707
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.06514721074380166,
+        "f1_occupied": 0.8225712623618383,
+        "f1_vacant": 0.9153952843273231,
+        "false_negative_rate": 0.27038183694530443,
+        "false_positive_rate": 0.025398700531600708,
+        "fn": 262,
+        "fp": 43,
+        "log_loss": 0.2923398951298375,
+        "macro_f1": 0.8689832733445807,
+        "occupied_recall": 0.7296181630546955,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9505022581999452,
+        "precision_occupied": 0.9426666666666667,
+        "precision_vacant": 0.8629707112970711,
+        "recall_occupied": 0.7296181630546955,
+        "recall_vacant": 0.9746012994683992,
+        "roc_auc": 0.969559900933669,
+        "sample_count": 2662,
+        "sensitivity": 0.7296181630546955,
+        "specificity": 0.9746012994683992,
+        "tn": 1650,
+        "tp": 707
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.14871043858001504,
+      "probability_max_absolute_drift_vs_unperturbed": 0.55078125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.51953125,
+      "probability_vector_sha256": "521d1cdc1e2152d3ebfd1873ad09ad1041f53eb441494e0c7cc6580a3cb37e79",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_offset_ppm__m200",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 100.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 100.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "523440d252ffd14365c885fc7c1010583588e423e936b0e4f56b008de3467dd8",
+      "kind": "co2_offset_ppm",
+      "label_disagreement_count_vs_unperturbed": 190,
+      "label_disagreement_rate_vs_unperturbed": 0.07137490608564989,
+      "level": -100,
+      "metrics": {
+        "accuracy": 0.9034560480841473,
+        "balanced_accuracy": 0.8834973974667741,
+        "brier_score": 0.06449567420781778,
+        "confusion_matrix": {
+          "fn": 184,
+          "fp": 73,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1620,
+              73
+            ],
+            [
+              184,
+              785
+            ]
+          ],
+          "tn": 1620,
+          "tp": 785
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.033517151108189334,
+        "f1_occupied": 0.8593322386425835,
+        "f1_vacant": 0.9265084358021161,
+        "false_negative_rate": 0.18988648090815274,
+        "false_positive_rate": 0.04311872415829888,
+        "fn": 184,
+        "fp": 73,
+        "log_loss": 0.21799015698888105,
+        "macro_f1": 0.8929203372223498,
+        "occupied_recall": 0.8101135190918473,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9512973919922224,
+        "precision_occupied": 0.914918414918415,
+        "precision_vacant": 0.8980044345898004,
+        "recall_occupied": 0.8101135190918473,
+        "recall_vacant": 0.9568812758417011,
+        "roc_auc": 0.9697068058423046,
+        "sample_count": 2662,
+        "sensitivity": 0.8101135190918473,
+        "specificity": 0.9568812758417011,
+        "tn": 1620,
+        "tp": 785
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.08495286673553719,
+      "probability_max_absolute_drift_vs_unperturbed": 0.33984375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.27734375,
+      "probability_vector_sha256": "c0b9c00a1ca3b17c7b620630b6fbba1347c5a8b16b3b707f086557fec356e419",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_offset_ppm__m100",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 50.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 50.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "53179304106f80d51ec5225bcd68869b4f9828fcd5ecf6e145413c8dfa3ed0ae",
+      "kind": "co2_offset_ppm",
+      "label_disagreement_count_vs_unperturbed": 100,
+      "label_disagreement_rate_vs_unperturbed": 0.037565740045078885,
+      "level": -50,
+      "metrics": {
+        "accuracy": 0.9109691960931631,
+        "balanced_accuracy": 0.9015404899796833,
+        "brier_score": 0.06431573857766716,
+        "confusion_matrix": {
+          "fn": 129,
+          "fp": 108,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1585,
+              108
+            ],
+            [
+              129,
+              840
+            ]
+          ],
+          "tn": 1585,
+          "tp": 840
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.04426887678437263,
+        "f1_occupied": 0.8763693270735524,
+        "f1_vacant": 0.9304373348987378,
+        "false_negative_rate": 0.13312693498452013,
+        "false_positive_rate": 0.0637920850561134,
+        "fn": 129,
+        "fp": 108,
+        "log_loss": 0.22905965545749524,
+        "macro_f1": 0.9034033309861451,
+        "occupied_recall": 0.8668730650154799,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9510762422266952,
+        "precision_occupied": 0.8860759493670886,
+        "precision_vacant": 0.9247374562427071,
+        "recall_occupied": 0.8668730650154799,
+        "recall_vacant": 0.9362079149438866,
+        "roc_auc": 0.9697360649112445,
+        "sample_count": 2662,
+        "sensitivity": 0.8668730650154799,
+        "specificity": 0.9362079149438866,
+        "tn": 1585,
+        "tp": 840
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.04605618425995492,
+      "probability_max_absolute_drift_vs_unperturbed": 0.17578125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.14453125,
+      "probability_vector_sha256": "cea733d6cf707b83a169867e0d8392c8518a8d432b3d1262bb0d6328caf9c3eb",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_offset_ppm__m50",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 50.000000000000114,
+        "max_absolute_CO2_slope": 7.6216810640517e-14,
+        "mean_absolute_CO2": 50.0,
+        "mean_absolute_CO2_slope": 2.1217883761015405e-15,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.13678180661315661
+      },
+      "feature_matrix_sha256": "f45b33a173cef801b99f6e6db54b46c5de4888719a72e46373d5ef24f806b6d6",
+      "kind": "co2_offset_ppm",
+      "label_disagreement_count_vs_unperturbed": 91,
+      "label_disagreement_rate_vs_unperturbed": 0.034184823441021785,
+      "level": 50,
+      "metrics": {
+        "accuracy": 0.9068369646882044,
+        "balanced_accuracy": 0.9181514120243801,
+        "brier_score": 0.08995586942677028,
+        "confusion_matrix": {
+          "fn": 39,
+          "fp": 209,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1484,
+              209
+            ],
+            [
+              39,
+              930
+            ]
+          ],
+          "tn": 1484,
+          "tp": 930
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.13816855277986476,
+        "f1_occupied": 0.8823529411764707,
+        "f1_vacant": 0.9228855721393034,
+        "false_negative_rate": 0.04024767801857585,
+        "false_positive_rate": 0.12344949793266391,
+        "fn": 39,
+        "fp": 209,
+        "log_loss": 0.3310349465663448,
+        "macro_f1": 0.902619256657887,
+        "occupied_recall": 0.9597523219814241,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9399589352256262,
+        "precision_occupied": 0.8165057067603161,
+        "precision_vacant": 0.9743926460932371,
+        "recall_occupied": 0.9597523219814241,
+        "recall_vacant": 0.8765505020673361,
+        "roc_auc": 0.9680771366587483,
+        "sample_count": 2662,
+        "sensitivity": 0.9597523219814241,
+        "specificity": 0.8765505020673361,
+        "tn": 1484,
+        "tp": 930
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.05460532494365139,
+      "probability_max_absolute_drift_vs_unperturbed": 0.17578125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.140625,
+      "probability_vector_sha256": "5122f213f9f01d12ab785b7735bd4aa3ef770d09afcb64aac389dcc43cc2dffb",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_offset_ppm__50",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 100.00000000000011,
+        "max_absolute_CO2_slope": 7.638334409421077e-14,
+        "mean_absolute_CO2": 100.0,
+        "mean_absolute_CO2_slope": 4.114271428763103e-15,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "368fd4a91e773a12a467650933a42547bae387bd38fd441415ca489a5a7cdfb6",
+      "kind": "co2_offset_ppm",
+      "label_disagreement_count_vs_unperturbed": 186,
+      "label_disagreement_rate_vs_unperturbed": 0.06987227648384674,
+      "level": 100,
+      "metrics": {
+        "accuracy": 0.8809166040570999,
+        "balanced_accuracy": 0.9006419927376552,
+        "brier_score": 0.12266061898911473,
+        "confusion_matrix": {
+          "fn": 26,
+          "fp": 291,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1402,
+              291
+            ],
+            [
+              26,
+              943
+            ]
+          ],
+          "tn": 1402,
+          "tp": 943
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.2039834358564989,
+        "f1_occupied": 0.8561053109396277,
+        "f1_vacant": 0.8984299903876962,
+        "false_negative_rate": 0.026831785345717233,
+        "false_positive_rate": 0.17188422917897223,
+        "fn": 26,
+        "fp": 291,
+        "log_loss": 0.43180737020060994,
+        "macro_f1": 0.877267650663662,
+        "occupied_recall": 0.9731682146542827,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9352640033343866,
+        "precision_occupied": 0.7641815235008104,
+        "precision_vacant": 0.9817927170868347,
+        "recall_occupied": 0.9731682146542827,
+        "recall_vacant": 0.8281157708210277,
+        "roc_auc": 0.9671231690985219,
+        "sample_count": 2662,
+        "sensitivity": 0.9731682146542827,
+        "specificity": 0.8281157708210277,
+        "tn": 1402,
+        "tp": 943
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.1204202080202855,
+      "probability_max_absolute_drift_vs_unperturbed": 0.31640625,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.27734375,
+      "probability_vector_sha256": "fdf299ad511617b9571ae47b3d0f45db8a0ec251f3835fb3aeae009df5402d04",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_offset_ppm__100",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 200.0000000000001,
+        "max_absolute_CO2_slope": 7.638334409421077e-14,
+        "mean_absolute_CO2": 200.0,
+        "mean_absolute_CO2_slope": 4.9117789412504326e-15,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.13678180661315664
+      },
+      "feature_matrix_sha256": "99301456476ab7d09ef4724b5df2d19557fb099728d44f9b00fc78bec820e5a9",
+      "kind": "co2_offset_ppm",
+      "label_disagreement_count_vs_unperturbed": 669,
+      "label_disagreement_rate_vs_unperturbed": 0.25131480090157776,
+      "level": 200,
+      "metrics": {
+        "accuracy": 0.7114951164537942,
+        "balanced_accuracy": 0.7709770761290495,
+        "brier_score": 0.24268694733606075,
+        "confusion_matrix": {
+          "fn": 10,
+          "fp": 758,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              935,
+              758
+            ],
+            [
+              10,
+              959
+            ]
+          ],
+          "tn": 935,
+          "tp": 959
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.35876455672426755,
+        "f1_occupied": 0.7140729709605361,
+        "f1_vacant": 0.7088703563305533,
+        "false_negative_rate": 0.010319917440660475,
+        "false_positive_rate": 0.4477259303012404,
+        "fn": 10,
+        "fp": 758,
+        "log_loss": 0.7594814990198541,
+        "macro_f1": 0.7114716636455447,
+        "occupied_recall": 0.9896800825593395,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9195632194629753,
+        "precision_occupied": 0.5585323238206173,
+        "precision_vacant": 0.9894179894179894,
+        "recall_occupied": 0.9896800825593395,
+        "recall_vacant": 0.5522740696987596,
+        "roc_auc": 0.9637522805310764,
+        "sample_count": 2662,
+        "sensitivity": 0.9896800825593395,
+        "specificity": 0.5522740696987596,
+        "tn": 935,
+        "tp": 959
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.27387478869271226,
+      "probability_max_absolute_drift_vs_unperturbed": 0.5703125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.52734375,
+      "probability_vector_sha256": "7c9f9a23093a2fd1c7fe3c6433bc814fec1d7468fd798bc2cd5d2b4909800609",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_offset_ppm__200",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 5328.0,
+        "max_absolute_CO2_slope": 2.000000000000329,
+        "mean_absolute_CO2": 2666.9896193338345,
+        "mean_absolute_CO2_slope": 1.9999999999999996,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": -1.863218193386843
+      },
+      "feature_matrix_sha256": "d7e793d230f1cdbe51013f97eaca86de9c3ed9db0ccee240c8d87ff5cc3a7a48",
+      "kind": "co2_linear_drift_ppm_per_min",
+      "label_disagreement_count_vs_unperturbed": 939,
+      "label_disagreement_rate_vs_unperturbed": 0.35274229902329074,
+      "level": -2.0,
+      "metrics": {
+        "accuracy": 0.6769346356123216,
+        "balanced_accuracy": 0.5562435500515996,
+        "brier_score": 0.3170794308588614,
+        "confusion_matrix": {
+          "fn": 860,
+          "fp": 0,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1693,
+              0
+            ],
+            [
+              860,
+              109
+            ]
+          ],
+          "tn": 1693,
+          "tp": 109
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.3210916956235913,
+        "f1_occupied": 0.2022263450834879,
+        "f1_vacant": 0.7974564295807819,
+        "false_negative_rate": 0.8875128998968008,
+        "false_positive_rate": 0.0,
+        "fn": 860,
+        "fp": 0,
+        "log_loss": 10.571771269919076,
+        "macro_f1": 0.4998413873321349,
+        "occupied_recall": 0.11248710010319918,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.4896054290863918,
+        "precision_occupied": 1.0,
+        "precision_vacant": 0.663141402271837,
+        "recall_occupied": 0.11248710010319918,
+        "recall_vacant": 1.0,
+        "roc_auc": 0.5930676122222447,
+        "sample_count": 2662,
+        "sensitivity": 0.11248710010319918,
+        "specificity": 1.0,
+        "tn": 1693,
+        "tp": 109
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.40465492345980464,
+      "probability_max_absolute_drift_vs_unperturbed": 0.99609375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.99609375,
+      "probability_vector_sha256": "b892071cd449223b0c5e87a3e9ef3f8f55b451bcba873d3ad3b9e4a33eefcc01",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 331.0,
+        "per_feature": {
+          "CO2": {
+            "count": 2029,
+            "fraction": 0.7622088655146506
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 2032,
+        "saturated_element_count": 2032,
+        "saturation_fraction": 0.19083395942900075
+      },
+      "scenario_id": "co2_linear_drift_ppm_per_min__m2",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 2664.0,
+        "max_absolute_CO2_slope": 1.000000000000127,
+        "mean_absolute_CO2": 1333.4948096669173,
+        "mean_absolute_CO2_slope": 1.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": -0.8632181933868435
+      },
+      "feature_matrix_sha256": "5c3fc0c8769450af452c674eef1607e49db078a8698a5ddb74ca91c92f8baa43",
+      "kind": "co2_linear_drift_ppm_per_min",
+      "label_disagreement_count_vs_unperturbed": 915,
+      "label_disagreement_rate_vs_unperturbed": 0.34372652141247184,
+      "level": -1.0,
+      "metrics": {
+        "accuracy": 0.6844477836213373,
+        "balanced_accuracy": 0.5670047917821028,
+        "brier_score": 0.3042921127904008,
+        "confusion_matrix": {
+          "fn": 838,
+          "fp": 2,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1691,
+              2
+            ],
+            [
+              838,
+              131
+            ]
+          ],
+          "tn": 1691,
+          "tp": 131
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.3069531836964688,
+        "f1_occupied": 0.23774954627949182,
+        "f1_vacant": 0.8010421601136902,
+        "false_negative_rate": 0.8648090815273478,
+        "false_positive_rate": 0.0011813349084465446,
+        "fn": 838,
+        "fp": 2,
+        "log_loss": 10.437047226442749,
+        "macro_f1": 0.519395853196591,
+        "occupied_recall": 0.13519091847265222,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.4906990671468706,
+        "precision_occupied": 0.9849624060150376,
+        "precision_vacant": 0.6686437327006722,
+        "recall_occupied": 0.13519091847265222,
+        "recall_vacant": 0.9988186650915535,
+        "roc_auc": 0.5716947767075866,
+        "sample_count": 2662,
+        "sensitivity": 0.13519091847265222,
+        "specificity": 0.9988186650915535,
+        "tn": 1691,
+        "tp": 131
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.3905164115326822,
+      "probability_max_absolute_drift_vs_unperturbed": 0.99609375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.99609375,
+      "probability_vector_sha256": "225fad7bb74966b4464580ffbc7e4336c0687e1c27e16ee58e283f8e61976408",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 108.0,
+        "per_feature": {
+          "CO2": {
+            "count": 934,
+            "fraction": 0.35086401202103684
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 937,
+        "saturated_element_count": 937,
+        "saturation_fraction": 0.08799774605559729
+      },
+      "scenario_id": "co2_linear_drift_ppm_per_min__m1",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 1332.0,
+        "max_absolute_CO2_slope": 0.5000000000000729,
+        "mean_absolute_CO2": 666.7474048334586,
+        "mean_absolute_CO2_slope": 0.5,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": -0.36321819338684347
+      },
+      "feature_matrix_sha256": "fa4410336f2f6ed2bb00531e022d735c6e0cf295ade09d3b3cafbfc8013de475",
+      "kind": "co2_linear_drift_ppm_per_min",
+      "label_disagreement_count_vs_unperturbed": 859,
+      "label_disagreement_rate_vs_unperturbed": 0.32268970698722765,
+      "level": -0.5,
+      "metrics": {
+        "accuracy": 0.7009767092411721,
+        "balanced_accuracy": 0.5910325830210842,
+        "brier_score": 0.2557026313535259,
+        "confusion_matrix": {
+          "fn": 788,
+          "fp": 8,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1685,
+              8
+            ],
+            [
+              788,
+              181
+            ]
+          ],
+          "tn": 1685,
+          "tp": 181
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.26707040054470327,
+        "f1_occupied": 0.3126079447322971,
+        "f1_vacant": 0.8089294287085934,
+        "false_negative_rate": 0.8132094943240454,
+        "false_positive_rate": 0.004725339633786178,
+        "fn": 788,
+        "fp": 8,
+        "log_loss": 3.679474492439686,
+        "macro_f1": 0.5607686867204452,
+        "occupied_recall": 0.1867905056759546,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.7507794163255833,
+        "precision_occupied": 0.9576719576719577,
+        "precision_vacant": 0.6813586736756976,
+        "recall_occupied": 0.1867905056759546,
+        "recall_vacant": 0.9952746603662138,
+        "roc_auc": 0.8164447549156759,
+        "sample_count": 2662,
+        "sensitivity": 0.1867905056759546,
+        "specificity": 0.9952746603662138,
+        "tn": 1685,
+        "tp": 181
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.3506336283809166,
+      "probability_max_absolute_drift_vs_unperturbed": 0.99609375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.97265625,
+      "probability_vector_sha256": "f1f813ed85a1febad6f13e63c20981515a8f57f2affae614a7b6c1ee9f83ced0",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 81.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "co2_linear_drift_ppm_per_min__m0p5",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 1332.0,
+        "max_absolute_CO2_slope": 0.5000000000001861,
+        "mean_absolute_CO2": 666.7474048334586,
+        "mean_absolute_CO2_slope": 0.5,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.6367818066131565
+      },
+      "feature_matrix_sha256": "79dd698831c787575d64fb74baf0ec5b6d7fa7c02655a2fce6543d076accf169",
+      "kind": "co2_linear_drift_ppm_per_min",
+      "label_disagreement_count_vs_unperturbed": 1510,
+      "label_disagreement_rate_vs_unperturbed": 0.5672426746806912,
+      "level": 0.5,
+      "metrics": {
+        "accuracy": 0.40007513148009016,
+        "balanced_accuracy": 0.5274693892230315,
+        "brier_score": 0.5257795578908598,
+        "confusion_matrix": {
+          "fn": 4,
+          "fp": 1593,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              100,
+              1593
+            ],
+            [
+              4,
+              965
+            ]
+          ],
+          "tn": 100,
+          "tp": 965
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.5659454827197596,
+        "f1_occupied": 0.547207258293167,
+        "f1_vacant": 0.11129660545353368,
+        "false_negative_rate": 0.0041279669762641896,
+        "false_positive_rate": 0.9409332545776727,
+        "fn": 4,
+        "fp": 1593,
+        "log_loss": 2.401915524928149,
+        "macro_f1": 0.32925193187335033,
+        "occupied_recall": 0.9958720330237358,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.4974534695965047,
+        "precision_occupied": 0.37724784988272086,
+        "precision_vacant": 0.9615384615384616,
+        "recall_occupied": 0.9958720330237358,
+        "recall_vacant": 0.05906674542232723,
+        "roc_auc": 0.7059439188987374,
+        "sample_count": 2662,
+        "sensitivity": 0.9958720330237358,
+        "specificity": 0.05906674542232723,
+        "tn": 100,
+        "tp": 965
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.48016939800901576,
+      "probability_max_absolute_drift_vs_unperturbed": 0.98828125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.94140625,
+      "probability_vector_sha256": "81a45218f2cfa7bbbba6cca6598148247fac40657b3b807b689d39c403366ddd",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 76.0,
+        "per_feature": {
+          "CO2": {
+            "count": 293,
+            "fraction": 0.11006761833208115
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 296,
+        "saturated_element_count": 296,
+        "saturation_fraction": 0.02779864763335838
+      },
+      "scenario_id": "co2_linear_drift_ppm_per_min__0p5",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 2664.0,
+        "max_absolute_CO2_slope": 1.000000000000183,
+        "mean_absolute_CO2": 1333.4948096669173,
+        "mean_absolute_CO2_slope": 1.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 1.1367818066131565
+      },
+      "feature_matrix_sha256": "9780d998904a595dbb19ecc08928b5f71513728f29fd47d93a96a9d34197b5dd",
+      "kind": "co2_linear_drift_ppm_per_min",
+      "label_disagreement_count_vs_unperturbed": 1611,
+      "label_disagreement_rate_vs_unperturbed": 0.6051840721262209,
+      "level": 1.0,
+      "metrics": {
+        "accuracy": 0.3628850488354621,
+        "balanced_accuracy": 0.4984520123839009,
+        "brier_score": 0.6201541651289415,
+        "confusion_matrix": {
+          "fn": 3,
+          "fp": 1693,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              0,
+              1693
+            ],
+            [
+              3,
+              966
+            ]
+          ],
+          "tn": 0,
+          "tp": 966
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.6259024582081142,
+        "f1_occupied": 0.5325248070562293,
+        "f1_vacant": 0.0,
+        "false_negative_rate": 0.0030959752321981426,
+        "false_positive_rate": 1.0,
+        "fn": 3,
+        "fp": 1693,
+        "log_loss": 3.223290368895547,
+        "macro_f1": 0.26626240352811464,
+        "occupied_recall": 0.9969040247678018,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.4039119129636902,
+        "precision_occupied": 0.36329447160586686,
+        "precision_vacant": 0.0,
+        "recall_occupied": 0.9969040247678018,
+        "recall_vacant": 0.0,
+        "roc_auc": 0.5748510987694733,
+        "sample_count": 2662,
+        "sensitivity": 0.9969040247678018,
+        "specificity": 0.0,
+        "tn": 0,
+        "tp": 966
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.5401498520848985,
+      "probability_max_absolute_drift_vs_unperturbed": 0.98828125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.95703125,
+      "probability_vector_sha256": "ba502b6754ce17d7af4ac6e5d1b852e7eb792385d5cdf8b29075d7cd753e6a58",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 166.0,
+        "per_feature": {
+          "CO2": {
+            "count": 1515,
+            "fraction": 0.5691209616829451
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 1518,
+        "saturated_element_count": 1518,
+        "saturation_fraction": 0.14256198347107438
+      },
+      "scenario_id": "co2_linear_drift_ppm_per_min__1",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 5328.0,
+        "max_absolute_CO2_slope": 2.000000000000329,
+        "mean_absolute_CO2": 2666.9896193338345,
+        "mean_absolute_CO2_slope": 2.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 2.1367818066131563
+      },
+      "feature_matrix_sha256": "5edfdc7e03b0a05db9cbe847da2f7206e3fb480629c55d766917428de0f2d07d",
+      "kind": "co2_linear_drift_ppm_per_min",
+      "label_disagreement_count_vs_unperturbed": 1611,
+      "label_disagreement_rate_vs_unperturbed": 0.6051840721262209,
+      "level": 2.0,
+      "metrics": {
+        "accuracy": 0.3628850488354621,
+        "balanced_accuracy": 0.4984520123839009,
+        "brier_score": 0.6319349304703642,
+        "confusion_matrix": {
+          "fn": 3,
+          "fp": 1693,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              0,
+              1693
+            ],
+            [
+              3,
+              966
+            ]
+          ],
+          "tn": 0,
+          "tp": 966
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.6330296769346356,
+        "f1_occupied": 0.5325248070562293,
+        "f1_vacant": 0.0,
+        "false_negative_rate": 0.0030959752321981426,
+        "false_positive_rate": 1.0,
+        "fn": 3,
+        "fp": 1693,
+        "log_loss": 3.52848474425555,
+        "macro_f1": 0.26626240352811464,
+        "occupied_recall": 0.9969040247678018,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.35877951909479466,
+        "precision_occupied": 0.36329447160586686,
+        "precision_vacant": 0.0,
+        "recall_occupied": 0.9969040247678018,
+        "recall_vacant": 0.0,
+        "roc_auc": 0.4886362043185167,
+        "sample_count": 2662,
+        "sensitivity": 0.9969040247678018,
+        "specificity": 0.0,
+        "tn": 0,
+        "tp": 966
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.547417942336589,
+      "probability_max_absolute_drift_vs_unperturbed": 0.98828125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.9609375,
+      "probability_vector_sha256": "c3b3c2c03dc7f15103c29be8baa485bfa47afe06b604f62f90306ec67352e1f0",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 405.0,
+        "per_feature": {
+          "CO2": {
+            "count": 1871,
+            "fraction": 0.702854996243426
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 1874,
+        "saturated_element_count": 1874,
+        "saturation_fraction": 0.17599549211119458
+      },
+      "scenario_id": "co2_linear_drift_ppm_per_min__2",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "2e2dd23e66c23d208cfa045538c23495343167e16783f6f728775325b30e3b4f",
+      "kind": "humidity_noise_sigma_rh",
+      "label_disagreement_count_vs_unperturbed": 31,
+      "label_disagreement_rate_vs_unperturbed": 0.011645379413974455,
+      "level": 1.0,
+      "metrics": {
+        "accuracy": 0.912847483095417,
+        "balanced_accuracy": 0.9149329144409963,
+        "brier_score": 0.07224882428221556,
+        "confusion_matrix": {
+          "fn": 75,
+          "fp": 157,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1536,
+              157
+            ],
+            [
+              75,
+              894
+            ]
+          ],
+          "tn": 1536,
+          "tp": 894
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08368208818557475,
+        "f1_occupied": 0.885148514851485,
+        "f1_vacant": 0.9297820823244554,
+        "false_negative_rate": 0.07739938080495357,
+        "false_positive_rate": 0.09273479031305375,
+        "fn": 75,
+        "fp": 157,
+        "log_loss": 0.2665508316881269,
+        "macro_f1": 0.9074652985879702,
+        "occupied_recall": 0.9226006191950464,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9467083497628059,
+        "precision_occupied": 0.8506184586108468,
+        "precision_vacant": 0.9534450651769087,
+        "recall_occupied": 0.9226006191950464,
+        "recall_vacant": 0.9072652096869462,
+        "roc_auc": 0.9687909360280935,
+        "sample_count": 2662,
+        "sensitivity": 0.9226006191950464,
+        "specificity": 0.9072652096869462,
+        "tn": 1536,
+        "tp": 894
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.013049692430503381,
+      "probability_max_absolute_drift_vs_unperturbed": 0.12109375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.05078125,
+      "probability_vector_sha256": "d820daf638a27967dcb215d46163ab59a0ba0d7228ef70e0ad79eb77d523ee6b",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "humidity_noise_sigma_rh__1",
+      "seed": 20260810,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "555dfe37a0f4c19a2b48d1cc66474961bdcc1826ea70cdad6c5533803a850367",
+      "kind": "humidity_noise_sigma_rh",
+      "label_disagreement_count_vs_unperturbed": 57,
+      "label_disagreement_rate_vs_unperturbed": 0.021412471825694966,
+      "level": 2.0,
+      "metrics": {
+        "accuracy": 0.9120961682945155,
+        "balanced_accuracy": 0.9147835712766159,
+        "brier_score": 0.07310010077449991,
+        "confusion_matrix": {
+          "fn": 73,
+          "fp": 161,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1532,
+              161
+            ],
+            [
+              73,
+              896
+            ]
+          ],
+          "tn": 1532,
+          "tp": 896
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08603141435011269,
+        "f1_occupied": 0.8845014807502468,
+        "f1_vacant": 0.929047907822923,
+        "false_negative_rate": 0.07533539731682147,
+        "false_positive_rate": 0.09509746012994684,
+        "fn": 73,
+        "fp": 161,
+        "log_loss": 0.26744402145801177,
+        "macro_f1": 0.9067746942865849,
+        "occupied_recall": 0.9246646026831785,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9471645607384729,
+        "precision_occupied": 0.847682119205298,
+        "precision_vacant": 0.9545171339563863,
+        "recall_occupied": 0.9246646026831785,
+        "recall_vacant": 0.9049025398700532,
+        "roc_auc": 0.9685952660045584,
+        "sample_count": 2662,
+        "sensitivity": 0.9246646026831785,
+        "specificity": 0.9049025398700532,
+        "tn": 1532,
+        "tp": 896
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.026413410969196093,
+      "probability_max_absolute_drift_vs_unperturbed": 0.2890625,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.10136718749999929,
+      "probability_vector_sha256": "c95c043e75ae801badbcc647fd3c38c0965ebb37f341b2daf7053bc9275fe110",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "humidity_noise_sigma_rh__2",
+      "seed": 20260811,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.1367818066131566
+      },
+      "feature_matrix_sha256": "9c0494166055dccf74eb50915aedfe9b522b21c4d0f6647b0b14e51aa44caed4",
+      "kind": "humidity_noise_sigma_rh",
+      "label_disagreement_count_vs_unperturbed": 134,
+      "label_disagreement_rate_vs_unperturbed": 0.05033809166040571,
+      "level": 5.0,
+      "metrics": {
+        "accuracy": 0.891435011269722,
+        "balanced_accuracy": 0.8925823383725984,
+        "brier_score": 0.08881723244865526,
+        "confusion_matrix": {
+          "fn": 100,
+          "fp": 189,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1504,
+              189
+            ],
+            [
+              100,
+              869
+            ]
+          ],
+          "tn": 1504,
+          "tp": 869
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.09502518078512398,
+        "f1_occupied": 0.8574247656635421,
+        "f1_vacant": 0.9123445556566575,
+        "false_negative_rate": 0.10319917440660474,
+        "false_positive_rate": 0.11163614884819846,
+        "fn": 100,
+        "fp": 189,
+        "log_loss": 0.31172216398131525,
+        "macro_f1": 0.8848846606600997,
+        "occupied_recall": 0.8968008255933952,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9304780293254089,
+        "precision_occupied": 0.8213610586011342,
+        "precision_vacant": 0.9376558603491272,
+        "recall_occupied": 0.8968008255933952,
+        "recall_vacant": 0.8883638511518015,
+        "roc_auc": 0.9573058371232971,
+        "sample_count": 2662,
+        "sensitivity": 0.8968008255933952,
+        "specificity": 0.8883638511518015,
+        "tn": 1504,
+        "tp": 869
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.06681272304658152,
+      "probability_max_absolute_drift_vs_unperturbed": 0.609375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.26171875,
+      "probability_vector_sha256": "b9e622fa9504623e1e0860654f6cb11e6f2aa9d503ae5f7d3222a324576eac9f",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "humidity_noise_sigma_rh__5",
+      "seed": 20260812,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 0.9984973703981969,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.1374405810331726,
+        "mean_slope": 0.1374405810331726
+      },
+      "feature_matrix_sha256": "0a0f0e30677bdbf5c8512c17f9668706f09a70718ed3bc15cc101f2b6bc8afd5",
+      "kind": "missing_row",
+      "label_disagreement_count_vs_unperturbed": 0,
+      "label_disagreement_rate_vs_unperturbed": 0.0,
+      "level": null,
+      "metrics": {
+        "accuracy": 0.9138449962377727,
+        "balanced_accuracy": 0.9157112036176535,
+        "brier_score": 0.07194146471332122,
+        "confusion_matrix": {
+          "fn": 75,
+          "fp": 154,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1535,
+              154
+            ],
+            [
+              75,
+              894
+            ]
+          ],
+          "tn": 1535,
+          "tp": 894
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.0836110915161776,
+        "f1_occupied": 0.886465047099653,
+        "f1_vacant": 0.9305850257653834,
+        "false_negative_rate": 0.07739938080495357,
+        "false_positive_rate": 0.09117821195973949,
+        "fn": 75,
+        "fp": 154,
+        "log_loss": 0.2651776945693757,
+        "macro_f1": 0.9085250364325181,
+        "occupied_recall": 0.9226006191950464,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9493744195662385,
+        "precision_occupied": 0.8530534351145038,
+        "precision_vacant": 0.953416149068323,
+        "recall_occupied": 0.9226006191950464,
+        "recall_vacant": 0.9088217880402605,
+        "roc_auc": 0.9693497229997292,
+        "sample_count": 2658,
+        "sensitivity": 0.9226006191950464,
+        "specificity": 0.9088217880402605,
+        "tn": 1535,
+        "tp": 894
+      },
+      "paired_sample_count": 2658,
+      "pattern": {
+        "indices": [
+          1000
+        ],
+        "name": "one_missing_observation"
+      },
+      "probability_mae_vs_unperturbed": 0.0,
+      "probability_max_absolute_drift_vs_unperturbed": 0.0,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.0,
+      "probability_vector_sha256": "376d49f974c02400175221c4d5005e55a3fe510b89b65b41ceeebc869032c8a5",
+      "sample_count_available": 2658,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 4,
+      "sample_ids_sha256": "86cd80b47a4f1d91a3efa1fd28d235f254cd0728b55fa26a1e216a373f474272",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.001128668171557562
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2658,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.0002821670428893905
+      },
+      "scenario_id": "missing_row__one_missing_observation",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2658,
+        "FEATURE_UNAVAILABLE_GAP_RESTART": 3,
+        "FEATURE_UNAVAILABLE_MISSING_SOURCE_ROW": 1
+      }
+    },
+    {
+      "availability_rate": 0.9977460555972952,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.13703099642702335,
+        "mean_slope": 0.13703099642702335
+      },
+      "feature_matrix_sha256": "8e6480075656a156a8063c042ec817951d3bc840ccdc963e4dfa45013befbb7d",
+      "kind": "missing_row",
+      "label_disagreement_count_vs_unperturbed": 0,
+      "label_disagreement_rate_vs_unperturbed": 0.0,
+      "level": null,
+      "metrics": {
+        "accuracy": 0.9137801204819277,
+        "balanced_accuracy": 0.9155777960559607,
+        "brier_score": 0.07199975094163275,
+        "confusion_matrix": {
+          "fn": 75,
+          "fp": 154,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1539,
+              154
+            ],
+            [
+              75,
+              888
+            ]
+          ],
+          "tn": 1539,
+          "tp": 888
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08378876835466867,
+        "f1_occupied": 0.885785536159601,
+        "f1_vacant": 0.9307529482915029,
+        "false_negative_rate": 0.0778816199376947,
+        "false_positive_rate": 0.09096278795038393,
+        "fn": 75,
+        "fp": 154,
+        "log_loss": 0.2654207412492582,
+        "macro_f1": 0.9082692422255519,
+        "occupied_recall": 0.9221183800623053,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9489253679170438,
+        "precision_occupied": 0.8522072936660269,
+        "precision_vacant": 0.9535315985130112,
+        "recall_occupied": 0.9221183800623053,
+        "recall_vacant": 0.9090372120496161,
+        "roc_auc": 0.9692721051007784,
+        "sample_count": 2656,
+        "sensitivity": 0.9221183800623053,
+        "specificity": 0.9090372120496161,
+        "tn": 1539,
+        "tp": 888
+      },
+      "paired_sample_count": 2656,
+      "pattern": {
+        "indices": [
+          1200,
+          1201,
+          1202
+        ],
+        "name": "consecutive_missing_observations"
+      },
+      "probability_mae_vs_unperturbed": 0.0,
+      "probability_max_absolute_drift_vs_unperturbed": 0.0,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.0,
+      "probability_vector_sha256": "ff2793b584f3fd98f5855adede94ee830295fe9a413ce1f694336e411241cf56",
+      "sample_count_available": 2656,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 6,
+      "sample_ids_sha256": "f9fb15e3c6f10e0a73c899b2bba53569ee522d27f930afcdc49841434864edec",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011295180722891566
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2656,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028237951807228914
+      },
+      "scenario_id": "missing_row__consecutive_missing_observations",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2656,
+        "FEATURE_UNAVAILABLE_GAP_RESTART": 3,
+        "FEATURE_UNAVAILABLE_MISSING_SOURCE_ROW": 3
+      }
+    },
+    {
+      "availability_rate": 0.9744552967693464,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.0,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.0,
+        "mean_baseline_slope": 0.14631745466880108,
+        "mean_slope": 0.14631745466880108
+      },
+      "feature_matrix_sha256": "c32d8a784d62567a03acc0e92a9c6321f1ae433a678c193a268a3c75f6cdbab0",
+      "kind": "missing_row",
+      "label_disagreement_count_vs_unperturbed": 0,
+      "label_disagreement_rate_vs_unperturbed": 0.0,
+      "level": null,
+      "metrics": {
+        "accuracy": 0.9132613723978412,
+        "balanced_accuracy": 0.9147161326515563,
+        "brier_score": 0.07230397197220449,
+        "confusion_matrix": {
+          "fn": 75,
+          "fp": 150,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1507,
+              150
+            ],
+            [
+              75,
+              862
+            ]
+          ],
+          "tn": 1507,
+          "tp": 862
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08437289176946802,
+        "f1_occupied": 0.8845561826577732,
+        "f1_vacant": 0.9305341154677369,
+        "false_negative_rate": 0.08004268943436499,
+        "false_positive_rate": 0.09052504526252263,
+        "fn": 75,
+        "fp": 150,
+        "log_loss": 0.2667543376453524,
+        "macro_f1": 0.9075451490627551,
+        "occupied_recall": 0.919957310565635,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9486396713455442,
+        "precision_occupied": 0.8517786561264822,
+        "precision_vacant": 0.9525916561314791,
+        "recall_occupied": 0.919957310565635,
+        "recall_vacant": 0.9094749547374774,
+        "roc_auc": 0.969084940252182,
+        "sample_count": 2594,
+        "sensitivity": 0.919957310565635,
+        "specificity": 0.9094749547374774,
+        "tn": 1507,
+        "tp": 862
+      },
+      "paired_sample_count": 2594,
+      "pattern": {
+        "count": 18,
+        "name": "periodic_sparse_missingness",
+        "period": 100,
+        "start": 1000
+      },
+      "probability_mae_vs_unperturbed": 0.0,
+      "probability_max_absolute_drift_vs_unperturbed": 0.0,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.0,
+      "probability_vector_sha256": "094d834a4ae47addc4b25e7cb71a697fa56055ace3e6e81320acd6f2e5bb2d92",
+      "sample_count_available": 2594,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 68,
+      "sample_ids_sha256": "158dc5f603d18fc286606855ad07bb8b1e8505637a6ee96dbc4822019a76de51",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 79.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.001156515034695451
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2594,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028912875867386276
+      },
+      "scenario_id": "missing_row__periodic_sparse_missingness",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2594,
+        "FEATURE_UNAVAILABLE_GAP_RESTART": 51,
+        "FEATURE_UNAVAILABLE_MISSING_SOURCE_ROW": 17
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 10.333333333333336,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.6312737830187235,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.10261389499594838
+      },
+      "feature_matrix_sha256": "ada55f4e6f94ece4d4be170594b068db051d58ad0d7d225c6c0af543082831a0",
+      "kind": "stale_history_seconds",
+      "label_disagreement_count_vs_unperturbed": 48,
+      "label_disagreement_rate_vs_unperturbed": 0.018031555221637866,
+      "level": 60,
+      "metrics": {
+        "accuracy": 0.9042073628850489,
+        "balanced_accuracy": 0.9068162658479004,
+        "brier_score": 0.07778911175000587,
+        "confusion_matrix": {
+          "fn": 81,
+          "fp": 174,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1519,
+              174
+            ],
+            [
+              81,
+              888
+            ]
+          ],
+          "tn": 1519,
+          "tp": 888
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08697055785123965,
+        "f1_occupied": 0.8744460856720827,
+        "f1_vacant": 0.922563012450653,
+        "false_negative_rate": 0.08359133126934984,
+        "false_positive_rate": 0.10277613703484938,
+        "fn": 81,
+        "fp": 174,
+        "log_loss": 0.2818259552621262,
+        "macro_f1": 0.8985045490613679,
+        "occupied_recall": 0.9164086687306502,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9432050617774602,
+        "precision_occupied": 0.8361581920903954,
+        "precision_vacant": 0.949375,
+        "recall_occupied": 0.9164086687306502,
+        "recall_vacant": 0.8972238629651507,
+        "roc_auc": 0.9658196166208579,
+        "sample_count": 2662,
+        "sensitivity": 0.9164086687306502,
+        "specificity": 0.8972238629651507,
+        "tn": 1519,
+        "tp": 888
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.018128404395191585,
+      "probability_max_absolute_drift_vs_unperturbed": 0.32421875,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.0859375,
+      "probability_vector_sha256": "f98efe5e0e6ade1b4554fe8aec69b6051df57ca33e162838c96d1a145ac9b4ec",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 27.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 1,
+            "fraction": 0.0003756574004507889
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 1,
+        "saturated_element_count": 1,
+        "saturation_fraction": 9.391435011269723e-05
+      },
+      "scenario_id": "stale_history_seconds__60",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 16.533333333333335,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 1.0100224720227036,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.0821044603797805
+      },
+      "feature_matrix_sha256": "434ee3e730c8abc62f98c8f5923477fc87147ee90a117977ea0351bd6569dac4",
+      "kind": "stale_history_seconds",
+      "label_disagreement_count_vs_unperturbed": 70,
+      "label_disagreement_rate_vs_unperturbed": 0.02629601803155522,
+      "level": 120,
+      "metrics": {
+        "accuracy": 0.8981968444778362,
+        "balanced_accuracy": 0.8998843047649003,
+        "brier_score": 0.08215207071970675,
+        "confusion_matrix": {
+          "fn": 91,
+          "fp": 180,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1513,
+              180
+            ],
+            [
+              91,
+              878
+            ]
+          ],
+          "tn": 1513,
+          "tp": 878
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08854362321562737,
+        "f1_occupied": 0.8663048840651209,
+        "f1_vacant": 0.9178040643008797,
+        "false_negative_rate": 0.09391124871001032,
+        "false_positive_rate": 0.10632014176018902,
+        "fn": 91,
+        "fp": 180,
+        "log_loss": 0.2950866738351633,
+        "macro_f1": 0.8920544741830003,
+        "occupied_recall": 0.9060887512899897,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9382788178844493,
+        "precision_occupied": 0.8298676748582231,
+        "precision_vacant": 0.9432668329177057,
+        "recall_occupied": 0.9060887512899897,
+        "recall_vacant": 0.893679858239811,
+        "roc_auc": 0.9641588596765531,
+        "sample_count": 2662,
+        "sensitivity": 0.9060887512899897,
+        "specificity": 0.893679858239811,
+        "tn": 1513,
+        "tp": 878
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.028520614199849737,
+      "probability_max_absolute_drift_vs_unperturbed": 0.4140625,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.140625,
+      "probability_vector_sha256": "59698ce914eeb41b9fbda8430c9a476c60f55b3cd5b3565b76783d2faa53a1fa",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 0.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 0,
+        "saturated_element_count": 0,
+        "saturation_fraction": 0.0
+      },
+      "scenario_id": "stale_history_seconds__120",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 20.666666666666668,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 1.2625156219732436,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.06842784068384963
+      },
+      "feature_matrix_sha256": "e54acff2d3fe7cf59f56a840f7d65f6956ecdecdb253595754e853371f481a24",
+      "kind": "stale_history_seconds",
+      "label_disagreement_count_vs_unperturbed": 89,
+      "label_disagreement_rate_vs_unperturbed": 0.03343350864012021,
+      "level": 180,
+      "metrics": {
+        "accuracy": 0.8925619834710744,
+        "balanced_accuracy": 0.893909663843776,
+        "brier_score": 0.08514312010434764,
+        "confusion_matrix": {
+          "fn": 98,
+          "fp": 188,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1505,
+              188
+            ],
+            [
+              98,
+              871
+            ]
+          ],
+          "tn": 1505,
+          "tp": 871
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08956347436138241,
+        "f1_occupied": 0.858974358974359,
+        "f1_vacant": 0.9132281553398058,
+        "false_negative_rate": 0.10113519091847266,
+        "false_positive_rate": 0.11104548139397519,
+        "fn": 98,
+        "fp": 188,
+        "log_loss": 0.30445574087746063,
+        "macro_f1": 0.8861012571570824,
+        "occupied_recall": 0.8988648090815273,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9331538784755037,
+        "precision_occupied": 0.8224740321057602,
+        "precision_vacant": 0.9388646288209607,
+        "recall_occupied": 0.8988648090815273,
+        "recall_vacant": 0.8889545186060248,
+        "roc_auc": 0.9618842718484478,
+        "sample_count": 2662,
+        "sensitivity": 0.8988648090815273,
+        "specificity": 0.8889545186060248,
+        "tn": 1505,
+        "tp": 871
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.03550402657776108,
+      "probability_max_absolute_drift_vs_unperturbed": 0.52734375,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.171875,
+      "probability_vector_sha256": "c2c3ccde38c2ce14c2a06a7f7886e117075d734cfb235267afe813cbd5856178",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 0.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 0,
+        "saturated_element_count": 0,
+        "saturation_fraction": 0.0
+      },
+      "scenario_id": "stale_history_seconds__180",
+      "seed": null,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.23662707194191768,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.009765009280130136,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.13664451092959823
+      },
+      "feature_matrix_sha256": "eac2982e1d56a57f413cd1f12f1c6b78e9d46d78da5493663b8fe2dbd8e3cd35",
+      "kind": "timestamp_jitter_seconds",
+      "label_disagreement_count_vs_unperturbed": 2,
+      "label_disagreement_rate_vs_unperturbed": 0.0007513148009015778,
+      "level": 1,
+      "metrics": {
+        "accuracy": 0.9132231404958677,
+        "balanced_accuracy": 0.9150075860231865,
+        "brier_score": 0.0718557241713526,
+        "confusion_matrix": {
+          "fn": 76,
+          "fp": 155,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1538,
+              155
+            ],
+            [
+              76,
+              893
+            ]
+          ],
+          "tn": 1538,
+          "tp": 893
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.0835309447783621,
+        "f1_occupied": 0.8854734754586019,
+        "f1_vacant": 0.9301481705473238,
+        "false_negative_rate": 0.0784313725490196,
+        "false_positive_rate": 0.0915534554046072,
+        "fn": 76,
+        "fp": 155,
+        "log_loss": 0.2647462044822242,
+        "macro_f1": 0.9078108230029629,
+        "occupied_recall": 0.9215686274509803,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9494697178897253,
+        "precision_occupied": 0.8520992366412213,
+        "precision_vacant": 0.952912019826518,
+        "recall_occupied": 0.9215686274509803,
+        "recall_vacant": 0.9084465445953928,
+        "roc_auc": 0.9694328068529616,
+        "sample_count": 2662,
+        "sensitivity": 0.9215686274509803,
+        "specificity": 0.9084465445953928,
+        "tn": 1538,
+        "tp": 893
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.00035804845980465813,
+      "probability_max_absolute_drift_vs_unperturbed": 0.03125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.0,
+      "probability_vector_sha256": "a6c58892890b51aa1d446b63f09902a0bb1ef4e9b7b25bab9dd3e773c6722445",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 78.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "timestamp_jitter_seconds__1",
+      "seed": 20260810,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 0.9195509188025426,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.04815659693203833,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.13842767125962954
+      },
+      "feature_matrix_sha256": "78b005f250a65719fd79140855cbde2857afb123a64e2555930578f2aca16ab0",
+      "kind": "timestamp_jitter_seconds",
+      "label_disagreement_count_vs_unperturbed": 6,
+      "label_disagreement_rate_vs_unperturbed": 0.002253944402704733,
+      "level": 5,
+      "metrics": {
+        "accuracy": 0.9117205108940646,
+        "balanced_accuracy": 0.9133849268248972,
+        "brier_score": 0.07180888163783691,
+        "confusion_matrix": {
+          "fn": 78,
+          "fp": 157,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1536,
+              157
+            ],
+            [
+              78,
+              891
+            ]
+          ],
+          "tn": 1536,
+          "tp": 891
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08357496712997749,
+        "f1_occupied": 0.8834903321764996,
+        "f1_vacant": 0.9289386150589658,
+        "false_negative_rate": 0.0804953560371517,
+        "false_positive_rate": 0.09273479031305375,
+        "fn": 78,
+        "fp": 157,
+        "log_loss": 0.26462171800572465,
+        "macro_f1": 0.9062144736177327,
+        "occupied_recall": 0.9195046439628483,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.9493855513770234,
+        "precision_occupied": 0.8501908396946565,
+        "precision_vacant": 0.9516728624535316,
+        "recall_occupied": 0.9195046439628483,
+        "recall_vacant": 0.9072652096869462,
+        "roc_auc": 0.9694809624039251,
+        "sample_count": 2662,
+        "sensitivity": 0.9195046439628483,
+        "specificity": 0.9072652096869462,
+        "tn": 1536,
+        "tp": 891
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.001344149135987979,
+      "probability_max_absolute_drift_vs_unperturbed": 0.046875,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.01171875,
+      "probability_vector_sha256": "f5415d9f8bf842046f6015b274c5c3f78f9f027fdcaa20eb6e5b825d146fed3f",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 76.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "timestamp_jitter_seconds__5",
+      "seed": 20260811,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    },
+    {
+      "availability_rate": 1.0,
+      "diagnostic_only": true,
+      "feature_change": {
+        "max_absolute_CO2": 0.0,
+        "max_absolute_CO2_slope": 3.3251356230882863,
+        "mean_absolute_CO2": 0.0,
+        "mean_absolute_CO2_slope": 0.09670995915879045,
+        "mean_baseline_slope": 0.1367818066131566,
+        "mean_slope": 0.13354238304246663
+      },
+      "feature_matrix_sha256": "0a4b8608035a7ffe37cdee1b3b21d57c4f59ddf3f0554107a439719882cd05ca",
+      "kind": "timestamp_jitter_seconds",
+      "label_disagreement_count_vs_unperturbed": 10,
+      "label_disagreement_rate_vs_unperturbed": 0.003756574004507889,
+      "level": 10,
+      "metrics": {
+        "accuracy": 0.9117205108940646,
+        "balanced_accuracy": 0.9131642646799759,
+        "brier_score": 0.07185292691776038,
+        "confusion_matrix": {
+          "fn": 79,
+          "fp": 156,
+          "label_names": [
+            "VACANT",
+            "OCCUPIED"
+          ],
+          "labels": [
+            0,
+            1
+          ],
+          "matrix": [
+            [
+              1537,
+              156
+            ],
+            [
+              79,
+              890
+            ]
+          ],
+          "tn": 1537,
+          "tp": 890
+        },
+        "decision_threshold": 0.58,
+        "ece": 0.08342235631104433,
+        "f1_occupied": 0.8833746898263027,
+        "f1_vacant": 0.9289815654276217,
+        "false_negative_rate": 0.08152734778121776,
+        "false_positive_rate": 0.09214412285883047,
+        "fn": 79,
+        "fp": 156,
+        "log_loss": 0.26503579425048096,
+        "macro_f1": 0.9061781276269623,
+        "occupied_recall": 0.9184726522187823,
+        "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+        "pr_auc_average_precision": 0.948255527524668,
+        "precision_occupied": 0.8508604206500956,
+        "precision_vacant": 0.9511138613861386,
+        "recall_occupied": 0.9184726522187823,
+        "recall_vacant": 0.9078558771411696,
+        "roc_auc": 0.9692039155949007,
+        "sample_count": 2662,
+        "sensitivity": 0.9184726522187823,
+        "specificity": 0.9078558771411696,
+        "tn": 1537,
+        "tp": 890
+      },
+      "paired_sample_count": 2662,
+      "pattern": null,
+      "probability_mae_vs_unperturbed": 0.002788082268970699,
+      "probability_max_absolute_drift_vs_unperturbed": 0.0703125,
+      "probability_p95_absolute_drift_vs_unperturbed": 0.0234375,
+      "probability_vector_sha256": "d7f8183fb0110c66f4345e92a2686c6fd049786e2ac2dd477f1e32c7269e5e43",
+      "sample_count_available": 2662,
+      "sample_count_intended": 2662,
+      "sample_count_unavailable": 0,
+      "sample_ids_sha256": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+      "saturation": {
+        "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+        "feature_count": 4,
+        "maximum_overflow_distance": 96.0,
+        "per_feature": {
+          "CO2": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "CO2_slope": {
+            "count": 3,
+            "fraction": 0.0011269722013523666
+          },
+          "Humidity": {
+            "count": 0,
+            "fraction": 0.0
+          },
+          "Temperature": {
+            "count": 0,
+            "fraction": 0.0
+          }
+        },
+        "population": "VALIDATION_AVAILABLE",
+        "sample_count": 2662,
+        "samples_with_at_least_one_saturated_feature": 3,
+        "saturated_element_count": 3,
+        "saturation_fraction": 0.00028174305033809165
+      },
+      "scenario_id": "timestamp_jitter_seconds__10",
+      "seed": 20260812,
+      "unavailable_status_counts": {
+        "FEATURE_AVAILABLE": 2662
+      }
+    }
+  ],
+  "scaler_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+  "scenario_count": 25,
+  "slope_profile": "ENDPOINT_H150",
+  "threshold": 0.58,
+  "unperturbed_validation_prediction_fingerprint": "d08cff105efce7c62a151b96ec0ae5344cc35195e0880409410efe20c1bdac0c",
+  "validation_sample_count": 2662
+}

@@ -1,0 +1,109 @@
+{
+  "authorized_pre_test_freeze_sha256": "97cafb43306d61cf590b69b1db38d6e07b796161d172e79b78fda7bdb71e1a85",
+  "candidate_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+  "device_domain_validation": "NOT_YET_COMPLETE",
+  "eligible_sample_count": 9749,
+  "evaluation_count": 1,
+  "evaluation_profile_id": "CO2_B5_LOCKED_TEST_EVALUATION_001",
+  "evaluation_status": "COMPLETED_ONE_TIME_UNPERTURBED",
+  "execution_protocol": "C-B4 INT8 candidate + C-B2 TRAIN scaler + ENDPOINT_H150 + threshold 0.58; no perturbation sweep",
+  "generalization_gap_classification": "LOCKED_TEST_GENERALIZATION_GAP_OBSERVED",
+  "labels_fingerprint": "a6c0dc171b38f4d7c30f8235e97e79b3a078dc6f0941528d265e54b86c9c9913",
+  "locked_test_feature_access": 9749,
+  "locked_test_membership_fingerprint": "0bac8dc1affae1de48ea68f01e866508ea19f31e194a7c0dccbf617e529344e7",
+  "locked_test_metrics": 1,
+  "locked_test_predictions": 9749,
+  "locked_test_probabilities": 9749,
+  "locked_test_target_access": 9749,
+  "manifest_version": "1.0",
+  "metrics": {
+    "accuracy": 0.75412862857729,
+    "balanced_accuracy": 0.7286534400467807,
+    "brier_score": 0.215651880448776,
+    "confusion_matrix": {
+      "fn": 645,
+      "fp": 1752,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          5951,
+          1752
+        ],
+        [
+          645,
+          1401
+        ]
+      ],
+      "tn": 5951,
+      "tp": 1401
+    },
+    "decision_threshold": 0.58,
+    "ece": 0.19781075302595139,
+    "f1_occupied": 0.5389497980380843,
+    "f1_vacant": 0.8323658997132666,
+    "false_negative_rate": 0.3152492668621701,
+    "false_positive_rate": 0.22744385304426848,
+    "fn": 645,
+    "fp": 1752,
+    "log_loss": 0.9175243904209656,
+    "macro_f1": 0.6856578488756755,
+    "occupied_recall": 0.6847507331378299,
+    "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+    "pr_auc_average_precision": 0.38410017119790935,
+    "precision_occupied": 0.44433872502378685,
+    "precision_vacant": 0.9022134627046695,
+    "recall_occupied": 0.6847507331378299,
+    "recall_vacant": 0.7725561469557315,
+    "roc_auc": 0.7691397544900369,
+    "sample_count": 9749,
+    "sensitivity": 0.6847507331378299,
+    "specificity": 0.7725561469557315,
+    "tn": 5951,
+    "tp": 1401
+  },
+  "perturbation_sweeps": 0,
+  "phase": "C-B5",
+  "post_test_tuning": {
+    "feature_change": false,
+    "model_change": false,
+    "scaler_change": false,
+    "slope_change": false,
+    "threshold_change": false
+  },
+  "saturation": {
+    "definition": "unclipped affine int8 input outside [-128,127] before clipping",
+    "feature_count": 4,
+    "maximum_overflow_distance": 1815.0,
+    "per_feature": {
+      "CO2": {
+        "count": 3,
+        "fraction": 0.000307723869114781
+      },
+      "CO2_slope": {
+        "count": 156,
+        "fraction": 0.016001641193968612
+      },
+      "Humidity": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "Temperature": {
+        "count": 0,
+        "fraction": 0.0
+      }
+    },
+    "population": "LOCKED_TEST",
+    "sample_count": 9749,
+    "samples_with_at_least_one_saturated_feature": 156,
+    "saturated_element_count": 159,
+    "saturation_fraction": 0.004077341265770848
+  },
+  "threshold": 0.58
+}

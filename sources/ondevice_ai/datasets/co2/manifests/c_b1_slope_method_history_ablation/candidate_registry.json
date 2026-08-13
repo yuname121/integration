@@ -1,0 +1,96 @@
+{
+  "authorized_history_thresholds_seconds": [
+    60.0,
+    120.0,
+    150.0
+  ],
+  "authorized_methods": [
+    "ENDPOINT_DIFFERENCE",
+    "CAUSAL_LINEAR_REGRESSION"
+  ],
+  "candidate_count": 6,
+  "candidates": [
+    {
+      "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+      "candidate_id": "ENDPOINT_H60",
+      "causality": "PAST_ONLY",
+      "gap_restart_policy_seconds": 90.0,
+      "is_a3_baseline_correspondence": false,
+      "method": "ENDPOINT_DIFFERENCE",
+      "minimum_history_seconds": 60.0,
+      "participates_in_slope_ranking": true,
+      "unit": "ppm/min"
+    },
+    {
+      "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+      "candidate_id": "ENDPOINT_H120",
+      "causality": "PAST_ONLY",
+      "gap_restart_policy_seconds": 90.0,
+      "is_a3_baseline_correspondence": false,
+      "method": "ENDPOINT_DIFFERENCE",
+      "minimum_history_seconds": 120.0,
+      "participates_in_slope_ranking": true,
+      "unit": "ppm/min"
+    },
+    {
+      "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+      "candidate_id": "ENDPOINT_H150",
+      "causality": "PAST_ONLY",
+      "gap_restart_policy_seconds": 90.0,
+      "is_a3_baseline_correspondence": true,
+      "method": "ENDPOINT_DIFFERENCE",
+      "minimum_history_seconds": 150.0,
+      "participates_in_slope_ranking": true,
+      "unit": "ppm/min"
+    },
+    {
+      "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+      "candidate_id": "LINEAR_REGRESSION_H60",
+      "causality": "PAST_ONLY",
+      "gap_restart_policy_seconds": 90.0,
+      "is_a3_baseline_correspondence": false,
+      "method": "CAUSAL_LINEAR_REGRESSION",
+      "minimum_history_seconds": 60.0,
+      "participates_in_slope_ranking": true,
+      "unit": "ppm/min"
+    },
+    {
+      "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+      "candidate_id": "LINEAR_REGRESSION_H120",
+      "causality": "PAST_ONLY",
+      "gap_restart_policy_seconds": 90.0,
+      "is_a3_baseline_correspondence": false,
+      "method": "CAUSAL_LINEAR_REGRESSION",
+      "minimum_history_seconds": 120.0,
+      "participates_in_slope_ranking": true,
+      "unit": "ppm/min"
+    },
+    {
+      "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+      "candidate_id": "LINEAR_REGRESSION_H150",
+      "causality": "PAST_ONLY",
+      "gap_restart_policy_seconds": 90.0,
+      "is_a3_baseline_correspondence": false,
+      "method": "CAUSAL_LINEAR_REGRESSION",
+      "minimum_history_seconds": 150.0,
+      "participates_in_slope_ranking": true,
+      "unit": "ppm/min"
+    }
+  ],
+  "manifest_version": "1.0",
+  "no_slope_control": {
+    "control_id": "SCD40_NATIVE_NO_SLOPE_CONTROL",
+    "features": [
+      "CO2",
+      "Temperature",
+      "Humidity"
+    ],
+    "participates_in_slope_ranking": false,
+    "purpose": "INCREMENTAL_SLOPE_EVIDENCE_ONLY"
+  },
+  "phase": "C-B1",
+  "post_hoc_candidates_forbidden": true,
+  "preregistered_before_validation_results": true,
+  "registry_fingerprint": "dc77642f01c256ed85fdf4707df09c63e363ff6c5d92b23b23a836f983b890a1",
+  "registry_id": "CO2_B1_SLOPE_CANDIDATE_REGISTRY_001"
+}

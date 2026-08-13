@@ -1,0 +1,57 @@
+{
+  "manifest_version": "1.0",
+  "registry_id": "CO2_FEATURE_TARGET_ROLE_REGISTRY_001",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "fields": [
+    {
+      "field_name": "Temperature",
+      "role": "MEASURED_FEATURE",
+      "is_model_target": false,
+      "may_modify_occupancy_label": false,
+      "notes": ""
+    },
+    {
+      "field_name": "Humidity",
+      "role": "MEASURED_FEATURE",
+      "is_model_target": false,
+      "may_modify_occupancy_label": false,
+      "notes": ""
+    },
+    {
+      "field_name": "Light",
+      "role": "MEASURED_FEATURE",
+      "is_model_target": false,
+      "may_modify_occupancy_label": false,
+      "notes": ""
+    },
+    {
+      "field_name": "CO2",
+      "role": "MEASURED_FEATURE",
+      "is_model_target": false,
+      "may_modify_occupancy_label": false,
+      "notes": "Measured ppm; not an occupancy label."
+    },
+    {
+      "field_name": "HumidityRatio",
+      "role": "MEASURED_FEATURE",
+      "is_model_target": false,
+      "may_modify_occupancy_label": false,
+      "notes": ""
+    },
+    {
+      "field_name": "CO2_slope",
+      "role": "DERIVED_FEATURE",
+      "is_model_target": false,
+      "may_modify_occupancy_label": false,
+      "notes": "C-A3 derived ppm/min feature; never a target label."
+    },
+    {
+      "field_name": "Occupancy",
+      "role": "SOURCE_TARGET_LABEL",
+      "is_model_target": true,
+      "may_modify_occupancy_label": false,
+      "notes": "Original UCI source label preserved by C-A4."
+    }
+  ],
+  "future_model_input_note": "Existing model input order [CO2_slope, Humidity, CO2] is a later feature-selection/runtime concern; C-A4 does not perform feature selection."
+}

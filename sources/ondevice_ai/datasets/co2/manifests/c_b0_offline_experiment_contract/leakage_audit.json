@@ -1,0 +1,17 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "train_validation_overlap": 0,
+  "train_locked_test_overlap": 0,
+  "validation_locked_test_overlap": 0,
+  "duplicate_ids_within_splits": 0,
+  "target_leakage": 0,
+  "provenance_leakage": 0,
+  "scaler_fit_uses_validation": false,
+  "scaler_fit_uses_locked_test": false,
+  "model_fit_uses_validation": false,
+  "model_fit_uses_locked_test": false,
+  "locked_test_predictive_evaluation_in_b0": false,
+  "status": "PASS",
+  "errors": []
+}

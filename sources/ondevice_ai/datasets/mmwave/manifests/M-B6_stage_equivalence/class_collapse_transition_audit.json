@@ -1,0 +1,35 @@
+{
+  "phase_id": "M-B6",
+  "class_collapse_transitions": {
+    "M-B3_CONV1D_GAP_BASELINE_seed_42": {
+      "seed": 42,
+      "stage_a_collapsed": false,
+      "stage_b_collapsed": false,
+      "stage_c_collapsed": false,
+      "new_collapse_a_to_b": false,
+      "new_collapse_b_to_c": false,
+      "new_collapse_a_to_c": false,
+      "transition_label": "A(False) -> B(False) -> C(False)"
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43": {
+      "seed": 43,
+      "stage_a_collapsed": false,
+      "stage_b_collapsed": false,
+      "stage_c_collapsed": false,
+      "new_collapse_a_to_b": false,
+      "new_collapse_b_to_c": false,
+      "new_collapse_a_to_c": false,
+      "transition_label": "A(False) -> B(False) -> C(False)"
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44": {
+      "seed": 44,
+      "stage_a_collapsed": false,
+      "stage_b_collapsed": false,
+      "stage_c_collapsed": false,
+      "new_collapse_a_to_b": false,
+      "new_collapse_b_to_c": false,
+      "new_collapse_a_to_c": false,
+      "transition_label": "A(False) -> B(False) -> C(False)"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "phase_id": "M-B1",
+  "contract_name": "SafeNest mmWave Phase-B1 Preprocessing Ablation Contract",
+  "experimental_design": "2^3 Full-Factorial Ablation (Detrend x BPF x Z-Score)",
+  "fixed_conditions": {
+    "probe_architecture": "FIXED_M-B1_PROBE_ARCHITECTURE (Conv1D 16-32-64 + GAP + Dense3)",
+    "initialization_seed": 42,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "loss": "sparse_categorical_crossentropy",
+    "class_weights": null,
+    "oversampling": null,
+    "undersampling": null,
+    "batch_size": 32,
+    "max_epochs": 25,
+    "early_stopping_monitor": "val_loss",
+    "early_stopping_patience": 7,
+    "restore_best_weights": true
+  },
+  "preregistered_ranking_rule": [
+    "Step 1: Reject profiles with mandatory class-collapse failure (APNEA recall == 0 or RAPID recall == 0).",
+    "Step 2: Rank eligible profiles by VALIDATION Macro F1 descending.",
+    "Step 3: Tie-breaker 1: Larger minimum per-class recall.",
+    "Step 4: Tie-breaker 2: Higher APNEA-proxy recall.",
+    "Step 5: Tie-breaker 3: Prefer fewer enabled preprocessing operations.",
+    "Step 6: Tie-breaker 4: Lexicographic profile_id."
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "ANNOTATION_IN_DROPPED_TAIL",
+    "message": "Annotation event EVT_0001 (10.552s) has 1.826s falling into A3 dropped tail (after 30.0s)",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-lying-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "ANNOTATION_IN_DROPPED_TAIL",
+    "message": "Annotation event EVT_0001 (11.475s) has 2.474s falling into A3 dropped tail (after 30.0s)",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-sitting-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "ANNOTATION_IN_DROPPED_TAIL",
+    "message": "Annotation event EVT_0001 (11.930s) has 5.143s falling into A3 dropped tail (after 30.0s)",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-lying-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "ANNOTATION_IN_DROPPED_TAIL",
+    "message": "Annotation event EVT_0001 (12.205s) has 4.163s falling into A3 dropped tail (after 30.0s)",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-sitting-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "TRANSITION_WINDOW",
+    "message": "Window dataset-10_5281_zenodo_18599983-p004-lying-rest__W0001 contains transition state (4.739s overlap); marked AMBIGUOUS",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p004-lying-rest",
+    "severity": "INFO"
+  }
+]

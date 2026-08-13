@@ -1,0 +1,91 @@
+{
+  "manifest_version": "1.0",
+  "consumer_phase": "C-A5",
+  "canonical_sample_profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "source_archive": {
+    "path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+    "sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+    "read_only": true
+  },
+  "phases": {
+    "C-A1": [
+      {
+        "path": "datasets/co2/manifests/c_a1_safe_reader/checksums.sha256",
+        "sha256": "f57a56a3b4a2b4dd12d8b2da9ce9014045079cb4fd4231dc6e982d2d84b791e5",
+        "byte_size": 412
+      },
+      {
+        "path": "datasets/co2/manifests/c_a1_safe_reader/source_row_provenance_contract.json",
+        "sha256": "193b2263b6f50149ae88f0e6e588a905cb3f6fb66b6b3d22ed4febb1f4936ef5",
+        "byte_size": 3118
+      },
+      {
+        "path": "datasets/co2/manifests/c_a1_safe_reader/reader_validation_summary.json",
+        "sha256": "974ef258660fe794bde2cdf774b9300311f467d95c5813367ba1a91f9bef328a",
+        "byte_size": 741
+      },
+      {
+        "path": "datasets/co2/manifests/c_a1_safe_reader/source_schema_profile.json",
+        "sha256": "8a4a0c33bce83c0364a0284002728c28b24e4c6b96476e72b3e445f5518921fc",
+        "byte_size": 2308
+      }
+    ],
+    "C-A2": [
+      {
+        "path": "datasets/co2/manifests/c_a2_temporal_blocks/checksums.sha256",
+        "sha256": "12725030f3124f8a567d6f2e42f0a1ccf4201567ecc8743dabc7c9406e365b0f",
+        "byte_size": 420
+      },
+      {
+        "path": "datasets/co2/manifests/c_a2_temporal_blocks/temporal_blocks_manifest.json",
+        "sha256": "14bcc372552c44577ca0860926ba1f6bd75bda9db0e50e7cec012c3bc9a5aff1",
+        "byte_size": 3034
+      },
+      {
+        "path": "datasets/co2/manifests/c_a2_temporal_blocks/grouping_split_contract.json",
+        "sha256": "be6311f0476450af5cf94cba381a7814f2315bc2ad05ff4b55e0054f6fd80a21",
+        "byte_size": 1870
+      },
+      {
+        "path": "datasets/co2/manifests/c_a2_temporal_blocks/timestamp_cadence_profile.json",
+        "sha256": "93431377d1a9abcef51f8e44860de28fef19994957f134ecf39e33ceb0355b71",
+        "byte_size": 2249
+      }
+    ],
+    "C-A3": [
+      {
+        "path": "datasets/co2/manifests/c_a3_slope_feature/checksums.sha256",
+        "sha256": "097158279333c6ad3217892622828d8f4925eb5aefd491466d046dffb481a797",
+        "byte_size": 1120
+      },
+      {
+        "path": "datasets/co2/manifests/c_a3_slope_feature/co2_slope_feature_profile.json",
+        "sha256": "7d667bb076935e550699997e04c3bbe9738e9240a347d45b08b87104faebff1e",
+        "byte_size": 3496
+      },
+      {
+        "path": "datasets/co2/manifests/c_a3_slope_feature/feature_eligibility_summary.json",
+        "sha256": "41b3375d83b9e6b707eb9595dc8ef701d195e743eda9db89a7406713a530ee41",
+        "byte_size": 1779
+      }
+    ],
+    "C-A4": [
+      {
+        "path": "datasets/co2/manifests/c_a4_target_semantics/checksums.sha256",
+        "sha256": "0c49227588c0ff08a312dcf27435d1e2b0fbc2ca7e5c73cc5bb77053fc4cc290",
+        "byte_size": 998
+      },
+      {
+        "path": "datasets/co2/manifests/c_a4_target_semantics/occupancy_target_profile.json",
+        "sha256": "12f53911dcf6df063a49bac1dd0a9987a7748e70bbfe2279bf0ba08a5f807e72",
+        "byte_size": 1911
+      },
+      {
+        "path": "datasets/co2/manifests/c_a4_target_semantics/target_integrity_summary.json",
+        "sha256": "647fc3c62132b6592df2138041f680cb5160353c24f4e2b8517fb8e6c296a701",
+        "byte_size": 1065
+      }
+    ]
+  },
+  "note": "C-A5 validation must fail if any listed predecessor checksum changes without regenerating C-A5 artifacts."
+}

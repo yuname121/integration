@@ -1,0 +1,17 @@
+{
+  "architecture": "arm64",
+  "execution_scope": "MACOS_OFFLINE_EVIDENCE_ASSEMBLY_NO_FORMAL_BENCHMARK",
+  "formal_m_b8_latency_measurement_performed": false,
+  "formal_m_b8_latency_measurement_started": false,
+  "input_scope": "VALIDATION_ONLY",
+  "known_safenest_workload_check": "NOT_APPLICABLE_FORMAL_BENCHMARK_NOT_STARTED",
+  "locked_test_accesses": 0,
+  "m_b10b_started": false,
+  "m_b9_prior_formal_latency_benchmark_completed": true,
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "operating_system": "Darwin",
+  "phase_id": "M-B10A",
+  "python_version": "3.9.6",
+  "required_idle_stabilization_seconds_before_future_formal_benchmark": 30
+}

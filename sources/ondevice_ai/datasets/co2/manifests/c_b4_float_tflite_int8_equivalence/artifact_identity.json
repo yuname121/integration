@@ -1,0 +1,42 @@
+{
+  "artifact_files": [
+    "artifact_identity.json",
+    "bridge_contract.json",
+    "checksum_registry.json",
+    "conversion_environment.json",
+    "conversion_range_policy.json",
+    "determinism_report.json",
+    "equivalence_bridge_float_tflite.json",
+    "equivalence_source_bridge.json",
+    "equivalence_source_float_tflite.json",
+    "equivalence_source_int8_tflite.json",
+    "exceptions_and_limitations.json",
+    "experiment_contract.json",
+    "predecessor_fingerprint_registry.json",
+    "representative_dataset_manifest.json",
+    "saturation_report.json",
+    "tflite_contract_audit.json",
+    "validation_prediction_drift.jsonl"
+  ],
+  "artifact_namespace": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence",
+  "candidate_files": [
+    "candidate_metadata.json",
+    "class_map.json",
+    "float_reference.tflite",
+    "float_reference_parameters.json",
+    "full_integer_int8.tflite",
+    "input_contract.json",
+    "threshold_contract.json"
+  ],
+  "candidate_namespace": "models/co2/candidates/c_b4",
+  "locked_test_metrics": 0,
+  "locked_test_predictions": 0,
+  "locked_test_probabilities": 0,
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "production_model_modified": false,
+  "production_scaler_modified": false,
+  "raw_payload_included": false,
+  "representative_sample_count": 8140,
+  "validation_sample_count": 2662
+}

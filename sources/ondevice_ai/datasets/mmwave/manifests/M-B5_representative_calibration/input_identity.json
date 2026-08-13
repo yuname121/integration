@@ -1,0 +1,109 @@
+{
+  "phase_id": "M-B5",
+  "inputs": [
+    {
+      "path": "requirements-mac.txt",
+      "measured_sha256": "d14da72dfdf6b168dbacaef161adb03e1a171b990b7475ae85ea222fd7ab4f42"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/evaluation_contract.json",
+      "measured_sha256": "d2ee24968dfe68e2ca5c3ecacef9a7b6acaa474fb3307536c533df4a36ca796d"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/locked_test_access_policy.json",
+      "measured_sha256": "9e9fb5eb9caafedea397bf688899cfd4005763156baee93531b92172d8585b53"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/checksums.sha256",
+      "measured_sha256": "dd31fdf7d861f63829b2b352010072822c883f00a71a83efcb0dbde289a8e77a"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/selected_preprocessing_profile.json",
+      "measured_sha256": "583befc9a85d0cd48624a107ab741889f106fcbd3ca39a93f6a3ff5d0db95ed9"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/train_fit_statistics.json",
+      "measured_sha256": "ca7b4cd743ac2d799f9d83d0b4f428c934bf1e76a5285eecae1e6273077060a5"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/experiment_contract.json",
+      "measured_sha256": "9281f1a26f496458e5e0f801b5fa1372935e32c4dece6efaadcbcdfae8537b0b"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/checksums.sha256",
+      "measured_sha256": "11d8d5828523298e7258d370c0298c794d6dc77b3c6f834d866ba636ca630075"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B2_class_imbalance/selected_imbalance_strategy.json",
+      "measured_sha256": "36d8125614af2d0e952954a90e4fc8eb616a702100dd0a996dc8e0051e9b3ba7"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B2_class_imbalance/experiment_contract.json",
+      "measured_sha256": "8679eb2683788c5db6ee15f6e000d522d459e575bd4dd403556b059986da04b9"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B2_class_imbalance/checksums.sha256",
+      "measured_sha256": "0feb2c18ee058b08b8d595ed59a9981fd5c6b418de8a82665950e4fe48f94fee"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B3_architecture_comparison/selected_architecture_shortlist.json",
+      "measured_sha256": "25fb4c73c83cc09289338fca2c7456776151dcdc5e368be012c11dd961711acf"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B3_architecture_comparison/architecture_profiles.json",
+      "measured_sha256": "23a7e526fa229314013d50fbc165f645c4ca7a281062f22fbb36fb17aeb039c0"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B3_architecture_comparison/experiment_contract.json",
+      "measured_sha256": "e2c8ee949bbd955ab437b30a78122cacb8b8fc046e2fb09d7c9cfa43d8c3142c"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B3_architecture_comparison/checksums.sha256",
+      "measured_sha256": "926943b591da44ba18a5628ab02ed3b42ec9dabb95841a3396c8fdf3e1052f34"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/primary_float_finalist.json",
+      "measured_sha256": "686361b9cbcc256890f819f0dd4d08a3f6dff385941a334a88ff0f5149d226ed"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/backup_architecture.json",
+      "measured_sha256": "87d07bc44ce074ff47bf6ff72c6d5fad9622756f530f01dde7b0aae8b55c9b3d"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/experiment_contract.json",
+      "measured_sha256": "7b94cc8832ca5d7e3db9bcd633470037c75ca0652366ecbab7ea52abbbe839b4"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/training_runs.json",
+      "measured_sha256": "226982db37a4ca765be0cc43ded267da3cc80f3d341bd89fdf2c855263fa042c"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/seed_weights.npz",
+      "measured_sha256": "702bf35dfa08a089ea36193e63ff1e9d28e78fce3b1dbc7e69649cec3cf99399"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/validation_predictions.npz",
+      "measured_sha256": "ab4671c67847a27b6d38bb3541ea8431a90033a2d94360b78c7b44a774f23ef3"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/per_seed_results.json",
+      "measured_sha256": "7e6abedfde66bb00efcaefc717c367da67b7c24a47a94edc76e3d6394450d581"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/multi_seed_results.json",
+      "measured_sha256": "62723afc5ca851b457a9bb27ac2c2cd210dfc8be18b859d578ccad8f6827c2bf"
+    },
+    {
+      "path": "datasets/mmwave/manifests/M-B4_multiseed_stability/checksums.sha256",
+      "measured_sha256": "489cda54cde049290d416fa967b113ea65839c2e71b97722ea4b80dae28763a4"
+    },
+    {
+      "path": "datasets/mmwave/manifests/a5_subject_split/subject_split_manifest.jsonl",
+      "measured_sha256": "777cdaa1a8cda54ab0db63dcc916d3ba208c10f30cc2f48d3bc91e94bcb2dfc7"
+    },
+    {
+      "path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+      "measured_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf"
+    }
+  ]
+}

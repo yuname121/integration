@@ -1,0 +1,20 @@
+{
+  "feature_count": 4,
+  "feature_order": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "float_tflite_dtype": "float32",
+  "input_preprocessing": "C-B2 TRAIN-only standardization",
+  "int8_input_quantization": "actual interpreter input scale/zero point",
+  "int8_tflite_dtype": "int8",
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "profile_id": "CO2_B4_INPUT_CONTRACT_001",
+  "raw_ppm_direct_input": false,
+  "scaler_embedded": false,
+  "slope_profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "source_float_dtype": "float32"
+}

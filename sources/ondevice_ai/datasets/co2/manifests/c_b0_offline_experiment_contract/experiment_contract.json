@@ -1,0 +1,74 @@
+{
+  "manifest_version": "1.0",
+  "schema": "SafeNest_CO2_Offline_Experiment_Contract",
+  "experiment_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "phase": "C-B0",
+  "a_series_release_tag": "co2-a-series-raw-to-canonical",
+  "a_series_release_commit": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+  "a_series_artifact_lock_profile": "CO2_A_SERIES_ARTIFACT_LOCK_PROFILE_001",
+  "canonical_sample_profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "baseline_slope_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "train_population": {
+    "role": "TRAIN",
+    "universe": "MODEL_ELIGIBLE_SAMPLE",
+    "count": 8140,
+    "fit_authorized": true
+  },
+  "validation_population": {
+    "role": "VALIDATION",
+    "universe": "MODEL_ELIGIBLE_SAMPLE",
+    "count": 2662,
+    "fit_authorized": false,
+    "model_selection_authorized_in_later_b_phases": true
+  },
+  "locked_test_policy": {
+    "role": "LOCKED_TEST",
+    "universe": "MODEL_ELIGIBLE_SAMPLE",
+    "count": 9749,
+    "fit_authorized": false,
+    "tuning_authorized": false,
+    "b0_predictive_evaluation_authorized": false,
+    "identity_integrity_inspection_authorized": true
+  },
+  "common_comparison_universe": {
+    "train": 8140,
+    "validation": 2662,
+    "total": 10802
+  },
+  "preprocessing_policy": {
+    "fit_population": "TRAIN_ONLY",
+    "apply_to_validation": "TRAIN_FITTED_PARAMETERS",
+    "locked_test_fit": false,
+    "production_scaler_modification": false,
+    "b0_scaler_status_if_created": "B0_EXPERIMENT_REFERENCE_ONLY"
+  },
+  "metric_definitions_ref": "metric_contract.json",
+  "positive_class": "OCCUPIED",
+  "random_seed_policy": {
+    "default_seed": 20260810,
+    "python_seed": 20260810,
+    "numpy_seed": 20260810,
+    "pythonhashseed_recommended": "20260810"
+  },
+  "determinism_policy": {
+    "data_pipeline_determinism_required": true,
+    "model_training_determinism_claimed_bit_identical": false
+  },
+  "model_selection_boundary": "DEFERRED_AFTER_C_B0",
+  "b1_boundary": "CONTROLLED_SLOPE_METHOD_HISTORY_ABLATION",
+  "b0_prohibited_activities": [
+    "FINAL_FEATURE_SELECTION",
+    "SLOPE_METHOD_OPTIMIZATION",
+    "HISTORY_DURATION_OPTIMIZATION",
+    "COMPLEX_ARCHITECTURE_COMPARISON",
+    "HYPERPARAMETER_SWEEP",
+    "LOCKED_TEST_FIT_OR_TUNING",
+    "THRESHOLD_OPTIMIZATION_ON_LOCKED_TEST",
+    "PRODUCTION_MODEL_PROMOTION",
+    "SAFETY_THRESHOLD_CALIBRATION",
+    "DEVICE_DOMAIN_EQUIVALENCE_CLAIM"
+  ],
+  "random_row_wise_split": "PROHIBITED",
+  "inherited_c_a2_split_authoritative": true
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "source_sha": "77b1695ac66fd595bd037e4574d1626b8917654c",
+  "previous_synced_source_sha": "9a66a3b21baef9a6a51cb1a66942284c63d0b8a4",
+  "team_base_sha": "f3bd342eabcad27dc2c3ecdc16f035b8b13cb153",
+  "summary": {
+    "source_changes": 489,
+    "add_source": 484,
+    "replace_unchanged_base": 5,
+    "review_diverged_collision": 0
+  },
+  "modified_path_decisions": [
+    {
+      "path": "datasets/co2/slope_feature.py",
+      "decision": "REPLACE_UNCHANGED_BASE",
+      "source_sha256": "581a66a476a1a3b399b675ce4183dba6ad10f349e92722c69dff08c6c7a230cc"
+    },
+    {
+      "path": "docs/20260810_ChatGPT_SafeNest_Multisensor_Parallel_Execution_Roadmap_01.md",
+      "decision": "REPLACE_UNCHANGED_BASE",
+      "source_sha256": "9a8da210d1029ff138df5b8c69bd09d90953759dc047eef36784681f8674b646"
+    },
+    {
+      "path": "docs/README.md",
+      "decision": "REPLACE_UNCHANGED_BASE",
+      "source_sha256": "31e36ccb55e3db4fc45f29ae22f249955d0ccd818353e89cfa7d18cb6f02c94c"
+    },
+    {
+      "path": "inference/mmwave_interpreter.py",
+      "decision": "REPLACE_UNCHANGED_BASE",
+      "source_sha256": "b835f0a0f132f3705d5f22862484ef5244bffb9b1f6baeb5909980172cac95ee"
+    },
+    {
+      "path": "scripts/validate_thermal_t_a2.py",
+      "decision": "REPLACE_UNCHANGED_BASE",
+      "source_sha256": "9bb34ff4a5d8300e8fecfc809acbfdff1d7ba0adbf2d69a860e810c7845824d3"
+    }
+  ]
+}

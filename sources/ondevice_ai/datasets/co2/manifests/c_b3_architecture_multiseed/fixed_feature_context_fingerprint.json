@@ -1,0 +1,30 @@
+{
+  "architecture_specific_feature_changes": false,
+  "excluded_features": [
+    "Light",
+    "HumidityRatio",
+    "timestamp",
+    "sample_id",
+    "member_id",
+    "split_role",
+    "provenance_fields"
+  ],
+  "feature_context_id": "CO2_B3_FIXED_FEATURE_CONTEXT_001",
+  "feature_count": 4,
+  "feature_order": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "final_feature_selection_performed": false,
+  "manifest_version": "1.0",
+  "minimum_history_seconds": 150.0,
+  "phase": "C-B3",
+  "provenance_fields_as_features": [],
+  "slope_candidate_id": "ENDPOINT_H150",
+  "slope_method": "ENDPOINT_DIFFERENCE",
+  "slope_profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "target_fields_as_features": [],
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001"
+}

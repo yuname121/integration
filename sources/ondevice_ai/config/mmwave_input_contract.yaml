@@ -1,0 +1,65 @@
+schema_version: "1.0"
+contract_version: "1.0.0"
+project: "SafeNest_V6"
+signal_name: "resp_phase"
+signal_semantic: "resp_phase_unwrapped_clutter_removed"
+unit: "UNKNOWN"
+unit_verification_status: "NOT_VERIFIABLE"
+sample_rate_hz: 10
+window_seconds: 30
+window_samples: 300
+window_stride_samples: 10
+expected_shape: [1, 300, 1]
+dtype_before_preprocessing: "float32"
+missing_value_policy: "zero_fill_and_mark_degraded"
+timestamp_policy: "monotonic_10hz_regularized"
+preprocessing_status: "EXPERIMENTAL_PREPROCESSING_V1"
+filter_type: "bandpass_butterworth"
+filter_parameters:
+  lowcut_hz: 0.1
+  highcut_hz: 0.5
+  order: 4
+detrend_policy: "linear_detrend"
+normalization:
+  method: "z_score"
+  stats_source: "train_split_only"
+  mean: 0.006091983988881111
+  std: 2.5013835430145264
+clipping_policy:
+  min_val: -5.0
+  max_val: 5.0
+quality_requirements:
+  min_valid_samples: 300
+  max_consecutive_nans: 0
+class_map:
+  0: "NORMAL"
+  1: "RAPID_OR_ABNORMAL"
+  2: "APNEA"
+offline_acceptance_thresholds:
+  schema_version: "1.0"
+  description: "Quantitative acceptance criteria for SafeNest V6 Mac offline synthetic pipeline verification"
+  scope: "PASSED_ON_SYNTHETIC"
+  
+  # 1. Overall Performance Metrics
+  accuracy_min: 0.40
+  macro_f1_min: 0.60
+  
+  # 2. Per-Class Minimum Recall (Class Collapse Prevention)
+  per_class_recall_min:
+    NORMAL: 0.40
+    RAPID_OR_ABNORMAL: 0.50
+    APNEA: 0.50
+    
+  # 3. Quantization & Numerical Integrity Limits
+  max_int8_f1_drop: 0.05
+  max_input_saturation_ratio: 0.05
+  max_quantization_mae: 0.10
+  
+  # 4. Prohibited Failure Conditions
+  prohibited_states:
+    - "CLASS_COLLAPSE_ALL_SAME_PRED"
+    - "ZERO_APNEA_RECALL"
+    - "SATURATION_RATIO_EXCEEDED"
+    - "UNMATCHED_SHA256_HASH"
+    - "MISSING_SCALER_METADATA"
+

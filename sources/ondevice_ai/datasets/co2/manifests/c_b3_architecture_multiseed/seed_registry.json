@@ -1,0 +1,18 @@
+{
+  "fixed_data_rng_seed": 20260810,
+  "manifest_version": "1.0",
+  "phase": "C-B3",
+  "post_hoc_seed_addition": false,
+  "post_hoc_seed_removal": false,
+  "pre_registered_before_validation_results": true,
+  "registry_id": "CO2_B3_ARCHITECTURE_SEED_REGISTRY_001",
+  "seed_count": 5,
+  "seed_role": "ARCHITECTURE_STOCHASTICITY_ONLY",
+  "seeds": [
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814
+  ]
+}

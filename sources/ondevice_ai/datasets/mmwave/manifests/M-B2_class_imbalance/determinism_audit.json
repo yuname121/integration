@@ -1,0 +1,7 @@
+{
+  "phase_id": "M-B2",
+  "selected_strategy_id": "M-B2_CE_UNWEIGHTED",
+  "deterministic_seed": 42,
+  "validation_predictions_match": true,
+  "determinism_verified": true
+}

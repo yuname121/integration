@@ -1,0 +1,17 @@
+{
+  "locked_limitations_not_immediate_b_series_retuning_defects": true,
+  "not_defects_requiring_immediate_b_series_retuning": true,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "selected_seed42": {
+    "beats_both_frozen_historical_baselines_on_final_macro_f1": true,
+    "does_not_collapse_all_required_classes": true,
+    "high_apnea_false_positive_rate": 0.522727,
+    "initialization_sensitivity_from_m_b4": true,
+    "moderate_rapid_recall": 0.421053,
+    "seed42_val_macro_f1": 0.663708,
+    "seed44_val_macro_f1": 0.329107,
+    "strong_apnea_proxy_recall": 0.935484,
+    "weak_normal_recall": 0.2,
+    "weak_worst_subject_generalization": 0.095238
+  }
+}

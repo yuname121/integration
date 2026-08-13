@@ -1,0 +1,329 @@
+{
+  "artifacts": [
+    {
+      "artifact_role": "raw_source_archive",
+      "bytes": 246597320,
+      "immutable": true,
+      "phase": "A0",
+      "repo_relative_path": "datasets/raw_archives/external_datasets/db_records.zip",
+      "sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+      "source_of_truth": "datasets/mmwave/manifests/a0_raw_inventory/source_identity.json"
+    },
+    {
+      "artifact_role": "a0_source_identity",
+      "bytes": 3803,
+      "immutable": true,
+      "phase": "A0",
+      "repo_relative_path": "datasets/mmwave/manifests/a0_raw_inventory/source_identity.json",
+      "sha256": "791540a14c41877fffb10904c0bed42b99a34f0716daf45063bc6f1ea976dc5e",
+      "source_of_truth": "A0"
+    },
+    {
+      "artifact_role": "a5_subject_split",
+      "bytes": 11864,
+      "immutable": true,
+      "phase": "A5",
+      "repo_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+      "sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+      "source_of_truth": "datasets/mmwave/manifests/a5_subject_split/a5_summary.json"
+    },
+    {
+      "artifact_role": "a5_summary",
+      "bytes": 1448,
+      "immutable": true,
+      "phase": "A5",
+      "repo_relative_path": "datasets/mmwave/manifests/a5_subject_split/a5_summary.json",
+      "sha256": "5fb8537d8e94aca01744b19807e152984d4da2f9a91ee19156c5c6f17e0b945b",
+      "source_of_truth": "A5"
+    },
+    {
+      "artifact_role": "a5_split_profile",
+      "bytes": 1006,
+      "immutable": true,
+      "phase": "A5",
+      "repo_relative_path": "datasets/mmwave/manifests/a5_subject_split/split_profile.json",
+      "sha256": "d022295eed222712927c4a8c7edea4613a5ba650dcbb84710af72f95a72b0c93",
+      "source_of_truth": "A5"
+    },
+    {
+      "artifact_role": "a6_window_manifest",
+      "bytes": 1073370,
+      "immutable": true,
+      "phase": "A6",
+      "repo_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+      "sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+      "source_of_truth": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json"
+    },
+    {
+      "artifact_role": "a6_summary",
+      "bytes": 2190,
+      "immutable": true,
+      "phase": "A6",
+      "repo_relative_path": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json",
+      "sha256": "2657c703d691e1e4a2aea6033b351e64ff124ac09438ab02b843210596189d34",
+      "source_of_truth": "A6"
+    },
+    {
+      "artifact_role": "canonical_npy",
+      "bytes": 1272128,
+      "immutable": true,
+      "phase": "A6",
+      "repo_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+      "sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+      "source_of_truth": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json"
+    },
+    {
+      "artifact_role": "b0_summary",
+      "bytes": 867,
+      "immutable": true,
+      "phase": "M-B0",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B0_evaluation_protocol/m_b0_summary.json",
+      "sha256": "010f6c2f4fa88a82050645c0f238022c3c6db9232d866991503d0bbab6b78a37",
+      "source_of_truth": "M-B0"
+    },
+    {
+      "artifact_role": "b1_selected_profile",
+      "bytes": 521,
+      "immutable": true,
+      "phase": "M-B1",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/selected_preprocessing_profile.json",
+      "sha256": "583befc9a85d0cd48624a107ab741889f106fcbd3ca39a93f6a3ff5d0db95ed9",
+      "source_of_truth": "M-B1"
+    },
+    {
+      "artifact_role": "b1_summary",
+      "bytes": 600,
+      "immutable": true,
+      "phase": "M-B1",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/m_b1_summary.json",
+      "sha256": "e4246966e17842cb751c4ff7d3beae6325ba30eb5e32af516749a1cfc9a3b4f9",
+      "source_of_truth": "M-B1"
+    },
+    {
+      "artifact_role": "b1_executor",
+      "bytes": 5509,
+      "immutable": true,
+      "phase": "M-B1",
+      "repo_relative_path": "scripts/mmwave_m_b1_preprocessing.py",
+      "sha256": "c3aa8bad796e3202aa7f7046783fc4638406ce482b33c5907800a8607d3c945e",
+      "source_of_truth": "M-B1"
+    },
+    {
+      "artifact_role": "b2_selected_strategy",
+      "bytes": 1409,
+      "immutable": true,
+      "phase": "M-B2",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/selected_imbalance_strategy.json",
+      "sha256": "36d8125614af2d0e952954a90e4fc8eb616a702100dd0a996dc8e0051e9b3ba7",
+      "source_of_truth": "M-B2"
+    },
+    {
+      "artifact_role": "b2_summary",
+      "bytes": 610,
+      "immutable": true,
+      "phase": "M-B2",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B2_class_imbalance/m_b2_summary.json",
+      "sha256": "705004ffbe5213027ccbbc1dc9896810ee3ebf28e088aa4fad478676b84d829d",
+      "source_of_truth": "M-B2"
+    },
+    {
+      "artifact_role": "b3_summary",
+      "bytes": 351,
+      "immutable": true,
+      "phase": "M-B3",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B3_architecture_comparison/m_b3_summary.json",
+      "sha256": "0ece3590c9c563973c7e77620165e04b52f98aa997b658981e60d8ae6dad1e77",
+      "source_of_truth": "M-B3"
+    },
+    {
+      "artifact_role": "b4_summary",
+      "bytes": 391,
+      "immutable": true,
+      "phase": "M-B4",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B4_multiseed_stability/m_b4_summary.json",
+      "sha256": "2ef74a5f087289f5bcc97696a0c9af0b7de4cd7634c0e252b68694de4c8cc49c",
+      "source_of_truth": "M-B4"
+    },
+    {
+      "artifact_role": "b5_summary",
+      "bytes": 1028,
+      "immutable": true,
+      "phase": "M-B5",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B5_representative_calibration/m_b5_summary.json",
+      "sha256": "4fe686c2e3da573b15e31395370cc7506f753e8c748a33738bd77c0b911701e4",
+      "source_of_truth": "M-B5"
+    },
+    {
+      "artifact_role": "b6_summary",
+      "bytes": 493,
+      "immutable": true,
+      "phase": "M-B6",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/m_b6_summary.json",
+      "sha256": "a6ba110745cf7667ebd32105c45680882a18c6a3b979b2a75e781acb8b1bac74",
+      "source_of_truth": "M-B6"
+    },
+    {
+      "artifact_role": "b6_stage_artifact_manifest",
+      "bytes": 2883,
+      "immutable": true,
+      "phase": "M-B6",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B6_stage_equivalence/stage_artifact_manifest.json",
+      "sha256": "3f3a4b169c3a62a0edbbb640c5be6be7a3c6afb869fd63db1ceece5fc6572731",
+      "source_of_truth": "M-B6"
+    },
+    {
+      "artifact_role": "selected_tflite",
+      "bytes": 22080,
+      "immutable": true,
+      "phase": "M-B6",
+      "repo_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "source_of_truth": "M-B6/M-B10A"
+    },
+    {
+      "artifact_role": "b7_summary",
+      "bytes": 1792,
+      "immutable": true,
+      "phase": "M-B7",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B7_perturbation_robustness/m_b7_summary.json",
+      "sha256": "88c97a724ba7a3fa4b546c616510e79adc2f1541589653f0751b38c371b1132c",
+      "source_of_truth": "M-B7"
+    },
+    {
+      "artifact_role": "b8_summary",
+      "bytes": 6688,
+      "immutable": true,
+      "phase": "M-B8",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B8_mac_latency_footprint/m_b8_summary.json",
+      "sha256": "853d9a420de55fea4d6fced559650f17ada70a2f1e9a1804129b363fc97924d2",
+      "source_of_truth": "M-B8"
+    },
+    {
+      "artifact_role": "b9_summary",
+      "bytes": 1018,
+      "immutable": true,
+      "phase": "M-B9",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B9_mock_e2e/m_b9_summary.json",
+      "sha256": "59c803f769f180a97415a27c0612e57afce4008c346280279dcf5a3c2e395123",
+      "source_of_truth": "M-B9"
+    },
+    {
+      "artifact_role": "b9_seed42_runtime_manifest",
+      "bytes": 3277,
+      "immutable": true,
+      "phase": "M-B9",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json",
+      "sha256": "7b5a85e4c0482cccc8eaa43dcd84a9b565c1005857663e6c68555d171f0efccb",
+      "source_of_truth": "M-B9"
+    },
+    {
+      "artifact_role": "b10a_summary",
+      "bytes": 1753,
+      "immutable": true,
+      "phase": "M-B10A",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/m_b10a_summary.json",
+      "sha256": "ed8148cc9014309249550c2490ca8d5f8e80e3ca44713ae3400b14730c2521d9",
+      "source_of_truth": "M-B10A"
+    },
+    {
+      "artifact_role": "b10b_summary",
+      "bytes": 929,
+      "immutable": true,
+      "phase": "M-B10B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/m_b10b_summary.json",
+      "sha256": "95133b271a14b13bac6b638655a044501ef2488fa5c0611768bcc54669b6acdf",
+      "source_of_truth": "M-B10B"
+    },
+    {
+      "artifact_role": "b10b_incident_root_cause",
+      "bytes": 3802,
+      "immutable": true,
+      "phase": "M-B10B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/incident_root_cause.json",
+      "sha256": "d3a16d0daf454e0c0ba2a24c9c8fb28653cd1b3d50915b4ad675670315cc3585",
+      "source_of_truth": "M-B10B"
+    },
+    {
+      "artifact_role": "b10r0_summary",
+      "bytes": 539,
+      "immutable": true,
+      "phase": "M-B10R0",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R0_holdout_policy_review/m_b10r0_summary.json",
+      "sha256": "546a050a82cd5163216d4f74970ade2028501a455194fe7434484511d086ecf4",
+      "source_of_truth": "M-B10R0"
+    },
+    {
+      "artifact_role": "b10r1a_summary",
+      "bytes": 1436,
+      "immutable": true,
+      "phase": "M-B10R1-A",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1A_recovery_prefreeze/m_b10r1a_summary.json",
+      "sha256": "9501574d67b7a252f0febf4a0dd19113a7f268603adf59f2930023e75df9599c",
+      "source_of_truth": "M-B10R1-A"
+    },
+    {
+      "artifact_role": "b10r1b_summary",
+      "bytes": 625,
+      "immutable": true,
+      "phase": "M-B10R1-B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/m_b10r1b_summary.json",
+      "sha256": "b419fce1747d20c873418d1308334bd7e9c86ee418c15877d0c6712d0dd90eed",
+      "source_of_truth": "M-B10R1-B"
+    },
+    {
+      "artifact_role": "b10r1b_registry",
+      "bytes": 5466,
+      "immutable": true,
+      "phase": "M-B10R1-B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/recovery_registry.json",
+      "sha256": "731e09244736afaedd9974bf74d65b7eaceabdf7e6ab8bafbf79d723fa1226f9",
+      "source_of_truth": "M-B10R1-B"
+    },
+    {
+      "artifact_role": "b10r1b_ledger",
+      "bytes": 232222,
+      "immutable": true,
+      "phase": "M-B10R1-B",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/recovery_sample_predictions.jsonl",
+      "sha256": "ddfa44f910f2023dda420c075920c599c3cf5bb8dd607f4632f32ec189c8cc24",
+      "source_of_truth": "M-B10R1-B"
+    },
+    {
+      "artifact_role": "v0_1_tflite",
+      "bytes": 466616,
+      "immutable": true,
+      "phase": "historical_baseline",
+      "repo_relative_path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+      "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158",
+      "source_of_truth": "M-B10A"
+    },
+    {
+      "artifact_role": "v0_2_tflite",
+      "bytes": 22472,
+      "immutable": true,
+      "phase": "historical_baseline",
+      "repo_relative_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+      "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+      "source_of_truth": "M-B10A"
+    },
+    {
+      "artifact_role": "b10b_baseline_preprocessing_executor",
+      "bytes": 4058,
+      "immutable": true,
+      "phase": "M-B10B",
+      "repo_relative_path": "scripts/mmwave_m_b10b_baseline_preprocessing.py",
+      "sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f",
+      "source_of_truth": "M-B10B"
+    },
+    {
+      "artifact_role": "sensor_local_candidate_lock",
+      "bytes": 3011,
+      "immutable": true,
+      "phase": "M-B11",
+      "repo_relative_path": "models/mmwave/mmwave_offline_candidate_lock_v1.json",
+      "sha256": "380cbb09f41cd550bdbd8a0f8a54fd7165b76703de95dfcb827fcbad065be5a6",
+      "source_of_truth": "M-B11"
+    }
+  ],
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1"
+}

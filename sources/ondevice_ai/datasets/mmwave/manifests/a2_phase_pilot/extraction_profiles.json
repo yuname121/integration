@@ -1,0 +1,42 @@
+{
+  "profiles": [
+    {
+      "adjacent_bin_policy": "SINGLE_BIN_CANONICAL; PLUS_MINUS_ONE_AGREEMENT_DIAGNOSTIC_ONLY",
+      "canonical_filtered": false,
+      "canonical_normalized": false,
+      "diagnostic_only_processing": {
+        "detrending": "linear_least_squares",
+        "psd_method": "hann_periodogram",
+        "respiration_band_hz": [
+          0.1,
+          0.5
+        ],
+        "total_band_hz": [
+          0.05,
+          2.0
+        ]
+      },
+      "label_independent_selection": true,
+      "near_zero_policy": "THRESHOLD_MAX_FLOAT_TINY_OR_1E-6_TIMES_MEDIAN_POSITIVE_MAGNITUDE; FLAG_AND_PRESERVE_NO_INTERPOLATION",
+      "phase_method": "numpy_angle_radians",
+      "phase_quality_rank_components": [
+        "dynamic_energy",
+        "phase_continuity",
+        "neighbor_bin_agreement",
+        "channel_agreement"
+      ],
+      "profile_id": "MMWAVE_PHASE_EXTRACTION_PROFILE_001",
+      "profile_status": "SELECTED_A2_PILOT_PROFILE",
+      "range_bin_selection_method": "B_MEDIAN_CHANNEL_STATIC_COMPONENT_REDUCED_DYNAMIC_ENERGY",
+      "search_region": {
+        "maximum_range_m": 2.0,
+        "minimum_range_m": 0.3,
+        "profile_id": "PILOT_SEARCH_REGION_001"
+      },
+      "tie_breaking": "HIGHEST_SCORE_THEN_LOWEST_RANGE_BIN_INDEX_THEN_LOWEST_VIRTUAL_CHANNEL_INDEX_WITH_1E-12_TOLERANCE",
+      "unwrap_method": "numpy_unwrap_default_discontinuity_pi_period_2pi",
+      "virtual_channel_method": "V1_PHASE_QUALITY_RANK_COMPOSITE_SINGLE_CHANNEL"
+    }
+  ],
+  "schema_version": "1.0"
+}

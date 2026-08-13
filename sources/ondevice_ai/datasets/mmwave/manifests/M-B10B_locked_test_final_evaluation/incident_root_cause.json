@@ -1,0 +1,86 @@
+{
+  "schema_version": "M-B10B_INCIDENT_ROOT_CAUSE_V1",
+  "phase_id": "M-B10B",
+  "incident_status": "INCIDENT_ROOT_CAUSE_CLOSED",
+  "runtime_detection_code": "M-B10B_LOCKED_SPLIT_IDENTITY_MISMATCH",
+  "root_cause_id": "PRETEST_CONTRACT_COUNT_SEMANTICS_CONFLATION",
+  "root_cause_description": "The preregistered M-B10A/M-B10B protocol treated LOCKED_TEST total structural windows (88) as if they were identical to LOCKED_TEST pure-class supervised evaluation eligible windows (75). The existing Phase-B final accessor intentionally excludes AMBIGUOUS windows, so returning 75 rows was consistent with its pre-existing contract. The M-B10B harness therefore aborted on an incorrect pretest expected-count gate before model inference.",
+  "m_b10a_contract_frozen": true,
+  "m_b10a_contract_modified_after_access": false,
+  "a6_total_locked_test_windows": 88,
+  "a6_locked_test_evaluation_eligible_windows": 75,
+  "count_difference": 13,
+  "count_semantics_crosswalk": {
+    "LOCKED_TEST_STRUCTURAL_POPULATION": {
+      "subjects": 16,
+      "windows": 88,
+      "purpose": "immutable A5/A6 split structure",
+      "evidence_paths": [
+        "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json",
+        "datasets/mmwave/manifests/a6_full_conversion/full_split_distribution.json"
+      ]
+    },
+    "LOCKED_TEST_SUPERVISED_EVALUATION_POPULATION": {
+      "windows": 75,
+      "purpose": "three-class pure-class final evaluation",
+      "selection_rule": "accessor include_ambiguous=false",
+      "evidence_paths": [
+        "datasets/mmwave/manifests/a6_full_conversion/full_split_distribution.json"
+      ],
+      "returned_count_identity_claim": "RETURNED_COUNT_MATCHES_PREEXISTING_A6_ELIGIBILITY_COUNT"
+    },
+    "EXCLUDED_FROM_SUPERVISED_EVALUATION": {
+      "windows": 13,
+      "reason_class": "AMBIGUOUS / not locked_test_evaluation_eligible",
+      "evidence_paths": [
+        "datasets/mmwave/manifests/a6_full_conversion/full_label_distribution.json"
+      ]
+    }
+  },
+  "accessor_include_ambiguous": false,
+  "accessor_behavior_classification": "EXPECTED_EXISTING_ACCESSOR_BEHAVIOR",
+  "formal_accessor_invocations": 1,
+  "second_accessor_invocation": false,
+  "rows_returned": 75,
+  "model_inference_invocations": 0,
+  "metrics_generated": false,
+  "predictions_generated": false,
+  "registry_generated": false,
+  "returned_subject_count": "NOT_RECORDED_BEFORE_ABORT",
+  "locked_test_consumed": true,
+  "rerun_performed": false,
+  "scientific_final_performance_available": false,
+  "performance_result_status": "FINAL_PERFORMANCE_NOT_AVAILABLE_PREINFERENCE_ABORT",
+  "allowed_claims": [
+    "M-B10B_ONE_TIME_ACCESS_CONSUMED",
+    "M-B10B_PREINFERENCE_ABORT",
+    "PRETEST_CONTRACT_COUNT_SEMANTICS_CONFLATION",
+    "RETURNED_COUNT_MATCHES_PREEXISTING_A6_ELIGIBILITY_COUNT",
+    "FINAL_PERFORMANCE_NOT_AVAILABLE"
+  ],
+  "forbidden_claims": [
+    "M-B10B_FINAL_PERFORMANCE_COMPLETE",
+    "LOCKED_TEST_STILL_PRISTINE",
+    "ACCESSOR_BROKEN",
+    "DATASET_CORRUPTED",
+    "SPLIT_MUTATED",
+    "RECOVERY_AUTHORIZED",
+    "M-B11_READY",
+    "FULL_75_ROW_IDENTITY_VERIFIED"
+  ],
+  "dataset_corruption_evidence": false,
+  "split_mutation_evidence": false,
+  "accessor_malfunction_evidence": false,
+  "model_failure_evidence": false,
+  "recovery_evaluation_authorized": false,
+  "locked_test_reopen_authorized": false,
+  "m_b11_authorized": false,
+  "recovery_policy_status": "NOT_AUTHORIZED_REQUIRES_SEPARATE_REVIEW",
+  "required_followup": "SEPARATE_HOLDOUT_REUSE_OR_NEW_HOLDOUT_POLICY_REVIEW",
+  "m_b10a_contract_expected_structural_windows": 88,
+  "m_b10b_frozen_runner_expected_rows": 88,
+  "m_b10b_frozen_runner_expected_inferences": 264,
+  "historical_runtime_detection_preserved": true,
+  "frozen_runner_modified_in_closure": false,
+  "accessor_source_modified_in_closure": false
+}

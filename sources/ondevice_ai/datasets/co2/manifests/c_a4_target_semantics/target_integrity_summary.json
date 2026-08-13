@@ -1,0 +1,37 @@
+{
+  "manifest_version": "1.0",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "total_source_rows": 20560,
+  "occupancy_0_count": 15810,
+  "occupancy_1_count": 4750,
+  "unexpected_labels": 0,
+  "missing_target_labels": 0,
+  "modified_target_labels": 0,
+  "derived_reconstructed_labels": 0,
+  "expected_total_source_rows": 20560,
+  "expected_occupancy_0_count": 15810,
+  "expected_occupancy_1_count": 4750,
+  "counts_match_predecessor_expectation": true,
+  "by_future_split_role": {
+    "TRAIN": {
+      "future_split_role": "TRAIN",
+      "source_row_count": 8143,
+      "occupancy_0_count": 6414,
+      "occupancy_1_count": 1729
+    },
+    "VALIDATION": {
+      "future_split_role": "VALIDATION",
+      "source_row_count": 2665,
+      "occupancy_0_count": 1693,
+      "occupancy_1_count": 972
+    },
+    "LOCKED_TEST": {
+      "future_split_role": "LOCKED_TEST",
+      "source_row_count": 9752,
+      "occupancy_0_count": 7703,
+      "occupancy_1_count": 2049
+    }
+  },
+  "statistics_role": "TARGET_INTEGRITY_ONLY",
+  "not_model_performance": true
+}

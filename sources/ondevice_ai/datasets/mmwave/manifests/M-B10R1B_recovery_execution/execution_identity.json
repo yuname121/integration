@@ -1,0 +1,41 @@
+{
+  "frozen_from": "datasets/mmwave/manifests/M-B10R1A_recovery_prefreeze/execution_freeze_identity.json",
+  "harness_module_sha256": {
+    "scripts/mmwave_m_b10b_baseline_preprocessing.py": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f",
+    "scripts/mmwave_m_b10r1_metrics.py": "cec94b22e25f3767afdf818cf4af203396ba8e73bfa9bb8636c210368280f793",
+    "scripts/mmwave_m_b10r1_recovery_access.py": "8764f034591d0d5d9736d1eb4f2cc1aa4df5f280900bd5ecf2ef08daeda1a449",
+    "scripts/mmwave_m_b10r1_recovery_eval.py": "96d51e1f13958d91f23b7350a57a6a9a083e64f6df309c990a7d79aac5557efb",
+    "scripts/mmwave_m_b10r1_result_writer.py": "59fbce1b1d33322f4148dcf2f6a12555d650ed00fc8b3dc477355b66bbdf1f2b",
+    "scripts/run_mmwave_m_b10r1.py": "e829ccbd0b769000ea13a1c3cfba32b92c0471799912e2f83eefd1c887c52b71",
+    "scripts/validate_mmwave_m_b10r1b.py": "a4b3fa286be4023aee1af8c2ecfaa80d47293f6597b9a899c375590d04190ad3"
+  },
+  "model_count": 3,
+  "preprocessing_contract_ids": {
+    "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+    "mmwave_resp_int8": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+    "mmwave_resp_int8_v0.2.0_candidate": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1"
+  },
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "schema_version": "M-B10R1B_EXECUTION_IDENTITY_V1",
+  "specs": [
+    {
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "preprocessing_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+      "role": "SELECTED_NEW_REAL_DATA_CANDIDATE",
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+    },
+    {
+      "model_id": "mmwave_resp_int8",
+      "preprocessing_contract_id": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+      "role": "HISTORICAL_MODEL_COMPATIBILITY_BASELINE",
+      "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158"
+    },
+    {
+      "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+      "preprocessing_contract_id": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1",
+      "role": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BASELINE",
+      "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "blockers": [],
+  "calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "clean_baseline": {
+    "42": {
+      "accuracy": 0.721519,
+      "macro_f1": 0.666231
+    },
+    "43": {
+      "accuracy": 0.455696,
+      "macro_f1": 0.44124
+    },
+    "44": {
+      "accuracy": 0.518987,
+      "macro_f1": 0.329107
+    }
+  },
+  "frozen_seeds": [
+    42,
+    43,
+    44
+  ],
+  "gate_status": "PASS_WITH_WARNINGS",
+  "invalid_or_fallback_sample_count": 0,
+  "locked_test_access_attempts": 0,
+  "m_b6_clean_identity_verified": true,
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "new_collapse_conditions": [
+    {
+      "affected_seeds": [
+        42,
+        44
+      ],
+      "profile_id": "M-B7_AMP_X0_50"
+    },
+    {
+      "affected_seeds": [
+        44
+      ],
+      "profile_id": "M-B7_AMP_X0_75"
+    },
+    {
+      "affected_seeds": [
+        44
+      ],
+      "profile_id": "M-B7_COMBINED_MODERATE"
+    }
+  ],
+  "next_phase_authorized": false,
+  "perturbation_seed": 20260811,
+  "phase_id": "M-B7",
+  "profile_count": 17,
+  "scientific_scope": "OFFLINE_REAL_DATA_PERTURBATION_ROBUSTNESS",
+  "total_strict_int8_invocations": 4266,
+  "validation_subjects": 17,
+  "validation_windows": 79,
+  "warnings": [
+    "INITIALIZATION_SEED_SENSITIVITY_PRESERVED",
+    "TIMESTAMP_JITTER_OPTIONAL_PROFILE_NOT_ADDED",
+    "PERTURBATION_CLASS_COLLAPSE_OBSERVED",
+    "PERTURBATION_CLASS_COLLAPSE_OBSERVED",
+    "PERTURBATION_CLASS_COLLAPSE_OBSERVED"
+  ],
+  "worst_profiles": {
+    "confidence_degradation": "M-B7_MOTION_BURST_SEVERE",
+    "macro_f1_degradation": "M-B7_AMP_X0_50",
+    "per_class_recall_degradation": "M-B7_GAUSSIAN_POST_B1_SNR10",
+    "saturation": "M-B7_MOTION_BURST_SEVERE",
+    "top1_agreement": "M-B7_GAUSSIAN_POST_B1_SNR10"
+  }
+}

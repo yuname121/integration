@@ -1,0 +1,28 @@
+{
+  "access_consumed": true,
+  "access_timestamp_utc": "2026-08-12T03:52:15Z",
+  "accessor_api": "scripts/mmwave_phase_b_access.py:PhaseBAccessGuard.get_locked_test_final_evaluation_dataset",
+  "accessor_invocation_count": 1,
+  "actual_structural_subjects": "NOT_RECORDED_BEFORE_ABORT",
+  "actual_structural_windows": 75,
+  "authorization_source": "explicit external authorization in user-provided M-B10B execution prompt",
+  "completed_model_inference_invocations": 0,
+  "expected_structural_subjects": 16,
+  "expected_structural_windows": 88,
+  "failure": "M-B10B_LOCKED_SPLIT_IDENTITY_MISMATCH",
+  "no_rerun_performed": true,
+  "partial_evaluation_state": "ABORTED_BEFORE_MODEL_INFERENCE",
+  "phase_id": "M-B10B",
+  "post_access_status": "INCOMPLETE_NO_RERUN",
+  "pre_access_counter_state": {
+    "final_accessor_invocations": 0,
+    "labels": 0,
+    "metrics": 0,
+    "predictions": 0,
+    "tensors": 0
+  },
+  "result_validity": "INVALID_INCOMPLETE_STRUCTURAL_IDENTITY",
+  "schema_version": "M-B10B_ONE_TIME_ACCESS_AUDIT_V1",
+  "second_accessor_invocation": false,
+  "structural_rows_returned": 75
+}

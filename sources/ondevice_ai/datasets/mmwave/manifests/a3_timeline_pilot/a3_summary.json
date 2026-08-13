@@ -1,0 +1,44 @@
+{
+  "a2_extraction_profile": "MMWAVE_PHASE_EXTRACTION_PROFILE_001",
+  "a3_gate_status": "PASS_WITH_WARNINGS",
+  "a4_entry_status": "READY_WITH_CONDITIONS",
+  "activity_or_test_conditions_covered": [
+    "Post-exercise",
+    "Rest"
+  ],
+  "archive_sha256_after_a3": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_sha256_before_a3": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_unchanged_after_a3": true,
+  "exception_count": 11,
+  "explicit_non_scope": {
+    "a4": "NOT_PERFORMED",
+    "breath_hold_apnea_mapping": "NOT_PERFORMED",
+    "full_440_recording_conversion": "NOT_PERFORMED",
+    "model_training": "NOT_PERFORMED",
+    "permanent_bandpass_filtering": "NOT_PERFORMED",
+    "safenest_label_mapping": "NOT_PERFORMED",
+    "subject_split": "NOT_PERFORMED",
+    "training_npz_generation": "NOT_PERFORMED",
+    "z_score_normalization": "NOT_PERFORMED"
+  },
+  "frame_count_variants": [
+    400,
+    500,
+    600
+  ],
+  "pilot_recording_count": 13,
+  "pilot_subject_count": 6,
+  "postures_covered": [
+    "Lying",
+    "Sitting"
+  ],
+  "resampling_performed_count": 0,
+  "schema_version": "1.0",
+  "selected_profile_id": "MMWAVE_TIMELINE_PROFILE_001",
+  "total_dropped_tail_samples": 2000,
+  "total_interpolated_samples": 0,
+  "total_invalid_window_count": 0,
+  "total_valid_window_count": 15,
+  "total_window_count": 15,
+  "validation_success": true
+}

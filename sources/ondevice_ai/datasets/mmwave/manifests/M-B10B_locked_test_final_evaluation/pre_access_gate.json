@@ -1,0 +1,112 @@
+{
+  "authorization_present": true,
+  "authorization_scope": "M-B10B_ONE_TIME_LOCKED_TEST_FINAL_EVALUATION",
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "evaluation_passes": 1,
+  "exact_models": [
+    "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+    "mmwave_resp_int8",
+    "mmwave_resp_int8_v0.2.0_candidate"
+  ],
+  "final_accessor_previous_calls": 0,
+  "focused_tests_sha256": "c3a87466efc0608ee9fd3c4bf19b3b1cbb4cb368fa790b5401de07be5cb575cf",
+  "formal_runner_sha256": "cc717e9446fec602e41fbd6db0c02984645711e5cd441d06a98c54c1bdd3d2ea",
+  "formal_wrapper_sha256": "e738be308aba666be66837c0727f1a0b848e0a4ac3b5695d7c3c0455eb7e003e",
+  "generated_at": "2026-08-12T03:49:09Z",
+  "m_b10a_contract_sha256": "ba6429ecfe685de1807ec85b55e697ee12e24138e6b96e94715b0a1a6b19e0f7",
+  "m_b10a_validator": "PASS",
+  "metric_schema_frozen": true,
+  "model_output_shape": [
+    1,
+    3
+  ],
+  "no_final_result_artifacts_present": true,
+  "phase_id": "M-B10B",
+  "post_test_tuning_prohibited": true,
+  "pre_access_harness_commit": "7073374",
+  "preprocessing_frozen": true,
+  "previous_label_accesses": 0,
+  "previous_metric_accesses": 0,
+  "previous_prediction_accesses": 0,
+  "previous_tensor_accesses": 0,
+  "schema_version": "M-B10B_PRE_ACCESS_GATE_V1",
+  "status": "PASS",
+  "structural_subject_count": 16,
+  "structural_window_count": 88,
+  "upstream_validators": "M-B10A validator PASS; M-B9..M-B0 + A5/A6 chain run separately before access",
+  "validation_smoke": {
+    "all_finite": true,
+    "population": "VALIDATION_ONLY",
+    "probe_count": 9,
+    "probes": [
+      {
+        "class": "NORMAL",
+        "fallback_used": false,
+        "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+        "predicted_class": "RAPID_OR_ABNORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "NORMAL",
+        "fallback_used": false,
+        "model_id": "mmwave_resp_int8",
+        "predicted_class": "NORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "NORMAL",
+        "fallback_used": false,
+        "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+        "predicted_class": "NORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "RAPID_OR_ABNORMAL",
+        "fallback_used": false,
+        "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+        "predicted_class": "NORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "RAPID_OR_ABNORMAL",
+        "fallback_used": false,
+        "model_id": "mmwave_resp_int8",
+        "predicted_class": "NORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "RAPID_OR_ABNORMAL",
+        "fallback_used": false,
+        "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+        "predicted_class": "NORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "APNEA",
+        "fallback_used": false,
+        "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+        "predicted_class": "APNEA",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "APNEA",
+        "fallback_used": false,
+        "model_id": "mmwave_resp_int8",
+        "predicted_class": "NORMAL",
+        "probability_vector_finite": true
+      },
+      {
+        "class": "APNEA",
+        "fallback_used": false,
+        "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+        "predicted_class": "APNEA",
+        "probability_vector_finite": true
+      }
+    ]
+  },
+  "validator_sha256": "d7e9f2b0173e99199a5d44f7ffd968b3bf639ca219374d1b2a7454fbad7177c0"
+}

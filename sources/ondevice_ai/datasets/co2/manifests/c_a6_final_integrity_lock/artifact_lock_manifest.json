@@ -1,0 +1,335 @@
+{
+  "manifest_version": "1.0",
+  "lock_profile_id": "CO2_A_SERIES_ARTIFACT_LOCK_PROFILE_001",
+  "track": "CO2",
+  "milestone": "A_SERIES_RAW_TO_CANONICAL",
+  "phases_covered": [
+    "C-A0",
+    "C-A1",
+    "C-A2",
+    "C-A3",
+    "C-A4",
+    "C-A5",
+    "C-A6"
+  ],
+  "self_reference_policy": {
+    "artifact_lock_manifest_hashes_itself": false,
+    "checksums_sha256_hashes_itself": false,
+    "checksums_sha256_hashes_artifact_lock_manifest": true,
+    "artifact_lock_excludes": [
+      "datasets/co2/manifests/c_a6_final_integrity_lock/artifact_lock_manifest.json",
+      "datasets/co2/manifests/c_a6_final_integrity_lock/checksums.sha256"
+    ]
+  },
+  "raw_archive_lock": {
+    "exists": true,
+    "path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+    "byte_size": 335713,
+    "sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+    "matches_expected": true,
+    "git_visibility_status": "GIT_IGNORED_RAW_ARCHIVE",
+    "read_only_status": "READ_ONLY_SOURCE_EVIDENCE",
+    "included_in_git_release": false
+  },
+  "locked_artifact_count": 33,
+  "artifacts": [
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/source_identity.json",
+      "artifact_role": "source_identity",
+      "artifact_phase": "C-A0",
+      "byte_size": 1897,
+      "sha256": "39ec157951970423a58ceaf775e727c84544c691226480792e8c7be4339b136c",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/official_source_license.json",
+      "artifact_role": "official_source_license",
+      "artifact_phase": "C-A0",
+      "byte_size": 934,
+      "sha256": "ea5542820f6c91c325e417c35a6ed27385033593775784524f7edbb2d8abf970",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/archive_integrity.json",
+      "artifact_role": "archive_integrity",
+      "artifact_phase": "C-A0",
+      "byte_size": 656,
+      "sha256": "7f022d212e9639a6ba1b0dbc432fffce585eea4558f96e0e22af954e1c8ff119",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/archive_members.jsonl",
+      "artifact_role": "archive_members",
+      "artifact_phase": "C-A0",
+      "byte_size": 6054,
+      "sha256": "ab87092b2207812c986e2b598d0e4b3d4d822de612a3374c5e2560fac4765346",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/raw_inventory_summary.json",
+      "artifact_role": "raw_inventory_summary",
+      "artifact_phase": "C-A0",
+      "byte_size": 1064,
+      "sha256": "41aaaf18aa0efa18d8a43506d617ba881be434f2f6ba5809034d378b939d3e7a",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/lineage_registry.json",
+      "artifact_role": "lineage_registry",
+      "artifact_phase": "C-A0",
+      "byte_size": 2738,
+      "sha256": "5c6f8f279cb5113772b419df44c7b6ade8000b4ed60171cbcc7a3e3750325088",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/anomalies_and_limitations.json",
+      "artifact_role": "anomalies_and_limitations",
+      "artifact_phase": "C-A0",
+      "byte_size": 2533,
+      "sha256": "e9575273d72500894340e3a28c58f1cd0d6a6070b149af3f1ec67d8ed530b18a",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a0_raw_inventory/checksums.sha256",
+      "artifact_role": "checksums",
+      "artifact_phase": "C-A0",
+      "byte_size": 931,
+      "sha256": "d46809761ca93bbd8cc795b42048ab3b18644650777ec6b0e61a7e0be19415c6",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a1_safe_reader/source_schema_profile.json",
+      "artifact_role": "source_schema_profile",
+      "artifact_phase": "C-A1",
+      "byte_size": 2308,
+      "sha256": "8a4a0c33bce83c0364a0284002728c28b24e4c6b96476e72b3e445f5518921fc",
+      "schema_or_profile_id": "C-A1_UCI_OCCUPANCY_SCHEMA_PROFILE_001",
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a1_safe_reader/source_row_provenance_contract.json",
+      "artifact_role": "source_row_provenance_contract",
+      "artifact_phase": "C-A1",
+      "byte_size": 3118,
+      "sha256": "193b2263b6f50149ae88f0e6e588a905cb3f6fb66b6b3d22ed4febb1f4936ef5",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a1_safe_reader/reader_validation_summary.json",
+      "artifact_role": "reader_validation_summary",
+      "artifact_phase": "C-A1",
+      "byte_size": 741,
+      "sha256": "974ef258660fe794bde2cdf774b9300311f467d95c5813367ba1a91f9bef328a",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a1_safe_reader/checksums.sha256",
+      "artifact_role": "checksums",
+      "artifact_phase": "C-A1",
+      "byte_size": 412,
+      "sha256": "f57a56a3b4a2b4dd12d8b2da9ce9014045079cb4fd4231dc6e982d2d84b791e5",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a2_temporal_blocks/temporal_blocks_manifest.json",
+      "artifact_role": "temporal_blocks_manifest",
+      "artifact_phase": "C-A2",
+      "byte_size": 3034,
+      "sha256": "14bcc372552c44577ca0860926ba1f6bd75bda9db0e50e7cec012c3bc9a5aff1",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a2_temporal_blocks/grouping_split_contract.json",
+      "artifact_role": "grouping_split_contract",
+      "artifact_phase": "C-A2",
+      "byte_size": 1870,
+      "sha256": "be6311f0476450af5cf94cba381a7814f2315bc2ad05ff4b55e0054f6fd80a21",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a2_temporal_blocks/timestamp_cadence_profile.json",
+      "artifact_role": "timestamp_cadence_profile",
+      "artifact_phase": "C-A2",
+      "byte_size": 2249,
+      "sha256": "93431377d1a9abcef51f8e44860de28fef19994957f134ecf39e33ceb0355b71",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a2_temporal_blocks/checksums.sha256",
+      "artifact_role": "checksums",
+      "artifact_phase": "C-A2",
+      "byte_size": 420,
+      "sha256": "12725030f3124f8a567d6f2e42f0a1ccf4201567ecc8743dabc7c9406e365b0f",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a3_slope_feature/co2_slope_feature_profile.json",
+      "artifact_role": "co2_slope_feature_profile",
+      "artifact_phase": "C-A3",
+      "byte_size": 3496,
+      "sha256": "7d667bb076935e550699997e04c3bbe9738e9240a347d45b08b87104faebff1e",
+      "schema_or_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a3_slope_feature/feature_eligibility_summary.json",
+      "artifact_role": "feature_eligibility_summary",
+      "artifact_phase": "C-A3",
+      "byte_size": 1779,
+      "sha256": "41b3375d83b9e6b707eb9595dc8ef701d195e743eda9db89a7406713a530ee41",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a3_slope_feature/source_row_feature_lineage_contract.json",
+      "artifact_role": "source_row_feature_lineage_contract",
+      "artifact_phase": "C-A3",
+      "byte_size": 1227,
+      "sha256": "3c292e124012b117289dbdcca48feddd98e2d44081b685814f2e54405984bb78",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a3_slope_feature/checksums.sha256",
+      "artifact_role": "checksums",
+      "artifact_phase": "C-A3",
+      "byte_size": 1120,
+      "sha256": "097158279333c6ad3217892622828d8f4925eb5aefd491466d046dffb481a797",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a4_target_semantics/occupancy_target_profile.json",
+      "artifact_role": "occupancy_target_profile",
+      "artifact_phase": "C-A4",
+      "byte_size": 1911,
+      "sha256": "12f53911dcf6df063a49bac1dd0a9987a7748e70bbfe2279bf0ba08a5f807e72",
+      "schema_or_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a4_target_semantics/target_integrity_summary.json",
+      "artifact_role": "target_integrity_summary",
+      "artifact_phase": "C-A4",
+      "byte_size": 1065,
+      "sha256": "647fc3c62132b6592df2138041f680cb5160353c24f4e2b8517fb8e6c296a701",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a4_target_semantics/occupancy_safety_separation_contract.json",
+      "artifact_role": "occupancy_safety_separation_contract",
+      "artifact_phase": "C-A4",
+      "byte_size": 3409,
+      "sha256": "46f667f901f0c2bc94a5bb66ce0933a233240b95ccba4b4e59210c3451813c0e",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a4_target_semantics/checksums.sha256",
+      "artifact_role": "checksums",
+      "artifact_phase": "C-A4",
+      "byte_size": 998,
+      "sha256": "0c49227588c0ff08a312dcf27435d1e2b0fbc2ca7e5c73cc5bb77053fc4cc290",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/canonical_sample_profile.json",
+      "artifact_role": "canonical_sample_profile",
+      "artifact_phase": "C-A5",
+      "byte_size": 2200,
+      "sha256": "af7d298059ecd1ec8077cc4918209149be97f75d0aa7f7784f7e55980cc5b097",
+      "schema_or_profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/predecessor_fingerprint_registry.json",
+      "artifact_role": "predecessor_fingerprint_registry",
+      "artifact_phase": "C-A5",
+      "byte_size": 3597,
+      "sha256": "e2a788255d946b326a0eb92fa34b5dc12e918459b8ab885a757d3fb9a6452dbc",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/split_membership_manifest.json",
+      "artifact_role": "split_membership_manifest",
+      "artifact_phase": "C-A5",
+      "byte_size": 1381,
+      "sha256": "492a74cc9faedfe65ea75d3504333074f72dd7add42cd755d3cab34242f0bbba",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/feature_availability_manifest.json",
+      "artifact_role": "feature_availability_manifest",
+      "artifact_phase": "C-A5",
+      "byte_size": 3032,
+      "sha256": "55737b24fedff0b3e62de790abfe0c664a232e409894b7de356c43e488e4b34b",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/materialization_integrity_summary.json",
+      "artifact_role": "materialization_integrity_summary",
+      "artifact_phase": "C-A5",
+      "byte_size": 570,
+      "sha256": "8079c3df611b50de6970d58f0168dbe4894bc310a645cf6922d74358eef01b05",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/canonical_source_samples.jsonl",
+      "artifact_role": "canonical_source_samples",
+      "artifact_phase": "C-A5",
+      "byte_size": 26975652,
+      "sha256": "d157290a6ddcb7ff14f99f37331b713d897f64ca480e91912acde40f11d229f7",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/model_eligible_sample_ids.jsonl",
+      "artifact_role": "model_eligible_sample_ids",
+      "artifact_phase": "C-A5",
+      "byte_size": 2609033,
+      "sha256": "5c69db52bf86e4045c54b65277e623c7920dcd7e8e685f970799a6a5530f5863",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/artifact_identity.json",
+      "artifact_role": "artifact_identity",
+      "artifact_phase": "C-A5",
+      "byte_size": 2059,
+      "sha256": "22efcf85d58079e10062a4e0877b94e8092a9d50a135a9c84859f5b2a2f59925",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/checksums.sha256",
+      "artifact_role": "checksums",
+      "artifact_phase": "C-A5",
+      "byte_size": 1436,
+      "sha256": "5c110e4c5ec3b87fb4cfcd93bffb945add96a403ce6d8e366723c43cdda6411b",
+      "schema_or_profile_id": null,
+      "release_inclusion_status": "INCLUDED_IN_A_SERIES_LOCK"
+    }
+  ],
+  "note": "Raw ZIP is recorded by identity only and remains GIT_IGNORED; it is not included in the Git release payload."
+}

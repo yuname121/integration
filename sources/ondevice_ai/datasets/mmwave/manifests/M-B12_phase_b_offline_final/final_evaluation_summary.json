@@ -1,0 +1,161 @@
+{
+  "accuracy": 0.56,
+  "actual_pairs": 225,
+  "apnea_proxy": {
+    "fpr": 0.522727,
+    "misses": 2,
+    "precision": 0.557692,
+    "recall": 0.935484
+  },
+  "class_collapse": {
+    "collapsed": false,
+    "zero_prediction_classes": [],
+    "zero_recall_classes": []
+  },
+  "confusion_matrix": [
+    [
+      5,
+      5,
+      15
+    ],
+    [
+      3,
+      8,
+      8
+    ],
+    [
+      2,
+      0,
+      29
+    ]
+  ],
+  "cross_model_label_mismatches": 0,
+  "cross_model_recording_mismatches": 0,
+  "cross_model_subject_mismatches": 0,
+  "duplicates": 0,
+  "eligible_evaluated": 75,
+  "expected_pairs": 225,
+  "historical_total_payload_releases": 2,
+  "inference_rerun_in_m_b12": false,
+  "input_saturation_ratio": 0.0,
+  "invalid": 0,
+  "m_b10r1b_recovery_accessor_invocations": 1,
+  "m_b10r1b_recovery_payload_releases": 1,
+  "macro_f1": 0.494836,
+  "macro_precision": 0.557692,
+  "macro_recall": 0.518846,
+  "median_subject_macro_f1": 0.388888,
+  "missing": 0,
+  "models": 3,
+  "new_model_selection_event": false,
+  "not_final_locked_test_pristine": true,
+  "original_m_b10b_accessor_invocations": 1,
+  "original_m_b10b_model_inference": 0,
+  "original_m_b10b_payload_releases": 1,
+  "per_class": {
+    "APNEA": {
+      "f1_score": 0.698795,
+      "fn": 2,
+      "fp": 23,
+      "fpr": 0.522727,
+      "precision": 0.557692,
+      "recall": 0.935484,
+      "support": 31,
+      "tn": 21,
+      "tp": 29
+    },
+    "NORMAL": {
+      "f1_score": 0.285714,
+      "fn": 20,
+      "fp": 5,
+      "fpr": 0.1,
+      "precision": 0.5,
+      "recall": 0.2,
+      "support": 25,
+      "tn": 45,
+      "tp": 5
+    },
+    "RAPID_OR_ABNORMAL": {
+      "f1_score": 0.5,
+      "fn": 11,
+      "fp": 5,
+      "fpr": 0.089286,
+      "precision": 0.615385,
+      "recall": 0.421053,
+      "support": 19,
+      "tn": 51,
+      "tp": 8
+    }
+  },
+  "pre_clamp_out_of_range_count": 0,
+  "prediction_distribution": {
+    "APNEA": 52,
+    "NORMAL": 10,
+    "RAPID_OR_ABNORMAL": 13
+  },
+  "recovery_model_inference": 225,
+  "rerun": false,
+  "result_designation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "samples_with_any_saturation": 0,
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1",
+  "second_recovery": false,
+  "subject_count": 16,
+  "tflite_invocations_all_models": 225,
+  "tflite_invocations_selected": 75,
+  "total_quantized_elements": 22500,
+  "unexpected": 0,
+  "unique_eligible_window_ids": 75,
+  "v0_1": {
+    "accuracy": 0.333333,
+    "class_collapse": {
+      "collapsed": true,
+      "zero_prediction_classes": [
+        "RAPID_OR_ABNORMAL",
+        "APNEA"
+      ],
+      "zero_recall_classes": [
+        "RAPID_OR_ABNORMAL",
+        "APNEA"
+      ]
+    },
+    "macro_f1": 0.166667,
+    "model_id": "mmwave_resp_int8",
+    "prediction_distribution": {
+      "APNEA": 0,
+      "NORMAL": 75,
+      "RAPID_OR_ABNORMAL": 0
+    },
+    "role": "HISTORICAL_MODEL_COMPATIBILITY_BENCHMARK",
+    "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158"
+  },
+  "v0_1_collapsed": true,
+  "v0_1_macro_f1": 0.166667,
+  "v0_2": {
+    "accuracy": 0.506667,
+    "class_collapse": {
+      "collapsed": true,
+      "zero_prediction_classes": [
+        "RAPID_OR_ABNORMAL"
+      ],
+      "zero_recall_classes": [
+        "RAPID_OR_ABNORMAL"
+      ]
+    },
+    "macro_f1": 0.391074,
+    "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+    "prediction_distribution": {
+      "APNEA": 18,
+      "NORMAL": 57,
+      "RAPID_OR_ABNORMAL": 0
+    },
+    "role": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BENCHMARK",
+    "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff"
+  },
+  "v0_2_collapsed": true,
+  "v0_2_macro_f1": 0.391074,
+  "valid": 75,
+  "worst_sample_saturation_ratio": 0.0,
+  "worst_subject_id": "dataset-10_5281_zenodo_18599983-p019",
+  "worst_subject_macro_f1": 0.095238
+}

@@ -1,0 +1,64 @@
+{
+  "phase_id": "M-B5",
+  "selection_status": "SELECTED_CALIBRATION_PROFILE",
+  "selected_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "profile_details": {
+    "profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+    "eligible": true,
+    "conversion_success_count": 3,
+    "strict_int8_eligible": true,
+    "new_class_collapse_count": 0,
+    "worst_positive_macro_f1_degradation": 0.00977,
+    "worst_positive_recall_degradation": 0.081082,
+    "min_top1_agreement": 0.936709,
+    "max_dequantized_output_mae": 0.008439,
+    "max_input_saturation_ratio": 0.0,
+    "max_output_endpoint_ratio": 0.0,
+    "macro_f1_degradation": {
+      "mean": 0.003257,
+      "median": 0.0,
+      "std": 0.004606,
+      "min": 0.0,
+      "max": 0.00977,
+      "per_seed": {
+        "42": 0.0,
+        "43": 0.00977,
+        "44": 0.0
+      }
+    },
+    "top1_agreement": {
+      "mean": 0.974684,
+      "min": 0.936709,
+      "per_seed": {
+        "42": 0.987342,
+        "43": 0.936709,
+        "44": 1.0
+      }
+    },
+    "output_mae": {
+      "mean": 0.005263,
+      "max": 0.008439,
+      "per_seed": {
+        "42": 0.006319,
+        "43": 0.00103,
+        "44": 0.008439
+      }
+    },
+    "tflite_bytes": {
+      "mean": 22117,
+      "min": 22080,
+      "max": 22136
+    }
+  },
+  "ranking_decision": {
+    "winner_profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+    "runner_up_profile_id": "M-B5_CAL_TRAIN_ORDER_120",
+    "deciding_criterion": "CRITERION_4_MAX_OUTPUT_PROBABILITY_MAE",
+    "direction": "lower",
+    "winner_value": 0.008439,
+    "runner_up_value": 0.008551,
+    "abs_delta": 0.00011199999999999925,
+    "tie_tolerance_eps": 1e-05
+  },
+  "selection_rationale": "Preregistered M-B5 8-criterion ranking rule with eps=1e-5 numerical tie tolerance: Lower worst-seed positive Macro F1 degradation, lower worst-seed max positive recall degradation, higher min Top-1 agreement, lower max dequantized output MAE, lower max input saturation ratio, lower max output endpoint ratio, simpler policy order, lexicographic profile ID."
+}

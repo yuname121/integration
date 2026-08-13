@@ -1,0 +1,15 @@
+{
+  "a6_ambiguous_windows": 13,
+  "a6_structural_windows": 88,
+  "a6_supervised_eligible_windows": 75,
+  "existing_independent_holdout_available": false,
+  "locked_test_reopen_authorized": false,
+  "m_b10r0_accessor_invocations": 0,
+  "m_b11_authorized": false,
+  "phase_id": "M-B10R0",
+  "policy_decision": "LIMITED_LOCKED_TEST_REUSE_EXCEPTION_RECOMMENDED",
+  "recovery_execution_authorized": false,
+  "recovery_runner_executions": 0,
+  "reuse_exception_eligible": true,
+  "status": "POLICY_REVIEW_COMPLETE_AWAITING_INDEPENDENT_REVIEW"
+}

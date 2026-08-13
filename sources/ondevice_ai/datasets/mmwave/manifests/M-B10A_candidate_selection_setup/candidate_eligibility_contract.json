@@ -1,0 +1,78 @@
+{
+  "contract_name": "M-B10A Frozen Candidate Eligibility Contract",
+  "failure_policy": "Any failed hard gate removes the candidate; zero eligible candidates yields INCONCLUSIVE and stops before M-B10B.",
+  "finding_classes": [
+    "BLOCKER",
+    "REQUIRED REFINEMENT",
+    "NON-BLOCKING IMPROVEMENT"
+  ],
+  "phase_id": "M-B10A",
+  "rules": [
+    {
+      "hard_gate": true,
+      "name": "Lineage intact from source through runtime",
+      "pass_condition": "All required phase identities and immutable A5/A6 paths exist and hash-match.",
+      "rule_id": "E1"
+    },
+    {
+      "hard_gate": true,
+      "name": "Strict INT8 and no Flex/Select ops",
+      "pass_condition": "Actual finalist binary has int8 input/output, expected shapes, and zero Select TF ops.",
+      "rule_id": "E2"
+    },
+    {
+      "hard_gate": true,
+      "name": "Clean VALIDATION has no required-class prediction collapse",
+      "pass_condition": "Recomputed clean VALIDATION prediction distribution and class recalls are nonzero.",
+      "rule_id": "E3"
+    },
+    {
+      "hard_gate": true,
+      "name": "No new M-B6 conversion-induced required-class collapse",
+      "pass_condition": "M-B6 class-collapse transition audit reports no Stage-A to Stage-C new collapse.",
+      "rule_id": "E4"
+    },
+    {
+      "hard_gate": true,
+      "name": "M-B9 runtime and prediction identity match M-B6 artifact",
+      "pass_condition": "Runtime path, SHA, bytes, model version, and direct/runtime INT8 output, probability, and Top-1 identities match the M-B6 Stage-C artifact.",
+      "rule_id": "E5"
+    },
+    {
+      "hard_gate": true,
+      "name": "Valid finalist with no heuristic fallback",
+      "pass_condition": "M-B9 valid finalist scenario records are valid, use MODEL_PREDICTION, and have no fallback or fallback reason; fault scenarios remain diagnostic.",
+      "rule_id": "E6"
+    },
+    {
+      "hard_gate": true,
+      "name": "Runtime preprocessing equals BPF_ZSCORE",
+      "pass_condition": "M-B1 selected profile and M-B9 preprocessing identity agree exactly.",
+      "rule_id": "E7"
+    },
+    {
+      "hard_gate": true,
+      "name": "No artifact/runtime/checksum/provenance blocker",
+      "pass_condition": "Upstream blocker registries are empty and all frozen identity checks pass.",
+      "rule_id": "E8"
+    },
+    {
+      "hard_gate": true,
+      "name": "No required class has clean VALIDATION recall exactly zero",
+      "pass_condition": "Recomputed NORMAL, RAPID_OR_ABNORMAL, and APNEA recalls are all > 0.",
+      "rule_id": "E9"
+    },
+    {
+      "hard_gate": true,
+      "name": "No required class has clean VALIDATION precision exactly zero",
+      "pass_condition": "Recomputed NORMAL, RAPID_OR_ABNORMAL, and APNEA precisions are all > 0.",
+      "rule_id": "E10"
+    },
+    {
+      "hard_gate": true,
+      "name": "No class collapse under moderate M-B7 profiles",
+      "pass_condition": "Every moderate profile remains non-collapsed for the candidate seed.",
+      "rule_id": "E11"
+    }
+  ]
+}

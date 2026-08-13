@@ -1,0 +1,91 @@
+{
+  "manifest_version": "1.0",
+  "contract_id": "CO2_OCCUPANCY_SAFETY_SEPARATION_CONTRACT_001",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "invariants": [
+    "Occupancy==1 DOES NOT MEAN dangerous CO2 exposure",
+    "Occupancy==0 DOES NOT MEAN safe CO2 environment",
+    "CO2 above any safety threshold DOES NOT AUTOMATICALLY MEAN Occupancy==1",
+    "CO2 at or below any safety threshold DOES NOT AUTOMATICALLY MEAN Occupancy==0",
+    "CO2_slope IS A FEATURE NOT A TARGET",
+    "occupancy model prediction IS NOT SafeNest emergency risk"
+  ],
+  "concepts": [
+    {
+      "concept_id": "UCI_OCCUPANCY_LABEL",
+      "semantic_domain": "SOURCE_OCCUPANCY_CLASSIFICATION",
+      "source_or_derived": "SOURCE",
+      "produced_in_current_phase": true,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": true,
+      "used_as_safety_rule": false,
+      "notes": "Authoritative C-A4 target."
+    },
+    {
+      "concept_id": "MEASURED_CO2_PPM",
+      "semantic_domain": "PHYSICAL_MEASUREMENT",
+      "source_or_derived": "SOURCE",
+      "produced_in_current_phase": false,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": false,
+      "used_as_safety_rule": false,
+      "notes": "Measured feature only in C-A4 scope."
+    },
+    {
+      "concept_id": "DERIVED_CO2_SLOPE",
+      "semantic_domain": "DERIVED_TEMPORAL_FEATURE",
+      "source_or_derived": "DERIVED",
+      "produced_in_current_phase": false,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": false,
+      "used_as_safety_rule": false,
+      "notes": "Inherited from C-A3; feature not target."
+    },
+    {
+      "concept_id": "FUTURE_OCCUPANCY_PROBABILITY",
+      "semantic_domain": "MODEL_OUTPUT",
+      "source_or_derived": "DERIVED",
+      "produced_in_current_phase": false,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": false,
+      "used_as_safety_rule": false,
+      "notes": "Deferred to later model phases; not created in C-A4."
+    },
+    {
+      "concept_id": "RULE_BASED_CO2_SAFETY_STATE",
+      "semantic_domain": "SAFETY_RISK_RULE",
+      "source_or_derived": "DERIVED",
+      "produced_in_current_phase": false,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": false,
+      "used_as_safety_rule": true,
+      "notes": "Existing risk/adapter code may use CO2>1500; out of C-A4 scope (DEFERRED_SAFETY_RULE_CONTRACT)."
+    },
+    {
+      "concept_id": "SENSOR_HEALTH_STATE",
+      "semantic_domain": "SENSOR_HEALTH",
+      "source_or_derived": "DERIVED",
+      "produced_in_current_phase": false,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": false,
+      "used_as_safety_rule": false,
+      "notes": "SENSOR_HEALTH_CONTRACT_OUT_OF_SCOPE for C-A4."
+    },
+    {
+      "concept_id": "MULTISENSOR_RISK_SCORE",
+      "semantic_domain": "MULTISENSOR_RISK",
+      "source_or_derived": "DERIVED",
+      "produced_in_current_phase": false,
+      "allowed_to_modify_occupancy_label": false,
+      "used_as_model_target": false,
+      "used_as_safety_rule": true,
+      "notes": "MULTISENSOR_RISK_CONTRACT_OUT_OF_SCOPE for C-A4."
+    }
+  ],
+  "threshold_based_relabeling": "PROHIBITED",
+  "deferred_contracts": [
+    "DEFERRED_SAFETY_RULE_CONTRACT",
+    "SENSOR_HEALTH_CONTRACT_OUT_OF_SCOPE",
+    "MULTISENSOR_RISK_CONTRACT_OUT_OF_SCOPE"
+  ]
+}

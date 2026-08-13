@@ -1,0 +1,30 @@
+{
+  "expected_ledger_rows": 225,
+  "ledger_file": "recovery_sample_predictions.jsonl",
+  "output_dir": "datasets/mmwave/manifests/M-B10R1B_recovery_execution",
+  "populated_during_m_b10r1a": false,
+  "required_files": [
+    "authorization_record.json",
+    "execution_identity.json",
+    "recovery_access_runtime_state.json",
+    "one_time_recovery_access_audit.json",
+    "recovery_registry.json",
+    "recovery_sample_predictions.jsonl",
+    "model_evaluation_coverage.json",
+    "metrics_by_model.json",
+    "per_class_metrics.json",
+    "subject_level_metrics.json",
+    "model_comparison.json",
+    "selected_candidate_recovery_result.json",
+    "historical_baseline_recovery_results.json",
+    "selected_candidate_quantization_audit.json",
+    "recovery_consumption_record.json",
+    "run_environment.json",
+    "exceptions.json",
+    "m_b10r1b_summary.json",
+    "checksums.sha256"
+  ],
+  "schema_version": "M-B10R1B_RESULT_DIRECTORY_SCHEMA_V1",
+  "status": "NOT_POPULATED",
+  "stores_raw_phase_tensors": false
+}

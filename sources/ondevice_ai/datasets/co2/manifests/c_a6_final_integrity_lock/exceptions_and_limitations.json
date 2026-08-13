@@ -1,0 +1,62 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A6",
+  "warnings": [
+    {
+      "code": "SOURCE_TIMEZONE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Source timestamps remain timezone-naive SOURCE_ACQUISITION_CLOCK."
+    },
+    {
+      "code": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+      "severity": "WARNING",
+      "description": "All temporal blocks originate from a single office room."
+    },
+    {
+      "code": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing TFLite training lineage remains unverified; A-series does not promote it."
+    },
+    {
+      "code": "SCALER_FIT_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing scaling metadata lineage remains unverified; no scaler fitted in C-A0..C-A6."
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "150s offline baseline remains CANONICAL_OFFLINE_BASELINE_DESIGN, not verified historical training."
+    },
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "WARNING",
+      "description": "SCD40 runtime cadence vs UCI ~60s source cadence remains out of A-series scope."
+    },
+    {
+      "code": "SAFETY_RULE_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "CO2 safety-threshold contracts are out of A-series release scope."
+    },
+    {
+      "code": "SENSOR_HEALTH_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "SCD40/sensor-health contracts are out of A-series release scope."
+    },
+    {
+      "code": "MULTISENSOR_RISK_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "Multisensor risk fusion is out of A-series release scope."
+    },
+    {
+      "code": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+      "severity": "WARNING",
+      "description": "Shared inventory/contract refresh deferred to a separate integration commit."
+    },
+    {
+      "code": "RELEASE_TAG_DEFERRED_UNTIL_C_A6_MERGE",
+      "severity": "WARNING",
+      "description": "Git tag and GitHub Release remain deferred until C-A6 merges to canonical main."
+    }
+  ],
+  "blockers": []
+}

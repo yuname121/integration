@@ -1,0 +1,17 @@
+{
+  "phase_id": "M-B1",
+  "phase_title": "Real-Data Preprocessing Full-Factorial Ablation",
+  "gate_status": "PASS_WITH_WARNINGS",
+  "m_b2_entry_status": "READY_WITH_CONDITIONS",
+  "validation_success": true,
+  "total_profiles_audited": 8,
+  "selected_profile_id": "M-B1_D0_B1_Z1",
+  "selected_profile_name": "BPF_ZSCORE",
+  "winner_validation_macro_f1": 0.663708,
+  "winner_validation_accuracy": 0.721519,
+  "winner_apnea_proxy_recall": 1.0,
+  "locked_test_access_attempts": 0,
+  "locked_test_guard_verified": true,
+  "pinned_environment_verified": true,
+  "upstream_identity_chain_verified": true
+}

@@ -1,0 +1,18 @@
+{
+  "access_consumed": true,
+  "authorization_present": true,
+  "authorization_scope": "M-B10B_ONE_TIME_LOCKED_TEST_FINAL_EVALUATION",
+  "authorization_source": "explicit external authorization in user-provided M-B10B execution prompt",
+  "formal_accessor_invocations": 1,
+  "phase_id": "M-B10B",
+  "pre_access_counts": {
+    "final_accessor_invocations": 0,
+    "labels": 0,
+    "metrics": 0,
+    "predictions": 0,
+    "tensors": 0
+  },
+  "result_status": "INCOMPLETE_NO_RERUN",
+  "schema_version": "M-B10B_AUTHORIZATION_RECORD_V1",
+  "second_access_prohibited": true
+}

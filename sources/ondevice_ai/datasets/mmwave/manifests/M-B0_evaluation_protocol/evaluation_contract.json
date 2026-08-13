@@ -1,0 +1,41 @@
+{
+  "phase_id": "M-B0",
+  "contract_name": "SafeNest mmWave Phase-B Evaluation Contract",
+  "train_only_fitting_policy": "Scaler, normalizer, feature selector, and quantization calibration statistics MUST be fit on TRAIN split only.",
+  "validation_only_selection_policy": "All preprocessing ablations, model architecture choices, class imbalance strategies, decision thresholds, and calibration choices MUST be governed by VALIDATION split performance.",
+  "locked_test_model_selection_prohibited": true,
+  "ambiguous_pure_class_exclusion_enforced": true,
+  "apnea_proxy_terminology_enforced": true,
+  "required_metrics_schema": {
+    "primary_metric": "Macro F1",
+    "per_class_metrics": [
+      "precision",
+      "recall",
+      "f1_score"
+    ],
+    "apnea_proxy_metrics": [
+      "recall",
+      "miss_rate"
+    ],
+    "diagnostic_metrics": [
+      "confusion_matrix",
+      "prediction_distribution",
+      "class_collapse_status"
+    ],
+    "secondary_metrics": [
+      "accuracy"
+    ]
+  },
+  "class_collapse_rejection_policy": "Any candidate model exhibiting class collapse (zero recall or extreme prediction degradation on APNEA proxy or RAPID_OR_ABNORMAL) SHALL BE REJECTED regardless of overall accuracy.",
+  "multi_seed_aggregation_schema": {
+    "min_seeds": 3,
+    "reported_statistics": [
+      "mean",
+      "std_dev",
+      "min_worst_seed",
+      "seed_list",
+      "model_checksums"
+    ],
+    "seed_selection_rule": "Finalist selection shall be based on worst-seed and mean VALIDATION performance, NOT by picking the best seed on LOCKED_TEST."
+  }
+}

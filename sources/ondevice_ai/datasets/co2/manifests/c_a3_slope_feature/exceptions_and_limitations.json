@@ -1,0 +1,59 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A3",
+  "warnings": [
+    {
+      "code": "SOURCE_TIMEZONE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Source timestamps remain timezone-naive SOURCE_ACQUISITION_CLOCK readings; UTC conversion is not claimed."
+    },
+    {
+      "code": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing TFLite training script/dataset provenance remains unverified."
+    },
+    {
+      "code": "SCALER_FIT_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing scaling metadata fit lineage remains unverified; C-A3 does not fit or overwrite scaler statistics."
+    },
+    {
+      "code": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+      "severity": "WARNING",
+      "description": "All temporal blocks originate from a single office room."
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Historical training history duration/formula for CO2_slope remains unverified. C-A3 locks ENDPOINT_DIFFERENCE as method and retains 150s as CANONICAL_OFFLINE_BASELINE_DESIGN only, not as VERIFIED_HISTORICAL_TRAINING_CONTRACT or ACTIVE_RUNTIME_EQUIVALENT."
+    },
+    {
+      "code": "ADAPTER_WINDOW_SECONDS_NOT_APPLIED_TO_ACTIVE_SLOPE_PATH",
+      "severity": "WARNING",
+      "description": "sensors/co2/co2_adapter.py configures window_seconds=150.0 but the active read()/calculate_co2_slope path uses required_history_sec=5.0 and deque(maxlen=30) oldest-to-current endpoints. window_seconds is CONFIGURED_BUT_NOT_APPLIED to slope eligibility or endpoint selection. Nominal full-buffer span at 0.2 Hz is ~145s, not a fixed 150s contract."
+    },
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "WARNING",
+      "description": "Active SCD40 adapter samples at 0.2 Hz with maxlen=30, while UCI source cadence is ~60s. Offline C-A3 150s threshold therefore yields typical selected endpoints of ~179-181s, distinct from runtime eligibility (~5s) and full-buffer span (~145s). C-B1/C-C remain responsible for history ablation and device-domain alignment."
+    },
+    {
+      "code": "HISTORICAL_SCALER_COMPARISON_PARTIAL_MEAN_ALIGNMENT_ONLY",
+      "severity": "WARNING",
+      "description": "TRAIN reconstructed slope vs historical scaler diagnostic: PARTIAL_MEAN_ALIGNMENT_ONLY (non-authoritative; does not prove history lineage)."
+    }
+  ],
+  "blockers": [],
+  "deferred_shared_integration_updates": [
+    {
+      "code": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+      "targets": [
+        "docs/reports/SENSOR_DATA_CONTRACT.md",
+        "docs/reports/sensor_model_data_contract.json",
+        "models/model_manifest.json",
+        "datasets/MANIFEST.json"
+      ],
+      "reason": "Shared inventory/contract refresh belongs to a later approved integration commit after C-A3 review."
+    }
+  ]
+}

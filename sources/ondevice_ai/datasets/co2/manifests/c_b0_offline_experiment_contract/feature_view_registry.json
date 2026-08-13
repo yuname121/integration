@@ -1,0 +1,148 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "final_feature_selection_performed": false,
+  "canonical_final_feature_set_claimed": false,
+  "feature_roles": {
+    "Temperature": {
+      "provenance": "MEASURED_UCI_FEATURE",
+      "device_feasibility": "SCD40_NATIVE_AVAILABLE",
+      "may_be_model_input": true
+    },
+    "Humidity": {
+      "provenance": "MEASURED_UCI_FEATURE",
+      "device_feasibility": "SCD40_NATIVE_AVAILABLE",
+      "may_be_model_input": true
+    },
+    "CO2": {
+      "provenance": "MEASURED_UCI_FEATURE",
+      "device_feasibility": "SCD40_NATIVE_AVAILABLE",
+      "may_be_model_input": true
+    },
+    "CO2_slope": {
+      "provenance": "DERIVED_CAUSAL_FEATURE",
+      "device_feasibility": "DERIVABLE_FROM_SCD40_CO2_HISTORY",
+      "may_be_model_input": true,
+      "baseline_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+      "b1_ablation_owned": true
+    },
+    "Light": {
+      "provenance": "MEASURED_UCI_FEATURE",
+      "device_feasibility": "NOT_SCD40_NATIVE",
+      "may_be_model_input": true,
+      "deployment_note": "UCI-context / non-SCD40-native"
+    },
+    "HumidityRatio": {
+      "provenance": "MEASURED_UCI_FEATURE",
+      "device_feasibility": "NOT_DIRECT_SCD40_MODEL_INPUT_UNLESS_EXPLICITLY_DERIVED_AND_VALIDATED",
+      "may_be_model_input": true
+    },
+    "Occupancy": {
+      "provenance": "SOURCE_TARGET_LABEL",
+      "device_feasibility": "LABEL_ONLY",
+      "may_be_model_input": false
+    }
+  },
+  "forbidden_model_inputs": {
+    "provenance_fields": [
+      "canonical_sample_id",
+      "canonical_sample_index",
+      "source_archive_path",
+      "source_archive_sha256",
+      "source_member_name",
+      "source_member_sha256",
+      "source_physical_line_number",
+      "source_row_identifier",
+      "source_timestamp_raw",
+      "canonical_timestamp",
+      "temporal_block_id",
+      "future_split_role",
+      "co2_slope_status",
+      "history_start_source_row_identifier",
+      "history_elapsed_seconds",
+      "source_sample_count_used",
+      "model_eligible_for_slope_complete_view",
+      "model_eligibility_exclusion_reason",
+      "scaler_fit_authorized",
+      "locked_test_fit_authorized",
+      "locked_test_tuning_authorized",
+      "target_profile_id",
+      "co2_slope_profile_id",
+      "sample_kind"
+    ],
+    "target_fields": [
+      "Occupancy",
+      "occupancy_source_value",
+      "occupancy_canonical_class"
+    ]
+  },
+  "feature_views": {
+    "CO2_ONLY_REFERENCE": {
+      "features": [
+        "CO2"
+      ],
+      "status": "REGISTERED_REFERENCE_VIEW",
+      "winner": false
+    },
+    "SCD40_NATIVE_REFERENCE": {
+      "features": [
+        "CO2",
+        "Temperature",
+        "Humidity"
+      ],
+      "status": "REGISTERED_REFERENCE_VIEW",
+      "winner": false
+    },
+    "HISTORICAL_COMPATIBILITY_REFERENCE": {
+      "features": [
+        "CO2_slope",
+        "Humidity",
+        "CO2"
+      ],
+      "status": "HISTORICAL_COMPATIBILITY_VIEW",
+      "winner": false,
+      "note": "Historical TFLite/scaler feature order; NOT CANONICAL_FINAL_FEATURE_SET because training lineage remains unverified."
+    },
+    "SCD40_SLOPE_REFERENCE": {
+      "features": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "CO2_slope"
+      ],
+      "status": "REGISTERED_REFERENCE_VIEW",
+      "winner": false
+    },
+    "UCI_CONTEXT_DIAGNOSTIC": {
+      "features": [
+        "Temperature",
+        "Humidity",
+        "Light",
+        "CO2",
+        "HumidityRatio",
+        "CO2_slope"
+      ],
+      "status": "NON_DEPLOYABLE_DIAGNOSTIC_VIEW",
+      "winner": false,
+      "note": "Includes UCI-only Light / HumidityRatio; not an SCD40 deployment contract."
+    }
+  },
+  "scd40_native_features": [
+    "CO2",
+    "Temperature",
+    "Humidity"
+  ],
+  "derived_scd40_compatible_features": [
+    "CO2_slope"
+  ],
+  "uci_only_or_non_native_features": [
+    "Light",
+    "HumidityRatio"
+  ],
+  "historical_compatibility_view": "HISTORICAL_COMPATIBILITY_REFERENCE",
+  "b1_boundary": {
+    "slope_method_ablation": "DEFERRED_TO_C_B1",
+    "history_duration_ablation": "DEFERRED_TO_C_B1",
+    "baseline_slope_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001"
+  }
+}

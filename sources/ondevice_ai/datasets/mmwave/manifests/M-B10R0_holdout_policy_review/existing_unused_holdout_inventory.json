@@ -1,0 +1,20 @@
+{
+  "a5_reshuffle_prohibited": true,
+  "assigned_subjects": 110,
+  "evidence_paths": [
+    "datasets/mmwave/manifests/a0_raw_inventory/recording_index.jsonl",
+    "datasets/mmwave/manifests/a5_subject_split/subject_split_manifest.jsonl"
+  ],
+  "independent_existing_holdout_available": false,
+  "locked_test_subjects": 16,
+  "potential_independent_replacement_subjects": 0,
+  "reason": "All 110 approved corpus subjects are assigned to TRAIN, VALIDATION, or LOCKED_TEST; no unassigned untouched subject remains.",
+  "replacement_subject_ids": [],
+  "total_original_subjects": 110,
+  "train_subject_reuse_prohibited": true,
+  "train_subjects": 77,
+  "unassigned_subject_ids": [],
+  "unassigned_subjects": 0,
+  "validation_subject_reuse_prohibited": true,
+  "validation_subjects": 17
+}

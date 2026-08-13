@@ -1,0 +1,19 @@
+{
+  "contamination_disclosure_required": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "gates": [
+    "R1_incident_truth_closed",
+    "R2_exactly_one_previous_access",
+    "R3_zero_model_evaluation",
+    "R4_no_persisted_sample_level_payload",
+    "R5_candidate_immutable",
+    "R6_baselines_immutable",
+    "R7_count_semantics_correction_only",
+    "R8_no_post_access_tuning",
+    "R9_future_contract_unchanged_models_metrics",
+    "R10_contamination_disclosure_accepted"
+  ],
+  "hard_gate_model": "PASS_OR_FAIL_WITH_EVIDENCE",
+  "no_composite_safety_score": true,
+  "phase_id": "M-B10R0",
+  "schema_version": "M-B10R0_REUSE_EXCEPTION_ELIGIBILITY_CONTRACT_V1"
+}

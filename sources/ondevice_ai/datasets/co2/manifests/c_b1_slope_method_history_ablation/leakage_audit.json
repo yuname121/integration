@@ -1,0 +1,19 @@
+{
+  "candidate_grid_changed_after_evaluation": false,
+  "locked_test_candidate_values_in_result_artifacts": 0,
+  "locked_test_metrics": 0,
+  "locked_test_predictions": 0,
+  "locked_test_used_to_fit_probe": false,
+  "locked_test_used_to_fit_scaler": false,
+  "manifest_version": "1.0",
+  "phase": "C-B1",
+  "provenance_included_as_feature": 0,
+  "status": "PASS",
+  "target_included_as_feature": 0,
+  "train_locked_test_overlap": 0,
+  "train_validation_overlap": 0,
+  "uci_light_in_probe": false,
+  "validation_locked_test_overlap": 0,
+  "validation_used_to_fit_probe": false,
+  "validation_used_to_fit_scaler": false
+}

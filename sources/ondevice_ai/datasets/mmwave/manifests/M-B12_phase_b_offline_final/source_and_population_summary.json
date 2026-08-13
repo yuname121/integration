@@ -1,0 +1,47 @@
+{
+  "a6_manifest_repo_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+  "a6_manifest_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+  "ambiguous_is_proxy_exclusion_not_clinical_apnea": true,
+  "canonical_npy_bytes": 1272128,
+  "canonical_npy_repo_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+  "canonical_npy_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+  "class_totals": {
+    "AMBIGUOUS": 49,
+    "APNEA": 213,
+    "NORMAL": 149,
+    "RAPID_OR_ABNORMAL": 119
+  },
+  "doi": "10.5281/zenodo.18599983",
+  "dtype": "float64",
+  "locked_test_excluded_ambiguous_or_non_eligible": 13,
+  "measured_recordings": 440,
+  "measured_subjects": 110,
+  "pure_supervised_eligible": {
+    "LOCKED_TEST": 75,
+    "TRAIN": 327,
+    "VALIDATION": 79
+  },
+  "raw_archive_bytes": 246597320,
+  "raw_archive_repo_relative_path": "datasets/raw_archives/external_datasets/db_records.zip",
+  "raw_archive_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1",
+  "shape": [
+    530,
+    300
+  ],
+  "split_artifact_repo_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+  "split_seed": 20260808,
+  "split_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+  "structural": {
+    "LOCKED_TEST": 88,
+    "TRAIN": 358,
+    "VALIDATION": 84
+  },
+  "subject_counts": {
+    "LOCKED_TEST": 16,
+    "TRAIN": 77,
+    "VALIDATION": 17
+  },
+  "total_canonical_windows": 530,
+  "version": "v1.1"
+}

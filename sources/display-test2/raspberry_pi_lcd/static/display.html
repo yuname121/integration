@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeNest LCD</title>
+  <link rel="stylesheet" href="/common.css" />
+  <style>
+    html, body { height: 100%; overflow: hidden; background: #111820; cursor: none; }
+    .display-frame { width: 100vw; height: 100vh; background: #fff; }
+    .connection {
+      position: fixed;
+      right: 10px;
+      bottom: 8px;
+      z-index: 40;
+      padding: 4px 8px;
+      color: #fff;
+      background: rgba(23, 32, 42, .74);
+      border-radius: 999px;
+      font-size: 11px;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+    .connection.visible { opacity: 1; }
+  </style>
+</head>
+<body>
+  <main class="display-frame">
+    <section class="lcd" id="lcd" data-state="normal-empty" aria-live="polite">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark"></span>SafeNest</div>
+        <div class="topbar-meta">
+          <span class="sensor-status" id="sensorStatus" data-status="waiting">센서 연결 대기</span>
+          <strong class="room-name" id="roomName">밀폐공간 A-01</strong>
+        </div>
+      </header>
+      <div class="main-state"><div>
+        <div class="status-pill" id="statusPill">정상 · 미재실</div>
+        <h1 class="state-title" id="stateTitle">정상</h1>
+        <p class="state-subtitle" id="stateSubtitle">감지된 사람이 없습니다</p>
+      </div></div>
+      <div class="metrics" id="metrics"></div>
+      <div class="comment" id="comment">정상 모니터링 중입니다</div>
+    </section>
+  </main>
+  <div class="connection" id="connection">제어 서버 연결 중…</div>
+
+  <script>
+    const scenarios = {
+      "normal-empty": {
+        pill: "정상 · 미재실", title: "정상", subtitle: "감지된 사람이 없습니다",
+        metrics: [["CO₂ 수치", "620 ppm"], ["공간 온도", "24.3℃"], ["움직임 감지", "감지 안 됨"]],
+        comment: "정상 모니터링 중입니다"
+      },
+      "normal-occupied": {
+        pill: "정상 · 재실", title: "안전", subtitle: "작업자의 움직임이 감지됩니다",
+        metrics: [["CO₂ 수치", "820 ppm"], ["인체 표면온도", "36.7℃"], ["움직임 감지", "감지됨"]],
+        comment: "안전 상태를 계속 확인합니다"
+      },
+      warning: {
+        pill: "환경 주의", title: "주의", subtitle: "CO₂ 농도가 높습니다",
+        metrics: [["CO₂ 수치", "1,500 ppm"], ["공간 온도", "26.1℃"], ["움직임 감지", "감지됨"]],
+        comment: "환기 후 작업자 상태를 확인하세요"
+      },
+      danger: {
+        pill: "작업자 위험", title: "위험", subtitle: "무움직임과 호흡 이상 감지",
+        metrics: [["CO₂ 수치", "980 ppm"], ["인체 표면온도", "37.2℃"], ["움직임 감지", "감지 안 됨"]],
+        comment: "작업자의 상태를 즉시 확인하세요"
+      },
+      emergency: {
+        pill: "긴급 경보 작동 중", title: "긴급", subtitle: "고체온·호흡 이상·무움직임",
+        metrics: [["CO₂ 수치", "1,240 ppm"], ["인체 표면온도", "39.1℃"], ["움직임 감지", "감지 안 됨"]],
+        comment: "즉시 현장을 확인하고 구조를 요청하세요"
+      },
+      offline: {
+        pill: "시스템 점검 필요", title: "통신 오류", subtitle: "센서 데이터를 받을 수 없습니다",
+        metrics: [["CO₂ 수치", "수신 안 됨"], ["온도", "수신 안 됨"], ["움직임 감지", "확인 불가"]],
+        comment: "장비 전원과 센서 통신 연결을 확인하세요"
+      }
+    };
+
+    const lcd = document.getElementById("lcd");
+    const roomName = document.getElementById("roomName");
+    const sensorStatus = document.getElementById("sensorStatus");
+    const statusPill = document.getElementById("statusPill");
+    const stateTitle = document.getElementById("stateTitle");
+    const stateSubtitle = document.getElementById("stateSubtitle");
+    const metrics = document.getElementById("metrics");
+    const comment = document.getElementById("comment");
+    const connection = document.getElementById("connection");
+    let failed = false;
+
+    function sensorMetrics(sensor) {
+      if (!sensor?.fresh) {
+        return [
+          ["호흡수", "수신 대기"],
+          ["심박수", "수신 대기"],
+          ["CO₂", "수신 대기"],
+          ["움직임", "확인 불가"]
+        ];
+      }
+      const valid = sensor.valid || {};
+      const numberValue = (value, isValid, digits, unit) =>
+        isValid && typeof value === "number"
+          ? `${value.toFixed(digits)} ${unit}`
+          : "측정 중";
+      return [
+        ["호흡수", numberValue(sensor.resp_rate_bpm, valid.respiration, 1, "회/분")],
+        ["심박수", numberValue(sensor.heart_rate_bpm, valid.heart, 1, "bpm")],
+        ["CO₂", numberValue(sensor.co2_ppm, valid.co2, 0, "ppm")],
+        ["움직임", sensor.pir_motion ? "감지됨" : "감지 안 됨"]
+      ];
+    }
+
+    function renderSensorStatus(sensor) {
+      const status = sensor?.status || "waiting";
+      const labels = {
+        live: "센서 실시간",
+        stale: "센서 연결 끊김",
+        error: "센서 수신기 오류",
+        waiting: "센서 연결 대기"
+      };
+      sensorStatus.dataset.status = status;
+      sensorStatus.textContent = labels[status] || labels.waiting;
+    }
+
+    function render(payload) {
+      const scenario = scenarios[payload.state] || scenarios.offline;
+      lcd.dataset.state = payload.state in scenarios ? payload.state : "offline";
+      roomName.textContent = payload.room || "밀폐공간 A-01";
+      statusPill.textContent = scenario.pill;
+      stateTitle.textContent = scenario.title;
+      stateSubtitle.textContent = scenario.subtitle;
+      comment.textContent = scenario.comment;
+      renderSensorStatus(payload.sensors);
+      metrics.replaceChildren(...sensorMetrics(payload.sensors).map(([label, value]) => {
+        const item = document.createElement("div");
+        item.className = "metric";
+        const labelElement = document.createElement("span");
+        labelElement.className = "metric-label";
+        labelElement.textContent = label;
+        const valueElement = document.createElement("strong");
+        valueElement.className = "metric-value";
+        valueElement.textContent = value;
+        item.append(labelElement, valueElement);
+        return item;
+      }));
+    }
+
+    async function sync() {
+      try {
+        const response = await fetch("/api/state", { cache: "no-store" });
+        if (!response.ok) throw new Error("state request failed");
+        const payload = await response.json();
+        render(payload);
+        if (failed) {
+          connection.textContent = "제어 서버 연결됨";
+          connection.classList.add("visible");
+          setTimeout(() => connection.classList.remove("visible"), 1200);
+        }
+        failed = false;
+      } catch (error) {
+        failed = true;
+        connection.textContent = "제어 서버 연결 끊김";
+        connection.classList.add("visible");
+      }
+    }
+
+    render({ state: "normal-empty", room: "밀폐공간 A-01" });
+    sync();
+    setInterval(sync, 400);
+  </script>
+</body>
+</html>

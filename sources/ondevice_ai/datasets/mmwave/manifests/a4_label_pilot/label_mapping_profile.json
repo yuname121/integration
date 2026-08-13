@@ -1,0 +1,34 @@
+{
+  "a3_window_contract_modified": false,
+  "apnea_policy": {
+    "clinical_apnea_claimed": false,
+    "min_event_duration_seconds": 8.0,
+    "min_overlap_seconds": 6.0,
+    "voluntary_breath_hold_as_apnea_proxy": true
+  },
+  "normal_policy": {
+    "movesense_acc_normal_rr_range_bpm": [
+      10.0,
+      25.0
+    ],
+    "requires_zero_non_breathing_overlap": true,
+    "rest_condition_as_normal_proxy": true
+  },
+  "profile_id": "MMWAVE_LABEL_MAPPING_PROFILE_001",
+  "rapid_or_abnormal_policy": {
+    "bradypnea_max_rr_bpm": 10.0,
+    "movesense_rr_search_band_hz": [
+      0.1,
+      0.7
+    ],
+    "post_exercise_auto_rapid": false,
+    "rapid_min_rr_bpm": 25.0,
+    "reference_sensor": "MOVESENSE_CHEST_ACC",
+    "requires_independent_respiration_rate_reference": true
+  },
+  "target_classes": {
+    "APNEA": 2,
+    "NORMAL": 0,
+    "RAPID_OR_ABNORMAL": 1
+  }
+}

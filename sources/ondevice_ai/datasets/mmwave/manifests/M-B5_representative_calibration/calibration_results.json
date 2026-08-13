@@ -1,0 +1,965 @@
+{
+  "phase_id": "M-B5",
+  "calibration_results": {
+    "M-B3_CONV1D_GAP_BASELINE_seed_42_M-B5_CAL_TRAIN_ORDER_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 42,
+      "profile_id": "M-B5_CAL_TRAIN_ORDER_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.663708,
+        "accuracy": 0.721519
+      },
+      "int8_tflite": {
+        "macro_f1": 0.666231,
+        "accuracy": 0.721519,
+        "min_per_class_recall": 0.454545,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.5,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 12,
+          "RAPID_OR_ABNORMAL": 14,
+          "APNEA": 53
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 4,
+            "tn": 55,
+            "fn": 10,
+            "precision": 0.714286,
+            "recall": 0.5,
+            "f1_score": 0.588235,
+            "fpr": 0.067797,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 16,
+            "tn": 26,
+            "fn": 0,
+            "precision": 0.698113,
+            "recall": 1.0,
+            "f1_score": 0.822222,
+            "fpr": 0.380952,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.002523,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 0.987342,
+        "dequantized_output_mae": 0.006451,
+        "dequantized_output_max_err": 0.029703,
+        "dequantized_output_min": 0.058594,
+        "dequantized_output_max": 0.84375,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43_M-B5_CAL_TRAIN_ORDER_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 43,
+      "profile_id": "M-B5_CAL_TRAIN_ORDER_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.45101,
+        "accuracy": 0.481013
+      },
+      "int8_tflite": {
+        "macro_f1": 0.44124,
+        "accuracy": 0.455696,
+        "min_per_class_recall": 0.272727,
+        "apnea_recall": 0.486486,
+        "rapid_recall": 0.6,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 23,
+          "RAPID_OR_ABNORMAL": 35,
+          "APNEA": 21
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 6,
+            "fp": 17,
+            "tn": 40,
+            "fn": 16,
+            "precision": 0.26087,
+            "recall": 0.272727,
+            "f1_score": 0.266667,
+            "fpr": 0.298246,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 18,
+            "fp": 3,
+            "tn": 39,
+            "fn": 19,
+            "precision": 0.857143,
+            "recall": 0.486486,
+            "f1_score": 0.62069,
+            "fpr": 0.071429,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": -0.00977,
+        "positive_macro_f1_degradation": 0.00977,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.081082
+        },
+        "max_positive_recall_degradation": 0.081082,
+        "top1_agreement": 0.936709,
+        "dequantized_output_mae": 0.001036,
+        "dequantized_output_max_err": 0.002901,
+        "dequantized_output_min": 0.269531,
+        "dequantized_output_max": 0.390625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44_M-B5_CAL_TRAIN_ORDER_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 44,
+      "profile_id": "M-B5_CAL_TRAIN_ORDER_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987
+      },
+      "int8_tflite": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987,
+        "min_per_class_recall": 0.05,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.05,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 7,
+          "RAPID_OR_ABNORMAL": 1,
+          "APNEA": 71
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 3,
+            "fp": 4,
+            "tn": 53,
+            "fn": 19,
+            "precision": 0.428571,
+            "recall": 0.136364,
+            "f1_score": 0.206897,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 34,
+            "tn": 8,
+            "fn": 0,
+            "precision": 0.521127,
+            "recall": 1.0,
+            "f1_score": 0.685185,
+            "fpr": 0.809524,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 1.0,
+        "dequantized_output_mae": 0.008551,
+        "dequantized_output_max_err": 0.046653,
+        "dequantized_output_min": 0.101562,
+        "dequantized_output_max": 0.65625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_42_M-B5_CAL_RANDOM_PROPORTIONAL_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 42,
+      "profile_id": "M-B5_CAL_RANDOM_PROPORTIONAL_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.663708,
+        "accuracy": 0.721519
+      },
+      "int8_tflite": {
+        "macro_f1": 0.666231,
+        "accuracy": 0.721519,
+        "min_per_class_recall": 0.454545,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.5,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 12,
+          "RAPID_OR_ABNORMAL": 14,
+          "APNEA": 53
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 4,
+            "tn": 55,
+            "fn": 10,
+            "precision": 0.714286,
+            "recall": 0.5,
+            "f1_score": 0.588235,
+            "fpr": 0.067797,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 16,
+            "tn": 26,
+            "fn": 0,
+            "precision": 0.698113,
+            "recall": 1.0,
+            "f1_score": 0.822222,
+            "fpr": 0.380952,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.002523,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 0.987342,
+        "dequantized_output_mae": 0.0062,
+        "dequantized_output_max_err": 0.028184,
+        "dequantized_output_min": 0.058594,
+        "dequantized_output_max": 0.84375,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43_M-B5_CAL_RANDOM_PROPORTIONAL_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 43,
+      "profile_id": "M-B5_CAL_RANDOM_PROPORTIONAL_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.45101,
+        "accuracy": 0.481013
+      },
+      "int8_tflite": {
+        "macro_f1": 0.434085,
+        "accuracy": 0.455696,
+        "min_per_class_recall": 0.227273,
+        "apnea_recall": 0.513514,
+        "rapid_recall": 0.6,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 21,
+          "RAPID_OR_ABNORMAL": 35,
+          "APNEA": 23
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 5,
+            "fp": 16,
+            "tn": 41,
+            "fn": 17,
+            "precision": 0.238095,
+            "recall": 0.227273,
+            "f1_score": 0.232558,
+            "fpr": 0.280702,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 19,
+            "fp": 4,
+            "tn": 38,
+            "fn": 18,
+            "precision": 0.826087,
+            "recall": 0.513514,
+            "f1_score": 0.633333,
+            "fpr": 0.095238,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": -0.016925,
+        "positive_macro_f1_degradation": 0.016925,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.054054
+        },
+        "max_positive_recall_degradation": 0.054054,
+        "top1_agreement": 0.962025,
+        "dequantized_output_mae": 0.001026,
+        "dequantized_output_max_err": 0.003056,
+        "dequantized_output_min": 0.269531,
+        "dequantized_output_max": 0.390625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44_M-B5_CAL_RANDOM_PROPORTIONAL_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 44,
+      "profile_id": "M-B5_CAL_RANDOM_PROPORTIONAL_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987
+      },
+      "int8_tflite": {
+        "macro_f1": 0.351165,
+        "accuracy": 0.531646,
+        "min_per_class_recall": 0.05,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.05,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 8,
+          "RAPID_OR_ABNORMAL": 1,
+          "APNEA": 70
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 4,
+            "fp": 4,
+            "tn": 53,
+            "fn": 18,
+            "precision": 0.5,
+            "recall": 0.181818,
+            "f1_score": 0.266667,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 33,
+            "tn": 9,
+            "fn": 0,
+            "precision": 0.528571,
+            "recall": 1.0,
+            "f1_score": 0.691589,
+            "fpr": 0.785714,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.022058,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 0.987342,
+        "dequantized_output_mae": 0.008554,
+        "dequantized_output_max_err": 0.046653,
+        "dequantized_output_min": 0.101562,
+        "dequantized_output_max": 0.65625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_42_M-B5_CAL_CLASS_BALANCED_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 42,
+      "profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.663708,
+        "accuracy": 0.721519
+      },
+      "int8_tflite": {
+        "macro_f1": 0.666231,
+        "accuracy": 0.721519,
+        "min_per_class_recall": 0.454545,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.5,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 12,
+          "RAPID_OR_ABNORMAL": 14,
+          "APNEA": 53
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 4,
+            "tn": 55,
+            "fn": 10,
+            "precision": 0.714286,
+            "recall": 0.5,
+            "f1_score": 0.588235,
+            "fpr": 0.067797,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 16,
+            "tn": 26,
+            "fn": 0,
+            "precision": 0.698113,
+            "recall": 1.0,
+            "f1_score": 0.822222,
+            "fpr": 0.380952,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.002523,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 0.987342,
+        "dequantized_output_mae": 0.006319,
+        "dequantized_output_max_err": 0.028184,
+        "dequantized_output_min": 0.058594,
+        "dequantized_output_max": 0.84375,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43_M-B5_CAL_CLASS_BALANCED_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 43,
+      "profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.45101,
+        "accuracy": 0.481013
+      },
+      "int8_tflite": {
+        "macro_f1": 0.44124,
+        "accuracy": 0.455696,
+        "min_per_class_recall": 0.272727,
+        "apnea_recall": 0.486486,
+        "rapid_recall": 0.6,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 23,
+          "RAPID_OR_ABNORMAL": 35,
+          "APNEA": 21
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 6,
+            "fp": 17,
+            "tn": 40,
+            "fn": 16,
+            "precision": 0.26087,
+            "recall": 0.272727,
+            "f1_score": 0.266667,
+            "fpr": 0.298246,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 18,
+            "fp": 3,
+            "tn": 39,
+            "fn": 19,
+            "precision": 0.857143,
+            "recall": 0.486486,
+            "f1_score": 0.62069,
+            "fpr": 0.071429,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": -0.00977,
+        "positive_macro_f1_degradation": 0.00977,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.081082
+        },
+        "max_positive_recall_degradation": 0.081082,
+        "top1_agreement": 0.936709,
+        "dequantized_output_mae": 0.00103,
+        "dequantized_output_max_err": 0.002901,
+        "dequantized_output_min": 0.269531,
+        "dequantized_output_max": 0.390625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44_M-B5_CAL_CLASS_BALANCED_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 44,
+      "profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987
+      },
+      "int8_tflite": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987,
+        "min_per_class_recall": 0.05,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.05,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 7,
+          "RAPID_OR_ABNORMAL": 1,
+          "APNEA": 71
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 3,
+            "fp": 4,
+            "tn": 53,
+            "fn": 19,
+            "precision": 0.428571,
+            "recall": 0.136364,
+            "f1_score": 0.206897,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 34,
+            "tn": 8,
+            "fn": 0,
+            "precision": 0.521127,
+            "recall": 1.0,
+            "f1_score": 0.685185,
+            "fpr": 0.809524,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 1.0,
+        "dequantized_output_mae": 0.008439,
+        "dequantized_output_max_err": 0.046653,
+        "dequantized_output_min": 0.101562,
+        "dequantized_output_max": 0.660156,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_42_M-B5_CAL_DISTRIBUTION_AWARE_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 42,
+      "profile_id": "M-B5_CAL_DISTRIBUTION_AWARE_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.663708,
+        "accuracy": 0.721519
+      },
+      "int8_tflite": {
+        "macro_f1": 0.666231,
+        "accuracy": 0.721519,
+        "min_per_class_recall": 0.454545,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.5,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 12,
+          "RAPID_OR_ABNORMAL": 14,
+          "APNEA": 53
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 10,
+            "fp": 2,
+            "tn": 55,
+            "fn": 12,
+            "precision": 0.833333,
+            "recall": 0.454545,
+            "f1_score": 0.588235,
+            "fpr": 0.035088,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 10,
+            "fp": 4,
+            "tn": 55,
+            "fn": 10,
+            "precision": 0.714286,
+            "recall": 0.5,
+            "f1_score": 0.588235,
+            "fpr": 0.067797,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 16,
+            "tn": 26,
+            "fn": 0,
+            "precision": 0.698113,
+            "recall": 1.0,
+            "f1_score": 0.822222,
+            "fpr": 0.380952,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.002523,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 0.987342,
+        "dequantized_output_mae": 0.006324,
+        "dequantized_output_max_err": 0.028184,
+        "dequantized_output_min": 0.058594,
+        "dequantized_output_max": 0.84375,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43_M-B5_CAL_DISTRIBUTION_AWARE_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 43,
+      "profile_id": "M-B5_CAL_DISTRIBUTION_AWARE_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.45101,
+        "accuracy": 0.481013
+      },
+      "int8_tflite": {
+        "macro_f1": 0.44124,
+        "accuracy": 0.455696,
+        "min_per_class_recall": 0.272727,
+        "apnea_recall": 0.486486,
+        "rapid_recall": 0.6,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 23,
+          "RAPID_OR_ABNORMAL": 35,
+          "APNEA": 21
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 6,
+            "fp": 17,
+            "tn": 40,
+            "fn": 16,
+            "precision": 0.26087,
+            "recall": 0.272727,
+            "f1_score": 0.266667,
+            "fpr": 0.298246,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 12,
+            "fp": 23,
+            "tn": 36,
+            "fn": 8,
+            "precision": 0.342857,
+            "recall": 0.6,
+            "f1_score": 0.436364,
+            "fpr": 0.389831,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 18,
+            "fp": 3,
+            "tn": 39,
+            "fn": 19,
+            "precision": 0.857143,
+            "recall": 0.486486,
+            "f1_score": 0.62069,
+            "fpr": 0.071429,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": -0.00977,
+        "positive_macro_f1_degradation": 0.00977,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.081082
+        },
+        "max_positive_recall_degradation": 0.081082,
+        "top1_agreement": 0.936709,
+        "dequantized_output_mae": 0.001036,
+        "dequantized_output_max_err": 0.002901,
+        "dequantized_output_min": 0.269531,
+        "dequantized_output_max": 0.390625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44_M-B5_CAL_DISTRIBUTION_AWARE_120": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 44,
+      "profile_id": "M-B5_CAL_DISTRIBUTION_AWARE_120",
+      "conversion_success": true,
+      "select_tf_ops_count": 0,
+      "strict_int8_eligible": true,
+      "float_baseline": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987
+      },
+      "int8_tflite": {
+        "macro_f1": 0.329107,
+        "accuracy": 0.518987,
+        "min_per_class_recall": 0.05,
+        "apnea_recall": 1.0,
+        "rapid_recall": 0.05,
+        "collapsed": false,
+        "prediction_distribution": {
+          "NORMAL": 7,
+          "RAPID_OR_ABNORMAL": 1,
+          "APNEA": 71
+        },
+        "class_metrics": {
+          "NORMAL": {
+            "tp": 3,
+            "fp": 4,
+            "tn": 53,
+            "fn": 19,
+            "precision": 0.428571,
+            "recall": 0.136364,
+            "f1_score": 0.206897,
+            "fpr": 0.070175,
+            "support": 22
+          },
+          "RAPID_OR_ABNORMAL": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 59,
+            "fn": 19,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1_score": 0.095238,
+            "fpr": 0.0,
+            "support": 20
+          },
+          "APNEA": {
+            "tp": 37,
+            "fp": 34,
+            "tn": 8,
+            "fn": 0,
+            "precision": 0.521127,
+            "recall": 1.0,
+            "f1_score": 0.685185,
+            "fpr": 0.809524,
+            "support": 37
+          }
+        }
+      },
+      "quantization_diagnostics": {
+        "signed_macro_f1_delta": 0.0,
+        "positive_macro_f1_degradation": 0.0,
+        "per_class_positive_recall_degradation": {
+          "NORMAL": 0.0,
+          "RAPID_OR_ABNORMAL": 0.0,
+          "APNEA": 0.0
+        },
+        "max_positive_recall_degradation": 0.0,
+        "top1_agreement": 1.0,
+        "dequantized_output_mae": 0.009179,
+        "dequantized_output_max_err": 0.046653,
+        "dequantized_output_min": 0.101562,
+        "dequantized_output_max": 0.65625,
+        "input_saturation_ratio": 0.0,
+        "saturated_input_elements": 0,
+        "saturated_sample_count": 0,
+        "output_endpoint_ratio": 0.0,
+        "new_class_collapse": false
+      }
+    }
+  }
+}

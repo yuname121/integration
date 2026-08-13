@@ -1,0 +1,93 @@
+{
+  "median_subject_macro_f1": 0.388888,
+  "per_subject": {
+    "dataset-10_5281_zenodo_18599983-p017": {
+      "accuracy": 0.666667,
+      "macro_f1": 0.533333,
+      "window_count": 6
+    },
+    "dataset-10_5281_zenodo_18599983-p019": {
+      "accuracy": 0.166667,
+      "macro_f1": 0.095238,
+      "window_count": 6
+    },
+    "dataset-10_5281_zenodo_18599983-p023": {
+      "accuracy": 0.25,
+      "macro_f1": 0.166667,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p029": {
+      "accuracy": 0.5,
+      "macro_f1": 0.222222,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p033": {
+      "accuracy": 0.666667,
+      "macro_f1": 0.555556,
+      "window_count": 6
+    },
+    "dataset-10_5281_zenodo_18599983-p039": {
+      "accuracy": 0.833333,
+      "macro_f1": 0.552381,
+      "window_count": 6
+    },
+    "dataset-10_5281_zenodo_18599983-p044": {
+      "accuracy": 0.666667,
+      "macro_f1": 0.488889,
+      "window_count": 6
+    },
+    "dataset-10_5281_zenodo_18599983-p046": {
+      "accuracy": 0.75,
+      "macro_f1": 0.488889,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p055": {
+      "accuracy": 0.5,
+      "macro_f1": 0.333333,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p059": {
+      "accuracy": 0.5,
+      "macro_f1": 0.222222,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p063": {
+      "accuracy": 0.333333,
+      "macro_f1": 0.190476,
+      "window_count": 6
+    },
+    "dataset-10_5281_zenodo_18599983-p067": {
+      "accuracy": 0.75,
+      "macro_f1": 0.488889,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p079": {
+      "accuracy": 0.666667,
+      "macro_f1": 0.444444,
+      "window_count": 3
+    },
+    "dataset-10_5281_zenodo_18599983-p086": {
+      "accuracy": 0.75,
+      "macro_f1": 0.488889,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p091": {
+      "accuracy": 0.5,
+      "macro_f1": 0.222222,
+      "window_count": 4
+    },
+    "dataset-10_5281_zenodo_18599983-p101": {
+      "accuracy": 0.5,
+      "macro_f1": 0.266667,
+      "window_count": 4
+    }
+  },
+  "recomputed_from_stored_seed42_rows": true,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "stored_m_b10r1b_median": 0.388888,
+  "stored_m_b10r1b_worst": 0.095238,
+  "stored_m_b10r1b_worst_id": "dataset-10_5281_zenodo_18599983-p019",
+  "subject_count": 16,
+  "worst_subject_id": "dataset-10_5281_zenodo_18599983-p019",
+  "worst_subject_macro_f1": 0.095238
+}

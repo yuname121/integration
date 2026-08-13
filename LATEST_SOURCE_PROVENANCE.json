@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-13",
+  "integration_package": "integration",
+  "previous_integration_base": "6baf38d8df936b694a1ff2e9b5e5fb2af2bfe50f",
+  "latest_origin_main": "fa8cf13",
+  "latest_component_source": "77b1695ac66fd595bd037e4574d1626b8917654c",
+  "ondevice_ai_snapshot": {
+    "source": "origin/main:ondevice_ai",
+    "tracked_file_count": 1069,
+    "intermediate_release_changes": 489,
+    "copied_without_source_edits": true
+  },
+  "integration_policy": {
+    "mmwave_primary_v0_1_0": "blocked_by_manifest_class_collapse",
+    "mmwave_offline_candidate_lock_v1": "included_for_provenance_not_promoted",
+    "co2_c_b5_candidate": "included_for_provenance_not_promoted",
+    "runtime_failure_mode": "rule_based_fallback"
+  }
+}

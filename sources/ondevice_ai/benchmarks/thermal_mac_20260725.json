@@ -1,0 +1,16 @@
+{
+  "model_id": "thermal_fall_int8",
+  "model_version": "0.1.0",
+  "model_path": "models/thermal/thermal_fall_int8_v0.1.0.tflite",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python_version": "3.9.6",
+  "warmup_runs": 50,
+  "measure_runs": 1000,
+  "latency_ms": {
+    "mean": 0.2265388029999702,
+    "p50": 0.13870799999970984,
+    "p95": 0.474652400000108,
+    "p99": 1.5159055000002462,
+    "max": 18.411541999999947
+  }
+}

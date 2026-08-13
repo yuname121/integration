@@ -1,0 +1,67 @@
+{
+  "check_name": "mmwave_candidate_quality_check",
+  "scope": "SYNTHETIC_OFFLINE_CANDIDATE_QA",
+  "status": "PASSED",
+  "candidate_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+  "metadata_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+  "threshold_source": "INPUT_CONTRACT",
+  "thresholds_used": {
+    "schema_version": "1.0",
+    "description": "Quantitative acceptance criteria for SafeNest V6 Mac offline synthetic pipeline verification",
+    "scope": "PASSED_ON_SYNTHETIC",
+    "accuracy_min": 0.4,
+    "macro_f1_min": 0.6,
+    "per_class_recall_min": {
+      "NORMAL": 0.4,
+      "RAPID_OR_ABNORMAL": 0.5,
+      "APNEA": 0.5
+    },
+    "max_int8_f1_drop": 0.05,
+    "max_input_saturation_ratio": 0.05,
+    "max_quantization_mae": 0.1,
+    "prohibited_states": [
+      "CLASS_COLLAPSE_ALL_SAME_PRED",
+      "ZERO_APNEA_RECALL",
+      "SATURATION_RATIO_EXCEEDED",
+      "UNMATCHED_SHA256_HASH",
+      "MISSING_SCALER_METADATA"
+    ]
+  },
+  "checks": {
+    "json_parsing": "PASSED",
+    "metadata_schema": "PASSED",
+    "sha256_integrity": "PASSED",
+    "manifest_sha_integrity": "PASSED",
+    "class_map_integrity": "PASSED",
+    "scaler_integrity": "PASSED",
+    "prediction_count_consistency": "PASSED",
+    "class_collapse": "PASSED",
+    "zero_apnea_recall": "PASSED",
+    "zero_rapid_recall": "PASSED",
+    "apnea_recall_threshold": "PASSED",
+    "rapid_recall_threshold": "PASSED",
+    "normal_recall_threshold": "PASSED",
+    "macro_f1_drop": "PASSED",
+    "overall_accuracy": "PASSED",
+    "overall_macro_f1": "PASSED",
+    "input_saturation": "PASSED",
+    "quantization_mae": "NOT_AVAILABLE"
+  },
+  "failures": [],
+  "limitations": {
+    "real_sensor_performance": "NOT_VERIFIABLE",
+    "hardware_validation": "BLOCKED_HARDWARE",
+    "real_subject_generalization": "NOT_VERIFIABLE"
+  },
+  "actual_sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+  "recorded_sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+  "per_class_recall": {
+    "NORMAL": 1.0,
+    "RAPID_OR_ABNORMAL": 1.0,
+    "APNEA": 1.0
+  },
+  "float_macro_f1": 1.0,
+  "int8_macro_f1": 1.0,
+  "f1_drop": 0.0,
+  "quantization_mae": "NOT_AVAILABLE"
+}

@@ -1,0 +1,16 @@
+{
+  "manifest_version": "1.0",
+  "license_name": "Creative Commons Attribution 4.0 International",
+  "license_spdx_id": "CC-BY-4.0",
+  "official_license_source": "UCI Machine Learning Repository (CC BY 4.0)",
+  "terms_of_use": {
+    "research_use": "VERIFIED_PERMITTED",
+    "model_training_use": "VERIFIED_PERMITTED",
+    "redistribution": "VERIFIED_PERMITTED_WITH_ATTRIBUTION",
+    "modified_redistribution": "VERIFIED_PERMITTED_WITH_ATTRIBUTION",
+    "commercial_use": "VERIFIED_PERMITTED_WITH_ATTRIBUTION",
+    "citation_requirement": "VERIFIED_REQUIRED"
+  },
+  "citation_string": "Candanedo, L. M., & Feldheim, V. (2016). Accurate occupancy detection of an office room from light, temperature, humidity and CO2 measurements using statistical learning models. Energy and Buildings, 112, 28-39. https://doi.org/10.24432/C5X01N (Paper: https://doi.org/10.1016/j.enbuild.2015.11.071)",
+  "license_classification_status": "VERIFIED"
+}

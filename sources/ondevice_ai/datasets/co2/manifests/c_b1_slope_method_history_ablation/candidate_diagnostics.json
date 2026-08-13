@@ -1,0 +1,271 @@
+{
+  "diagnostics": {
+    "ENDPOINT_H120": {
+      "TRAIN": {
+        "eligible_count": 8140,
+        "history_span_seconds": {
+          "count": 8140,
+          "max": 180.0,
+          "median": 121.0,
+          "min": 120.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 8140,
+        "slope_ppm_per_min": {
+          "count": 8140,
+          "max": 372.89256198347107,
+          "mean": 0.043200829933308,
+          "median": 0.0,
+          "min": -162.17877094971956,
+          "std": 6.5639477279795795
+        },
+        "unavailable_count": 0
+      },
+      "VALIDATION": {
+        "eligible_count": 2662,
+        "history_span_seconds": {
+          "count": 2662,
+          "max": 180.0,
+          "median": 121.0,
+          "min": 120.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 2662,
+        "slope_ppm_per_min": {
+          "count": 2662,
+          "max": 17.850000000000023,
+          "mean": 0.14307858860781053,
+          "median": -0.06145251396652934,
+          "min": -41.333333333333336,
+          "std": 4.056548801839853
+        },
+        "unavailable_count": 0
+      }
+    },
+    "ENDPOINT_H150": {
+      "TRAIN": {
+        "eligible_count": 8140,
+        "history_span_seconds": {
+          "count": 8140,
+          "max": 181.0,
+          "median": 180.0,
+          "min": 179.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 8140,
+        "slope_ppm_per_min": {
+          "count": 8140,
+          "max": 250.16666666666666,
+          "mean": 0.011527303414630163,
+          "median": -0.05555555555567556,
+          "min": -184.83333333333334,
+          "std": 5.66167559612193
+        },
+        "unavailable_count": 0
+      },
+      "VALIDATION": {
+        "eligible_count": 2662,
+        "history_span_seconds": {
+          "count": 2662,
+          "max": 181.0,
+          "median": 180.0,
+          "min": 179.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 2662,
+        "slope_ppm_per_min": {
+          "count": 2662,
+          "max": 16.166666666666668,
+          "mean": 0.1367818066131566,
+          "median": -0.08333333333333333,
+          "min": -41.333333333333336,
+          "std": 3.6798346716815478
+        },
+        "unavailable_count": 0
+      }
+    },
+    "ENDPOINT_H60": {
+      "TRAIN": {
+        "eligible_count": 8140,
+        "history_span_seconds": {
+          "count": 8140,
+          "max": 120.0,
+          "median": 60.0,
+          "min": 60.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 8140,
+        "slope_ppm_per_min": {
+          "count": 8140,
+          "max": 733.7704918032788,
+          "mean": 0.0690818452486747,
+          "median": 0.0,
+          "min": -471.0,
+          "std": 11.571173496636339
+        },
+        "unavailable_count": 0
+      },
+      "VALIDATION": {
+        "eligible_count": 2662,
+        "history_span_seconds": {
+          "count": 2662,
+          "max": 120.0,
+          "median": 60.0,
+          "min": 60.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 2662,
+        "slope_ppm_per_min": {
+          "count": 2662,
+          "max": 35.200000000000045,
+          "mean": 0.12023169359995287,
+          "median": -0.04125683060094169,
+          "min": -46.600000000000136,
+          "std": 5.073960883332656
+        },
+        "unavailable_count": 0
+      }
+    },
+    "LINEAR_REGRESSION_H120": {
+      "TRAIN": {
+        "eligible_count": 8140,
+        "history_span_seconds": {
+          "count": 8140,
+          "max": 180.0,
+          "median": 121.0,
+          "min": 120.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 8140,
+        "slope_ppm_per_min": {
+          "count": 8140,
+          "max": 373.8949093889446,
+          "mean": 0.04186947667944878,
+          "median": -0.00618201846830569,
+          "min": -200.39947075051987,
+          "std": 6.67799221991236
+        },
+        "unavailable_count": 0
+      },
+      "VALIDATION": {
+        "eligible_count": 2662,
+        "history_span_seconds": {
+          "count": 2662,
+          "max": 180.0,
+          "median": 121.0,
+          "min": 120.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 2662,
+        "slope_ppm_per_min": {
+          "count": 2662,
+          "max": 17.850000000000023,
+          "mean": 0.13879635632818027,
+          "median": -0.06266511521637075,
+          "min": -42.34241879520086,
+          "std": 4.070162060891127
+        },
+        "unavailable_count": 0
+      }
+    },
+    "LINEAR_REGRESSION_H150": {
+      "TRAIN": {
+        "eligible_count": 8140,
+        "history_span_seconds": {
+          "count": 8140,
+          "max": 181.0,
+          "median": 180.0,
+          "min": 179.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 8140,
+        "slope_ppm_per_min": {
+          "count": 8140,
+          "max": 226.98322315426918,
+          "mean": 0.012269392360520472,
+          "median": -0.08706055469569927,
+          "min": -200.39947075051987,
+          "std": 5.597628208751972
+        },
+        "unavailable_count": 0
+      },
+      "VALIDATION": {
+        "eligible_count": 2662,
+        "history_span_seconds": {
+          "count": 2662,
+          "max": 181.0,
+          "median": 180.0,
+          "min": 179.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 2662,
+        "slope_ppm_per_min": {
+          "count": 2662,
+          "max": 16.37724175410727,
+          "mean": 0.13674235001102963,
+          "median": -0.10671851872149608,
+          "min": -42.34241879520086,
+          "std": 3.7222451623300894
+        },
+        "unavailable_count": 0
+      }
+    },
+    "LINEAR_REGRESSION_H60": {
+      "TRAIN": {
+        "eligible_count": 8140,
+        "history_span_seconds": {
+          "count": 8140,
+          "max": 120.0,
+          "median": 60.0,
+          "min": 60.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 8140,
+        "slope_ppm_per_min": {
+          "count": 8140,
+          "max": 733.7704918032787,
+          "mean": 0.06925678340690074,
+          "median": 0.0,
+          "min": -471.0,
+          "std": 11.568887944085578
+        },
+        "unavailable_count": 0
+      },
+      "VALIDATION": {
+        "eligible_count": 2662,
+        "history_span_seconds": {
+          "count": 2662,
+          "max": 120.0,
+          "median": 60.0,
+          "min": 60.0
+        },
+        "nan_count": 0,
+        "non_finite_count": 0,
+        "requested_count": 2662,
+        "slope_ppm_per_min": {
+          "count": 2662,
+          "max": 35.200000000000045,
+          "mean": 0.12021355046556587,
+          "median": -0.04074632018313299,
+          "min": -46.600000000000136,
+          "std": 5.073867360430485
+        },
+        "unavailable_count": 0
+      }
+    }
+  },
+  "locked_test_value_diagnostics": "NOT_COMPUTED",
+  "manifest_version": "1.0",
+  "phase": "C-B1"
+}

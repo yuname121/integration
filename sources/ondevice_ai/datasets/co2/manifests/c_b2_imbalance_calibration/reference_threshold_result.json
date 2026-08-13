@@ -1,0 +1,119 @@
+{
+  "TRANSFER_TO_FUTURE_ARCHITECTURES": "NOT_ASSUMED",
+  "calibrated_threshold_metrics": {
+    "accuracy": 0.9135987978963186,
+    "balanced_accuracy": 0.9148615954604554,
+    "confusion_matrix": {
+      "fn": 78,
+      "fp": 152,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1541,
+          152
+        ],
+        [
+          78,
+          891
+        ]
+      ],
+      "tn": 1541,
+      "tp": 891
+    },
+    "decision_threshold": 0.58,
+    "f1_occupied": 0.885685884691849,
+    "f1_vacant": 0.9305555555555555,
+    "false_negative_rate": 0.0804953560371517,
+    "false_positive_rate": 0.0897814530419374,
+    "fn": 78,
+    "fp": 152,
+    "macro_f1": 0.9081207201237023,
+    "occupied_recall": 0.9195046439628483,
+    "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+    "precision_occupied": 0.8542665388302972,
+    "precision_vacant": 0.9518221124150711,
+    "recall_occupied": 0.9195046439628483,
+    "recall_vacant": 0.9102185469580626,
+    "sensitivity": 0.9195046439628483,
+    "specificity": 0.9102185469580626,
+    "tn": 1541,
+    "tp": 891
+  },
+  "calibration_protocol_id": "CO2_B2_THRESHOLD_CALIBRATION_PROTOCOL_001",
+  "classification": "REFERENCE_PROBE_THRESHOLD_ONLY",
+  "default_threshold": 0.5,
+  "default_threshold_metrics": {
+    "accuracy": 0.9102178812922614,
+    "balanced_accuracy": 0.9170581591047213,
+    "confusion_matrix": {
+      "fn": 56,
+      "fp": 183,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1510,
+          183
+        ],
+        [
+          56,
+          913
+        ]
+      ],
+      "tn": 1510,
+      "tp": 913
+    },
+    "decision_threshold": 0.5,
+    "f1_occupied": 0.8842615012106538,
+    "f1_vacant": 0.9266646210494016,
+    "false_negative_rate": 0.05779153766769866,
+    "false_positive_rate": 0.10809214412285884,
+    "fn": 56,
+    "fp": 183,
+    "macro_f1": 0.9054630611300277,
+    "occupied_recall": 0.9422084623323014,
+    "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+    "precision_occupied": 0.833029197080292,
+    "precision_vacant": 0.9642401021711366,
+    "recall_occupied": 0.9422084623323014,
+    "recall_vacant": 0.8919078558771412,
+    "sensitivity": 0.9422084623323014,
+    "specificity": 0.8919078558771412,
+    "tn": 1510,
+    "tp": 913
+  },
+  "device_domain_validation": "NOT_PERFORMED",
+  "fixed_logistic_probe": "B2_FIXED_LOGISTIC_PROBE_001",
+  "fn_change": 22,
+  "fp_change": -31,
+  "incremental_evidence_status": "THRESHOLD_CALIBRATION_INCREMENTAL_VALUE_ESTABLISHED",
+  "manifest_version": "1.0",
+  "metric_deltas": {
+    "delta_balanced_accuracy": -0.002196563644265903,
+    "delta_false_negative_rate": 0.022703818369453045,
+    "delta_false_positive_rate": -0.01831069108092144,
+    "delta_fn": 22,
+    "delta_fp": -31,
+    "delta_macro_f1": 0.0026576589936745387,
+    "delta_occupied_recall": -0.02270381836945312
+  },
+  "phase": "C-B2",
+  "reference_threshold_production_final": false,
+  "result_id": "CO2_B2_REFERENCE_THRESHOLD_RESULT_001",
+  "selected_imbalance_strategy": "BALANCED_RANDOM_OVERSAMPLE",
+  "selected_reference_threshold": 0.58,
+  "threshold_grid_fingerprint": "e7acc196724d1b78c13601842620e2cc9881e8a76e28d12e7f87b270301e63a6"
+}

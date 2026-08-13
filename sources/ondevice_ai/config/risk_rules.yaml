@@ -1,0 +1,28 @@
+# SafeNest V4 On-Device AI Risk Engine Configuration
+
+risk_engine:
+  formula: "R = 100 * (0.35 * S1 + 0.35 * S2 + 0.15 * S3 + 0.15 * S4)"
+  weights:
+    s1_mmwave: 0.35
+    s2_co2: 0.35
+    s3_pir: 0.15
+    s4_thermal: 0.15
+
+  thresholds:
+    normal_max: 30.0
+    caution_max: 60.0
+
+  levels:
+    NORMAL: "R < 30"
+    CAUTION: "30 <= R < 60"
+    DANGER: "R >= 60"
+
+  emergency_overrides:
+    thermal_fall: true
+    hardware_apnea: true
+    apnea_confirm_sec: 2.0
+
+  fallback_policy:
+    reweight_missing: true
+    unhealthy_sensor_max_score: 0.0
+    allow_all_missing_fault: true

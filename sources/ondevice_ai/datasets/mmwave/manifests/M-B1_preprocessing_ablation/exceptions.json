@@ -1,0 +1,13 @@
+{
+  "phase_id": "M-B1",
+  "total_blockers": 0,
+  "total_warnings": 1,
+  "exceptions": [
+    {
+      "category": "NON_BLOCKING_WARNING",
+      "code": "HISTORICAL_DETREND_MEAN_CENTERING_DISCREPANCY",
+      "count": 1,
+      "description": "Historical config/mmwave_input_contract.yaml specified linear_detrend but implemented arr - mean(arr). M-B1 implemented genuine linear detrending (scipy.signal.detrend) for D=1 profiles without modifying historical preprocessor."
+    }
+  ]
+}

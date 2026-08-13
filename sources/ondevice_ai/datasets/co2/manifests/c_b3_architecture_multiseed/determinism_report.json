@@ -1,0 +1,23 @@
+{
+  "architecture_registry_fingerprint": "845d07a161097056210b3910a61909e1055ce340a168abe90ef32c72ce351e48",
+  "checksums_generated_deterministically": true,
+  "data_pipeline_determinism": "PASS",
+  "fixed_feature_context_fingerprint": "fe9e17132b15a53fe2ea1ee800ad6a50a60fcad41700524820bd3e3ca677b57d",
+  "fixed_universe_fingerprint": "b6f13122cf7c0fce87ecb0fc7012d34c1ffa9c15450ff4d1267208aaf336f482",
+  "manifest_version": "1.0",
+  "model_run_reproducibility": "PASS",
+  "model_run_reproducibility_detail": {
+    "compared_run_count": 20,
+    "differing_runs": [],
+    "max_absolute_probability_difference": 0.0,
+    "status": "PASS"
+  },
+  "neural_outputs_bit_identical_claimed": true,
+  "oversampling_fingerprint": "a3c61800df26a6b995e79f2debb1d7003ba0517985c38ade74e2cdceeba7a551",
+  "phase": "C-B3",
+  "preprocessing_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+  "repeat_execution_requested": true,
+  "seed_registry_fingerprint": "0e1929e9b33f354a79641d56f95509e0272379b29249d9f1c7fc932e07570a9a",
+  "selected_architecture": "LINEAR_LOGISTIC",
+  "selection_rule_fingerprint": "ab4f030c73d0c5c3d214597ce56393603266db0ab74066c55dc7ca5f45d6b33b"
+}

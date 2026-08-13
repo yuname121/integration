@@ -1,0 +1,22 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "experiment_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "generator_script": "scripts/audit_co2_offline_experiment.py",
+  "module": "datasets/co2/offline_experiment.py",
+  "seed": 20260810,
+  "production_scaler_modified": false,
+  "production_model_modified": false,
+  "synthetic_npz_used_as_real_training_data": false,
+  "final_feature_selection_performed": false,
+  "slope_ablation_performed": false,
+  "complex_model_comparison_performed": false,
+  "locked_test_fit_usage": 0,
+  "locked_test_tuning_usage": 0,
+  "optional_linear_baseline": "SKIPPED_MISSING_DEPENDENCY",
+  "determinism": {
+    "data_pipeline_determinism_required": true,
+    "random_values_used_for_manifests": false,
+    "host_timezone_independent": true
+  }
+}

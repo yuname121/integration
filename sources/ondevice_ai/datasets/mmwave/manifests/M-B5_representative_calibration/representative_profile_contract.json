@@ -1,0 +1,69 @@
+{
+  "phase_id": "M-B5",
+  "sample_count_per_profile": 120,
+  "calibration_sampling_seed": 20260810,
+  "profiles": {
+    "M-B5_CAL_TRAIN_ORDER_120": "First 120 eligible pure-class TRAIN rows in canonical order",
+    "M-B5_CAL_RANDOM_PROPORTIONAL_120": "Random proportional sample matching TRAIN class distribution without replacement (RNG seed 20260810)",
+    "M-B5_CAL_CLASS_BALANCED_120": "Equal class balanced sample (40 NORMAL, 40 RAPID_OR_ABNORMAL, 40 APNEA) without replacement (RNG seed 20260810)",
+    "M-B5_CAL_DISTRIBUTION_AWARE_120": "Deterministic farthest-point coverage in TRAIN robust feature space using authoritative posture + source_test_condition metadata with max-2-per-subject cap"
+  },
+  "distribution_aware_profile": {
+    "posture_vocabulary": [
+      "Lying",
+      "Sitting"
+    ],
+    "source_test_condition_vocabulary": [
+      "Post-exercise",
+      "Rest"
+    ],
+    "unknown_or_missing_token": "UNKNOWN_OR_MISSING",
+    "continuous_features": [
+      "peak_abs",
+      "RMS",
+      "p01",
+      "p99",
+      "dynamic_range"
+    ],
+    "class_onehot_order": [
+      "NORMAL",
+      "RAPID_OR_ABNORMAL",
+      "APNEA"
+    ],
+    "snr_available": false,
+    "snr_source": "NOT_AVAILABLE",
+    "robust_scaling": {
+      "statistic": "median_iqr",
+      "fit_population": "TRAIN_ONLY",
+      "continuous_medians": [
+        2.0480563640594482,
+        0.8354496910372977,
+        -1.7942797720432282,
+        1.8191128790378568,
+        3.550948432683944
+      ],
+      "continuous_iqr": [
+        1.5317505598068237,
+        0.6711844519372858,
+        1.2814303255081176,
+        1.3550993621349332,
+        2.630995481014252
+      ]
+    },
+    "tie_policy": "LOWER_AUTHORITATIVE_CANONICAL_TRAIN_INDEX",
+    "feature_definition": "robust_scaled(peak_abs,RMS,p01,p99,dynamic_range) + class_onehot + posture_onehot(source TRAIN posture) + source_test_condition_onehot",
+    "algorithm": "deterministic_farthest_point",
+    "sample_count": 120,
+    "subject_cap_initial": 2,
+    "subject_cap_final_state": "MAX_2",
+    "subject_cap_relaxations": [],
+    "selected_subject_count": 71,
+    "selected_class_distribution": {
+      "NORMAL": 45,
+      "RAPID_OR_ABNORMAL": 40,
+      "APNEA": 35
+    },
+    "max_selected_per_subject": 2,
+    "rng_used": false
+  }
+}

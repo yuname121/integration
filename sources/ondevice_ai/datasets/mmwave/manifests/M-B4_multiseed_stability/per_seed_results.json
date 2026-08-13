@@ -1,0 +1,316 @@
+{
+  "per_seed_results": {
+    "M-B3_CONV1D_GAP_BASELINE_seed_42": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 42,
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "42dbb04e98f7da8ea9ce1e1df3b2b4a5e1e1e66fe9bfa6ea26f2fe3f256a9bd7",
+      "val_macro_f1": 0.663708,
+      "val_accuracy": 0.721519,
+      "min_per_class_recall": 0.454545,
+      "apnea_recall": 1.0,
+      "rapid_recall": 0.5,
+      "collapsed": false,
+      "prediction_distribution": {
+        "NORMAL": 12,
+        "RAPID_OR_ABNORMAL": 15,
+        "APNEA": 52
+      },
+      "class_metrics": {
+        "NORMAL": {
+          "tp": 10,
+          "fp": 2,
+          "tn": 55,
+          "fn": 12,
+          "precision": 0.833333,
+          "recall": 0.454545,
+          "f1_score": 0.588235,
+          "fpr": 0.035088,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 10,
+          "fp": 5,
+          "tn": 54,
+          "fn": 10,
+          "precision": 0.666667,
+          "recall": 0.5,
+          "f1_score": 0.571429,
+          "fpr": 0.084746,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 15,
+          "tn": 27,
+          "fn": 0,
+          "precision": 0.711538,
+          "recall": 1.0,
+          "f1_score": 0.831461,
+          "fpr": 0.357143,
+          "support": 37
+        }
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 43,
+      "initial_weights_sha256": "28ed7b03eb868e01f4d0c4ee4f06dc78e5539e94f106834347a1a5b5c3a5ec22",
+      "final_weights_sha256": "baa68f2f8984967540c6f382c71fa0eee9ca007c059659408ee4f079168d5480",
+      "val_macro_f1": 0.45101,
+      "val_accuracy": 0.481013,
+      "min_per_class_recall": 0.227273,
+      "apnea_recall": 0.567568,
+      "rapid_recall": 0.6,
+      "collapsed": false,
+      "prediction_distribution": {
+        "NORMAL": 18,
+        "RAPID_OR_ABNORMAL": 35,
+        "APNEA": 26
+      },
+      "class_metrics": {
+        "NORMAL": {
+          "tp": 5,
+          "fp": 13,
+          "tn": 44,
+          "fn": 17,
+          "precision": 0.277778,
+          "recall": 0.227273,
+          "f1_score": 0.25,
+          "fpr": 0.22807,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 12,
+          "fp": 23,
+          "tn": 36,
+          "fn": 8,
+          "precision": 0.342857,
+          "recall": 0.6,
+          "f1_score": 0.436364,
+          "fpr": 0.389831,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 21,
+          "fp": 5,
+          "tn": 37,
+          "fn": 16,
+          "precision": 0.807692,
+          "recall": 0.567568,
+          "f1_score": 0.666667,
+          "fpr": 0.119048,
+          "support": 37
+        }
+      }
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44": {
+      "architecture_id": "M-B3_CONV1D_GAP_BASELINE",
+      "seed": 44,
+      "initial_weights_sha256": "364368ca8854af54bb037dbbce9bb9734b6016c70c2e9df22fb3a8092004a1ba",
+      "final_weights_sha256": "33a3d89ffe744b8185e023a42e93eeaf3482b43aaa166652f3f52306872819ba",
+      "val_macro_f1": 0.329107,
+      "val_accuracy": 0.518987,
+      "min_per_class_recall": 0.05,
+      "apnea_recall": 1.0,
+      "rapid_recall": 0.05,
+      "collapsed": false,
+      "prediction_distribution": {
+        "NORMAL": 7,
+        "RAPID_OR_ABNORMAL": 1,
+        "APNEA": 71
+      },
+      "class_metrics": {
+        "NORMAL": {
+          "tp": 3,
+          "fp": 4,
+          "tn": 53,
+          "fn": 19,
+          "precision": 0.428571,
+          "recall": 0.136364,
+          "f1_score": 0.206897,
+          "fpr": 0.070175,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 1,
+          "fp": 0,
+          "tn": 59,
+          "fn": 19,
+          "precision": 1.0,
+          "recall": 0.05,
+          "f1_score": 0.095238,
+          "fpr": 0.0,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 34,
+          "tn": 8,
+          "fn": 0,
+          "precision": 0.521127,
+          "recall": 1.0,
+          "f1_score": 0.685185,
+          "fpr": 0.809524,
+          "support": 37
+        }
+      }
+    },
+    "M-B3_SEPARABLECONV1D_GAP_seed_42": {
+      "architecture_id": "M-B3_SEPARABLECONV1D_GAP",
+      "seed": 42,
+      "initial_weights_sha256": "f2daec9d96d7e2e35e3abcf6150f785bac06cb11f0a12952269ea8ea68e80611",
+      "final_weights_sha256": "65951b27bed98f1d105de3d794ad3eeeb8cdb39c6fd101ecbdfa7408962ce8ae",
+      "val_macro_f1": 0.470833,
+      "val_accuracy": 0.594937,
+      "min_per_class_recall": 0.181818,
+      "apnea_recall": 1.0,
+      "rapid_recall": 0.3,
+      "collapsed": false,
+      "prediction_distribution": {
+        "NORMAL": 8,
+        "RAPID_OR_ABNORMAL": 12,
+        "APNEA": 59
+      },
+      "class_metrics": {
+        "NORMAL": {
+          "tp": 4,
+          "fp": 4,
+          "tn": 53,
+          "fn": 18,
+          "precision": 0.5,
+          "recall": 0.181818,
+          "f1_score": 0.266667,
+          "fpr": 0.070175,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 6,
+          "fp": 6,
+          "tn": 53,
+          "fn": 14,
+          "precision": 0.5,
+          "recall": 0.3,
+          "f1_score": 0.375,
+          "fpr": 0.101695,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 22,
+          "tn": 20,
+          "fn": 0,
+          "precision": 0.627119,
+          "recall": 1.0,
+          "f1_score": 0.770833,
+          "fpr": 0.52381,
+          "support": 37
+        }
+      }
+    },
+    "M-B3_SEPARABLECONV1D_GAP_seed_43": {
+      "architecture_id": "M-B3_SEPARABLECONV1D_GAP",
+      "seed": 43,
+      "initial_weights_sha256": "be9faae7771cf2a083728ba98e36c3ea89dc0fb8e488a6bb12baf8c0520fee9d",
+      "final_weights_sha256": "dc81a32c3be88667c88412538a392eb6512d475c92af0e899d0122685a88655c",
+      "val_macro_f1": 0.48993,
+      "val_accuracy": 0.607595,
+      "min_per_class_recall": 0.25,
+      "apnea_recall": 1.0,
+      "rapid_recall": 0.25,
+      "collapsed": false,
+      "prediction_distribution": {
+        "NORMAL": 12,
+        "RAPID_OR_ABNORMAL": 12,
+        "APNEA": 55
+      },
+      "class_metrics": {
+        "NORMAL": {
+          "tp": 6,
+          "fp": 6,
+          "tn": 51,
+          "fn": 16,
+          "precision": 0.5,
+          "recall": 0.272727,
+          "f1_score": 0.352941,
+          "fpr": 0.105263,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 5,
+          "fp": 7,
+          "tn": 52,
+          "fn": 15,
+          "precision": 0.416667,
+          "recall": 0.25,
+          "f1_score": 0.3125,
+          "fpr": 0.118644,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 18,
+          "tn": 24,
+          "fn": 0,
+          "precision": 0.672727,
+          "recall": 1.0,
+          "f1_score": 0.804348,
+          "fpr": 0.428571,
+          "support": 37
+        }
+      }
+    },
+    "M-B3_SEPARABLECONV1D_GAP_seed_44": {
+      "architecture_id": "M-B3_SEPARABLECONV1D_GAP",
+      "seed": 44,
+      "initial_weights_sha256": "f22c74be3b469d6598c78ec41eb7392ad76fe1b3dd2a96d0fc0908d2432fda58",
+      "final_weights_sha256": "5ffd0dc80475a9a571f60f406995831f53e113154a5f25b807b5cd3afdf86c53",
+      "val_macro_f1": 0.353768,
+      "val_accuracy": 0.544304,
+      "min_per_class_recall": 0.0,
+      "apnea_recall": 1.0,
+      "rapid_recall": 0.0,
+      "collapsed": true,
+      "prediction_distribution": {
+        "NORMAL": 13,
+        "RAPID_OR_ABNORMAL": 0,
+        "APNEA": 66
+      },
+      "class_metrics": {
+        "NORMAL": {
+          "tp": 6,
+          "fp": 7,
+          "tn": 50,
+          "fn": 16,
+          "precision": 0.461538,
+          "recall": 0.272727,
+          "f1_score": 0.342857,
+          "fpr": 0.122807,
+          "support": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 59,
+          "fn": 20,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "fpr": 0.0,
+          "support": 20
+        },
+        "APNEA": {
+          "tp": 37,
+          "fp": 29,
+          "tn": 13,
+          "fn": 0,
+          "precision": 0.560606,
+          "recall": 1.0,
+          "f1_score": 0.718447,
+          "fpr": 0.690476,
+          "support": 37
+        }
+      }
+    }
+  }
+}

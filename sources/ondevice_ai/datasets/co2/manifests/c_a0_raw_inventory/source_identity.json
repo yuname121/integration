@@ -1,0 +1,38 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A0",
+  "track": "CO2",
+  "dataset_name": "UCI Occupancy Detection Dataset",
+  "stable_identifier": "UCI Machine Learning Repository Dataset ID 357",
+  "doi": "10.24432/C5X01N",
+  "journal_paper_doi": "10.1016/j.enbuild.2015.11.071",
+  "official_source_url": "https://archive.ics.uci.edu/dataset/357/occupancy+detection",
+  "publication_title": "Accurate occupancy detection of an office room from light, temperature, humidity and CO2 measurements using statistical learning models",
+  "authors": [
+    "Luis M. Candanedo",
+    "V. Feldheim"
+  ],
+  "institution": "University of Mons, Department of Thermal Engineering and Combustion, Mons, Belgium",
+  "publication_year": 2016,
+  "journal": "Energy and Buildings, Vol. 112, pp. 28-39",
+  "access_date": "2026-08-10",
+  "collection_methodology": {
+    "environment": "Office room (approx. 5.85m x 3.50m x 2.40m)",
+    "sensor_installation": "Environmental sensors placed inside office",
+    "sampling_interval_seconds": 60,
+    "occupancy_annotation_method": "Ground truth labeled from camera pictures taken every min",
+    "dataset_files": {
+      "datatest.txt": "First test set collected Feb 2 to Feb 4, 2015 (2015-02-02 14:19:00 to 2015-02-04 10:43:00)",
+      "datatraining.txt": "Primary training set collected Feb 4 to Feb 10, 2015 (2015-02-04 17:51:00 to 2015-02-10 09:33:00)",
+      "datatest2.txt": "Second test set collected Feb 11 to Feb 18, 2015 (2015-02-11 14:48:00 to 2015-02-18 09:19:00)"
+    }
+  },
+  "target_semantics": {
+    "primary_label": "Room Occupancy (0 = vacant, 1 = occupied)",
+    "apnea_proxy_claim": false,
+    "clinical_apnea_claim": false,
+    "co2_danger_claim": false,
+    "scd40_hardware_claim": false,
+    "label_note": "Target label represents physical room occupancy only. It does not measure clinical apnea, CO2 danger thresholds, or SCD40 hardware status."
+  }
+}

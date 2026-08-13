@@ -1,0 +1,25 @@
+{
+  "phase_id": "M-B6",
+  "description": "Formal stage-equivalence validation of Float Keras -> Float TFLite -> Strict INT8 across frozen seeds 42, 43, 44",
+  "frozen_preprocessing_profile": null,
+  "frozen_imbalance_strategy": null,
+  "frozen_primary_architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "frozen_seed_weights": [
+    42,
+    43,
+    44
+  ],
+  "frozen_selected_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "eval_population": "VALIDATION_SET_ONLY",
+  "train_samples": 327,
+  "train_subjects": 77,
+  "eval_samples": 79,
+  "eval_subjects": 17,
+  "locked_test_access": "ZERO_PROHIBITED",
+  "stages": [
+    "Stage A (Float Keras)",
+    "Stage B (Float TFLite)",
+    "Stage C (Strict INT8 TFLite)"
+  ],
+  "new_model_trainings": 0
+}

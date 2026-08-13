@@ -1,0 +1,36 @@
+{
+  "phase_id": "M-B2",
+  "contract_name": "SafeNest mmWave Phase-B2 Class-Imbalance Strategy Comparison Contract",
+  "experimental_design": "4 Class-Imbalance Handling Strategies Comparison",
+  "frozen_preprocessing": {
+    "selected_profile_id": "M-B1_D0_B1_Z1",
+    "selected_profile_name": "BPF_ZSCORE",
+    "detrend": false,
+    "bpf": true,
+    "zscore": true
+  },
+  "fixed_conditions": {
+    "probe_architecture": "FIXED_M-B2_PROBE_ARCHITECTURE (Conv1D 16-32-64 + GAP + Dense3)",
+    "initialization_seed": 42,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "max_epochs": 25,
+    "early_stopping_monitor": "val_loss",
+    "early_stopping_patience": 7,
+    "restore_best_weights": true
+  },
+  "numerical_precision_policy": {
+    "tie_tolerance": 1e-05,
+    "contract_status": "M-B2 corrective contract clarification made prior to corrected Strategy-C rerun"
+  },
+  "preregistered_ranking_rule": [
+    "Step 1: Reject strategies with mandatory class-collapse failure (APNEA recall == 0 or RAPID recall == 0).",
+    "Step 2: Rank eligible strategies by VALIDATION Macro F1 descending.",
+    "Step 3: Tie-breaker 1 (if tied within 1e-5 tolerance): Larger minimum per-class recall.",
+    "Step 4: Tie-breaker 2 (if tied within 1e-5 tolerance): Higher macro precision.",
+    "Step 5: Tie-breaker 3 (if tied within 1e-5 tolerance): Lower macro one-vs-rest false positive rate (FPR).",
+    "Step 6: Tie-breaker 4 (if tied within 1e-5 tolerance): Prefer simpler strategy intervention (CE_UNWEIGHTED > CE_CLASS_WEIGHT > CE_RANDOM_OVERSAMPLE > FOCAL_CLASS_ALPHA).",
+    "Step 7: Tie-breaker 5: Lexicographic strategy_id."
+  ]
+}

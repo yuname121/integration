@@ -1,0 +1,40 @@
+{
+  "nan_sample_count": 0,
+  "inf_sample_count": 0,
+  "exact_constant_window_count": 0,
+  "near_constant_window_count": 0,
+  "quality_flag_distribution": {
+    "TIMELINE_EXACT_NATIVE_10HZ": 530
+  },
+  "total_windows_audited": 530,
+  "frame_count_distribution": {
+    "500": 348,
+    "600": 90,
+    "400": 2
+  },
+  "tensor_shape_distribution": {
+    "(500, 8, 64)": 348,
+    "(600, 8, 64)": 90,
+    "(400, 8, 64)": 2
+  },
+  "dropped_tail_sample_distribution": {
+    "200": 348,
+    "0": 90,
+    "100": 2
+  },
+  "selected_virtual_channel_distribution": {
+    "6": 70,
+    "1": 35,
+    "5": 67,
+    "4": 67,
+    "7": 68,
+    "2": 49,
+    "0": 45,
+    "3": 39
+  },
+  "selected_range_bin_distribution": {
+    "2": 394,
+    "1": 46
+  },
+  "mean_window_phase_std_dev": 6.535004
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "source_repository": "https://github.com/sheepmeat/test",
+  "source_sha": "77b1695ac66fd595bd037e4574d1626b8917654c",
+  "source_prerelease": "multisensor-intermediate-2026-08-13",
+  "team_repository": "https://github.com/jinsu1011/safenest-embedded-competition",
+  "team_base_sha": "f3bd342eabcad27dc2c3ecdc16f035b8b13cb153",
+  "destination": "ondevice_ai/",
+  "strategy": "INCREMENTAL_TRACKED_FILE_SYNC",
+  "included": {
+    "source_change_count": 489,
+    "change_types": {
+      "added": 484,
+      "modified": 5,
+      "deleted": 0
+    },
+    "track_counts": {
+      "mmwave": 268,
+      "co2": 141,
+      "thermal": 61,
+      "shared_documentation": 19
+    },
+    "roles": [
+      "AI datasets and compact evidence",
+      "offline experiment and validator code",
+      "offline model candidates and artifact locks",
+      "tests and handoff documentation",
+      "bounded mock/replay provider code"
+    ]
+  },
+  "preserved_team_areas": [
+    "devices/",
+    "shared/contracts/",
+    ".github/",
+    "docs/",
+    "archive/",
+    "ondevice_ai/integrated_node/esp32_sensor_node.ino",
+    "team-only historical models and V4/V5 validation files"
+  ],
+  "intentionally_excluded": [
+    "standalone .git and .github",
+    "standalone archive and release ZIP files",
+    "raw dataset archives and ignored Thermal canonical arrays",
+    "hardware bundles, caches, virtual environments, and machine-specific files",
+    "real device drivers or changes to team sensor thresholds"
+  ],
+  "claim_boundary": "Intermediate offline evidence synchronization only; no physical-sensor, Raspberry Pi, production, clinical, safety, or multisensor-integration approval."
+}

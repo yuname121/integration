@@ -1,0 +1,55 @@
+{
+  "manifest_version": "1.0",
+  "feature_contract_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "total_source_rows_represented": 20560,
+  "eligible_slope_rows": 20551,
+  "warmup_unavailable_rows": 9,
+  "gap_restart_unavailable_rows": 0,
+  "nonfinite_unavailable_rows": 0,
+  "silent_row_loss": 0,
+  "rows_omitted": 0,
+  "by_block": [
+    {
+      "temporal_block_id": "BLOCK_01_DATATEST",
+      "future_split_role": "VALIDATION",
+      "source_member_name": "datatest.txt",
+      "source_row_count": 2665,
+      "eligible_slope_count": 2662,
+      "warmup_unavailable_count": 3,
+      "gap_restart_unavailable_count": 0,
+      "nonfinite_unavailable_count": 0,
+      "non_monotonic_unavailable_count": 0,
+      "null_slope_count": 3,
+      "finite_slope_count": 2662,
+      "nonfinite_slope_output_count": 0
+    },
+    {
+      "temporal_block_id": "BLOCK_02_DATATRAINING",
+      "future_split_role": "TRAIN",
+      "source_member_name": "datatraining.txt",
+      "source_row_count": 8143,
+      "eligible_slope_count": 8140,
+      "warmup_unavailable_count": 3,
+      "gap_restart_unavailable_count": 0,
+      "nonfinite_unavailable_count": 0,
+      "non_monotonic_unavailable_count": 0,
+      "null_slope_count": 3,
+      "finite_slope_count": 8140,
+      "nonfinite_slope_output_count": 0
+    },
+    {
+      "temporal_block_id": "BLOCK_03_DATATEST2",
+      "future_split_role": "LOCKED_TEST",
+      "source_member_name": "datatest2.txt",
+      "source_row_count": 9752,
+      "eligible_slope_count": 9749,
+      "warmup_unavailable_count": 3,
+      "gap_restart_unavailable_count": 0,
+      "nonfinite_unavailable_count": 0,
+      "non_monotonic_unavailable_count": 0,
+      "null_slope_count": 3,
+      "finite_slope_count": 9749,
+      "nonfinite_slope_output_count": 0
+    }
+  ]
+}

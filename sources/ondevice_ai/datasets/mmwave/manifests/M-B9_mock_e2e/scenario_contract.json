@@ -1,0 +1,32 @@
+{
+  "fault_scenarios": [
+    "D_INSUFFICIENT_HISTORY",
+    "E_INVALID_SHAPE",
+    "F_NAN",
+    "G_INF",
+    "H_STALE",
+    "I_PROVIDER_SENSOR_FAULT",
+    "J_READ_EXCEPTION",
+    "K_TIMEOUT",
+    "L_MISSING_MODEL",
+    "M_SHA_MISMATCH",
+    "O_NOT_CONNECTED_PROVIDER"
+  ],
+  "model_driven_scenarios": {
+    "A_NORMAL": "NORMAL",
+    "B_RAPID_OR_ABNORMAL": "RAPID_OR_ABNORMAL",
+    "C_APNEA": "APNEA",
+    "N_VALID_EXPLICIT_FINALIST": "NORMAL"
+  },
+  "node_class": "integrated_node.run_node.SafeNestIntegratedNode",
+  "node_mode": "real_with_injected_mock_providers",
+  "phase_id": "M-B9",
+  "score_mapping": {
+    "APNEA": 1.0,
+    "NORMAL": 0.0,
+    "RAPID_OR_ABNORMAL": 0.5
+  },
+  "score_source_for_valid_model": "MODEL_PREDICTION",
+  "support_provider_scope": "NEUTRAL_WIRING_ONLY_NO_SENSOR_EVIDENCE",
+  "truth_source": "METADATA_ONLY"
+}

@@ -1,0 +1,29 @@
+{
+  "manifest_version": "1.0",
+  "reader_class": "UCIOccupancyRawReader",
+  "archive_path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+  "archive_sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+  "total_observations_read": 20560,
+  "expected_total_observations": 20560,
+  "silent_row_loss": 0,
+  "total_occupancy_0": 15810,
+  "total_occupancy_1": 4750,
+  "per_member_summary": {
+    "datatest.txt": {
+      "rows": 2665,
+      "occ_0": 1693,
+      "occ_1": 972
+    },
+    "datatest2.txt": {
+      "rows": 9752,
+      "occ_0": 7703,
+      "occ_1": 2049
+    },
+    "datatraining.txt": {
+      "rows": 8143,
+      "occ_0": 6414,
+      "occ_1": 1729
+    }
+  },
+  "validation_status": "PASS"
+}

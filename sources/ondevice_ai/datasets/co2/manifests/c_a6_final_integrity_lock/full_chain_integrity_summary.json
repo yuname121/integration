@@ -1,0 +1,237 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A6",
+  "audit_profile_id": "CO2_A_SERIES_FULL_CHAIN_AUDIT_PROFILE_001",
+  "track": "CO2",
+  "milestone": "A_SERIES_RAW_TO_CANONICAL",
+  "source_identity": {
+    "dataset_name": "UCI Occupancy Detection Dataset",
+    "uci_dataset_id": 357,
+    "doi": "10.24432/C5X01N",
+    "journal_paper_doi": "10.1016/j.enbuild.2015.11.071",
+    "doi_match_expected": true,
+    "journal_doi_match_expected": true
+  },
+  "license": {
+    "spdx_id": "CC-BY-4.0",
+    "status": "VERIFIED"
+  },
+  "raw_archive": {
+    "exists": true,
+    "path": "datasets/raw_archives/external_datasets/occupancy+detection.zip",
+    "byte_size": 335713,
+    "sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+    "matches_expected": true,
+    "git_visibility_status": "GIT_IGNORED_RAW_ARCHIVE",
+    "read_only_status": "READ_ONLY_SOURCE_EVIDENCE",
+    "included_in_git_release": false
+  },
+  "raw_members": {
+    "members": {
+      "datatest.txt": {
+        "byte_size": 200766,
+        "sha256": "1b92c7c1b2838963464fa891a610cf3c5db4becb7189189b29b330107a584c7f",
+        "rows": 2665,
+        "matches_expected": true
+      },
+      "datatest2.txt": {
+        "byte_size": 699664,
+        "sha256": "d026d1bd5aeccd4aff4f3b3710d48e40613bd5fc370db7e61bbdcaa50d985095",
+        "rows": 9752,
+        "matches_expected": true
+      },
+      "datatraining.txt": {
+        "byte_size": 596674,
+        "sha256": "b2c4d0ce2b9e4e453c476f7125ef31aeec2d1f5c7f5572d0e80de3df6521ab56",
+        "rows": 8143,
+        "matches_expected": true
+      }
+    },
+    "total_source_rows": 20560,
+    "all_members_match": true
+  },
+  "schema_contract": {
+    "profile_id": "C-A1_UCI_OCCUPANCY_SCHEMA_PROFILE_001",
+    "header_field_count": 7,
+    "physical_field_count": 8
+  },
+  "timeline": {
+    "timestamp_reference": "SOURCE_ACQUISITION_CLOCK",
+    "source_timezone": "UNVERIFIED",
+    "utc_conversion_claimed": false,
+    "temporal_blocks": [
+      {
+        "block_id": "BLOCK_01_DATATEST",
+        "source_member_name": "datatest.txt",
+        "first_timestamp_raw": "2015-02-02 14:19:00",
+        "last_timestamp_raw": "2015-02-04 10:43:00",
+        "row_count": 2665,
+        "future_split_role": "VALIDATION"
+      },
+      {
+        "block_id": "BLOCK_02_DATATRAINING",
+        "source_member_name": "datatraining.txt",
+        "first_timestamp_raw": "2015-02-04 17:51:00",
+        "last_timestamp_raw": "2015-02-10 09:33:00",
+        "row_count": 8143,
+        "future_split_role": "TRAIN"
+      },
+      {
+        "block_id": "BLOCK_03_DATATEST2",
+        "source_member_name": "datatest2.txt",
+        "first_timestamp_raw": "2015-02-11 14:48:00",
+        "last_timestamp_raw": "2015-02-18 09:19:00",
+        "row_count": 9752,
+        "future_split_role": "LOCKED_TEST"
+      }
+    ],
+    "rows_omitted": 0,
+    "duplicate_block_membership_count": 0
+  },
+  "split_contract": {
+    "assignments": {
+      "TRAIN": {
+        "assigned_block_id": "BLOCK_02_DATATRAINING",
+        "source_member_name": "datatraining.txt",
+        "row_count": 8143,
+        "percentage": 39.61,
+        "occupancy_distribution": {
+          "occ_0": 6414,
+          "occ_1": 1729
+        }
+      },
+      "VALIDATION": {
+        "assigned_block_id": "BLOCK_01_DATATEST",
+        "source_member_name": "datatest.txt",
+        "row_count": 2665,
+        "percentage": 12.96,
+        "occupancy_distribution": {
+          "occ_0": 1693,
+          "occ_1": 972
+        }
+      },
+      "LOCKED_TEST": {
+        "assigned_block_id": "BLOCK_03_DATATEST2",
+        "source_member_name": "datatest2.txt",
+        "row_count": 9752,
+        "percentage": 47.43,
+        "occupancy_distribution": {
+          "occ_0": 7703,
+          "occ_1": 2049
+        }
+      }
+    },
+    "random_row_wise_split_allowed": false,
+    "group_independence_status": "GROUP_INDEPENDENCE_NOT_VERIFIABLE"
+  },
+  "target_contract": {
+    "profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+    "semantic_mapping": {
+      "0": "VACANT",
+      "1": "OCCUPIED"
+    },
+    "label_derivation": "NONE",
+    "occupancy_0_count": 15810,
+    "occupancy_1_count": 4750,
+    "target_labels_modified": 0
+  },
+  "slope_contract": {
+    "profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+    "method": "ENDPOINT_DIFFERENCE",
+    "unit": "ppm/min",
+    "history_classification": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+    "runtime_equivalence_claimed": false,
+    "eligible_samples": 20551,
+    "warmup_samples": 9
+  },
+  "canonical_contract": {
+    "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+    "canonical_source_samples": 20560,
+    "model_eligible_samples": 20551,
+    "warmup_samples": 9,
+    "missing_source_mappings": 0,
+    "duplicate_canonical_ids": 0,
+    "one_to_one_ok": true,
+    "ordering": [
+      "datatest.txt",
+      "datatraining.txt",
+      "datatest2.txt"
+    ]
+  },
+  "population_audit": {
+    "source_observation_count": 20560,
+    "canonical_source_sample_count": 20560,
+    "model_eligible_sample_count": 20551,
+    "warmup_sample_count": 9,
+    "missing_source_mappings": 0,
+    "duplicate_source_mappings": 0,
+    "extra_canonical_mappings": 0,
+    "duplicate_canonical_ids": 0,
+    "occupancy_0_count": 15810,
+    "occupancy_1_count": 4750,
+    "by_role": {
+      "TRAIN": {
+        "canonical": 8143,
+        "eligible": 8140,
+        "warmup": 3,
+        "vacant": 6414,
+        "occupied": 1729,
+        "matches_expected": true
+      },
+      "VALIDATION": {
+        "canonical": 2665,
+        "eligible": 2662,
+        "warmup": 3,
+        "vacant": 1693,
+        "occupied": 972,
+        "matches_expected": true
+      },
+      "LOCKED_TEST": {
+        "canonical": 9752,
+        "eligible": 9749,
+        "warmup": 3,
+        "vacant": 7703,
+        "occupied": 2049,
+        "matches_expected": true
+      }
+    },
+    "one_to_one_ok": true
+  },
+  "live_vs_stored_canonical": {
+    "ok": true,
+    "mismatches": [],
+    "compared": 20560
+  },
+  "synthetic_npz_isolation": {
+    "path": "datasets/co2/processed/co2_occupancy_v1.npz",
+    "status": "SYNTHETIC_SMOKE_FIXTURE",
+    "used_as_real_source": false
+  },
+  "model_scaler_status": {
+    "existing_model_lineage": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+    "existing_scaling_metadata_lineage": "SCALER_FIT_LINEAGE_UNVERIFIED",
+    "model_manifest_status": "CONFIRMED_SYNTHETIC_ONLY",
+    "scaler_fitted_during_c_a0_c_a6": false,
+    "model_trained_during_c_a0_c_a6": false,
+    "model_selected_during_c_a0_c_a6": false,
+    "quantization_performed_during_c_a0_c_a6": false
+  },
+  "locked_test_protection": {
+    "used_for_feature_contract_tuning": false,
+    "used_for_scaler_fitting": false,
+    "used_for_model_selection": false,
+    "used_for_hyperparameter_tuning": false,
+    "used_for_threshold_calibration": false,
+    "integrity_inspection_only": true
+  },
+  "expected_constants": {
+    "archive_size": 335713,
+    "archive_sha256": "4ae3f46aa98eedff564a9f6924d1635173e2fd2c816004342a9be93076d3a81a",
+    "total_samples": 20560,
+    "eligible": 20551,
+    "warmup": 9,
+    "slope_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+    "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001"
+  },
+  "status": "PASS"
+}

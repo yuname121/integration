@@ -1,0 +1,89 @@
+{
+  "closure_status": "PASS",
+  "entries": [
+    {
+      "byte_size": 14204,
+      "path": "datasets/co2/manifests/c_a6_final_integrity_lock/artifact_lock_manifest.json",
+      "sha256": "b63f5e2da988f8e685cf1a01ec8e79c2c37f5bc77359be647f1147ecfb04e3da"
+    },
+    {
+      "byte_size": 1640,
+      "path": "datasets/co2/manifests/c_b0_offline_experiment_contract/checksums.sha256",
+      "sha256": "de1b4be67c21a276346dd513da84453c346faff7352ed3b9cc41cd85dc5f9bd7"
+    },
+    {
+      "byte_size": 2747,
+      "path": "datasets/co2/manifests/c_b1_slope_method_history_ablation/checksums.sha256",
+      "sha256": "70fa4bec3fc6c735f60535551e266181f4ca8a95cd3e91e4efb8f0d36aa596b8"
+    },
+    {
+      "byte_size": 3368,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/checksums.sha256",
+      "sha256": "5f3e8ff2704120407307d275d0bca1a5a9ccaeaf3d1a47d93bede66eca3538b5"
+    },
+    {
+      "byte_size": 1558,
+      "path": "datasets/co2/manifests/c_b2_imbalance_calibration/preprocessing_scaler_evidence.json",
+      "sha256": "732c8d4b57cd27e097aabab12b2fcfb67ed38392afe638e3f7be3a3eb5ad954a"
+    },
+    {
+      "byte_size": 3252,
+      "path": "datasets/co2/manifests/c_b3_architecture_multiseed/checksums.sha256",
+      "sha256": "0c9dbebf6259d3bd5c4628dfa9bb005308e8210e877b876d203116b7bdde930f"
+    },
+    {
+      "byte_size": 3431,
+      "path": "datasets/co2/manifests/c_b4_float_tflite_int8_equivalence/checksums.sha256",
+      "sha256": "bb63ccce166ffffd47c5833f6cc6c53c94236e77d48a057642ce43fe895be244"
+    },
+    {
+      "byte_size": 1162,
+      "path": "datasets/co2/manifests/c_b5_robustness_final_lock/host_latency_evidence.json",
+      "sha256": "455bf875a69eb820cb534669d6cf8236494bd3b57f1ea48b1259f8762839061a"
+    },
+    {
+      "byte_size": 3358,
+      "path": "datasets/co2/manifests/c_b5_robustness_final_lock/locked_test_evaluation.json",
+      "sha256": "99d7272103441f7551a74f47a38b774926b10347fd7e041a179f915240cc67c5"
+    },
+    {
+      "byte_size": 3151,
+      "path": "datasets/co2/manifests/c_b5_robustness_final_lock/pre_locked_test_candidate_freeze.json",
+      "sha256": "e867a610edd1f8a584b8174faaff7dee01cffe823644be6f4604e38331b5bb41"
+    },
+    {
+      "byte_size": 4738,
+      "path": "datasets/co2/manifests/c_b5_robustness_final_lock/robustness_protocol.json",
+      "sha256": "466bb62b2e09d2082ae9f70d54181aec52ee7b449fae51d962cd246f2c7fdb0b"
+    },
+    {
+      "byte_size": 96701,
+      "path": "datasets/co2/manifests/c_b5_robustness_final_lock/robustness_results.json",
+      "sha256": "dfc43af3a67c15afc23c77f6cd899dbd120d71b7cc8c908387dc287ab5ee9e69"
+    },
+    {
+      "byte_size": 338,
+      "path": "models/co2/candidates/c_b4/class_map.json",
+      "sha256": "e8d9a18cba75092bb2c92212504afadddd2964c9628abfac71c5b0b91db9889a"
+    },
+    {
+      "byte_size": 2076,
+      "path": "models/co2/candidates/c_b4/float_reference_parameters.json",
+      "sha256": "471b85852f661bd787e0bc130ae032bebb69ef0b51cfacb8e87ea04529970fee"
+    },
+    {
+      "byte_size": 1544,
+      "path": "models/co2/candidates/c_b4/full_integer_int8.tflite",
+      "sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816"
+    },
+    {
+      "byte_size": 5675,
+      "path": "models/co2/candidates/c_b5/final_candidate_metadata.json",
+      "sha256": "695c475201be2c09b4661757bce8b5102fd04626de72d4e70fcde17b3abf3376"
+    }
+  ],
+  "entry_count": 16,
+  "manifest_version": "1.0",
+  "phase": "C-B5",
+  "self_referential": false
+}

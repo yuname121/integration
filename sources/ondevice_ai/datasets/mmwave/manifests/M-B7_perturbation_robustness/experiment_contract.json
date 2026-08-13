@@ -1,0 +1,33 @@
+{
+  "architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "claim_limits": [
+    "NOT_REAL_SENSOR_ROBUSTNESS",
+    "NOT_MR60_VALIDATION",
+    "NOT_RASPBERRY_PI_VALIDATION",
+    "NOT_CLINICAL_APNEA_DETECTION"
+  ],
+  "clean_profile_count": 1,
+  "eval_population": "AUTHORITATIVE_PURE_CLASS_VALIDATION_ONLY",
+  "expected_strict_int8_invocations": 4266,
+  "frozen_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "frozen_imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+  "frozen_preprocessing_name": "BPF_ZSCORE",
+  "frozen_preprocessing_profile": "M-B1_D0_B1_Z1",
+  "frozen_training_seeds": [
+    42,
+    43,
+    44
+  ],
+  "global_perturbation_seed": 20260811,
+  "locked_test_performance_access": 0,
+  "locked_test_policy": "ZERO_PERFORMANCE_OR_PREDICTION_ACCESS",
+  "model_conversions": 0,
+  "model_trainings": 0,
+  "perturbation_profile_count": 17,
+  "phase_id": "M-B7",
+  "scientific_scope": "OFFLINE_REAL_DATA_PERTURBATION_ROBUSTNESS",
+  "total_inference_profile_count": 18,
+  "train_pure_class_windows": 327,
+  "validation_pure_class_windows": 79,
+  "validation_subjects": 17
+}

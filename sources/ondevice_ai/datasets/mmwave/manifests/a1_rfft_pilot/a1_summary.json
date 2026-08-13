@@ -1,0 +1,84 @@
+{
+  "a1_gate_status": "PASS_WITH_WARNINGS",
+  "a2_entry_status": "READY_WITH_CONDITIONS",
+  "alignment_mismatch_count": 0,
+  "antenna_axis_verified": true,
+  "arbitrary_object_execution_performed": false,
+  "archive_sha256_after_a1": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_sha256_before_a1": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_unchanged_after_a1": true,
+  "available_timestamp_count_strata": [
+    400,
+    500,
+    600
+  ],
+  "blocker_count": 0,
+  "complex_representation_verified": true,
+  "decode_failure_count": 0,
+  "decode_success_count": 12,
+  "decode_warning_count": 12,
+  "decoder_profile_count": 1,
+  "error_count": 0,
+  "exact_frame_timestamp_alignment_count": 12,
+  "expected_archive_sha256_match": true,
+  "explicit_non_scope_confirmation": {
+    "antenna_performance_selection_or_aggregation": "NOT_PERFORMED",
+    "complex_phase_unwrap": "NOT_PERFORMED",
+    "detrend_bpf_zscore": "NOT_PERFORMED",
+    "full_dataset_conversion": "NOT_PERFORMED",
+    "label_mapping": "NOT_PERFORMED",
+    "resampling": "NOT_PERFORMED",
+    "respiration_phase_extraction": "NOT_PERFORMED",
+    "respiration_spectrum_or_snr_analysis": "NOT_PERFORMED",
+    "subject_splitting": "NOT_PERFORMED",
+    "target_range_bin_selection": "NOT_PERFORMED",
+    "training_evaluation_tflite_quantization": "NOT_PERFORMED",
+    "window_generation": "NOT_PERFORMED"
+  },
+  "frame_axis_verified": true,
+  "info_count": 2,
+  "pilot_recording_count": 12,
+  "pilot_subject_count": 6,
+  "range_bin_axis_verified": true,
+  "remaining_unknowns": [
+    "TX/RX-to-virtual-antenna channel ordering is not verified.",
+    "Configured R_BIN differs from stored rBins spacing; stored coordinates are authoritative for decoded payload structure."
+  ],
+  "schema_version": "1.0",
+  "timestamp_prescan_recording_count": 440,
+  "unique_a0_compatible_chirp_config_hashes": [
+    "bd48b829076ed279"
+  ],
+  "unique_chirp_config_hashes": [
+    "2f35c509b2e6813d9ac801eb5b170f4da2117da7ce5334aaf3b7ed53c84e963f"
+  ],
+  "unique_dtypes": [
+    "complex128"
+  ],
+  "unique_radar_header_signatures": [
+    "78da"
+  ],
+  "unique_shapes": [
+    [
+      400,
+      8,
+      64
+    ],
+    [
+      500,
+      8,
+      64
+    ],
+    [
+      600,
+      8,
+      64
+    ]
+  ],
+  "unsafe_deserialization_required": false,
+  "unsafe_serialization_detected": true,
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "validation_success": true,
+  "warning_count": 4
+}

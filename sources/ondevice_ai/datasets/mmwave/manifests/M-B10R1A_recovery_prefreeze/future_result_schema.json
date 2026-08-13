@@ -1,0 +1,29 @@
+{
+  "acceptance_threshold": "FINAL_LOCKED_TEST_NUMERICAL_ACCEPTANCE_THRESHOLD_NOT_PREDEFINED",
+  "allowed_scientific_wording": "OFFLINE_REAL_DATA_RECOVERY_EVALUATION_WITH_HOLDOUT_REUSE_LIMITATION",
+  "coverage_requirements": {
+    "fail_closed_on_selected_incomplete": true,
+    "metrics_from_valid_rows_only": true,
+    "never_claim_planned_as_evaluated_when_empty": true,
+    "selected_must_have_valid_predictions": 75
+  },
+  "forbidden_scientific_wording": [
+    "PRISTINE_REAL_SUBJECT_FINAL_TEST",
+    "PRISTINE_ONE_TIME_LOCKED_TEST",
+    "PRISTINE_LOCKED_TEST",
+    "FIRST_LOCKED_TEST_EVALUATION",
+    "LOCKED_TEST_NOT_CONSUMED",
+    "NO_INFORMATION_EXPOSURE",
+    "ORIGINAL_ACCESS_UNUSED"
+  ],
+  "metrics_populated": false,
+  "note": "NOT_POPULATED \u2014 no recovery metrics or predictions during M-B10R1-A",
+  "original_model_inferences": 0,
+  "original_pristine_final_access_consumed": true,
+  "predictions_populated": false,
+  "required_result_designation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "reuse_exception_reviewed": true,
+  "schema_version": "M-B10R1_FUTURE_RESULT_SCHEMA_V1",
+  "status": "NOT_POPULATED"
+}

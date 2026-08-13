@@ -1,0 +1,18 @@
+{
+  "acceptance_threshold": "FINAL_LOCKED_TEST_NUMERICAL_ACCEPTANCE_THRESHOLD_NOT_PREDEFINED",
+  "actual_total_tflite_invocations": 225,
+  "candidate_unchanged": true,
+  "historical_total_payload_release_events": 2,
+  "ledger_row_count": 225,
+  "no_recalibration": true,
+  "no_retraining": true,
+  "no_tuning": true,
+  "phase_id": "M-B10R1-B",
+  "recovery_payload_release_events": 1,
+  "rerun_performed": false,
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "selected_valid_count": 75,
+  "status": "RECOVERY_EXECUTED",
+  "stores_raw_phase_tensors": false
+}

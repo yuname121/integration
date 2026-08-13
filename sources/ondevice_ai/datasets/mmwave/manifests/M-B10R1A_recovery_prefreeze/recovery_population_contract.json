@@ -1,0 +1,15 @@
+{
+  "eligibility_provenance": "PREEXISTING_A6_METADATA_VERIFIED",
+  "eligibility_rule": "split == LOCKED_TEST AND assignment_status != AMBIGUOUS; equivalent to locked_test_evaluation_eligible == true via PhaseBAccessGuard._get_split_dataset(include_ambiguous=False)",
+  "excluded_ambiguous_windows": 13,
+  "expected_model_inference_count": 225,
+  "include_ambiguous": false,
+  "not_first_n_rows": true,
+  "phase_id": "M-B10R1-A",
+  "positional_truncation": false,
+  "schema_version": "M-B10R1A_RECOVERY_POPULATION_CONTRACT_V1",
+  "structural_windows": 88,
+  "subject_count_policy": "PREEXISTING_A6_METADATA_VERIFIED",
+  "subjects": 16,
+  "supervised_eligible_windows": 75
+}

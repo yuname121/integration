@@ -1,0 +1,14 @@
+{
+  "a6_summary": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json",
+  "canonical_npy_bytes": 1272128,
+  "canonical_npy_repo_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+  "canonical_npy_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+  "dtype": "float64",
+  "regenerated_during_m_b11": false,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "shape": [
+    530,
+    300
+  ],
+  "source_archive_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0"
+}

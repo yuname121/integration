@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-07T08:50:06.265866+00:00",
+  "anomalies": [
+    {
+      "anomaly_id": "A0-ANOM-0001",
+      "severity": "INFO",
+      "category": "REPOSITORY_STATE",
+      "dataset_id": "dataset-10_5281_zenodo_18599983",
+      "archive_id": "archive-sha256-f0bcfdac94f88b43",
+      "affected_files": [],
+      "observed_evidence": "Pre-existing modified and untracked files exist in the repository worktree prior to Phase A0 execution.",
+      "impact": "Requires careful tracking to ensure Phase A0 changes are isolated.",
+      "recommended_next_action": "Preserve pre-existing worktree state and track Phase A0 files separately.",
+      "blocks_a1": false,
+      "status": "OPEN"
+    },
+    {
+      "anomaly_id": "A0-ANOM-0002",
+      "severity": "INFO",
+      "category": "VERSION_CONTEXT",
+      "dataset_id": "dataset-10_5281_zenodo_18599983",
+      "archive_id": "archive-sha256-f0bcfdac94f88b43",
+      "affected_files": [
+        "SafeNest_V4_OnDevice_AI/",
+        "SafeNest_V5_OnDevice_AI/"
+      ],
+      "observed_evidence": "Repository contains legacy SafeNest V4 and SafeNest V5 directories alongside top-level datasets/.",
+      "impact": "Historical manifest files exist in V4/V5 subdirectories.",
+      "recommended_next_action": "Maintain V5 as read-only reference and use top-level datasets/ for raw archive manifests.",
+      "blocks_a1": false,
+      "status": "OPEN"
+    },
+    {
+      "anomaly_id": "A0-ANOM-0003",
+      "severity": "WARNING",
+      "category": "REMOTE_VERIFICATION",
+      "dataset_id": "dataset-10_5281_zenodo_18599983",
+      "archive_id": "archive-sha256-f0bcfdac94f88b43",
+      "affected_files": [
+        "ParticipantsInfo.xlsx",
+        "ExampleCode.ipynb",
+        "helper_fns.py"
+      ],
+      "observed_evidence": "Zenodo record 18599983 includes 3 companion files (ParticipantsInfo.xlsx, ExampleCode.ipynb, helper_fns.py) that are not present in the local workspace clone.",
+      "impact": "Demographic participant metadata (age, sex, height, weight) is currently missing locally.",
+      "recommended_next_action": "Acquire ParticipantsInfo.xlsx from Zenodo for demographic metadata linkage if required in future phases.",
+      "blocks_a1": false,
+      "status": "OPEN"
+    },
+    {
+      "anomaly_id": "A0-ANOM-0004",
+      "severity": "INFO",
+      "category": "CHECKSUM",
+      "dataset_id": "dataset-10_5281_zenodo_18599983",
+      "archive_id": "archive-sha256-f0bcfdac94f88b43",
+      "affected_files": [
+        "datasets/raw_archives/external_datasets/db_records.zip"
+      ],
+      "observed_evidence": "The observed hash (370de95033f1a98b78e57dbbea92a8bc), size (246597320), and archive structure differences are consistent with local repackaging, but member-level identity with the official Zenodo archive has not been verified.",
+      "impact": "Container hash mismatch; content_match_confirmed set to false.",
+      "recommended_next_action": "Record LIKELY_REPACKAGED_NOT_FULLY_VERIFIED status.",
+      "blocks_a1": false,
+      "status": "OPEN"
+    },
+    {
+      "anomaly_id": "A0-ANOM-0005",
+      "severity": "INFO",
+      "category": "ZIP_PATH",
+      "dataset_id": "dataset-10_5281_zenodo_18599983",
+      "archive_id": "archive-sha256-f0bcfdac94f88b43",
+      "affected_files": [
+        "__MACOSX/"
+      ],
+      "observed_evidence": "Archive contains 3191 __MACOSX/ resource fork metadata files created during macOS re-archiving.",
+      "impact": "Filter out __MACOSX entries during dataset reading.",
+      "recommended_next_action": "Phase A1 reader must explicitly ignore __MACOSX/ paths.",
+      "blocks_a1": false,
+      "status": "OPEN"
+    },
+    {
+      "anomaly_id": "A0-ANOM-0006",
+      "severity": "INFO",
+      "category": "SCHEMA",
+      "dataset_id": "dataset-10_5281_zenodo_18599983",
+      "archive_id": "archive-sha256-f0bcfdac94f88b43",
+      "affected_files": [
+        "db_records/P075/Sitting/Rest/radar_timestamps.csv",
+        "db_records/P007/Sitting/Post-exercise/radar_timestamps.csv"
+      ],
+      "observed_evidence": "Recordings ['db_records/P075/Sitting/Rest/radar_timestamps.csv', 'db_records/P007/Sitting/Post-exercise/radar_timestamps.csv'] have 400 timestamp lines (40s duration) rather than 500 (50s) or 600 (60s).",
+      "impact": "Phase A1 window generator must handle 40s recordings.",
+      "recommended_next_action": "Verify 40s recording windowing compatibility during Phase A1.",
+      "blocks_a1": false,
+      "status": "OPEN"
+    }
+  ]
+}

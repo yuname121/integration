@@ -1,0 +1,197 @@
+{
+  "phase_id": "M-B5",
+  "cross_seed_calibration_results": [
+    {
+      "profile_id": "M-B5_CAL_TRAIN_ORDER_120",
+      "eligible": true,
+      "conversion_success_count": 3,
+      "strict_int8_eligible": true,
+      "new_class_collapse_count": 0,
+      "worst_positive_macro_f1_degradation": 0.00977,
+      "worst_positive_recall_degradation": 0.081082,
+      "min_top1_agreement": 0.936709,
+      "max_dequantized_output_mae": 0.008551,
+      "max_input_saturation_ratio": 0.0,
+      "max_output_endpoint_ratio": 0.0,
+      "macro_f1_degradation": {
+        "mean": 0.003257,
+        "median": 0.0,
+        "std": 0.004606,
+        "min": 0.0,
+        "max": 0.00977,
+        "per_seed": {
+          "42": 0.0,
+          "43": 0.00977,
+          "44": 0.0
+        }
+      },
+      "top1_agreement": {
+        "mean": 0.974684,
+        "min": 0.936709,
+        "per_seed": {
+          "42": 0.987342,
+          "43": 0.936709,
+          "44": 1.0
+        }
+      },
+      "output_mae": {
+        "mean": 0.005346,
+        "max": 0.008551,
+        "per_seed": {
+          "42": 0.006451,
+          "43": 0.001036,
+          "44": 0.008551
+        }
+      },
+      "tflite_bytes": {
+        "mean": 22117,
+        "min": 22080,
+        "max": 22136
+      }
+    },
+    {
+      "profile_id": "M-B5_CAL_RANDOM_PROPORTIONAL_120",
+      "eligible": true,
+      "conversion_success_count": 3,
+      "strict_int8_eligible": true,
+      "new_class_collapse_count": 0,
+      "worst_positive_macro_f1_degradation": 0.016925,
+      "worst_positive_recall_degradation": 0.054054,
+      "min_top1_agreement": 0.962025,
+      "max_dequantized_output_mae": 0.008554,
+      "max_input_saturation_ratio": 0.0,
+      "max_output_endpoint_ratio": 0.0,
+      "macro_f1_degradation": {
+        "mean": 0.005642,
+        "median": 0.0,
+        "std": 0.007979,
+        "min": 0.0,
+        "max": 0.016925,
+        "per_seed": {
+          "42": 0.0,
+          "43": 0.016925,
+          "44": 0.0
+        }
+      },
+      "top1_agreement": {
+        "mean": 0.978903,
+        "min": 0.962025,
+        "per_seed": {
+          "42": 0.987342,
+          "43": 0.962025,
+          "44": 0.987342
+        }
+      },
+      "output_mae": {
+        "mean": 0.00526,
+        "max": 0.008554,
+        "per_seed": {
+          "42": 0.0062,
+          "43": 0.001026,
+          "44": 0.008554
+        }
+      },
+      "tflite_bytes": {
+        "mean": 22117,
+        "min": 22080,
+        "max": 22136
+      }
+    },
+    {
+      "profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+      "eligible": true,
+      "conversion_success_count": 3,
+      "strict_int8_eligible": true,
+      "new_class_collapse_count": 0,
+      "worst_positive_macro_f1_degradation": 0.00977,
+      "worst_positive_recall_degradation": 0.081082,
+      "min_top1_agreement": 0.936709,
+      "max_dequantized_output_mae": 0.008439,
+      "max_input_saturation_ratio": 0.0,
+      "max_output_endpoint_ratio": 0.0,
+      "macro_f1_degradation": {
+        "mean": 0.003257,
+        "median": 0.0,
+        "std": 0.004606,
+        "min": 0.0,
+        "max": 0.00977,
+        "per_seed": {
+          "42": 0.0,
+          "43": 0.00977,
+          "44": 0.0
+        }
+      },
+      "top1_agreement": {
+        "mean": 0.974684,
+        "min": 0.936709,
+        "per_seed": {
+          "42": 0.987342,
+          "43": 0.936709,
+          "44": 1.0
+        }
+      },
+      "output_mae": {
+        "mean": 0.005263,
+        "max": 0.008439,
+        "per_seed": {
+          "42": 0.006319,
+          "43": 0.00103,
+          "44": 0.008439
+        }
+      },
+      "tflite_bytes": {
+        "mean": 22117,
+        "min": 22080,
+        "max": 22136
+      }
+    },
+    {
+      "profile_id": "M-B5_CAL_DISTRIBUTION_AWARE_120",
+      "eligible": true,
+      "conversion_success_count": 3,
+      "strict_int8_eligible": true,
+      "new_class_collapse_count": 0,
+      "worst_positive_macro_f1_degradation": 0.00977,
+      "worst_positive_recall_degradation": 0.081082,
+      "min_top1_agreement": 0.936709,
+      "max_dequantized_output_mae": 0.009179,
+      "max_input_saturation_ratio": 0.0,
+      "max_output_endpoint_ratio": 0.0,
+      "macro_f1_degradation": {
+        "mean": 0.003257,
+        "median": 0.0,
+        "std": 0.004606,
+        "min": 0.0,
+        "max": 0.00977,
+        "per_seed": {
+          "42": 0.0,
+          "43": 0.00977,
+          "44": 0.0
+        }
+      },
+      "top1_agreement": {
+        "mean": 0.974684,
+        "min": 0.936709,
+        "per_seed": {
+          "42": 0.987342,
+          "43": 0.936709,
+          "44": 1.0
+        }
+      },
+      "output_mae": {
+        "mean": 0.005513,
+        "max": 0.009179,
+        "per_seed": {
+          "42": 0.006324,
+          "43": 0.001036,
+          "44": 0.009179
+        }
+      },
+      "tflite_bytes": {
+        "mean": 22117,
+        "min": 22080,
+        "max": 22136
+      }
+    }
+  ]
+}

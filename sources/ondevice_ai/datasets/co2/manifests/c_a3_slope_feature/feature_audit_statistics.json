@@ -1,0 +1,49 @@
+{
+  "manifest_version": "1.0",
+  "feature_contract_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "statistics_role": "DESCRIPTIVE_FEATURE_AUDIT_ONLY",
+  "not_model_performance": true,
+  "by_role": {
+    "TRAIN": {
+      "future_split_role": "TRAIN",
+      "source_row_count": 8143,
+      "eligible_slope_count": 8140,
+      "warmup_unavailable_count": 3,
+      "unavailable_count": 3,
+      "finite_count": 8140,
+      "nonfinite_count": 0,
+      "minimum": -184.83333333333334,
+      "maximum": 250.16666666666666,
+      "mean": 0.011527303414630624,
+      "median": -0.05555555555567556,
+      "standard_deviation": 5.661675596121919,
+      "value_statistics_included": true
+    },
+    "VALIDATION": {
+      "future_split_role": "VALIDATION",
+      "source_row_count": 2665,
+      "eligible_slope_count": 2662,
+      "warmup_unavailable_count": 3,
+      "unavailable_count": 3,
+      "finite_count": 2662,
+      "nonfinite_count": 0,
+      "minimum": -41.333333333333336,
+      "maximum": 16.166666666666668,
+      "mean": 0.13678180661315686,
+      "median": -0.08333333333333333,
+      "standard_deviation": 3.6798346716815464,
+      "value_statistics_included": true
+    },
+    "LOCKED_TEST": {
+      "future_split_role": "LOCKED_TEST",
+      "source_row_count": 9752,
+      "eligible_slope_count": 9749,
+      "warmup_unavailable_count": 3,
+      "unavailable_count": 3,
+      "finite_count": 9749,
+      "nonfinite_count": 0,
+      "value_statistics_included": false,
+      "value_statistics_omission_reason": "LOCKED_TEST descriptive value inspection deferred from feature-definition feedback"
+    }
+  }
+}

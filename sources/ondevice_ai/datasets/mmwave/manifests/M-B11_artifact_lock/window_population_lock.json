@@ -1,0 +1,29 @@
+{
+  "a6_manifest_repo_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+  "a6_manifest_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+  "ambiguous_excluded_from_pure_class_training": true,
+  "class_totals": {
+    "AMBIGUOUS": 49,
+    "APNEA": 213,
+    "NORMAL": 149,
+    "RAPID_OR_ABNORMAL": 119
+  },
+  "locked_test": {
+    "eligible_subjects": 16,
+    "excluded_ambiguous_or_non_eligible": 13,
+    "structural": 88,
+    "supervised_eligible": 75
+  },
+  "pure_supervised_eligible": {
+    "LOCKED_TEST": 75,
+    "TRAIN": 327,
+    "VALIDATION": 79
+  },
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "structural": {
+    "LOCKED_TEST": 88,
+    "TRAIN": 358,
+    "VALIDATION": 84
+  },
+  "total_canonical_windows": 530
+}

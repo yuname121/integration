@@ -1,0 +1,47 @@
+{
+  "manifest_version": "1.0",
+  "contract_name": "SafeNest CO2 Grouping and Future Split Policy Contract",
+  "strongest_defensible_grouping_unit": "TEMPORAL_ACQUISITION_BLOCK",
+  "group_independence_status": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+  "group_independence_explanation": "All 3 temporal blocks originate from a single office room over continuous time windows. Cross-room/cross-building generalization cannot be claimed.",
+  "random_row_wise_split_policy": {
+    "allowed": false,
+    "reason": "Adjacent time-series samples are highly autocorrelated. Random row-wise shuffling causes severe data leakage between evaluation roles."
+  },
+  "future_split_assignments": {
+    "TRAIN": {
+      "assigned_block_id": "BLOCK_02_DATATRAINING",
+      "source_member_name": "datatraining.txt",
+      "row_count": 8143,
+      "percentage": 39.61,
+      "occupancy_distribution": {
+        "occ_0": 6414,
+        "occ_1": 1729
+      }
+    },
+    "VALIDATION": {
+      "assigned_block_id": "BLOCK_01_DATATEST",
+      "source_member_name": "datatest.txt",
+      "row_count": 2665,
+      "percentage": 12.96,
+      "occupancy_distribution": {
+        "occ_0": 1693,
+        "occ_1": 972
+      }
+    },
+    "LOCKED_TEST": {
+      "assigned_block_id": "BLOCK_03_DATATEST2",
+      "source_member_name": "datatest2.txt",
+      "row_count": 9752,
+      "percentage": 47.43,
+      "occupancy_distribution": {
+        "occ_0": 7703,
+        "occ_1": 2049
+      }
+    }
+  },
+  "scaler_fit_scope_rule": "MUST_FIT_ON_TRAIN_ONLY",
+  "feature_history_cross_block_rule": "DERIVED_TEMPORAL_FEATURES_MUST_NOT_CROSS_BLOCK_BOUNDARIES",
+  "feature_history_rule_explanation": "Derived temporal features such as CO2_slope in Phase C-A3 must never compute historical window differences across temporal block gaps or separate acquisition files.",
+  "safe_3way_split_status": "PASS_WITH_WARNINGS"
+}

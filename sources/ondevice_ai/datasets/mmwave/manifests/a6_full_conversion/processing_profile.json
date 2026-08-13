@@ -1,0 +1,19 @@
+{
+  "profile_id": "MMWAVE_FULL_CONVERSION_PROFILE_001",
+  "a1_decoder_profile": "RFFT_DECODER_PROFILE_001",
+  "a2_extraction_profile": "MMWAVE_PHASE_EXTRACTION_PROFILE_001",
+  "a3_timeline_profile": "MMWAVE_TIMELINE_PROFILE_001",
+  "a4_label_profile": "MMWAVE_LABEL_MAPPING_PROFILE_001",
+  "a5_split_profile": "MMWAVE_SUBJECT_SPLIT_PROFILE_001",
+  "split_source": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+  "split_recomputed": false,
+  "timestamp_reference": "COMMON_ACQUISITION_COMPUTER_CLOCK",
+  "source_timezone": "UNVERIFIED",
+  "utc_conversion_claimed": false,
+  "canonical_signal": "UNFILTERED_UNNORMALIZED_PHASE",
+  "search_region": {
+    "region_id": "MMWAVE_SEARCH_REGION_001",
+    "minimum_range_m": 0.3,
+    "maximum_range_m": 1.91
+  }
+}

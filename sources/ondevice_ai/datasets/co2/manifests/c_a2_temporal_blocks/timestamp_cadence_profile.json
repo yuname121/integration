@@ -1,0 +1,71 @@
+{
+  "manifest_version": "1.0",
+  "profile_id": "C-A2_TIMESTAMP_CADENCE_PROFILE_001",
+  "timestamp_semantics": {
+    "timestamp_reference": "SOURCE_ACQUISITION_CLOCK",
+    "source_timezone": "UNVERIFIED",
+    "utc_conversion_claimed": false,
+    "raw_format": "YYYY-MM-DD HH:MM:SS",
+    "canonical_format": "YYYY-MM-DDTHH:MM:SS"
+  },
+  "sampling_cadence": {
+    "official_sampling_interval": "60 seconds (1 minute)",
+    "observed_dominant_interval_seconds": 60.0,
+    "observed_delta_range_seconds": [
+      59.0,
+      61.0
+    ],
+    "average_delta_seconds": 60.0,
+    "quantization_jitter_explanation": "Timestamps are rounded to whole seconds, causing alternating 59s, 60s, and 61s adjacent deltas while preserving exact 60.0s average cadence."
+  },
+  "per_member_timeline": {
+    "datatest.txt": {
+      "row_count": 2665,
+      "first_timestamp_raw": "2015-02-02 14:19:00",
+      "last_timestamp_raw": "2015-02-04 10:43:00",
+      "first_timestamp_canonical": "2015-02-02T14:19:00",
+      "last_timestamp_canonical": "2015-02-04T10:43:00",
+      "duration_seconds": 159840.0,
+      "duration_hours": 44.4,
+      "delta_distribution": {
+        "59.0": 534,
+        "61.0": 534,
+        "60.0": 1596
+      },
+      "reversals": 0,
+      "duplicates": 0
+    },
+    "datatraining.txt": {
+      "row_count": 8143,
+      "first_timestamp_raw": "2015-02-04 17:51:00",
+      "last_timestamp_raw": "2015-02-10 09:33:00",
+      "first_timestamp_canonical": "2015-02-04T17:51:00",
+      "last_timestamp_canonical": "2015-02-10T09:33:00",
+      "duration_seconds": 488520.0,
+      "duration_hours": 135.7,
+      "delta_distribution": {
+        "59.0": 1629,
+        "61.0": 1629,
+        "60.0": 4884
+      },
+      "reversals": 0,
+      "duplicates": 0
+    },
+    "datatest2.txt": {
+      "row_count": 9752,
+      "first_timestamp_raw": "2015-02-11 14:48:00",
+      "last_timestamp_raw": "2015-02-18 09:19:00",
+      "first_timestamp_canonical": "2015-02-11T14:48:00",
+      "last_timestamp_canonical": "2015-02-18T09:19:00",
+      "duration_seconds": 585060.0,
+      "duration_hours": 162.52,
+      "delta_distribution": {
+        "60.0": 5849,
+        "59.0": 1951,
+        "61.0": 1951
+      },
+      "reversals": 0,
+      "duplicates": 0
+    }
+  }
+}

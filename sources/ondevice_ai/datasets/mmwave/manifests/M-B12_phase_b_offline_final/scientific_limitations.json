@@ -1,0 +1,53 @@
+{
+  "locked_limitations_not_immediate_b_series_retuning_defects": true,
+  "preprocessing": {
+    "execution_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+    "profile_id": "M-B1_D0_B1_Z1",
+    "zscore_mean": 0.0031162832173884064,
+    "zscore_std": 2.955399434649939,
+    "zscore_train_only": true
+  },
+  "runtime": {
+    "input_contract": {
+      "dtype": "int8",
+      "scale": 0.041720833629369736,
+      "semantic": "resp_phase_model_ready_bpf_zscore",
+      "shape": [
+        1,
+        300,
+        1
+      ],
+      "zero_point": -3
+    },
+    "output_contract": {
+      "dtype": "int8",
+      "scale": 0.00390625,
+      "shape": [
+        1,
+        3
+      ],
+      "zero_point": -128
+    },
+    "strict_int8": true
+  },
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1",
+  "selected_seed42": {
+    "beats_both_frozen_historical_baselines_on_final_macro_f1": true,
+    "does_not_collapse_all_required_classes": true,
+    "high_apnea_false_positive_rate": 0.522727,
+    "initialization_sensitivity_from_m_b4": true,
+    "moderate_rapid_recall": 0.421053,
+    "seed42_val_macro_f1": 0.663708,
+    "seed44_val_macro_f1": 0.329107,
+    "strong_apnea_proxy_recall": 0.935484,
+    "weak_normal_recall": 0.2,
+    "weak_worst_subject_generalization": 0.095238
+  },
+  "source_m_b11": "datasets/mmwave/manifests/M-B11_artifact_lock/scientific_limitations.json",
+  "training": {
+    "loss": "sparse_categorical_crossentropy",
+    "loss_weighting": "UNWEIGHTED",
+    "strategy_id": "M-B2_CE_UNWEIGHTED",
+    "training_seed": 42
+  }
+}

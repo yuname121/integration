@@ -1,0 +1,16 @@
+{
+  "phase_id": "M-B6",
+  "gate_status": "PASS_WITH_WARNINGS",
+  "m_b7_entry_status": "READY_WITH_CONDITIONS",
+  "frozen_primary_architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "frozen_selected_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "frozen_weight_seeds": [
+    42,
+    43,
+    44
+  ],
+  "new_conversion_induced_class_collapses": 0,
+  "locked_test_access_attempts": 0,
+  "cross_seed_a_to_c_worst_macro_f1_degradation": 0.00977,
+  "cross_seed_a_to_c_min_top1_agreement": 0.936709
+}

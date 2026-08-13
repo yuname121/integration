@@ -1,0 +1,12 @@
+{
+  "artifact_count": 16,
+  "candidate_metadata_path": "models/co2/candidates/c_b5/final_candidate_metadata.json",
+  "candidate_model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+  "final_lock_profile_id": "CO2_B5_FINAL_OFFLINE_CANDIDATE_LOCK_001",
+  "final_lock_sha256": "a020d462e0d359e0c9faa9bb680387119f095cb102243d7e6c223d76a801b627",
+  "locked_test_evaluation_count": 1,
+  "manifest_version": "1.0",
+  "phase": "C-B5",
+  "raw_payload_included": false,
+  "self_reference": false
+}

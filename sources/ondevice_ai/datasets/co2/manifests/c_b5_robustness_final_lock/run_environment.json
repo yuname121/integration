@@ -1,0 +1,10 @@
+{
+  "locked_test_evaluation_count": 1,
+  "machine": "arm64",
+  "manifest_version": "1.0",
+  "model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+  "phase": "C-B5",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "scaler_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89"
+}

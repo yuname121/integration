@@ -1,0 +1,21 @@
+{
+  "zip_openable": true,
+  "member_count": 6382,
+  "file_count": 5611,
+  "directory_count": 771,
+  "total_compressed_bytes": 245021754,
+  "total_uncompressed_bytes": 463622373,
+  "zero_length_file_count": 0,
+  "duplicate_exact_path_count": 0,
+  "duplicate_casefold_path_count": 0,
+  "absolute_path_count": 0,
+  "path_traversal_risk_count": 0,
+  "encrypted_member_count": 0,
+  "nested_archive_count": 0,
+  "crc_failure_count": 0,
+  "unsupported_compression_count": 0,
+  "macosx_resource_fork_count": 3191,
+  "max_member_size_bytes": 627519,
+  "max_path_depth": 6,
+  "zip_integrity_status": "PASS"
+}

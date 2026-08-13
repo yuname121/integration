@@ -1,0 +1,16 @@
+{
+  "findings": [
+    {
+      "classification": "REQUIRED REFINEMENT",
+      "code": "M-B9_RUNTIME_PREPROCESSING_MISMATCH",
+      "detail": "Legacy interpreter omitted BPF; explicit phase-local manifest path now applies authoritative M-B1 BPF_ZSCORE without changing scientific artifacts.",
+      "status": "RESOLVED_LOCALLY"
+    },
+    {
+      "classification": "NON-BLOCKING IMPROVEMENT",
+      "code": "M-B9_MOCK_SCOPE_ONLY",
+      "detail": "No MR60, Pi, production, clinical, or formal latency claim."
+    }
+  ],
+  "phase_id": "M-B9"
+}

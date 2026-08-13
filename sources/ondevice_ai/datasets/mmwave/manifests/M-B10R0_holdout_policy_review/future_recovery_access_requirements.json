@@ -1,0 +1,19 @@
+{
+  "future_recovery_accessor_invocations": 0,
+  "historical_total_payload_release_events": 1,
+  "implementation_status": "POLICY_ONLY_NOT_IMPLEMENTED",
+  "modify_mmwave_phase_b_access": false,
+  "original_final_accessor_invocations": 1,
+  "phase_id": "M-B10R0",
+  "requirements": [
+    "Separate explicit recovery authorization distinct from original final-access token",
+    "One additional recovery transaction at most",
+    "Cannot reset historical original_final_accessor_invocations=1",
+    "Recovery accessor invocations tracked independently starting at zero",
+    "Must return exactly existing pure-class eligible population (75 windows, include_ambiguous=false)",
+    "Must not expose AMBIGUOUS rows for supervised scoring",
+    "Must record original access history and recovery history separately",
+    "Must fail on changed candidate, model SHA, preprocessing, calibration, or metric contract"
+  ],
+  "schema_version": "M-B10R0_FUTURE_ACCESS_REQUIREMENTS_V1"
+}

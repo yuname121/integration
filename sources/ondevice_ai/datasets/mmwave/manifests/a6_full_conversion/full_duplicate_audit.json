@@ -1,0 +1,12 @@
+{
+  "total_unique_signal_hashes": 530,
+  "exact_duplicate_hash_groups": 0,
+  "same_subject_duplicate_count": 0,
+  "cross_subject_duplicate_count": 0,
+  "cross_split_exact_signal_overlap": 0,
+  "cross_split_subject_overlap": 0,
+  "cross_split_recording_overlap": 0,
+  "cross_split_window_id_overlap": 0,
+  "near_duplicate_diagnostic": "NOT_PERFORMED",
+  "duplicate_groups_detail": []
+}

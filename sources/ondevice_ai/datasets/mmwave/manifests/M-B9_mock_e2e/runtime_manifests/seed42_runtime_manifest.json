@@ -1,0 +1,117 @@
+{
+  "phase_id": "M-B9",
+  "preprocessing": {
+    "bpf": true,
+    "bpf_highcut_hz": 0.5,
+    "bpf_lowcut_hz": 0.1,
+    "bpf_order": 4,
+    "bpf_phase_mode": "ZERO_PHASE_FILTFILT",
+    "detrend": false,
+    "input_source_split": "VALIDATION",
+    "input_window_samples": 300,
+    "input_window_seconds": 30.0,
+    "profile_id": "M-B1_D0_B1_Z1",
+    "profile_name": "BPF_ZSCORE",
+    "sample_rate_hz": 10.0,
+    "zscore": true,
+    "zscore_fit_split": "TRAIN",
+    "zscore_mean": 0.0031162832173884064,
+    "zscore_std": 2.955399434649939
+  },
+  "provenance": {
+    "m_b1_selected_preprocessing_sha256": "583befc9a85d0cd48624a107ab741889f106fcbd3ca39a93f6a3ff5d0db95ed9",
+    "m_b1_train_fit_statistics_sha256": "ca7b4cd743ac2d799f9d83d0b4f428c934bf1e76a5285eecae1e6273077060a5",
+    "m_b5_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+    "m_b5_selected_calibration_sha256": "859ef60bacfe965cc57413304018033ef4bb3a715a4fec9d83316a1e5d90d5f5",
+    "m_b6_stage": "Stage C (Strict INT8 TFLite)",
+    "m_b6_stage_artifact_manifest_sha256": "3f3a4b169c3a62a0edbbb640c5be6be7a3c6afb869fd63db1ceece5fc6572731"
+  },
+  "runtime_model": {
+    "architecture": "M-B3_CONV1D_GAP_BASELINE",
+    "bytes": 22080,
+    "class_map": {
+      "0": "NORMAL",
+      "1": "RAPID_OR_ABNORMAL",
+      "2": "APNEA"
+    },
+    "expected_bytes": 22080,
+    "expected_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+    "input": {
+      "dtype": "int8",
+      "sample_rate_hz": 10,
+      "scale": 0.041720833629369736,
+      "semantic": "resp_phase_model_ready_bpf_zscore",
+      "shape": [
+        1,
+        300,
+        1
+      ],
+      "window_seconds": 30.0,
+      "zero_point": -3
+    },
+    "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+    "op_inventory": {
+      "flex_select_absent": true,
+      "input_dtype": "int8",
+      "input_scale": 0.041720833629369736,
+      "input_shape": [
+        1,
+        300,
+        1
+      ],
+      "input_zero_point": -3,
+      "op_types": [
+        "EXPAND_DIMS",
+        "CONV_2D",
+        "MUL",
+        "ADD",
+        "RESHAPE",
+        "EXPAND_DIMS",
+        "MAX_POOL_2D",
+        "RESHAPE",
+        "EXPAND_DIMS",
+        "CONV_2D",
+        "MUL",
+        "ADD",
+        "RESHAPE",
+        "EXPAND_DIMS",
+        "MAX_POOL_2D",
+        "RESHAPE",
+        "EXPAND_DIMS",
+        "CONV_2D",
+        "RESHAPE",
+        "MEAN",
+        "FULLY_CONNECTED",
+        "SOFTMAX",
+        "DELEGATE",
+        "DELEGATE",
+        "DELEGATE",
+        "DELEGATE",
+        "DELEGATE"
+      ],
+      "output_dtype": "int8",
+      "output_scale": 0.00390625,
+      "output_shape": [
+        1,
+        3
+      ],
+      "output_zero_point": -128,
+      "select_tf_ops_count": 0
+    },
+    "output": {
+      "dtype": "int8",
+      "scale": 0.00390625,
+      "semantic": "softmax_probabilities",
+      "shape": [
+        1,
+        3
+      ],
+      "zero_point": -128
+    },
+    "path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+    "seed": 42,
+    "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+    "version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120"
+  },
+  "schema_version": "M-B9_RUNTIME_MANIFEST_V1"
+}

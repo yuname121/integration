@@ -1,0 +1,19 @@
+{
+  "phase_id": "M-B3",
+  "seed": 42,
+  "shortlisted_rerun_audit": {
+    "M-B3_CONV1D_GAP_BASELINE": {
+      "initial_weights_match": true,
+      "final_weights_match": true,
+      "predictions_match": true,
+      "reproducible": true
+    },
+    "M-B3_SEPARABLECONV1D_GAP": {
+      "initial_weights_match": true,
+      "final_weights_match": true,
+      "predictions_match": true,
+      "reproducible": true
+    }
+  },
+  "overall_determinism_verified": true
+}

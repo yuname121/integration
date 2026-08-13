@@ -1,0 +1,28 @@
+{
+  "conversion_byte_determinism": "PASS",
+  "data_pipeline_determinism": "PASS",
+  "float_reference_reproducibility": "PASS",
+  "inference_reproducibility": "PASS",
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "quantization_parameters": {
+    "quantized_dimension": 0,
+    "scale": 0.03529411926865578,
+    "scales": [
+      0.03529411926865578
+    ],
+    "zero_point": 0,
+    "zero_points": [
+      0
+    ]
+  },
+  "repeat_execution_requested": true,
+  "repeat_report": {
+    "float_inference_semantic_reproducibility": true,
+    "float_tflite_bytes_identical": true,
+    "int8_inference_semantic_reproducibility": true,
+    "int8_tflite_bytes_identical": true,
+    "requested": true
+  },
+  "representative_dataset_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab"
+}

@@ -1,0 +1,20 @@
+{
+  "project": "SafeNest",
+  "sensor_type": "mmWave 60GHz FMCW",
+  "feature": "resp_phase",
+  "sample_rate_hz": 10.0,
+  "window_samples": 300,
+  "window_seconds": 30.0,
+  "mean": 0.006091983988881111,
+  "std": 2.5013835430145264,
+  "source_file": "sensor_stats_metadata.json",
+  "source_file_sha256": "2b9133243119bbd9f420d2f534f94ad0f13855b962c3cf68b3ffd433ede2c00e",
+  "imported_at": "2026-07-25T18:54:00+09:00",
+  "original_stat_shape": [1],
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "input_semantic": "resp_phase_unwrapped_clutter_removed"
+}

@@ -1,0 +1,36 @@
+{
+  "all_required_scenarios_present": {
+    "A_NORMAL": true,
+    "B_RAPID_OR_ABNORMAL": true,
+    "C_APNEA": true,
+    "D_INSUFFICIENT_HISTORY": true,
+    "E_INVALID_SHAPE": true,
+    "F_NAN": true,
+    "G_INF": true,
+    "H_STALE": true,
+    "I_PROVIDER_SENSOR_FAULT": true,
+    "J_READ_EXCEPTION": true,
+    "K_TIMEOUT": true,
+    "L_MISSING_MODEL": true,
+    "M_SHA_MISMATCH": true,
+    "N_VALID_EXPLICIT_FINALIST": true,
+    "O_NOT_CONNECTED_PROVIDER": true
+  },
+  "formal_m_b8_latency_measurement_rerun_during_m_b9": false,
+  "frozen_seeds": [
+    42,
+    43,
+    44
+  ],
+  "gate_status": "PASS_WITH_WARNINGS",
+  "json_audit_exact": true,
+  "locked_test_accesses": 0,
+  "m_b8_prior_formal_latency_benchmark_completed": true,
+  "model_selection_performed": false,
+  "next_phase": "M-B10_REVIEW_ONLY_NO_AUTOMATIC_START",
+  "phase_id": "M-B9",
+  "report_path": "docs/reports/20260812_Codex_M-B9_Mock_E2E_Runtime_01.md",
+  "risk_recomputation_exact": true,
+  "runtime_identity_exact": true,
+  "scenario_count": 21
+}

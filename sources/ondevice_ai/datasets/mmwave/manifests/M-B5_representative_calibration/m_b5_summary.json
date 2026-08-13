@@ -1,0 +1,33 @@
+{
+  "phase_id": "M-B5",
+  "gate_status": "PASS_WITH_WARNINGS",
+  "m_b6_entry_status": "READY_WITH_CONDITIONS",
+  "selected_calibration_profile": "M-B5_CAL_CLASS_BALANCED_120",
+  "ranking_decision": {
+    "winner_profile_id": "M-B5_CAL_CLASS_BALANCED_120",
+    "runner_up_profile_id": "M-B5_CAL_TRAIN_ORDER_120",
+    "deciding_criterion": "CRITERION_4_MAX_OUTPUT_PROBABILITY_MAE",
+    "direction": "lower",
+    "winner_value": 0.008439,
+    "runner_up_value": 0.008551,
+    "abs_delta": 0.00011199999999999925,
+    "tie_tolerance_eps": 1e-05
+  },
+  "frozen_primary_architecture": "M-B3_CONV1D_GAP_BASELINE",
+  "frozen_weight_seeds": [
+    42,
+    43,
+    44
+  ],
+  "profiles_evaluated": [
+    "M-B5_CAL_TRAIN_ORDER_120",
+    "M-B5_CAL_RANDOM_PROPORTIONAL_120",
+    "M-B5_CAL_CLASS_BALANCED_120",
+    "M-B5_CAL_DISTRIBUTION_AWARE_120"
+  ],
+  "total_strict_int8_conversions": 12,
+  "profile_d_conversions_rerun": 3,
+  "profiles_abc_conversions_rerun": 0,
+  "neural_network_models_retrained": 0,
+  "locked_test_access_attempts": 0
+}

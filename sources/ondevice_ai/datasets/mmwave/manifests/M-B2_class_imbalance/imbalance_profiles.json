@@ -1,0 +1,29 @@
+{
+  "phase_id": "M-B2",
+  "strategies": [
+    {
+      "strategy_id": "M-B2_CE_UNWEIGHTED",
+      "name": "CE_UNWEIGHTED",
+      "type": "standard_ce",
+      "description": "Standard unweighted sparse categorical cross-entropy baseline"
+    },
+    {
+      "strategy_id": "M-B2_CE_CLASS_WEIGHT",
+      "name": "CE_CLASS_WEIGHT",
+      "type": "class_weighting",
+      "description": "Balanced inverse-frequency class-weighted cross-entropy (TRAIN-only)"
+    },
+    {
+      "strategy_id": "M-B2_CE_RANDOM_OVERSAMPLE",
+      "name": "CE_RANDOM_OVERSAMPLE",
+      "type": "random_oversample",
+      "description": "TRAIN-only random oversampling of minority classes to match largest class"
+    },
+    {
+      "strategy_id": "M-B2_FOCAL_CLASS_ALPHA",
+      "name": "FOCAL_CLASS_ALPHA",
+      "type": "focal_loss",
+      "description": "Multiclass focal loss (gamma=2.0) with TRAIN-derived class alpha weights"
+    }
+  ]
+}

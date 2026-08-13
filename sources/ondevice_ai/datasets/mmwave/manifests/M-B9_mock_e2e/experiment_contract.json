@@ -1,0 +1,21 @@
+{
+  "apnea_semantics": "VOLUNTARY_BREATH_HOLD_PROXY_NOT_CLINICAL_APNEA",
+  "bounded_execution": {
+    "max_steps_per_node": 1,
+    "node_calls": "start_step_shutdown_finally"
+  },
+  "conversion_performed": false,
+  "formal_m_b8_latency_measurement_rerun_during_m_b9": false,
+  "frozen_seeds": [
+    42,
+    43,
+    44
+  ],
+  "hardware_scope": "NONE",
+  "locked_test_access": "PROHIBITED",
+  "m_b8_prior_formal_latency_benchmark_completed": true,
+  "model_selection_performed": false,
+  "phase_id": "M-B9",
+  "scope": "EXPLICIT_FINALIST_MOCK_E2E_RUNTIME_COMPATIBILITY",
+  "training_performed": false
+}

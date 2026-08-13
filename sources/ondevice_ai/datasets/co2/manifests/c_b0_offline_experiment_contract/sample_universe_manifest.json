@@ -1,0 +1,30 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "experiment_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "canonical_source_universe": 20560,
+  "b_series_common_train": 8140,
+  "b_series_common_validation": 2662,
+  "b_series_sealed_locked_test": 9749,
+  "canonical_warmup_records": 9,
+  "common_comparison_total": 10802,
+  "source_artifact": "datasets/co2/manifests/c_a5_canonical_samples/model_eligible_sample_ids.jsonl",
+  "warmup_source_artifact": "datasets/co2/manifests/c_a5_canonical_samples/feature_availability_manifest.json",
+  "ordered_id_list_sha256": {
+    "TRAIN": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+    "VALIDATION": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+    "LOCKED_TEST": "0bac8dc1affae1de48ea68f01e866508ea19f31e194a7c0dccbf617e529344e7",
+    "WARMUP": "6d53ad8b7f44821f6348b22c772695fab1a5ca3cef368237f63bd5cbef57fee5"
+  },
+  "overlaps": {
+    "train_validation": 0,
+    "train_locked_test": 0,
+    "validation_locked_test": 0,
+    "warmup_in_eligible": 0
+  },
+  "policy": {
+    "common_comparison_universe": "MODEL_ELIGIBLE_SAMPLE under C-A3 slope availability",
+    "locked_test_policy": "SEALED_FOR_FIT_TUNING_AND_B0_PREDICTIVE_EVALUATION",
+    "warmup_policy": "PRESERVED_IN_A_SERIES_BUT_OUTSIDE_SLOPE_DEPENDENT_B_SERIES_MATRIX"
+  }
+}

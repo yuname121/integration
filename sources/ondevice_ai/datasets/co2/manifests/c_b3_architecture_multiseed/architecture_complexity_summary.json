@@ -1,0 +1,114 @@
+{
+  "architectures": {
+    "LINEAR_LOGISTIC": {
+      "observed_per_seed": [
+        {
+          "coefficient_count": 4,
+          "intercept_count": 1
+        },
+        {
+          "coefficient_count": 4,
+          "intercept_count": 1
+        },
+        {
+          "coefficient_count": 4,
+          "intercept_count": 1
+        },
+        {
+          "coefficient_count": 4,
+          "intercept_count": 1
+        },
+        {
+          "coefficient_count": 4,
+          "intercept_count": 1
+        }
+      ],
+      "registered": {
+        "coefficient_count": 4,
+        "intercept_count": 1
+      }
+    },
+    "SMALL_MLP": {
+      "observed_per_seed": [
+        {
+          "trainable_parameter_count": 225
+        },
+        {
+          "trainable_parameter_count": 225
+        },
+        {
+          "trainable_parameter_count": 225
+        },
+        {
+          "trainable_parameter_count": 225
+        },
+        {
+          "trainable_parameter_count": 225
+        }
+      ],
+      "registered": {
+        "trainable_parameter_count": 225
+      }
+    },
+    "TINY_MLP": {
+      "observed_per_seed": [
+        {
+          "trainable_parameter_count": 49
+        },
+        {
+          "trainable_parameter_count": 49
+        },
+        {
+          "trainable_parameter_count": 49
+        },
+        {
+          "trainable_parameter_count": 49
+        },
+        {
+          "trainable_parameter_count": 49
+        }
+      ],
+      "registered": {
+        "trainable_parameter_count": 49
+      }
+    },
+    "TREE_RANDOM_FOREST": {
+      "observed_per_seed": [
+        {
+          "depth_configuration": "max_depth=8",
+          "estimated_serialized_size_bytes": null,
+          "tree_count": 200
+        },
+        {
+          "depth_configuration": "max_depth=8",
+          "estimated_serialized_size_bytes": null,
+          "tree_count": 200
+        },
+        {
+          "depth_configuration": "max_depth=8",
+          "estimated_serialized_size_bytes": null,
+          "tree_count": 200
+        },
+        {
+          "depth_configuration": "max_depth=8",
+          "estimated_serialized_size_bytes": null,
+          "tree_count": 200
+        },
+        {
+          "depth_configuration": "max_depth=8",
+          "estimated_serialized_size_bytes": null,
+          "tree_count": 200
+        }
+      ],
+      "registered": {
+        "depth_configuration": "max_depth=8",
+        "estimated_serialized_size_bytes": null,
+        "tree_count": 200
+      }
+    }
+  },
+  "descriptive_only": true,
+  "device_latency_claim": false,
+  "manifest_version": "1.0",
+  "phase": "C-B3"
+}

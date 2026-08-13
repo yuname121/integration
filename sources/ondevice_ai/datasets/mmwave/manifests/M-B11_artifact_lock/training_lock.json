@@ -1,0 +1,25 @@
+{
+  "ambiguous_exclusion": true,
+  "b2_initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+  "b3_param_counts": {
+    "non_trainable_params": 96,
+    "total_params": 9315,
+    "trainable_params": 9219
+  },
+  "b3_selected_architecture_initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+  "batch_size": 32,
+  "early_stopping_monitor": "val_loss",
+  "early_stopping_patience": 7,
+  "learning_rate": 0.001,
+  "loss": "sparse_categorical_crossentropy",
+  "loss_weighting": "UNWEIGHTED",
+  "max_epochs": 25,
+  "optimizer": "Adam",
+  "parameter_count": 9315,
+  "restore_best_weights": true,
+  "retrained_during_m_b11": false,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "selected_strategy_id": "M-B2_CE_UNWEIGHTED",
+  "supervised_population": "A6_PURE_CLASS_WINDOWS_AMBIGUOUS_EXCLUDED",
+  "training_seed": 42
+}

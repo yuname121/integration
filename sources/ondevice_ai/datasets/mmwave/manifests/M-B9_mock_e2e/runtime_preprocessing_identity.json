@@ -1,0 +1,463 @@
+{
+  "all_bpf_exact": true,
+  "all_int8_exact": true,
+  "all_model_ready_exact": true,
+  "all_saturation_exact": true,
+  "all_top1_exact": true,
+  "all_zscore_exact": true,
+  "authoritative_source": "scripts/mmwave_m_b1_preprocessing.transform_signals",
+  "comparison_population": "3 lowest-canonical-index pure VALIDATION windows x 3 frozen seeds",
+  "phase_id": "M-B9",
+  "rows": [
+    {
+      "authoritative_bpf_sha256": "6a77ce373c5f9f1f7aa07ba4ed00de162709a70f19973ef8ee99c6a1e1798162",
+      "authoritative_model_ready_sha256": "59100d0fe623e773003632742da0e9492a89db809e1be24d5a2cc05fd7bfa3ad",
+      "authoritative_zscore_sha256": "1ccf05fc8bf72beecd51ba6ebe39085640f28ef2d356e0f6a30308a86da9f8da",
+      "bpf_exact": true,
+      "canonical_sample_index": 59,
+      "class_truth": "NORMAL",
+      "direct_class_index": 1,
+      "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -53,
+        -27,
+        -48
+      ],
+      "direct_probabilities": [
+        0.29296875,
+        0.39453125,
+        0.3125
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "6a77ce373c5f9f1f7aa07ba4ed00de162709a70f19973ef8ee99c6a1e1798162",
+      "runtime_class_index": 1,
+      "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "59100d0fe623e773003632742da0e9492a89db809e1be24d5a2cc05fd7bfa3ad",
+      "runtime_output_int8": [
+        -53,
+        -27,
+        -48
+      ],
+      "runtime_probabilities": [
+        0.29296875,
+        0.39453125,
+        0.3125
+      ],
+      "runtime_zscore_sha256": "1ccf05fc8bf72beecd51ba6ebe39085640f28ef2d356e0f6a30308a86da9f8da",
+      "saturation_exact": true,
+      "seed": 42,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "2145dd4b034bd761c641f1aa9edaf862eb0eeaa64879021155f10c0ebfb34d69",
+      "authoritative_model_ready_sha256": "5d4240b0d4b308d3fccbf71f6bb0966077ca76d800fde5331dff558269c43b2b",
+      "authoritative_zscore_sha256": "1fda6ab9e2d06b40a3d8ce646176bc790794196d8343006484959ebd7ee05aea",
+      "bpf_exact": true,
+      "canonical_sample_index": 43,
+      "class_truth": "RAPID_OR_ABNORMAL",
+      "direct_class_index": 0,
+      "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        6,
+        -47,
+        -87
+      ],
+      "direct_probabilities": [
+        0.5234375,
+        0.31640625,
+        0.16015625
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "2145dd4b034bd761c641f1aa9edaf862eb0eeaa64879021155f10c0ebfb34d69",
+      "runtime_class_index": 0,
+      "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "5d4240b0d4b308d3fccbf71f6bb0966077ca76d800fde5331dff558269c43b2b",
+      "runtime_output_int8": [
+        6,
+        -47,
+        -87
+      ],
+      "runtime_probabilities": [
+        0.5234375,
+        0.31640625,
+        0.16015625
+      ],
+      "runtime_zscore_sha256": "1fda6ab9e2d06b40a3d8ce646176bc790794196d8343006484959ebd7ee05aea",
+      "saturation_exact": true,
+      "seed": 42,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "eca676c745fd8fe710fb2a2e4d9eaeee022c145309581402eb8ec57b9bb923e6",
+      "authoritative_model_ready_sha256": "e9480761a2ab6b2204ec428a5b170a1f883d22ca8189ea0df51af4233054287d",
+      "authoritative_zscore_sha256": "c7c0fc295c4993fe62ad52abfc0ddc99eb479034c389bd849de376c69eb59014",
+      "bpf_exact": true,
+      "canonical_sample_index": 44,
+      "class_truth": "APNEA",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -101,
+        -95,
+        68
+      ],
+      "direct_probabilities": [
+        0.10546875,
+        0.12890625,
+        0.765625
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "eca676c745fd8fe710fb2a2e4d9eaeee022c145309581402eb8ec57b9bb923e6",
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "e9480761a2ab6b2204ec428a5b170a1f883d22ca8189ea0df51af4233054287d",
+      "runtime_output_int8": [
+        -101,
+        -95,
+        68
+      ],
+      "runtime_probabilities": [
+        0.10546875,
+        0.12890625,
+        0.765625
+      ],
+      "runtime_zscore_sha256": "c7c0fc295c4993fe62ad52abfc0ddc99eb479034c389bd849de376c69eb59014",
+      "saturation_exact": true,
+      "seed": 42,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "6a77ce373c5f9f1f7aa07ba4ed00de162709a70f19973ef8ee99c6a1e1798162",
+      "authoritative_model_ready_sha256": "59100d0fe623e773003632742da0e9492a89db809e1be24d5a2cc05fd7bfa3ad",
+      "authoritative_zscore_sha256": "1ccf05fc8bf72beecd51ba6ebe39085640f28ef2d356e0f6a30308a86da9f8da",
+      "bpf_exact": true,
+      "canonical_sample_index": 59,
+      "class_truth": "NORMAL",
+      "direct_class_index": 1,
+      "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -42,
+        -38,
+        -48
+      ],
+      "direct_probabilities": [
+        0.3359375,
+        0.3515625,
+        0.3125
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "6a77ce373c5f9f1f7aa07ba4ed00de162709a70f19973ef8ee99c6a1e1798162",
+      "runtime_class_index": 1,
+      "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "59100d0fe623e773003632742da0e9492a89db809e1be24d5a2cc05fd7bfa3ad",
+      "runtime_output_int8": [
+        -42,
+        -38,
+        -48
+      ],
+      "runtime_probabilities": [
+        0.3359375,
+        0.3515625,
+        0.3125
+      ],
+      "runtime_zscore_sha256": "1ccf05fc8bf72beecd51ba6ebe39085640f28ef2d356e0f6a30308a86da9f8da",
+      "saturation_exact": true,
+      "seed": 43,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "2145dd4b034bd761c641f1aa9edaf862eb0eeaa64879021155f10c0ebfb34d69",
+      "authoritative_model_ready_sha256": "5d4240b0d4b308d3fccbf71f6bb0966077ca76d800fde5331dff558269c43b2b",
+      "authoritative_zscore_sha256": "1fda6ab9e2d06b40a3d8ce646176bc790794196d8343006484959ebd7ee05aea",
+      "bpf_exact": true,
+      "canonical_sample_index": 43,
+      "class_truth": "RAPID_OR_ABNORMAL",
+      "direct_class_index": 1,
+      "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -39,
+        -36,
+        -53
+      ],
+      "direct_probabilities": [
+        0.34765625,
+        0.359375,
+        0.29296875
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "2145dd4b034bd761c641f1aa9edaf862eb0eeaa64879021155f10c0ebfb34d69",
+      "runtime_class_index": 1,
+      "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "5d4240b0d4b308d3fccbf71f6bb0966077ca76d800fde5331dff558269c43b2b",
+      "runtime_output_int8": [
+        -39,
+        -36,
+        -53
+      ],
+      "runtime_probabilities": [
+        0.34765625,
+        0.359375,
+        0.29296875
+      ],
+      "runtime_zscore_sha256": "1fda6ab9e2d06b40a3d8ce646176bc790794196d8343006484959ebd7ee05aea",
+      "saturation_exact": true,
+      "seed": 43,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "eca676c745fd8fe710fb2a2e4d9eaeee022c145309581402eb8ec57b9bb923e6",
+      "authoritative_model_ready_sha256": "e9480761a2ab6b2204ec428a5b170a1f883d22ca8189ea0df51af4233054287d",
+      "authoritative_zscore_sha256": "c7c0fc295c4993fe62ad52abfc0ddc99eb479034c389bd849de376c69eb59014",
+      "bpf_exact": true,
+      "canonical_sample_index": 44,
+      "class_truth": "APNEA",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -42,
+        -48,
+        -38
+      ],
+      "direct_probabilities": [
+        0.3359375,
+        0.3125,
+        0.3515625
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "eca676c745fd8fe710fb2a2e4d9eaeee022c145309581402eb8ec57b9bb923e6",
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "e9480761a2ab6b2204ec428a5b170a1f883d22ca8189ea0df51af4233054287d",
+      "runtime_output_int8": [
+        -42,
+        -48,
+        -38
+      ],
+      "runtime_probabilities": [
+        0.3359375,
+        0.3125,
+        0.3515625
+      ],
+      "runtime_zscore_sha256": "c7c0fc295c4993fe62ad52abfc0ddc99eb479034c389bd849de376c69eb59014",
+      "saturation_exact": true,
+      "seed": 43,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "6a77ce373c5f9f1f7aa07ba4ed00de162709a70f19973ef8ee99c6a1e1798162",
+      "authoritative_model_ready_sha256": "59100d0fe623e773003632742da0e9492a89db809e1be24d5a2cc05fd7bfa3ad",
+      "authoritative_zscore_sha256": "1ccf05fc8bf72beecd51ba6ebe39085640f28ef2d356e0f6a30308a86da9f8da",
+      "bpf_exact": true,
+      "canonical_sample_index": 59,
+      "class_truth": "NORMAL",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -55,
+        -64,
+        -9
+      ],
+      "direct_probabilities": [
+        0.28515625,
+        0.25,
+        0.46484375
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "6a77ce373c5f9f1f7aa07ba4ed00de162709a70f19973ef8ee99c6a1e1798162",
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "15b2f1036f8d6e56ce12d274c3dcc62ac80cb82e76863ba4d1d9fd5d4b043896",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "59100d0fe623e773003632742da0e9492a89db809e1be24d5a2cc05fd7bfa3ad",
+      "runtime_output_int8": [
+        -55,
+        -64,
+        -9
+      ],
+      "runtime_probabilities": [
+        0.28515625,
+        0.25,
+        0.46484375
+      ],
+      "runtime_zscore_sha256": "1ccf05fc8bf72beecd51ba6ebe39085640f28ef2d356e0f6a30308a86da9f8da",
+      "saturation_exact": true,
+      "seed": 44,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p012-lying-post_exercise__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "2145dd4b034bd761c641f1aa9edaf862eb0eeaa64879021155f10c0ebfb34d69",
+      "authoritative_model_ready_sha256": "5d4240b0d4b308d3fccbf71f6bb0966077ca76d800fde5331dff558269c43b2b",
+      "authoritative_zscore_sha256": "1fda6ab9e2d06b40a3d8ce646176bc790794196d8343006484959ebd7ee05aea",
+      "bpf_exact": true,
+      "canonical_sample_index": 43,
+      "class_truth": "RAPID_OR_ABNORMAL",
+      "direct_class_index": 0,
+      "direct_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -20,
+        -58,
+        -51
+      ],
+      "direct_probabilities": [
+        0.421875,
+        0.2734375,
+        0.30078125
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "2145dd4b034bd761c641f1aa9edaf862eb0eeaa64879021155f10c0ebfb34d69",
+      "runtime_class_index": 0,
+      "runtime_input_int8_sha256": "a01b0146523d0e309d4d8517d11b026e3d3fcfb8033e4279f7144e319c3ccc5e",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "5d4240b0d4b308d3fccbf71f6bb0966077ca76d800fde5331dff558269c43b2b",
+      "runtime_output_int8": [
+        -20,
+        -58,
+        -51
+      ],
+      "runtime_probabilities": [
+        0.421875,
+        0.2734375,
+        0.30078125
+      ],
+      "runtime_zscore_sha256": "1fda6ab9e2d06b40a3d8ce646176bc790794196d8343006484959ebd7ee05aea",
+      "saturation_exact": true,
+      "seed": 44,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000",
+      "zscore_exact": true
+    },
+    {
+      "authoritative_bpf_sha256": "eca676c745fd8fe710fb2a2e4d9eaeee022c145309581402eb8ec57b9bb923e6",
+      "authoritative_model_ready_sha256": "e9480761a2ab6b2204ec428a5b170a1f883d22ca8189ea0df51af4233054287d",
+      "authoritative_zscore_sha256": "c7c0fc295c4993fe62ad52abfc0ddc99eb479034c389bd849de376c69eb59014",
+      "bpf_exact": true,
+      "canonical_sample_index": 44,
+      "class_truth": "APNEA",
+      "direct_class_index": 2,
+      "direct_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "direct_input_saturation_count": 0,
+      "direct_output_int8": [
+        -58,
+        -98,
+        27
+      ],
+      "direct_probabilities": [
+        0.2734375,
+        0.1171875,
+        0.60546875
+      ],
+      "input_int8_exact": true,
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8",
+      "model_ready_exact": true,
+      "model_sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+      "model_version": "M-B6_STAGE_C_M-B5_CAL_CLASS_BALANCED_120",
+      "output_int8_exact": true,
+      "preprocessing_profile": "BPF_ZSCORE",
+      "probabilities_exact": true,
+      "runtime_bpf_sha256": "eca676c745fd8fe710fb2a2e4d9eaeee022c145309581402eb8ec57b9bb923e6",
+      "runtime_class_index": 2,
+      "runtime_input_int8_sha256": "e9a9bc3f3f08e791b02761cb9b0fe492aaa279a4544dd018833347912dbe6068",
+      "runtime_input_saturation_count": 0,
+      "runtime_model_ready_sha256": "e9480761a2ab6b2204ec428a5b170a1f883d22ca8189ea0df51af4233054287d",
+      "runtime_output_int8": [
+        -58,
+        -98,
+        27
+      ],
+      "runtime_probabilities": [
+        0.2734375,
+        0.1171875,
+        0.60546875
+      ],
+      "runtime_zscore_sha256": "c7c0fc295c4993fe62ad52abfc0ddc99eb479034c389bd849de376c69eb59014",
+      "saturation_exact": true,
+      "seed": 44,
+      "top1_exact": true,
+      "window_id": "dataset-10_5281_zenodo_18599983-p009-lying-rest__W0000",
+      "zscore_exact": true
+    }
+  ]
+}

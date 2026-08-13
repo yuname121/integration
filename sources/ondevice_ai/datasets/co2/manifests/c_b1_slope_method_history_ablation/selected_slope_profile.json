@@ -1,0 +1,51 @@
+{
+  "a_series_baseline_profile": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "a_series_baseline_retained": true,
+  "actual_time_policy": "SOURCE_ACQUISITION_CLOCK_ELAPSED",
+  "b0_contract_id": "CO2_B0_OFFLINE_EXPERIMENT_CONTRACT_001",
+  "candidate_registry_fingerprint": "dc77642f01c256ed85fdf4707df09c63e363ff6c5d92b23b23a836f983b890a1",
+  "causal_policy": "PAST_ONLY",
+  "deployment_status": "NOT_VALIDATED",
+  "final_feature_selection": "NOT_PERFORMED",
+  "gap_restart_policy_seconds": 90.0,
+  "incremental_slope_evidence": {
+    "delta_balanced_accuracy": 0.007379990576141582,
+    "delta_macro_f1": 0.008361179175583766,
+    "delta_occupied_recall": 0.0041279669762641635,
+    "no_slope_control_id": "SCD40_NATIVE_NO_SLOPE_CONTROL",
+    "note": "No-slope control does not enter slope-candidate ranking; winner remains the best slope reconstruction candidate.",
+    "status": "ESTABLISHED"
+  },
+  "locked_test_status": "SEALED",
+  "manifest_version": "1.0",
+  "method": "ENDPOINT_DIFFERENCE",
+  "minimum_history_seconds": 150.0,
+  "phase": "C-B1",
+  "profile_id": "CO2_B1_SELECTED_SLOPE_PROFILE_001",
+  "reference_probe": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+  "relationship_to_a_series": {
+    "a_series_canonical_baseline": "CO2_SLOPE_FEATURE_PROFILE_001",
+    "a_series_source_of_truth_modified": false,
+    "b_series_selected_experimental_reconstruction": "CO2_B1_SELECTED_SLOPE_PROFILE_001"
+  },
+  "selected_candidate_id": "ENDPOINT_H150",
+  "selection_metric": "validation_macro_f1",
+  "selection_universe": {
+    "train": 8140,
+    "validation": 2662
+  },
+  "tie_break_policy": [
+    "higher_validation_macro_f1",
+    "higher_validation_balanced_accuracy",
+    "higher_validation_occupied_recall",
+    "shorter_minimum_history_threshold",
+    "simpler_method_ENDPOINT_DIFFERENCE_over_CAUSAL_LINEAR_REGRESSION",
+    "lexicographically_smaller_candidate_id"
+  ],
+  "unit": "ppm/min",
+  "validation_selection_status": "SELECTED",
+  "winner_classification": [
+    "OFFLINE_UCI_SELECTED",
+    "DEVICE_DOMAIN_UNVALIDATED"
+  ]
+}

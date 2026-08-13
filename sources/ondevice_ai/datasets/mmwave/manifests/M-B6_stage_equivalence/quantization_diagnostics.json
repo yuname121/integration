@@ -1,0 +1,35 @@
+{
+  "phase_id": "M-B6",
+  "quantization_diagnostics": {
+    "M-B3_CONV1D_GAP_BASELINE_seed_42": {
+      "seed": 42,
+      "input_scale": 0.041720833629369736,
+      "input_zero_point": -3,
+      "output_scale": 0.00390625,
+      "output_zero_point": -128,
+      "input_saturation_ratio": 0.0,
+      "saturated_sample_count": 0,
+      "output_endpoint_ratio": 0.0
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43": {
+      "seed": 43,
+      "input_scale": 0.041720833629369736,
+      "input_zero_point": -3,
+      "output_scale": 0.00390625,
+      "output_zero_point": -128,
+      "input_saturation_ratio": 0.0,
+      "saturated_sample_count": 0,
+      "output_endpoint_ratio": 0.0
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44": {
+      "seed": 44,
+      "input_scale": 0.041720833629369736,
+      "input_zero_point": -3,
+      "output_scale": 0.00390625,
+      "output_zero_point": -128,
+      "input_saturation_ratio": 0.0,
+      "saturated_sample_count": 0,
+      "output_endpoint_ratio": 0.0
+    }
+  }
+}

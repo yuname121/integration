@@ -1,0 +1,14 @@
+{
+  "labels": {
+    "0": "VACANT",
+    "1": "OCCUPIED"
+  },
+  "manifest_version": "1.0",
+  "phase": "C-B4",
+  "positive_class": "OCCUPIED",
+  "probability_meaning": "P(Occupancy = OCCUPIED | model features)",
+  "profile_id": "CO2_B4_CLASS_MAP_001",
+  "risk_semantic": "NONE",
+  "safety_semantic": "NONE",
+  "semantic": "ROOM_OCCUPANCY"
+}

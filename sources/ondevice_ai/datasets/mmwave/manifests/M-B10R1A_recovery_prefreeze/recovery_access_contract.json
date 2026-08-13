@@ -1,0 +1,23 @@
+{
+  "a_readiness_mutation_required_for_b": false,
+  "a_runtime_state_mutation_required": false,
+  "accessor_api": "scripts/mmwave_m_b10r1_recovery_access.py:LimitedReuseRecoveryAccessController.get_locked_test_recovery_evaluation_dataset",
+  "at_most_one_recovery_payload_release": true,
+  "authorization_during_m_b10r1a": false,
+  "authorization_token_constant": "M_B10R1_LIMITED_REUSE_RECOVERY_AUTHORIZATION_V1",
+  "authorization_token_id": "M_B10R1_LIMITED_REUSE_RECOVERY_AUTHORIZATION_V1",
+  "b_authorization_overlay_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/authorization_record.json",
+  "expected_eligible_windows": 75,
+  "expected_subjects": 16,
+  "forbids_final_accessor": "get_locked_test_final_evaluation_dataset",
+  "future_b_runtime_state_path": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/recovery_access_runtime_state.json",
+  "include_ambiguous": false,
+  "loads_via": "PhaseBAccessGuard._get_split_dataset('LOCKED_TEST', include_ambiguous=False)",
+  "modifies_mmwave_phase_b_access": false,
+  "module_path": "scripts/mmwave_m_b10r1_recovery_access.py",
+  "original_counter_reset_forbidden": true,
+  "original_final_token_rejected": "AUTHORIZED_FINAL_LOCKED_TEST_EVALUATION_TOKEN_V1",
+  "phase_id": "M-B10R1-A",
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "schema_version": "M-B10R1A_RECOVERY_ACCESS_CONTRACT_V1"
+}

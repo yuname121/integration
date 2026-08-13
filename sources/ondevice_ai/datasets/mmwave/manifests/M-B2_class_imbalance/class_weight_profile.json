@@ -1,0 +1,16 @@
+{
+  "phase_id": "M-B2",
+  "formula": "w_c = N_train / (K * n_c)",
+  "fit_split": "TRAIN",
+  "pure_class_train_count": 327,
+  "computed_class_weights": {
+    "0": 1.068627,
+    "1": 1.3625,
+    "2": 0.751724
+  },
+  "named_class_weights": {
+    "NORMAL": 1.068627,
+    "RAPID_OR_ABNORMAL": 1.3625,
+    "APNEA": 0.751724
+  }
+}

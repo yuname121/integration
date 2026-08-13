@@ -1,0 +1,15 @@
+{
+  "a_runtime_state_not_mutated": true,
+  "a_runtime_state_path": "datasets/mmwave/manifests/M-B10R1A_recovery_prefreeze/recovery_access_runtime_state.json",
+  "automatic_retry": false,
+  "historical_total_payload_release_events": 2,
+  "initialized_from_immutable_a_historical_evidence": true,
+  "original_final_accessor_invocations": 1,
+  "original_final_payload_release_events": 1,
+  "original_locked_test_consumed": true,
+  "payload_consumed": true,
+  "recovery_accessor_invocations": 1,
+  "recovery_payload_release_events": 1,
+  "rerun_performed": false,
+  "schema_version": "M-B10R1B_RECOVERY_ACCESS_RUNTIME_STATE_V1"
+}

@@ -1,0 +1,9 @@
+{
+  "input_saturation_ratio": 0.0,
+  "pre_clamp_out_of_range_count": 0,
+  "samples_with_any_saturation": 0,
+  "saturation_source": "pre-clamp quantized values before int8 clipping",
+  "total_quantized_elements": 22500,
+  "worst_sample_saturation_ratio": 0.0,
+  "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p017-lying-post_exercise__W0000"
+}

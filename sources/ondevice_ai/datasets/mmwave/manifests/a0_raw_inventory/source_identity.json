@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "dataset_identity": {
+    "dataset_id": "dataset-10_5281_zenodo_18599983",
+    "doi": "10.5281/zenodo.18599983",
+    "title": "Extensive Age-Balanced and Subject-Varied mmWave Radar Dataset of Referenced Records for Vital Signs",
+    "publication_date": "2026-02-10",
+    "creators": [
+      "Parralejo, Felipe",
+      "Paredes, Jos\u00e9 A.",
+      "\u00c1lvarez, Fernando J.",
+      "Vicario, \u00c1frica"
+    ],
+    "license": "CC-BY-4.0"
+  },
+  "official_source": {
+    "source": "ZENODO_OFFICIAL",
+    "retrieved_at_utc": "2026-08-07T08:50:04.685813+00:00",
+    "requested_doi": "10.5281/zenodo.18599983",
+    "resolved_record_id": "18599983",
+    "verification_status": "REMOTE_VERIFIED",
+    "http_status": 200,
+    "title": "Extensive Age-Balanced and Subject-Varied mmWave Radar Dataset of Referenced Records for Vital Signs",
+    "publication_date": "2026-02-10",
+    "creators": [
+      "Parralejo, Felipe",
+      "Paredes, Jos\u00e9 A.",
+      "\u00c1lvarez, Fernando J.",
+      "Vicario, \u00c1frica"
+    ],
+    "license": "cc-by-4.0",
+    "official_files": [
+      {
+        "key": "ExampleCode.ipynb",
+        "size_bytes": 2365149,
+        "md5": "e98a7ad1080f22d3a53983fc1d533d2c"
+      },
+      {
+        "key": "ParticipantsInfo.xlsx",
+        "size_bytes": 25841,
+        "md5": "be3ee58975f7464f0f36f4b21c565df6"
+      },
+      {
+        "key": "helper_fns.py",
+        "size_bytes": 5669,
+        "md5": "ebc79ccf3c7bfb011a023e8d3109657b"
+      },
+      {
+        "key": "db_records.zip",
+        "size_bytes": 245284102,
+        "md5": "408c5b347c751c553abe6d0f640a6f98"
+      }
+    ]
+  },
+  "local_archive": {
+    "archive_id": "archive-sha256-f0bcfdac94f88b43",
+    "path": "datasets/raw_archives/external_datasets/db_records.zip",
+    "exists": true,
+    "size_bytes": 246597320,
+    "sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+    "md5": "370de95033f1a98b78e57dbbea92a8bc"
+  },
+  "repository_documentation": {
+    "documented_doi": "10.5281/zenodo.18599983",
+    "documented_archive_bytes": 246597320,
+    "documented_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+    "documented_md5": "370de95033f1a98b78e57dbbea92a8bc"
+  },
+  "official_to_local_relationship": {
+    "official_container_md5": "408c5b347c751c553abe6d0f640a6f98",
+    "local_container_md5": "370de95033f1a98b78e57dbbea92a8bc",
+    "official_container_sha256": null,
+    "local_container_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+    "sha256_match": null,
+    "md5_match": false,
+    "official_internal_content_compared": false,
+    "local_structure_consistent_with_documentation": true,
+    "content_match_confirmed": false,
+    "relationship_status": "LIKELY_REPACKAGED_NOT_FULLY_VERIFIED",
+    "repackaging_evidence": [
+      "The observed hash (370de95033f1a98b78e57dbbea92a8bc), size (246597320 bytes), and archive structure differences are consistent with local repackaging, but member-level identity with the official Zenodo archive has not been verified.",
+      "Local archive contains 3191 macOS resource fork entries (__MACOSX/._*) created during local extraction/re-compression.",
+      "All 110 participants and 440 recordings are fully present with 0 CRC read errors."
+    ]
+  },
+  "verification_scope": {
+    "phase": "A0",
+    "rfft_decoding_performed": false,
+    "signal_preprocessing_performed": false,
+    "model_work_performed": false
+  },
+  "limitations": [
+    "ParticipantsInfo.xlsx, ExampleCode.ipynb, and helper_fns.py exist on Zenodo but are not present in local workspace.",
+    "Official Zenodo zip member-level contents were not compared against local zip members.",
+    "Full rFFT array decoding and signal alignment are deferred to Phase A1."
+  ]
+}

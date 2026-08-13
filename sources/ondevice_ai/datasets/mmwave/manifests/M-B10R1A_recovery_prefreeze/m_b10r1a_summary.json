@@ -1,0 +1,31 @@
+{
+  "M-B10R1B_started": false,
+  "a_directory_immutable_after_merge": true,
+  "a_readiness_mutation_required_for_b": false,
+  "ambiguous_windows": 13,
+  "b_authorization_overlay": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/authorization_record.json",
+  "b_authorization_status": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "execution_freeze_identity": "execution_freeze_identity.json",
+  "expected_future_inferences": 225,
+  "generated_at": "2026-08-12T19:44:45Z",
+  "m_b11_started": false,
+  "mmwave_phase_b_access_diff": 0,
+  "model_count": 3,
+  "new_payload_release_events": 0,
+  "new_recovery_accessor_invocations": 0,
+  "phase_id": "M-B10R1-A",
+  "policy_decision": "LIMITED_LOCKED_TEST_REUSE_EXCEPTION_RECOMMENDED",
+  "preprocessing_contract_ids": {
+    "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+    "mmwave_resp_int8": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+    "mmwave_resp_int8_v0.2.0_candidate": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1"
+  },
+  "recovery_execution_authorized": false,
+  "recovery_payload_release_authorized": false,
+  "report": "docs/reports/20260813_Cursor_M-B10R1A_Recovery_PreFreeze_01.md",
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "status": "RECOVERY_HARNESS_PREFREEZE_COMPLETE",
+  "structural_windows": 88,
+  "subjects": 16,
+  "supervised_eligible_windows": 75
+}

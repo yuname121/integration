@@ -1,0 +1,24 @@
+{
+  "explicit_model_ids": {
+    "42": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+    "43": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B6_STRICT_INT8",
+    "44": "M-B3_CONV1D_GAP_BASELINE_seed44_M-B6_STRICT_INT8"
+  },
+  "finalist_artifact_sources": {
+    "42": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+    "43": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+    "44": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+  },
+  "phase_id": "M-B9",
+  "phase_local_manifest_contains_model_binary": false,
+  "runtime_manifest_paths": {
+    "42": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed42_runtime_manifest.json",
+    "43": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed43_runtime_manifest.json",
+    "44": "datasets/mmwave/manifests/M-B9_mock_e2e/runtime_manifests/seed44_runtime_manifest.json"
+  },
+  "schema_version": "M-B9_RUNTIME_MANIFEST_V1",
+  "shared_default_manifest_path": "models/model_manifest.json",
+  "shared_default_manifest_sha256": "ef0946008af944e424a83c1dd53a66c04e9fc71228843a33f3fb79a227a6921d",
+  "shared_default_manifest_used_for_finalist_inference": false,
+  "shared_default_model_id": "mmwave_resp_int8"
+}

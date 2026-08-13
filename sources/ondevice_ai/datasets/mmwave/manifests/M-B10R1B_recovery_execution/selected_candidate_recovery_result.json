@@ -1,0 +1,112 @@
+{
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "coverage": {
+    "evaluation_rows_attempted": 75,
+    "invalid_count": 0,
+    "invalid_inference_count": 0,
+    "invalid_preprocessing_count": 0,
+    "planned_count": 75,
+    "preprocessing_success_count": 75,
+    "tflite_invoke_attempts": 75,
+    "tflite_invoke_count": 75,
+    "valid_count": 75
+  },
+  "metrics": {
+    "accuracy": 0.56,
+    "apnea_proxy": {
+      "fpr": 0.522727,
+      "misses": 2,
+      "precision": 0.557692,
+      "recall": 0.935484
+    },
+    "class_collapse": {
+      "collapsed": false,
+      "zero_prediction_classes": [],
+      "zero_recall_classes": []
+    },
+    "confusion_matrix": [
+      [
+        5,
+        5,
+        15
+      ],
+      [
+        3,
+        8,
+        8
+      ],
+      [
+        2,
+        0,
+        29
+      ]
+    ],
+    "coverage": {
+      "evaluation_rows_attempted": 75,
+      "invalid_count": 0,
+      "invalid_inference_count": 0,
+      "invalid_preprocessing_count": 0,
+      "planned_count": 75,
+      "preprocessing_success_count": 75,
+      "tflite_invoke_attempts": 75,
+      "tflite_invoke_count": 75,
+      "valid_count": 75
+    },
+    "evaluated_sample_count": 75,
+    "invalid_count": 0,
+    "macro_f1": 0.494836,
+    "macro_precision": 0.557692,
+    "macro_recall": 0.518846,
+    "per_class": {
+      "APNEA": {
+        "f1_score": 0.698795,
+        "fn": 2,
+        "fp": 23,
+        "fpr": 0.522727,
+        "precision": 0.557692,
+        "recall": 0.935484,
+        "support": 31,
+        "tn": 21,
+        "tp": 29
+      },
+      "NORMAL": {
+        "f1_score": 0.285714,
+        "fn": 20,
+        "fp": 5,
+        "fpr": 0.1,
+        "precision": 0.5,
+        "recall": 0.2,
+        "support": 25,
+        "tn": 45,
+        "tp": 5
+      },
+      "RAPID_OR_ABNORMAL": {
+        "f1_score": 0.5,
+        "fn": 11,
+        "fp": 5,
+        "fpr": 0.089286,
+        "precision": 0.615385,
+        "recall": 0.421053,
+        "support": 19,
+        "tn": 51,
+        "tp": 8
+      }
+    },
+    "planned_count": 75,
+    "prediction_distribution": {
+      "APNEA": 52,
+      "NORMAL": 10,
+      "RAPID_OR_ABNORMAL": 13
+    },
+    "rapid_or_abnormal_recall": 0.421053,
+    "valid_count": 75
+  },
+  "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "role": "SELECTED_NEW_REAL_DATA_CANDIDATE"
+}

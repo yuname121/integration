@@ -1,0 +1,29 @@
+{
+  "phase_id": "M-B1",
+  "zscore_statistics": {
+    "M-B1_D0_B0_Z1": {
+      "fit_split": "TRAIN",
+      "fit_window_count": 327,
+      "mean": 1.8900817233294454,
+      "std": 17.633121201855015
+    },
+    "M-B1_D1_B0_Z1": {
+      "fit_split": "TRAIN",
+      "fit_window_count": 327,
+      "mean": -7.463233791306903e-16,
+      "std": 4.642427674378573
+    },
+    "M-B1_D0_B1_Z1": {
+      "fit_split": "TRAIN",
+      "fit_window_count": 327,
+      "mean": 0.0031162832173884064,
+      "std": 2.955399434649939
+    },
+    "M-B1_D1_B1_Z1": {
+      "fit_split": "TRAIN",
+      "fit_window_count": 327,
+      "mean": 0.0025468140068451045,
+      "std": 2.9558884993001207
+    }
+  }
+}

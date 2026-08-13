@@ -1,0 +1,18 @@
+{
+  "class_counts": {
+    "OCCUPIED": 1726,
+    "VACANT": 6414
+  },
+  "locked_test_used": 0,
+  "majority_class": "VACANT",
+  "majority_to_minority_ratio": 3.7161066048667437,
+  "manifest_version": "1.0",
+  "minority_class": "OCCUPIED",
+  "negative_class": "VACANT",
+  "phase": "C-B2",
+  "population": "ORIGINAL_NATURALLY_DISTRIBUTED_TRAIN",
+  "population_count": 8140,
+  "population_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+  "positive_class": "OCCUPIED",
+  "validation_used": 0
+}

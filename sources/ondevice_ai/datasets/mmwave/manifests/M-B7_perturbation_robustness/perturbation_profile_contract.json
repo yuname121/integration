@@ -1,0 +1,185 @@
+{
+  "frozen_preprocessing": {
+    "bpf": {
+      "highcut_hz": 0.5,
+      "lowcut_hz": 0.1,
+      "order": 4,
+      "type": "Butterworth band-pass",
+      "zero_phase": true
+    },
+    "profile_id": "M-B1_D0_B1_Z1",
+    "profile_name": "BPF_ZSCORE",
+    "zscore": "global TRAIN-fitted scalar mean/std after BPF"
+  },
+  "global_perturbation_seed": 20260811,
+  "perturbation_profile_count": 17,
+  "phase_id": "M-B7",
+  "profile_order": [
+    "M-B7_CLEAN",
+    "M-B7_GAUSSIAN_SNR20",
+    "M-B7_GAUSSIAN_SNR10",
+    "M-B7_GAUSSIAN_POST_B1_SNR20",
+    "M-B7_GAUSSIAN_POST_B1_SNR10",
+    "M-B7_AMP_X0_50",
+    "M-B7_AMP_X0_75",
+    "M-B7_AMP_X1_25",
+    "M-B7_AMP_X1_50",
+    "M-B7_DRIFT_MILD",
+    "M-B7_DRIFT_SEVERE",
+    "M-B7_DROPOUT_SHORT",
+    "M-B7_DROPOUT_LONG",
+    "M-B7_MISSING_FRAME_1PCT",
+    "M-B7_MISSING_FRAME_5PCT",
+    "M-B7_MOTION_BURST_MILD",
+    "M-B7_MOTION_BURST_SEVERE",
+    "M-B7_COMBINED_MODERATE"
+  ],
+  "profiles": {
+    "M-B7_AMP_X0_50": {
+      "family": "AMPLITUDE_SCALING",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "scale": 0.5,
+      "stochastic": false
+    },
+    "M-B7_AMP_X0_75": {
+      "family": "AMPLITUDE_SCALING",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "scale": 0.75,
+      "stochastic": false
+    },
+    "M-B7_AMP_X1_25": {
+      "family": "AMPLITUDE_SCALING",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "scale": 1.25,
+      "stochastic": false
+    },
+    "M-B7_AMP_X1_50": {
+      "family": "AMPLITUDE_SCALING",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "scale": 1.5,
+      "stochastic": false
+    },
+    "M-B7_CLEAN": {
+      "family": "CLEAN",
+      "injection_domain": "CLEAN_FROZEN_B1_OUTPUT",
+      "stochastic": false
+    },
+    "M-B7_COMBINED_MODERATE": {
+      "amplitude_scale": 0.75,
+      "application_order": [
+        "GAUSSIAN_SNR20",
+        "AMPLITUDE_X0_75",
+        "DROPOUT_SHORT_LINEAR_INTERPOLATION"
+      ],
+      "dropout_duration_samples": 5,
+      "dropout_duration_seconds": 0.5,
+      "family": "COMBINED",
+      "gaussian_target_snr_db": 20.0,
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "stochastic": true
+    },
+    "M-B7_DRIFT_MILD": {
+      "amplitude_rms_multiplier": 0.25,
+      "family": "BASELINE_DRIFT",
+      "frequency_hz": 0.05,
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "stochastic": true
+    },
+    "M-B7_DRIFT_SEVERE": {
+      "amplitude_rms_multiplier": 0.5,
+      "family": "BASELINE_DRIFT",
+      "frequency_hz": 0.05,
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "stochastic": true
+    },
+    "M-B7_DROPOUT_LONG": {
+      "duration_samples": 30,
+      "duration_seconds": 3.0,
+      "family": "CONTIGUOUS_DROPOUT",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "replacement_policy": "LINEAR_INTERPOLATION_INTERIOR_NEAREST_VALID_HOLD_BOUNDARY",
+      "stochastic": true
+    },
+    "M-B7_DROPOUT_SHORT": {
+      "duration_samples": 5,
+      "duration_seconds": 0.5,
+      "family": "CONTIGUOUS_DROPOUT",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "replacement_policy": "LINEAR_INTERPOLATION_INTERIOR_NEAREST_VALID_HOLD_BOUNDARY",
+      "stochastic": true
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "family": "GAUSSIAN_NOISE",
+      "injection_domain": "POST_B1_MODEL_INPUT",
+      "stochastic": true,
+      "target_snr_db": 10.0
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "family": "GAUSSIAN_NOISE",
+      "injection_domain": "POST_B1_MODEL_INPUT",
+      "stochastic": true,
+      "target_snr_db": 20.0
+    },
+    "M-B7_GAUSSIAN_SNR10": {
+      "family": "GAUSSIAN_NOISE",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "stochastic": true,
+      "target_snr_db": 10.0
+    },
+    "M-B7_GAUSSIAN_SNR20": {
+      "family": "GAUSSIAN_NOISE",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "stochastic": true,
+      "target_snr_db": 20.0
+    },
+    "M-B7_MISSING_FRAME_1PCT": {
+      "family": "MISSING_FRAME",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "missing_count": 3,
+      "missing_fraction": 0.01,
+      "repair_policy": "A3_MMWAVE_TIMELINE_PROFILE_001_LINEAR_INTERPOLATION",
+      "stochastic": true
+    },
+    "M-B7_MISSING_FRAME_5PCT": {
+      "family": "MISSING_FRAME",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "missing_count": 15,
+      "missing_fraction": 0.05,
+      "repair_policy": "A3_MMWAVE_TIMELINE_PROFILE_001_LINEAR_INTERPOLATION",
+      "stochastic": true
+    },
+    "M-B7_MOTION_BURST_MILD": {
+      "duration_samples": 5,
+      "duration_seconds": 0.5,
+      "family": "MOTION_BURST",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "std_multiplier": 3.0,
+      "stochastic": true,
+      "waveform": "SIGNED_RECTANGULAR_ADDITIVE_BURST"
+    },
+    "M-B7_MOTION_BURST_SEVERE": {
+      "duration_samples": 5,
+      "duration_seconds": 0.5,
+      "family": "MOTION_BURST",
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "std_multiplier": 6.0,
+      "stochastic": true,
+      "waveform": "SIGNED_RECTANGULAR_ADDITIVE_BURST"
+    }
+  },
+  "rng_derivation": {
+    "hash": "SHA-256",
+    "identity_string": "{global_seed}|{canonical_sample_index}|{window_id}|{profile_id}",
+    "integer_rule": "unsigned big-endian integer from first 8 digest bytes",
+    "numpy_generator": "numpy.random.default_rng(derived_uint64_seed)",
+    "processing_order_independent": true
+  },
+  "sample_rate_hz": 10.0,
+  "timestamp_jitter": {
+    "a3_resampling_machinery_available": true,
+    "reason": "The fixed prompt matrix defines missing-frame profiles but no preregistered timestamp-jitter magnitude; M-B7 does not add a post-hoc profile.",
+    "status": "OPTIONAL_PROFILE_NOT_ADDED"
+  },
+  "total_inference_profile_count": 18,
+  "window_samples": 300
+}

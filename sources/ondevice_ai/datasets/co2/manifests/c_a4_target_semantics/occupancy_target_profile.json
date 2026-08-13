@@ -1,0 +1,45 @@
+{
+  "manifest_version": "1.0",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "target_name": "Occupancy",
+  "source_field": "Occupancy",
+  "source_semantics": "Room occupancy state as defined by the original UCI Occupancy Detection dataset for a single office room. Occupancy=1 means the room was labeled occupied in the source; Occupancy=0 means vacant/unoccupied in the source.",
+  "source_allowed_values": [
+    0,
+    1
+  ],
+  "canonical_dtype": "int64",
+  "canonical_class_mapping": {
+    "0": "VACANT",
+    "1": "OCCUPIED"
+  },
+  "negative_class": {
+    "source_value": 0,
+    "semantic_name": "VACANT"
+  },
+  "positive_class": {
+    "source_value": 1,
+    "semantic_name": "OCCUPIED"
+  },
+  "semantic_naming_basis": "Aligned with existing models/model_manifest.json CO2 class_map {0: VACANT, 1: OCCUPIED}; source integer values remain authoritative.",
+  "is_source_label": true,
+  "is_model_prediction": false,
+  "is_safety_state": false,
+  "is_sensor_health_state": false,
+  "is_multisensor_risk_state": false,
+  "label_derivation": "NONE",
+  "mapping_type": "IDENTITY_SOURCE_PRESERVATION",
+  "threshold_based_relabeling": "PROHIBITED",
+  "class_balancing_at_label_definition_stage": "PROHIBITED",
+  "feature_driven_relabeling": "PROHIBITED",
+  "co2_ppm_may_modify_label": false,
+  "co2_slope_may_modify_label": false,
+  "safety_threshold_may_modify_label": false,
+  "locked_test_used_for_contract_selection": false,
+  "occupancy_means_dangerous_co2": false,
+  "vacant_means_safe_co2": false,
+  "high_co2_implies_occupied": false,
+  "low_co2_implies_vacant": false,
+  "documented_out_of_scope_safety_threshold_ppm": 1500.0,
+  "documented_out_of_scope_safety_threshold_note": "Active SafeNest code references CO2 > 1500 ppm for risk/safety scoring. C-A4 inspects this only to enforce semantic separation and does not embed or calibrate that threshold into the occupancy target contract."
+}

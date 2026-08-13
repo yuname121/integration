@@ -1,0 +1,55 @@
+{
+  "expected_train": 8140,
+  "expected_validation": 2662,
+  "manifest_version": "1.0",
+  "per_candidate": {
+    "ENDPOINT_H120": {
+      "train_available": 8140,
+      "train_non_finite": 0,
+      "train_unavailable": 0,
+      "validation_available": 2662,
+      "validation_non_finite": 0,
+      "validation_unavailable": 0
+    },
+    "ENDPOINT_H150": {
+      "train_available": 8140,
+      "train_non_finite": 0,
+      "train_unavailable": 0,
+      "validation_available": 2662,
+      "validation_non_finite": 0,
+      "validation_unavailable": 0
+    },
+    "ENDPOINT_H60": {
+      "train_available": 8140,
+      "train_non_finite": 0,
+      "train_unavailable": 0,
+      "validation_available": 2662,
+      "validation_non_finite": 0,
+      "validation_unavailable": 0
+    },
+    "LINEAR_REGRESSION_H120": {
+      "train_available": 8140,
+      "train_non_finite": 0,
+      "train_unavailable": 0,
+      "validation_available": 2662,
+      "validation_non_finite": 0,
+      "validation_unavailable": 0
+    },
+    "LINEAR_REGRESSION_H150": {
+      "train_available": 8140,
+      "train_non_finite": 0,
+      "train_unavailable": 0,
+      "validation_available": 2662,
+      "validation_non_finite": 0,
+      "validation_unavailable": 0
+    },
+    "LINEAR_REGRESSION_H60": {
+      "train_available": 8140,
+      "train_non_finite": 0,
+      "train_unavailable": 0,
+      "validation_available": 2662,
+      "validation_non_finite": 0,
+      "validation_unavailable": 0
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "artifact_role": "m_b11_checksums",
+      "immutable": true,
+      "phase": "M-B11",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B11_artifact_lock/checksums.sha256",
+      "sha256": "989c455851b15bb161fbefb54db56ab6d3d214b8c8d5ef038a7fc15058209092"
+    },
+    {
+      "artifact_role": "m_b11_immutable_registry",
+      "immutable": true,
+      "phase": "M-B11",
+      "repo_relative_path": "datasets/mmwave/manifests/M-B11_artifact_lock/immutable_artifact_registry.json",
+      "sha256": "d01d145c3c0a2f485cbd224322537055c6ec909f884f37118bed103fa0f9bac2"
+    },
+    {
+      "artifact_role": "selected_tflite",
+      "bytes": 22080,
+      "immutable": true,
+      "phase": "M-B6",
+      "repo_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+    },
+    {
+      "artifact_role": "sensor_local_candidate_lock",
+      "immutable": true,
+      "phase": "M-B11",
+      "repo_relative_path": "models/mmwave/mmwave_offline_candidate_lock_v1.json",
+      "sha256": "380cbb09f41cd550bdbd8a0f8a54fd7165b76703de95dfcb827fcbad065be5a6"
+    }
+  ],
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1"
+}

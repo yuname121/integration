@@ -1,0 +1,57 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A4",
+  "warnings": [
+    {
+      "code": "SOURCE_TIMEZONE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Source timestamps remain timezone-naive SOURCE_ACQUISITION_CLOCK readings."
+    },
+    {
+      "code": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+      "severity": "WARNING",
+      "description": "All temporal blocks originate from a single office room."
+    },
+    {
+      "code": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing TFLite training provenance remains unverified; C-A4 does not promote model status."
+    },
+    {
+      "code": "SCALER_FIT_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing scaling metadata fit lineage remains unverified; C-A4 does not fit or overwrite scaler statistics."
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Inherited from C-A3: historical training slope-history duration remains unverified; offline 150s baseline is CANONICAL_OFFLINE_BASELINE_DESIGN."
+    },
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "WARNING",
+      "description": "Inherited domain gap between SCD40 runtime cadence and UCI ~60s source cadence remains out of C-A4 scope."
+    },
+    {
+      "code": "SAFETY_RULE_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "Active risk/adapter CO2>1500 safety scoring is documented for separation only; DEFERRED_SAFETY_RULE_CONTRACT."
+    },
+    {
+      "code": "SENSOR_HEALTH_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "SCD40/sensor-health contracts are out of C-A4 scope."
+    },
+    {
+      "code": "MULTISENSOR_RISK_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "Multisensor SafeNest risk fusion is out of C-A4 scope."
+    },
+    {
+      "code": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+      "severity": "WARNING",
+      "description": "Shared SENSOR_DATA_CONTRACT / model_manifest / MANIFEST updates deferred to a later approved integration commit."
+    }
+  ],
+  "blockers": []
+}

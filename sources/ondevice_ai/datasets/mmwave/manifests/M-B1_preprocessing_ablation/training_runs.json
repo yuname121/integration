@@ -1,0 +1,85 @@
+{
+  "phase_id": "M-B1",
+  "training_runs": {
+    "M-B1_D0_B0_Z0": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "5a743724f1f205281f93af3add943dfd0dd430a53a30d73c0ca49266138d3570",
+      "parameter_count": 9315,
+      "best_epoch": 24,
+      "epochs_run": 25,
+      "final_train_loss": 0.554775,
+      "final_val_loss": 0.80689,
+      "best_val_loss": 0.787247
+    },
+    "M-B1_D1_B0_Z0": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "877bcfc40f0d09bb66ef4054dae199bcf92ac5162a6477de700a406082b77217",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.400263,
+      "final_val_loss": 0.756777,
+      "best_val_loss": 0.756777
+    },
+    "M-B1_D0_B1_Z0": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "1d8f7a33223d4945bdccd008e1e72ea42a84245ca967d7663032785fa94f8b13",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.615513,
+      "final_val_loss": 0.850549,
+      "best_val_loss": 0.850549
+    },
+    "M-B1_D1_B1_Z0": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "122292ed264dc9efd11054b1d12bcf5a57a0596bcabfa2ef82ff10ad09da67b8",
+      "parameter_count": 9315,
+      "best_epoch": 24,
+      "epochs_run": 25,
+      "final_train_loss": 0.615258,
+      "final_val_loss": 0.883618,
+      "best_val_loss": 0.86815
+    },
+    "M-B1_D0_B0_Z1": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "094c19de755ef0ae645c89295389a8fc02ceb2f0d1d8c0ca499f12f15c0b9273",
+      "parameter_count": 9315,
+      "best_epoch": 10,
+      "epochs_run": 17,
+      "final_train_loss": 0.666364,
+      "final_val_loss": 1.13348,
+      "best_val_loss": 1.021383
+    },
+    "M-B1_D1_B0_Z1": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "d1dccf5cb3f2656a46316fcb2c1b4394c2740c27ed0ec07c377c599daf87ba17",
+      "parameter_count": 9315,
+      "best_epoch": 8,
+      "epochs_run": 15,
+      "final_train_loss": 0.554944,
+      "final_val_loss": 1.107576,
+      "best_val_loss": 0.975689
+    },
+    "M-B1_D0_B1_Z1": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "42dbb04e98f7da8ea9ce1e1df3b2b4a5e1e1e66fe9bfa6ea26f2fe3f256a9bd7",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.598058,
+      "final_val_loss": 0.825287,
+      "best_val_loss": 0.825287
+    },
+    "M-B1_D1_B1_Z1": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "fa7a990f53964ca69794d4bf131ff628361c6277e850b81f0c1c652d204b5d4a",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.593808,
+      "final_val_loss": 0.829911,
+      "best_val_loss": 0.829911
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "new_model_selection_event": false,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "selected_beats_both_baselines_on_macro_f1": true,
+  "selected_seed42_macro_f1": 0.494836,
+  "v0_1": {
+    "accuracy": 0.333333,
+    "all_75_predicted_normal": true,
+    "bytes": 466616,
+    "class_collapse": {
+      "collapsed": true,
+      "zero_prediction_classes": [
+        "RAPID_OR_ABNORMAL",
+        "APNEA"
+      ],
+      "zero_recall_classes": [
+        "RAPID_OR_ABNORMAL",
+        "APNEA"
+      ]
+    },
+    "macro_f1": 0.166667,
+    "model_id": "mmwave_resp_int8",
+    "prediction_distribution": {
+      "APNEA": 0,
+      "NORMAL": 75,
+      "RAPID_OR_ABNORMAL": 0
+    },
+    "promoted_to_candidate": false,
+    "repo_relative_path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+    "role": "HISTORICAL_MODEL_COMPATIBILITY_BENCHMARK",
+    "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158",
+    "stored_macro_f1": 0.166667
+  },
+  "v0_2": {
+    "accuracy": 0.506667,
+    "bytes": 22472,
+    "class_collapse": {
+      "collapsed": true,
+      "zero_prediction_classes": [
+        "RAPID_OR_ABNORMAL"
+      ],
+      "zero_recall_classes": [
+        "RAPID_OR_ABNORMAL"
+      ]
+    },
+    "macro_f1": 0.391074,
+    "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+    "prediction_distribution": {
+      "APNEA": 18,
+      "NORMAL": 57,
+      "RAPID_OR_ABNORMAL": 0
+    },
+    "promoted_to_candidate": false,
+    "rapid_or_abnormal_predictions": 0,
+    "repo_relative_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+    "role": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BENCHMARK",
+    "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+    "stored_macro_f1": 0.391074
+  }
+}

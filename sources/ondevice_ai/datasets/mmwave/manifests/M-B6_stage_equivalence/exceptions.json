@@ -1,0 +1,17 @@
+{
+  "phase_id": "M-B6",
+  "exceptions_registry": [
+    {
+      "exception_id": "NUMERICAL_EQUIVALENCE_THRESHOLD_NOT_PREDEFINED",
+      "severity": "WARNING",
+      "status": "REGISTERED_NOT_PREDEFINED",
+      "impact": "No explicit real-data numerical equivalence threshold was predefined in upstream M-B0 contracts. All measured stage deltas are reported transparently."
+    },
+    {
+      "exception_id": "INITIALIZATION_SEED_SENSITIVITY",
+      "severity": "WARNING",
+      "status": "REGISTERED_SEED_SENSITIVITY",
+      "impact": "Conv1D GAP baseline exhibits high initialization seed sensitivity across seeds 42, 43, 44. All 3 seeds evaluated across Stages A, B, C."
+    }
+  ]
+}

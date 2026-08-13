@@ -1,0 +1,122 @@
+{
+  "exceptions": [
+    {
+      "affected_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p002-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p004-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p007-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p075-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p110-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-rest"
+      ],
+      "blocks_a2": false,
+      "category": "A0_CONTRADICTION",
+      "exception_id": "A1-EXC-0001",
+      "impact": "A0 outputs remain unchanged; A1 replaces only the decoding assumption with a measured restricted-pickle contract.",
+      "observed_evidence": "Direct decompressed-payload inspection found protocol-5 pickle; A0 recorded radar_serialization=['ZLIB_RAW_COMPRESSION'] and stated no pickle was needed.",
+      "severity": "WARNING",
+      "status": "OPEN"
+    },
+    {
+      "affected_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p002-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p004-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p007-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p075-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p110-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-rest"
+      ],
+      "blocks_a2": false,
+      "category": "UNSAFE_SERIALIZATION",
+      "exception_id": "A1-EXC-0002",
+      "impact": "Normal object deserialization must remain prohibited; future payload opcode/global drift fails closed.",
+      "observed_evidence": "The source container is object-execution-capable, but all pilot records were decoded by a pickletools-tokenized symbolic VM allowing only NumPy dtype and _frombuffer structures.",
+      "severity": "WARNING",
+      "status": "OPEN"
+    },
+    {
+      "affected_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p002-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p004-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p007-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p075-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p110-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-rest"
+      ],
+      "blocks_a2": false,
+      "category": "CHIRP_CONFIG",
+      "exception_id": "A1-EXC-0003",
+      "impact": "Range axis index is verified, but physical range coordinates should come from the stored rBins vector; A2 must preserve this discrepancy.",
+      "observed_evidence": "Stored rBins median spacing is 0.31724069629629614 m while chirp R_BIN is 0.31228381041666664 m.",
+      "severity": "WARNING",
+      "status": "OPEN"
+    },
+    {
+      "affected_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p007-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p075-sitting-rest"
+      ],
+      "blocks_a2": false,
+      "category": "SCHEMA_VARIANT",
+      "exception_id": "A1-EXC-0004",
+      "impact": "The variable frame dimension belongs to one decoder profile and requires no truncation.",
+      "observed_evidence": "The pilot directly decoded 400-frame tensors for the A0-recorded short-duration cases; each has exactly 400 timestamps.",
+      "severity": "INFO",
+      "status": "OPEN"
+    },
+    {
+      "affected_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p002-lying-post_exercise"
+      ],
+      "blocks_a2": false,
+      "category": "A0_CONTRADICTION",
+      "exception_id": "A1-EXC-0005",
+      "impact": "The machine-readable A0 baseline does not assert 600 for this recording and remains unchanged; the human-report recommendation is corrected only through this A1 exception.",
+      "observed_evidence": "The committed A0 human report describes P002/Lying/Post-exercise as 600 frames, but A1 directly decoded 500 frames and parsed 500 timestamps.",
+      "severity": "WARNING",
+      "status": "OPEN"
+    },
+    {
+      "affected_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p001-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p002-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p004-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p007-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p075-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p110-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p110-sitting-rest"
+      ],
+      "blocks_a2": false,
+      "category": "AXIS_SEMANTICS",
+      "exception_id": "A1-EXC-0006",
+      "impact": "A2 may operate on the verified antenna axis but must not claim physical channel ordering without new evidence.",
+      "observed_evidence": "The antenna axis and count are verified, but TX/RX-to-virtual-channel ordering is absent from config and official example documentation.",
+      "severity": "INFO",
+      "status": "OPEN"
+    }
+  ],
+  "schema_version": "1.0"
+}

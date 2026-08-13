@@ -1,0 +1,68 @@
+[
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-lying-post_exercise",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-lying-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-sitting-post_exercise",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p001-sitting-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p002-lying-post_exercise",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 100 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p007-sitting-post_exercise",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 100 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p075-sitting-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-lying-post_exercise",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-lying-rest",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-sitting-post_exercise",
+    "severity": "WARNING"
+  },
+  {
+    "category": "INCOMPLETE_TAIL",
+    "message": "Dropped incomplete tail of 200 samples after 1 full 30s windows",
+    "recording_id": "dataset-10_5281_zenodo_18599983-p110-sitting-rest",
+    "severity": "WARNING"
+  }
+]

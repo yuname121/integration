@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "project": "SafeNest",
+  "datasets": {
+    "co2": {
+      "name": "CO2 Occupancy Detection Dataset",
+      "version": "1.0.0",
+      "file_path": "datasets/co2/processed/co2_occupancy_v1.npz",
+      "format": "NPZ",
+      "license": "CC BY 4.0",
+      "source_url": "https://archive.ics.uci.edu/dataset/357/occupancy%2Bdetection",
+      "doi": "10.24432/C5X01N",
+      "splits": {
+        "train": 8138,
+        "validation": 2660,
+        "test": 9747
+      },
+      "features": ["CO2_slope", "Humidity", "CO2"],
+      "preprocessing": "StandardScaler trained strictly on train split"
+    },
+    "mmwave": {
+      "name": "Zenodo 60GHz Real-Radar Respiration Reconstruction",
+      "version": "1.1-a6",
+      "raw_archive_path": "datasets/raw_archives/external_datasets/db_records.zip",
+      "processed_file_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+      "window_manifest_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+      "provenance_manifest_path": "datasets/mmwave/manifests/a6_full_conversion/full_provenance_manifest.jsonl",
+      "format": "NPY_CANONICAL_PHASE_WITH_JSONL_PROVENANCE",
+      "license": "CC BY 4.0",
+      "source_url": "https://zenodo.org/records/18599983",
+      "doi": "10.5281/zenodo.18599983",
+      "participant_count": 110,
+      "recording_count": 440,
+      "window_count": 530,
+      "sample_rate_hz": 10,
+      "window_samples": 300,
+      "window_seconds": 30,
+      "processing_status": "A6_PASS_WITH_WARNINGS_PHASE_B_READY_WITH_CONDITIONS",
+      "real_subject_split_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+      "subject_splits": {
+        "train_subjects": 77,
+        "validation_subjects": 17,
+        "locked_test_subjects": 16
+      },
+      "label_mapping_profile": "MMWAVE_LABEL_MAPPING_PROFILE_001",
+      "split_profile": "MMWAVE_SUBJECT_SPLIT_PROFILE_001",
+      "preprocessing": "Canonical unfiltered and unnormalized phase is preserved; Phase B preprocessing must fit on TRAIN subjects only",
+      "limitations": [
+        "Near-duplicate diagnostics remain a Phase B entry condition; A6 exact-duplicate and leakage audits passed.",
+        "Participant demographic companion metadata is not available locally.",
+        "Voluntary breath hold maps to a derived SafeNest APNEA proxy, not clinical apnea."
+      ]
+    },
+    "mmwave_synthetic_smoke": {
+      "name": "Procedural mmWave Pipeline Smoke Dataset",
+      "version": "1.0.0",
+      "file_path": "datasets/mmwave/processed/mmwave_respiration_v1.npz",
+      "split_path": "datasets/mmwave/splits/mmwave_group_split_v1.json",
+      "format": "NPZ",
+      "data_scope": "SYNTHETIC_SMOKE_AND_RETRAINING_ASSET",
+      "real_subject_provenance": "NOT_VERIFIABLE",
+      "sample_rate_hz": 10,
+      "window_samples": 300,
+      "window_seconds": 30,
+      "classes": {
+        "0": "NORMAL (1401)",
+        "1": "RAPID_OR_ABNORMAL (1717)",
+        "2": "APNEA (315)"
+      },
+      "window_splits": {
+        "train": 2491,
+        "validation": 474,
+        "test": 468
+      },
+      "prohibited_claim": "Must not be used as real-subject or real-sensor performance evidence"
+    }
+  }
+}

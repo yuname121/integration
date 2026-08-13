@@ -1,0 +1,11 @@
+{
+  "final_candidate_status": "FINAL_OFFLINE_UCI_CANDIDATE_LOCKED",
+  "final_lock_sha256": "a020d462e0d359e0c9faa9bb680387119f095cb102243d7e6c223d76a801b627",
+  "latency_sha256": "455bf875a69eb820cb534669d6cf8236494bd3b57f1ea48b1259f8762839061a",
+  "locked_test_evaluation_count": 1,
+  "locked_test_used_during_robustness": false,
+  "pre_locked_test_freeze_sha256": "97cafb43306d61cf590b69b1db38d6e07b796161d172e79b78fda7bdb71e1a85",
+  "protocol_sha256": "466bb62b2e09d2082ae9f70d54181aec52ee7b449fae51d962cd246f2c7fdb0b",
+  "robustness_results_sha256": "dfc43af3a67c15afc23c77f6cd899dbd120d71b7cc8c908387dc287ab5ee9e69",
+  "status": "PASS_WITH_WARNINGS"
+}

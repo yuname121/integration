@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "profiles": [
+    {
+      "schema_profile": "SCHEMA_PROFILE_001",
+      "schema_signature_hash": "2e892fce2d6776cd",
+      "recording_count": 220,
+      "subject_count": 110,
+      "example_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p109-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p109-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p107-sitting-rest",
+        "dataset-10_5281_zenodo_18599983-p107-lying-rest",
+        "dataset-10_5281_zenodo_18599983-p100-sitting-rest"
+      ],
+      "required_member_roles": [
+        "CHIRP_CONFIG",
+        "MOVESENSE_ACC",
+        "MOVESENSE_ECG",
+        "RADAR_DATA",
+        "RADAR_TIMESTAMP"
+      ],
+      "optional_member_roles": [
+        "NON_BREATHING_ANNOTATION"
+      ],
+      "radar_container_format": "ZLIB_BINARY_TENSOR",
+      "radar_header_signature": "78da",
+      "radar_serialization": "ZLIB_RAW_COMPRESSION",
+      "timestamp_format": "ISO8601_UTC_CSV",
+      "measured_timestamp_stats": {
+        "line_count": 500,
+        "parsed_dt_count": 500,
+        "delta_median_seconds": 0.1,
+        "measured_frame_rate_hz": 10.0,
+        "duplicate_timestamp_count": 0,
+        "backward_timestamp_count": 0,
+        "large_gap_count": 0,
+        "timestamp_format": "ISO8601_UTC_CSV"
+      },
+      "configuration_format": "JSON_TEXT",
+      "chirp_config_hash": "bd48b829076ed279",
+      "reference_format": "CSV_TEXT_MOVESENSE",
+      "annotation_format": "ISO8601_RANGE_CSV",
+      "fmcw_parameters": {
+        "START_FREQ": 60250000000.0,
+        "IDLE": 0.0006,
+        "ADC_START": 6e-06,
+        "RAMP": 5.6999999999999996e-05,
+        "SLOPE": 30000000000000.0,
+        "TX_START": 1e-06,
+        "ADC_SAMPLES": 64,
+        "SAMPLING_RATE": 4000000.0,
+        "RX_GAIN": 40.0,
+        "LOOPS": 32,
+        "PERIODICITY": 100.0,
+        "B": 480000000.0,
+        "R_BIN": 0.31228381041666664,
+        "R_MAX": 19.986163866666665,
+        "LAMBDA": 0.004975808431535269,
+        "TX_ANTENNAS": 2,
+        "RX_ANTENNAS": 4
+      },
+      "unsafe_deserialization_required": false,
+      "safe_a1_reader_possible": true,
+      "a1_reader_requirements": [
+        "Decompress zlib stream for radar_rFFTs.zlib",
+        "Parse float/complex array safely without object pickle",
+        "Parse ISO-8601 timestamps from radar_timestamps.csv",
+        "Read FMCW chirp parameters from radar_chirpConfig.json"
+      ],
+      "known_exceptions": [
+        "Recordings ['db_records/P075/Sitting/Rest/radar_timestamps.csv', 'db_records/P007/Sitting/Post-exercise/radar_timestamps.csv'] contain 400 frames (40s) instead of standard 500 or 600 frames."
+      ],
+      "evidence": [
+        "Measured 220 recordings with observation-derived schema signature hash 2e892fce2d6776cd.",
+        "Inspected first two bytes of radar_rFFTs.zlib streams; measured header signature = 78da.",
+        "Parsed ISO-8601 timestamp CSV deltas and measured median period = 0.1s (10.0 Hz)."
+      ]
+    },
+    {
+      "schema_profile": "SCHEMA_PROFILE_002",
+      "schema_signature_hash": "5aa1154747af06f6",
+      "recording_count": 220,
+      "subject_count": 110,
+      "example_recording_ids": [
+        "dataset-10_5281_zenodo_18599983-p109-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p109-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p107-sitting-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p107-lying-post_exercise",
+        "dataset-10_5281_zenodo_18599983-p100-sitting-post_exercise"
+      ],
+      "required_member_roles": [
+        "CHIRP_CONFIG",
+        "MOVESENSE_ACC",
+        "MOVESENSE_ECG",
+        "RADAR_DATA",
+        "RADAR_TIMESTAMP"
+      ],
+      "optional_member_roles": [],
+      "radar_container_format": "ZLIB_BINARY_TENSOR",
+      "radar_header_signature": "78da",
+      "radar_serialization": "ZLIB_RAW_COMPRESSION",
+      "timestamp_format": "ISO8601_UTC_CSV",
+      "measured_timestamp_stats": {
+        "line_count": 500,
+        "parsed_dt_count": 500,
+        "delta_median_seconds": 0.1,
+        "measured_frame_rate_hz": 10.0,
+        "duplicate_timestamp_count": 0,
+        "backward_timestamp_count": 0,
+        "large_gap_count": 0,
+        "timestamp_format": "ISO8601_UTC_CSV"
+      },
+      "configuration_format": "JSON_TEXT",
+      "chirp_config_hash": "bd48b829076ed279",
+      "reference_format": "CSV_TEXT_MOVESENSE",
+      "annotation_format": "NONE",
+      "fmcw_parameters": {
+        "START_FREQ": 60250000000.0,
+        "IDLE": 0.0006,
+        "ADC_START": 6e-06,
+        "RAMP": 5.6999999999999996e-05,
+        "SLOPE": 30000000000000.0,
+        "TX_START": 1e-06,
+        "ADC_SAMPLES": 64,
+        "SAMPLING_RATE": 4000000.0,
+        "RX_GAIN": 40.0,
+        "LOOPS": 32,
+        "PERIODICITY": 100.0,
+        "B": 480000000.0,
+        "R_BIN": 0.31228381041666664,
+        "R_MAX": 19.986163866666665,
+        "LAMBDA": 0.004975808431535269,
+        "TX_ANTENNAS": 2,
+        "RX_ANTENNAS": 4
+      },
+      "unsafe_deserialization_required": false,
+      "safe_a1_reader_possible": true,
+      "a1_reader_requirements": [
+        "Decompress zlib stream for radar_rFFTs.zlib",
+        "Parse float/complex array safely without object pickle",
+        "Parse ISO-8601 timestamps from radar_timestamps.csv",
+        "Read FMCW chirp parameters from radar_chirpConfig.json"
+      ],
+      "known_exceptions": [
+        "Recordings ['db_records/P075/Sitting/Rest/radar_timestamps.csv', 'db_records/P007/Sitting/Post-exercise/radar_timestamps.csv'] contain 400 frames (40s) instead of standard 500 or 600 frames."
+      ],
+      "evidence": [
+        "Measured 220 recordings with observation-derived schema signature hash 5aa1154747af06f6.",
+        "Inspected first two bytes of radar_rFFTs.zlib streams; measured header signature = 78da.",
+        "Parsed ISO-8601 timestamp CSV deltas and measured median period = 0.1s (10.0 Hz)."
+      ]
+    }
+  ]
+}

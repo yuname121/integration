@@ -1,0 +1,79 @@
+{
+  "accuracy": 0.56,
+  "apnea_proxy": {
+    "fpr": 0.522727,
+    "misses": 2,
+    "precision": 0.557692,
+    "recall": 0.935484
+  },
+  "class_collapse": {
+    "collapsed": false,
+    "zero_prediction_classes": [],
+    "zero_recall_classes": []
+  },
+  "confusion_matrix": [
+    [
+      5,
+      5,
+      15
+    ],
+    [
+      3,
+      8,
+      8
+    ],
+    [
+      2,
+      0,
+      29
+    ]
+  ],
+  "inference_rerun": false,
+  "macro_f1": 0.494836,
+  "macro_precision": 0.557692,
+  "macro_recall": 0.518846,
+  "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "per_class": {
+    "APNEA": {
+      "f1_score": 0.698795,
+      "fn": 2,
+      "fp": 23,
+      "fpr": 0.522727,
+      "precision": 0.557692,
+      "recall": 0.935484,
+      "support": 31,
+      "tn": 21,
+      "tp": 29
+    },
+    "NORMAL": {
+      "f1_score": 0.285714,
+      "fn": 20,
+      "fp": 5,
+      "fpr": 0.1,
+      "precision": 0.5,
+      "recall": 0.2,
+      "support": 25,
+      "tn": 45,
+      "tp": 5
+    },
+    "RAPID_OR_ABNORMAL": {
+      "f1_score": 0.5,
+      "fn": 11,
+      "fp": 5,
+      "fpr": 0.089286,
+      "precision": 0.615385,
+      "recall": 0.421053,
+      "support": 19,
+      "tn": 51,
+      "tp": 8
+    }
+  },
+  "prediction_distribution": {
+    "APNEA": 52,
+    "NORMAL": 10,
+    "RAPID_OR_ABNORMAL": 13
+  },
+  "recomputed_from_stored_seed42_rows": true,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "stored_m_b10r1b_macro_f1": 0.494836
+}

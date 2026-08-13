@@ -1,0 +1,421 @@
+{
+  "schema_version": "2.0",
+  "contract_validation_status": "PASS_WITH_BLOCKERS",
+  "system_deployment_status": "NOT_READY",
+  "generated_at": "2026-08-01T18:18:00+09:00",
+  "authoritative_document": "docs/reports/SENSOR_DATA_CONTRACT.md",
+  "p0_2_sync": {
+    "ground_truth_validator_passed": true,
+    "model_inventory_path": "docs/reports/model_inventory.json",
+    "status": "SYNCED"
+  },
+  "sensors": {
+    "thermal44": {
+      "raw_transport": "SPI Byte Packet / I2C Configuration",
+      "raw_schema": "80x62 IR Array pixels (bit depth unverified)",
+      "parser_input": "bytes or np.ndarray",
+      "parser_output": "np.ndarray shape (62, 80) float32 (raw physical unit unverified)",
+      "preprocessing": "Per-frame Min-Max Normalization to [0.0, 1.0], INT8 Quantization (scale=0.003921568859368563, zero_point=-128)",
+      "consumer": "ThermalInterpreter -> Thermal TFLite Model",
+      "model_or_rule": "thermal_fall_int8 (v0.1.0)",
+      "shape": [1, 62, 80, 1],
+      "dtype": "int8",
+      "units": "Vendor raw physical (UNVERIFIED_DATASHEET) / Model Normalized [0.0, 1.0]",
+      "sampling": {
+        "sample_rate_hz": 10,
+        "interval_ms": 100,
+        "window_samples": 1
+      },
+      "quality": {
+        "fields": ["connected", "age_sec", "valid"],
+        "stale_sec": 3.0,
+        "timeout_sec": 2.0
+      },
+      "invalid_conditions": [
+        "NaN or infinite pixel values",
+        "Array size != 4960 pixels",
+        "Unnormalized pixel out of bounds",
+        "Sensor disconnected / SPI timeout"
+      ],
+      "current_mock_provenance": "MockThermalSensor.read() -> ThermalInterpreter -> InferenceResult -> SafeNestRiskEngine.evaluate()",
+      "current_real_provenance": "External provider or EXTERNAL_SENSOR_PROVIDER_REQUIRED -> InferenceResult -> risk/risk_engine.py",
+      "target_real_provenance": "SPI_SENSOR_DRIVER -> ThermalFrameParser -> ThermalInterpreter -> SafeNestRiskEngine",
+      "verification_status": "DORMANT_CODE_CONTRACT_RISK",
+      "pixel_count": 4960,
+      "candidate_pixel_payload_bytes": 9920,
+      "pixel_payload_assumption": "4960 pixels × assumed 2 bytes/pixel",
+      "hardware_verified": false,
+      "claimed_frame_bytes": 10080,
+      "overhead_bytes": 160,
+      "parser_implementation_allowed": false,
+      "train_inference_preprocessing_match": true,
+      "quantization_ownership": "ThermalInterpreter exclusively owns normalization & INT8 quantizer",
+      "design_limitation": "Per-frame min-max normalization eliminates absolute Celsius temperature context",
+      "frame_parser_runtime_status": "DORMANT_CODE_CONTRACT_RISK",
+      "evidence": [
+        "sensors/thermal44/frame_parser.py:L15-L35",
+        "inference/thermal_interpreter.py:L141-L163",
+        "thermal_prep.py:L142-L146",
+        "models/model_manifest.json:L18-L43"
+      ]
+    },
+    "mmwave": {
+      "mode": "MODEL_SEQUENCE_MODE",
+      "software_path_status": "VERIFIED_CODE",
+      "capture_status": "VERIFIED_ARTIFACT",
+      "model_semantic_compatibility": "BLOCKED_HARDWARE",
+      "deployment_ready": false,
+      "raw_transport": "UART Serial 115200 8N1",
+      "raw_schema": "MR60BHA2 Frame 0x0A13 (totalPhase, breathPhase, heartPhase)",
+      "parser_input": "deque[float] (300 samples at 10Hz)",
+      "parser_output": "np.ndarray shape (300,) float32 resp_phase",
+      "preprocessing": "Z-Score Normalization ((x - mean)/std), INT8 Quantization (scale=0.03259856998920441, zero_point=-13)",
+      "consumer": "MMWaveInterpreter -> mmWave TFLite Model",
+      "model_or_rule": "mmwave_resp_int8 (v0.1.0)",
+      "shape": [1, 300, 1],
+      "dtype": "int8",
+      "units": "Vendor phase float / UNVERIFIED_DATASHEET",
+      "mmwave_metadata": {
+        "mean": 0.006091983988881111,
+        "std": 2.5013835430145264,
+        "feature": "resp_phase",
+        "sample_rate_hz": 10.0,
+        "window_samples": 300,
+        "window_seconds": 30.0,
+        "input_semantic": "resp_phase_unwrapped_clutter_removed",
+        "source": "models/mmwave/sensor_stats_metadata_v0.1.0.json"
+      },
+      "sampling": {
+        "sample_rate_hz": 10,
+        "interval_ms": 100,
+        "window_samples": 300,
+        "window_seconds": 30.0
+      },
+      "quality": {
+        "fields": ["presence", "quality", "buffer_len", "stale"],
+        "max_gap_seconds": 0.5,
+        "stale_sec": 3.0,
+        "timeout_sec": 2.0
+      },
+      "invalid_conditions": [
+        "Non-monotonic or duplicate timestamp",
+        "Time gap exceeding 0.5 seconds",
+        "Presence == 0 (resets ring buffer immediately)",
+        "NaN or infinite phase values"
+      ],
+      "capture_metrics": {
+        "audited_log_files": 23,
+        "methodology": {
+          "null_ratio_formula": "null_count / total_records (calculated before filtering)",
+          "dup_ratio_formula": "duplicate_pairs / pair_count (pair_count = len(valid_pairs) over raw sequence)"
+        },
+        "presence_log_metrics": {
+          "file": "firmware/esp_wroom32_mr60_monitor/logs/breath/2026-07-25_breath_paced_12rpm.jsonl",
+          "total_records": 2391,
+          "telemetry_dt_mean_ms": 100.05,
+          "phase_age_ms_mean": 29.59,
+          "phase_age_ms_max": 56,
+          "null_count": 0,
+          "null_ratio": 0.0,
+          "finite_count": 2391,
+          "unique_phase_count": 188,
+          "pair_count": 2390,
+          "duplicate_count": 284,
+          "consecutive_dup_ratio": 0.1188
+        },
+        "empty_log_metrics": {
+          "file": "firmware/esp_wroom32_mr60_monitor/logs/baseline/2026-07-25_empty_gate_v1_360s.jsonl",
+          "total_records": 3598,
+          "telemetry_dt_mean_ms": 100.04,
+          "phase_age_ms_mean": 48.36,
+          "phase_age_ms_max": 119,
+          "null_count": 0,
+          "null_ratio": 0.0,
+          "finite_count": 3598,
+          "unique_phase_count": 1,
+          "pair_count": 3597,
+          "duplicate_count": 3597,
+          "consecutive_dup_ratio": 1.0
+        },
+        "csv_adapter_windows": {
+          "source_csv": "firmware/esp_wroom32_mr60_monitor/csv/2026-07-25_han_junwoo_delivery/2026-07-25_occupied_d09_v1_360s__S001_NORMAL_5MIN_01.csv",
+          "rows": 2998,
+          "duration_seconds": 299.816,
+          "window_seconds": 30.0,
+          "stride_seconds": 3.0,
+          "generated_windows": 90
+        }
+      },
+      "semantic_trace": {
+        "firmware_field": "breathPhase",
+        "csv_field": "resp_phase",
+        "metadata_semantic": "resp_phase_unwrapped_clutter_removed",
+        "unwrap_verified": false,
+        "clutter_removal_verified": false,
+        "semantic_match_status": "BLOCKED_HARDWARE"
+      },
+      "current_mock_provenance": "MockMMWaveSensor.read() -> MMWaveInterpreter -> InferenceResult -> SafeNestRiskEngine.evaluate()",
+      "current_real_provenance": "External provider or EXTERNAL_SENSOR_PROVIDER_REQUIRED -> InferenceResult -> risk/risk_engine.py",
+      "captured_artifact_stage": "MR60BHA2 -> ESP main.cpp -> JSONL -> export_mmwave_csv.py -> CSV",
+      "verified_adapter_stage": "CSV -> MMWaveCSVAdapter -> MMWaveWindow",
+      "unconnected_candidate_stage": "MMWaveWindow -> MMWaveInterpreter (CONTRACT_GAP)",
+      "target_online_provenance": "MR60BHA2 UART -> Python UART parser -> MMWaveStreamAdapter -> MMWaveInterpreter -> SafeNestRiskEngine",
+      "verification_status": "VERIFIED_CODE",
+      "evidence": [
+        "firmware/esp_wroom32_mr60_monitor/src/main.cpp:L124-L130",
+        "firmware/esp_wroom32_mr60_monitor/export_mmwave_csv.py:L116",
+        "adapters/mmwave_stream_adapter.py:L48-L77",
+        "inference/mmwave_interpreter.py:L162-L190",
+        "models/mmwave/sensor_stats_metadata_v0.1.0.json"
+      ]
+    },
+    "co2": {
+      "raw_transport": "I2C Bus 1 Address 0x62",
+      "raw_schema": "Periodic Measurement (CO2 ppm, Humidity %, Temperature C)",
+      "parser_input": "co2_slope (ppm/min), humidity (%), co2_ppm (ppm)",
+      "parser_output": "tuple[float, float, float]",
+      "preprocessing": "Z-Score scaling ((x - mean)/scale), INT8 Quantization (scale=0.005828449968248606, zero_point=57)",
+      "consumer": "CO2Interpreter -> CO2 TFLite Model",
+      "model_or_rule": "co2_occupancy_int8 (v0.1.0)",
+      "feature_order": ["co2_slope", "humidity", "co2_ppm"],
+      "shape": [1, 3],
+      "dtype": "int8",
+      "units": "ppm/min, %, ppm",
+      "co2_metadata": {
+        "features": ["CO2_slope", "Humidity", "CO2"],
+        "mean": [0.011184156631440968, 25.73058237077087, 606.4812679200459],
+        "scale": [4.373409389136896, 5.532444219550755, 314.38714875582474],
+        "source": "models/co2/co2_scaling_metadata_v0.1.0.json"
+      },
+      "sampling": {
+        "sample_rate_hz": 0.2,
+        "interval_sec": 5.0,
+        "history_maxlen": 30
+      },
+      "quality": {
+        "fields": ["connected", "age_sec", "co2_valid"],
+        "stale_sec": 10.0,
+        "timeout_sec": 5.0
+      },
+      "invalid_conditions": [
+        "CO2 ppm < 300 or > 10000",
+        "NaN or infinite measurement values",
+        "I2C CRC checksum mismatch",
+        "Sensor warm-up in progress"
+      ],
+      "current_mock_provenance": "MockCO2Sensor.read() -> CO2Interpreter -> InferenceResult -> SafeNestRiskEngine.evaluate()",
+      "current_real_provenance": "External provider or EXTERNAL_SENSOR_PROVIDER_REQUIRED -> InferenceResult -> risk/risk_engine.py",
+      "target_real_provenance": "I2C_SCD40 -> CO2SensorAdapter -> CO2Interpreter -> SafeNestRiskEngine",
+      "verification_status": "RESOLVED",
+      "evidence": [
+        "models/co2/co2_scaling_metadata_v0.1.0.json:L2-L6",
+        "models/model_manifest.json:L64",
+        "inference/co2_interpreter.py:L125-L141",
+        "sensors/co2/co2_adapter.py:L117"
+      ]
+    },
+    "pir": {
+      "raw_transport": "GPIO Digital Input (Pin 17)",
+      "raw_schema": "Logic Level HIGH (Motion) / LOW (No Motion)",
+      "parser_input": "bool motion_detected",
+      "parser_output": "bool is_no_motion, float elapsed_since_motion_sec",
+      "preprocessing": "Elapsed time calculation (now_mono - last_motion_mono)",
+      "consumer": "SafeNestRiskEngine.evaluate()",
+      "model_or_rule": "RULE",
+      "shape": "NOT_APPLICABLE",
+      "dtype": "NOT_APPLICABLE",
+      "units": "Boolean (motion) / Seconds (elapsed)",
+      "sampling": {
+        "current_sampling": "integrated node periodic polling (run_node.py:L84)",
+        "target_sampling": "GPIO event/edge driven (CONTRACT_GAP)",
+        "no_motion_threshold_sec": 15.0,
+        "startup_grace_period_sec": 5.0
+      },
+      "quality": {
+        "note": "PIR quality fields categorized in quality_fields below",
+        "current_primary_metadata": ["is_no_motion", "elapsed_since_motion_sec", "startup_grace_period_sec", "elapsed_since_start"],
+        "health_only_fields": ["age_sec", "read_count", "error_count"],
+        "alternate_or_target_fields": ["presence_confirmed"]
+      },
+      "clocks": {
+        "output_timestamp": "time.time() wall-clock",
+        "temporal_elapsed_clock": "time.monotonic()"
+      },
+      "warming_up_implementation": "PIRSensorAdapter.read() -> SensorState.WARMING_UP (pir_adapter.py:L72)",
+      "quality_fields": {
+        "current_primary_metadata": ["is_no_motion", "elapsed_since_motion_sec", "startup_grace_period_sec", "elapsed_since_start"],
+        "health_only_fields": ["age_sec", "read_count", "error_count"],
+        "alternate_or_target_fields": ["presence_confirmed"]
+      },
+      "invalid_conditions": [
+        "Presence not confirmed by mmWave/Thermal (CONTRACT_GAP in primary engine)",
+        "GPIO stuck high or stuck low fault (CONTRACT_GAP)",
+        "GPIO read failure / disconnected pin"
+      ],
+      "current_mock_provenance": "MockPIRSensor.read() -> InferenceResult -> SafeNestRiskEngine.evaluate()",
+      "current_real_provenance": "External provider or EXTERNAL_SENSOR_PROVIDER_REQUIRED -> InferenceResult -> risk/risk_engine.py",
+      "alternate_pipeline_provenance": "packet['pir']['motion'] -> integrated_node/safenest_risk_engine.py:L353 -> RiskRulesEvaluator.evaluate_motion()",
+      "target_real_provenance": "GPIO_PIN -> PIRSensorAdapter -> SafeNestRiskEngine",
+      "verification_status": "VERIFIED_CODE",
+      "evidence": [
+        "sensors/pir/pir_adapter.py:L43-L75",
+        "integrated_node/run_node.py:L84",
+        "risk/risk_engine.py:L238",
+        "config/sensors.yaml:L45-L53"
+      ]
+    }
+  },
+  "contract_mismatches": [
+    {
+      "id": "MISMATCH-01",
+      "location": "sensors/thermal44/frame_parser.py:L17",
+      "target_component": "Thermal Parser",
+      "description": "np.frombuffer(raw_buffer, dtype=np.float32) expects 4 bytes per pixel (19840B for 4960 pixels), breaking 16-bit raw (9920B) hardware stream compatibility.",
+      "category": "IMPLEMENTATION_DEFECT",
+      "runtime_impact": "DORMANT_CODE_CONTRACT_RISK",
+      "impact": "Inability to parse raw 16-bit binary SPI packets. Parser is uncalled in active production runtime path."
+    },
+    {
+      "id": "MISMATCH-02",
+      "location": "sensors/thermal44/frame_parser.py:L31",
+      "target_component": "Thermal Parser",
+      "description": "normalize_to_int8 uses quantization scale 0.003814697265625 (1/262.144) instead of model manifest scale 0.003921568859368563 (1/255.0).",
+      "category": "DORMANT_CODE_CONTRACT_RISK",
+      "runtime_impact": "DORMANT_CODE_CONTRACT_RISK",
+      "impact": "Quantization scale mismatch in dormant parser function. ThermalInterpreter exclusively owns quantization."
+    },
+    {
+      "id": "MISMATCH-03",
+      "location": "inference/thermal_interpreter.py:L155-L162",
+      "target_component": "Thermal Interpreter",
+      "description": "Per-frame min-max normalization matches training preprocessing (thermal_prep.py:L145). Absolute °C temperature context is lost by design.",
+      "category": "TRAIN_INFERENCE_PREPROCESSING_MATCH",
+      "design_limitation": "DESIGN_LIMITATION",
+      "impact": "No absolute temperature info; this is a training architecture choice, not a bug."
+    },
+    {
+      "id": "MISMATCH-04",
+      "location": "sensors/co2/co2_adapter.py:L117",
+      "target_component": "CO2 Adapter",
+      "description": "RESOLVED: co2_adapter.py calls interpreter.predict(co2_slope, humidity, co2_ppm) with three scalar floats.",
+      "category": "RESOLVED",
+      "runtime_impact": "RESOLVED",
+      "impact": "Regression coverage enforces the three-scalar CO2 interpreter call."
+    }
+  ],
+  "stale_contract_artifacts": [
+    {
+      "id": "STALE-01",
+      "field": "mmwave.preprocessing mean/std",
+      "previous_value": {"mean": -0.009858, "std": 0.297495},
+      "corrected_value": {"mean": 0.006091983988881111, "std": 2.5013835430145264},
+      "source": "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+      "category": "STALE_CONTRACT_ARTIFACT"
+    }
+  ],
+  "hardware_blockers": [
+    {
+      "id": "BLOCKER-01",
+      "sensor": "thermal44",
+      "issue": "160-byte overhead discrepancy between 9920B candidate pixel payload and 10080B claimed frame size. Missing datasheet or raw packet spec.",
+      "status": "BLOCKED_HARDWARE"
+    },
+    {
+      "id": "BLOCKER-02",
+      "sensor": "thermal44",
+      "issue": "Real SPI/I2C hardware driver unwritten (Thermal44Sensor.connect raises HardwareBackendUnavailable).",
+      "status": "BLOCKED_HARDWARE"
+    },
+    {
+      "id": "BLOCKER-03",
+      "sensor": "mmwave",
+      "issue": "Python real UART serial port reader unwritten (MMWaveSensorAdapter.connect raises HardwareBackendUnavailable).",
+      "status": "BLOCKED_HARDWARE"
+    },
+    {
+      "id": "BLOCKER-04",
+      "sensor": "co2",
+      "issue": "Real I2C SCD40 hardware reader and CRC calculation unwritten (CO2SensorAdapter.connect raises HardwareBackendUnavailable).",
+      "status": "BLOCKED_HARDWARE"
+    },
+    {
+      "id": "BLOCKER-05",
+      "sensor": "pir",
+      "issue": "Real GPIO pin reader unwritten (PIRSensorAdapter.connect raises HardwareBackendUnavailable).",
+      "status": "BLOCKED_HARDWARE"
+    }
+  ],
+  "contract_gaps": [
+    {"sensor": "thermal44", "feature": "Invalid pixel masking & interpolation", "status": "CONTRACT_GAP"},
+    {"sensor": "thermal44", "feature": "All-zero frame detection (valid=false)", "status": "CONTRACT_GAP"},
+    {"sensor": "co2", "feature": "I2C CRC-8 validation", "status": "CONTRACT_GAP"},
+    {"sensor": "co2", "feature": "Data-ready polling & warm-up guard", "status": "CONTRACT_GAP"},
+    {"sensor": "pir", "feature": "active_high polarity application in GPIO driver", "status": "CONTRACT_GAP"},
+    {"sensor": "pir", "feature": "GPIO hardware/software debounce", "status": "CONTRACT_GAP"},
+    {"sensor": "pir", "feature": "Stuck high/low fault detection", "status": "CONTRACT_GAP"},
+    {"sensor": "mmwave", "feature": "Python real UART serial reader", "status": "CONTRACT_GAP"},
+    {"sensor": "mmwave", "feature": "Unconnected candidate MMWaveWindow -> MMWaveInterpreter pipeline", "status": "CONTRACT_GAP"}
+  ],
+  "json_schemas": {
+    "primary_runtime_schema": {
+      "source": "inference/inference_result.py:SafeNestRiskOutput",
+      "entrypoint": "integrated_node/run_node.py -> risk/risk_engine.py:SafeNestRiskEngine -> SafeNestRiskOutput",
+      "fields": ["timestamp", "risk_score", "risk_level", "system_health", "degraded_mode", "invalid_sensors", "stale_sensors", "component_scores", "is_emergency", "reasons", "sensors", "metadata", "level", "system_status", "fallback_used"]
+    },
+    "alternate_pipeline_schema": {
+      "source": "integrated_node/safenest_risk_engine.py",
+      "note": "Separate virtual engine pipeline with different field names",
+      "fields": ["risk_score", "status_str", "status_code", "is_emergency", "reasons", "sensor_quality", "system_status", "v4_fusion", "legacy_fusion", "derived_metrics", "model_meta"]
+    }
+  },
+  "required_captures": [
+    {
+      "sensor": "thermal44",
+      "capture_type": "Raw SPI binary stream dump (10 frames)",
+      "purpose": "Verify exact frame byte length, row headers, timestamp header/footer, and CRC checksum."
+    },
+    {
+      "sensor": "mmwave",
+      "capture_type": "Raw UART binary stream capture (60 seconds at 115200 baud)",
+      "purpose": "Confirm 0x0A13 phase frame rate stability and UART buffer overrun behavior on Pi 5."
+    },
+    {
+      "sensor": "co2",
+      "capture_type": "Raw I2C bus read trace (9-byte periodic measurement responses)",
+      "purpose": "Validate SCD40 CRC8 generation and data-ready flag polling."
+    },
+    {
+      "sensor": "pir",
+      "capture_type": "GPIO 17 logic analyzer pulse trace",
+      "purpose": "Confirm active-high pulse width and hardware debounce characteristics."
+    }
+  ],
+  "evidence": [
+    "sensors/base_sensor.py",
+    "sensors/thermal44/frame_parser.py",
+    "sensors/thermal44/thermal44_driver.py",
+    "sensors/mmwave/mmwave_adapter.py",
+    "sensors/co2/co2_adapter.py",
+    "sensors/pir/pir_adapter.py",
+    "sensors/thermal44/mock_sensor.py",
+    "inference/thermal_interpreter.py",
+    "inference/mmwave_interpreter.py",
+    "inference/co2_interpreter.py",
+    "inference/inference_result.py",
+    "inference/model_registry.py",
+    "adapters/mmwave_csv_adapter.py",
+    "adapters/mmwave_stream_adapter.py",
+    "integrated_node/run_node.py",
+    "integrated_node/safenest_risk_engine.py",
+    "risk/risk_engine.py",
+    "risk/risk_rules.py",
+    "config/sensors.yaml",
+    "models/model_manifest.json",
+    "models/co2/co2_scaling_metadata_v0.1.0.json",
+    "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+    "firmware/esp_wroom32_mr60_monitor/src/main.cpp",
+    "firmware/esp_wroom32_mr60_monitor/export_mmwave_csv.py",
+    "thermal_prep.py",
+    "thermal_train.py"
+  ]
+}

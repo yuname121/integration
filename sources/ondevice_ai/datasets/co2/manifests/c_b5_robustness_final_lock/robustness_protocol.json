@@ -1,0 +1,174 @@
+{
+  "candidate": {
+    "architecture": "LINEAR_LOGISTIC",
+    "feature_order": [
+      "CO2",
+      "Temperature",
+      "Humidity",
+      "CO2_slope"
+    ],
+    "float_reference_path": "models/co2/candidates/c_b4/float_reference_parameters.json",
+    "float_reference_sha256": "471b85852f661bd787e0bc130ae032bebb69ef0b51cfacb8e87ea04529970fee",
+    "imbalance_strategy": "BALANCED_RANDOM_OVERSAMPLE",
+    "input_dtype": "int8",
+    "input_quantization": {
+      "scale": 0.03529411926865578,
+      "zero_point": 0
+    },
+    "model_path": "models/co2/candidates/c_b4/full_integer_int8.tflite",
+    "model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+    "output_dtype": "int8",
+    "output_quantization": {
+      "scale": 0.00390625,
+      "zero_point": -128
+    },
+    "scaler_fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+    "scaler_path": "datasets/co2/manifests/c_b2_imbalance_calibration/preprocessing_scaler_evidence.json",
+    "slope_profile": "ENDPOINT_H150",
+    "threshold": 0.58
+  },
+  "causal_procedure": {
+    "actual_elapsed_time": true,
+    "causality": "PAST_ONLY",
+    "history_duration_seconds": 150.0,
+    "int8_quantization_after_scaling": true,
+    "max_internal_gap_seconds": 90.0,
+    "raw_fields": [
+      "CO2",
+      "Humidity",
+      "timestamp",
+      "row/history state"
+    ],
+    "silent_slope_imputation": false,
+    "slope_recomputation": "ENDPOINT_DIFFERENCE",
+    "source_level_first": true,
+    "train_only_scaler_reused": true
+  },
+  "decision_policy": {
+    "classification": "ROBUSTNESS_DIAGNOSTIC_ONLY_UNDER_OFFLINE_TECHNICAL_STRESS",
+    "contract_failure": [
+      "NaN/Inf",
+      "silent unavailable conversion",
+      "nondeterminism",
+      "artifact mutation",
+      "LOCKED_TEST leakage",
+      "causality violation"
+    ],
+    "performance_degradation": "quantify artificial stress effects; do not label safety failure without an authoritative safety contract"
+  },
+  "locked_test_perturbation_sweeps_prohibited": true,
+  "locked_test_used": false,
+  "manifest_version": "1.0",
+  "metric_definitions": {
+    "classification": "fixed threshold 0.58; positive class OCCUPIED=1",
+    "ece": "C-B2 convention: 10 equal-width bins over [0,1]",
+    "probability_drift": "dequantized INT8 probability versus unperturbed validation baseline on paired IDs"
+  },
+  "model_tuning_authorized": false,
+  "numeric_value_interpretation": [
+    "NOT_SCD40_SPECIFICATION_LIMITS",
+    "NOT_SAFETY_LIMITS",
+    "NOT_DEPLOYMENT_ACCEPTANCE_LIMITS"
+  ],
+  "offline_technical_stress_grid": true,
+  "phase": "C-B5",
+  "protocol_id": "CO2_B5_ROBUSTNESS_PROTOCOL_001",
+  "registration_status": "PRE_REGISTERED_BEFORE_RESULTS",
+  "sample_availability_definition": "intended eligible validation rows; only rows with a causally available slope are paired and inferred",
+  "saturation_definition": "unclipped affine int8 input outside [-128,127] before clipping",
+  "scenarios": {
+    "co2_linear_drift_ppm_per_min": {
+      "levels": [
+        -2.0,
+        -1.0,
+        -0.5,
+        0.5,
+        1.0,
+        2.0
+      ],
+      "seed": null,
+      "source": "raw_CO2_and_causal_slope"
+    },
+    "co2_offset_ppm": {
+      "levels": [
+        -200,
+        -100,
+        -50,
+        50,
+        100,
+        200
+      ],
+      "seed": null,
+      "source": "raw_CO2"
+    },
+    "humidity_noise_sigma_rh": {
+      "clip": [
+        0.0,
+        100.0
+      ],
+      "diagnostic_label": "OFFLINE_HUMIDITY_NOISE_STRESS_ONLY",
+      "levels": [
+        1.0,
+        2.0,
+        5.0
+      ],
+      "seeds": [
+        20260810,
+        20260811,
+        20260812
+      ],
+      "source": "raw_Humidity"
+    },
+    "missing_row": {
+      "patterns": [
+        {
+          "indices": [
+            1000
+          ],
+          "name": "one_missing_observation"
+        },
+        {
+          "indices": [
+            1200,
+            1201,
+            1202
+          ],
+          "name": "consecutive_missing_observations"
+        },
+        {
+          "count": 18,
+          "name": "periodic_sparse_missingness",
+          "period": 100,
+          "start": 1000
+        }
+      ],
+      "source": "row/history state",
+      "unavailable_is_not_vacant": true
+    },
+    "stale_history_seconds": {
+      "diagnostic_only": true,
+      "levels": [
+        60,
+        120,
+        180
+      ],
+      "source": "history state"
+    },
+    "timestamp_jitter_seconds": {
+      "levels": [
+        1,
+        5,
+        10
+      ],
+      "recompute_gap_logic": true,
+      "seeds": [
+        20260810,
+        20260811,
+        20260812
+      ],
+      "source": "timestamp",
+      "strict_ordering": true
+    }
+  },
+  "threshold_tuning_authorized": false
+}

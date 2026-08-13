@@ -1,0 +1,23 @@
+{
+  "phase_id": "M-B4",
+  "description": "Multi-seed reproducibility and stability screening across training initialization seeds 42, 43, 44",
+  "frozen_preprocessing_profile": "M-B1_D0_B1_Z1",
+  "frozen_imbalance_strategy": "M-B2_CE_UNWEIGHTED",
+  "eval_population": "VALIDATION_SET_ONLY",
+  "train_samples": 327,
+  "train_subjects": 77,
+  "eval_samples": 79,
+  "eval_subjects": 17,
+  "locked_test_access": "ZERO_PROHIBITED",
+  "preregistered_seeds": [
+    42,
+    43,
+    44
+  ],
+  "shortlisted_architectures": [
+    "M-B3_CONV1D_GAP_BASELINE",
+    "M-B3_SEPARABLECONV1D_GAP"
+  ],
+  "subject_split_variation": "NOT_PERFORMED_IN_M-B4",
+  "stability_type": "INITIALIZATION_SEED_STABILITY"
+}

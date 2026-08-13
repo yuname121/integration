@@ -1,0 +1,109 @@
+{
+  "phase_id": "M-B1",
+  "fingerprints": {
+    "M-B1_D0_B0_Z0": {
+      "train_tensor_sha256": "b253d4296e737f31b4c03155fb39893db416aa0ee44915ea37df41c571eebcba",
+      "validation_tensor_sha256": "ff01ef7708f0e6c419d860f6e0e20758f7403b34705775d027822f9f2c4ce1d5",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D1_B0_Z0": {
+      "train_tensor_sha256": "d9069bd46e58b85d3ee27426c84a4129a0192e0682143d4906034741536e5a9b",
+      "validation_tensor_sha256": "d7073820d7c1c572da82260a561584064a3402c2df158c762d42e734bd3cc543",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D0_B1_Z0": {
+      "train_tensor_sha256": "0e1a50865a9ad9eb2be2e3d4e56d165c8935379576824a8719777f80f1fe9cc4",
+      "validation_tensor_sha256": "44d5a41fe2e6f4118f7186a8f1ee2b3d2d7b493caa23426c93edd601cc58387e",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D1_B1_Z0": {
+      "train_tensor_sha256": "0289a380d139c1ed8e52a4a9e2918dc2a40c7cfc07a268d9b31509cc5be00e7b",
+      "validation_tensor_sha256": "7ece71495042f6e8af16a4b24651a15473448c79aede402c0c66976b3dd24def",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D0_B0_Z1": {
+      "train_tensor_sha256": "2acf97302d149a5379e9593d1d9488113014b8fe4aa1eee296bcca64792266ae",
+      "validation_tensor_sha256": "b4b279b15f4e9eb74c12fe87d0c4590940e15f1827c5a1625f893f863304ea11",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D1_B0_Z1": {
+      "train_tensor_sha256": "d1c956123fdbbb05539cf1c3d08a4f4322881b193933f0414c1731a962d8007c",
+      "validation_tensor_sha256": "839a1540ede92110012cce23cd0b1fc47c2098b7f83f12fe41f8ab005ebf1c1b",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D0_B1_Z1": {
+      "train_tensor_sha256": "1b5fa2e1861b156e89513bda5059434edaed988469c243aa5897ede83ea7e04d",
+      "validation_tensor_sha256": "3b5e5e4541e81ef7ad5e9d86601ff1170a91eefa905767ad7252e281df4ba7ec",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    },
+    "M-B1_D1_B1_Z1": {
+      "train_tensor_sha256": "55f0d2bf3a648bb60a1463b7bb01301e91eed0703365a84f039d708cddab685d",
+      "validation_tensor_sha256": "77bb44610fbc383d15c2becbb2665e9ecaaab2a54f467200d74a0583681a940b",
+      "train_shape": [
+        327,
+        300
+      ],
+      "validation_shape": [
+        79,
+        300
+      ],
+      "dtype": "float64"
+    }
+  }
+}

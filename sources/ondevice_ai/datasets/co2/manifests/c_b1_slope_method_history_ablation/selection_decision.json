@@ -1,0 +1,207 @@
+{
+  "candidate_registry_fingerprint": "dc77642f01c256ed85fdf4707df09c63e363ff6c5d92b23b23a836f983b890a1",
+  "endpoint_h150_a3_parity": {
+    "candidate_id": "ENDPOINT_H150",
+    "checked_samples": 10802,
+    "comparison_abs_tolerance": 1e-12,
+    "equality_policy": "prefer_exact_float64_equality",
+    "max_abs_difference": 0.0,
+    "status": "PASS",
+    "status_mismatches": 0,
+    "value_mismatches": 0
+  },
+  "final_feature_selection_performed": false,
+  "incremental_slope_evidence": {
+    "delta_balanced_accuracy": 0.007379990576141582,
+    "delta_macro_f1": 0.008361179175583766,
+    "delta_occupied_recall": 0.0041279669762641635,
+    "no_slope_control_id": "SCD40_NATIVE_NO_SLOPE_CONTROL",
+    "note": "No-slope control does not enter slope-candidate ranking; winner remains the best slope reconstruction candidate.",
+    "status": "ESTABLISHED"
+  },
+  "locked_test_status": "SEALED",
+  "majority_class_baseline_context": {
+    "role": "REFERENCE_FLOOR_ONLY",
+    "train_majority_class": "VACANT",
+    "train_majority_label": 0,
+    "validation_metrics": {
+      "accuracy": 0.6359879789631856,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": {
+        "fn": 969,
+        "fp": 0,
+        "label_names": [
+          "VACANT",
+          "OCCUPIED"
+        ],
+        "labels": [
+          0,
+          1
+        ],
+        "matrix": [
+          [
+            1693,
+            0
+          ],
+          [
+            969,
+            0
+          ]
+        ],
+        "tn": 1693,
+        "tp": 0
+      },
+      "f1_occupied": 0.0,
+      "f1_vacant": 0.7774971297359357,
+      "macro_f1": 0.3887485648679678,
+      "precision_occupied": 0.0,
+      "precision_vacant": 0.6359879789631856,
+      "recall_occupied": 0.0,
+      "recall_vacant": 1.0
+    }
+  },
+  "manifest_version": "1.0",
+  "no_slope_control": {
+    "control_id": "SCD40_NATIVE_NO_SLOPE_CONTROL",
+    "included_in_slope_ranking": false,
+    "validation_metrics": {
+      "accuracy": 0.8527422990232908,
+      "balanced_accuracy": 0.8513505193789519,
+      "confusion_matrix": {
+        "fn": 149,
+        "fp": 243,
+        "label_names": [
+          "VACANT",
+          "OCCUPIED"
+        ],
+        "labels": [
+          0,
+          1
+        ],
+        "matrix": [
+          [
+            1450,
+            243
+          ],
+          [
+            149,
+            820
+          ]
+        ],
+        "tn": 1450,
+        "tp": 820
+      },
+      "f1_occupied": 0.8070866141732284,
+      "f1_vacant": 0.8809234507897935,
+      "macro_f1": 0.8440050324815109,
+      "precision_occupied": 0.7714016933207902,
+      "precision_vacant": 0.906816760475297,
+      "recall_occupied": 0.846233230134159,
+      "recall_vacant": 0.8564678086237448
+    }
+  },
+  "phase": "C-B1",
+  "primary_metric": "validation_macro_f1",
+  "ranking": [
+    {
+      "candidate_id": "ENDPOINT_H150",
+      "method": "ENDPOINT_DIFFERENCE",
+      "minimum_history_seconds": 150.0,
+      "rank": 1,
+      "validation_balanced_accuracy": 0.8587305099550935,
+      "validation_macro_f1": 0.8523662116570947,
+      "validation_occupied_recall": 0.8503611971104231
+    },
+    {
+      "candidate_id": "LINEAR_REGRESSION_H150",
+      "method": "CAUSAL_LINEAR_REGRESSION",
+      "minimum_history_seconds": 150.0,
+      "rank": 2,
+      "validation_balanced_accuracy": 0.8578445087737585,
+      "validation_macro_f1": 0.8512551302453515,
+      "validation_occupied_recall": 0.8503611971104231
+    },
+    {
+      "candidate_id": "ENDPOINT_H120",
+      "method": "ENDPOINT_DIFFERENCE",
+      "minimum_history_seconds": 120.0,
+      "rank": 3,
+      "validation_balanced_accuracy": 0.8548945241042916,
+      "validation_macro_f1": 0.8484345407906408,
+      "validation_occupied_recall": 0.846233230134159
+    },
+    {
+      "candidate_id": "LINEAR_REGRESSION_H120",
+      "method": "CAUSAL_LINEAR_REGRESSION",
+      "minimum_history_seconds": 120.0,
+      "rank": 4,
+      "validation_balanced_accuracy": 0.8540831945051468,
+      "validation_macro_f1": 0.8476368278474338,
+      "validation_occupied_recall": 0.8452012383900929
+    },
+    {
+      "candidate_id": "ENDPOINT_H60",
+      "method": "ENDPOINT_DIFFERENCE",
+      "minimum_history_seconds": 60.0,
+      "rank": 5,
+      "validation_balanced_accuracy": 0.8509091950891091,
+      "validation_macro_f1": 0.8438870377817353,
+      "validation_occupied_recall": 0.8441692466460269
+    },
+    {
+      "candidate_id": "LINEAR_REGRESSION_H60",
+      "method": "CAUSAL_LINEAR_REGRESSION",
+      "minimum_history_seconds": 60.0,
+      "rank": 6,
+      "validation_balanced_accuracy": 0.8509091950891091,
+      "validation_macro_f1": 0.8438870377817353,
+      "validation_occupied_recall": 0.8441692466460269
+    }
+  ],
+  "ranking_rule": [
+    "higher_validation_macro_f1",
+    "higher_validation_balanced_accuracy",
+    "higher_validation_occupied_recall",
+    "shorter_minimum_history_threshold",
+    "simpler_method_ENDPOINT_DIFFERENCE_over_CAUSAL_LINEAR_REGRESSION",
+    "lexicographically_smaller_candidate_id"
+  ],
+  "winning_method": "ENDPOINT_DIFFERENCE",
+  "winning_minimum_history_seconds": 150.0,
+  "winning_slope_candidate": "ENDPOINT_H150",
+  "winning_validation_metrics": {
+    "accuracy": 0.8610067618332081,
+    "balanced_accuracy": 0.8587305099550935,
+    "confusion_matrix": {
+      "fn": 145,
+      "fp": 225,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1468,
+          225
+        ],
+        [
+          145,
+          824
+        ]
+      ],
+      "tn": 1468,
+      "tp": 824
+    },
+    "f1_occupied": 0.8166501486620417,
+    "f1_vacant": 0.8880822746521476,
+    "macro_f1": 0.8523662116570947,
+    "precision_occupied": 0.7855100095328885,
+    "precision_vacant": 0.9101053936763794,
+    "recall_occupied": 0.8503611971104231,
+    "recall_vacant": 0.8670998227997637
+  }
+}

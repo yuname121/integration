@@ -1,0 +1,46 @@
+{
+  "bound_contract_identity": {
+    "baseline_v01_sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158",
+    "baseline_v02_sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+    "eligibility_rule": "split==LOCKED_TEST AND assignment_status!=AMBIGUOUS (A6 locked_test_evaluation_eligible semantics via PhaseBAccessGuard._get_split_dataset)",
+    "executor_sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f",
+    "expected_ambiguous_windows": 13,
+    "expected_eligible_windows": 75,
+    "expected_model_inference_count": 225,
+    "expected_structural_windows": 88,
+    "expected_subjects": 16,
+    "future_recovery_access_requirements_sha256": "de58665f4b70750e1f55f9afe80794372aa1f571d656b94ebe9da07bf790fb8e",
+    "include_ambiguous": false,
+    "m_b10a_metric_contract_sha256": "ba6429ecfe685de1807ec85b55e697ee12e24138e6b96e94715b0a1a6b19e0f7",
+    "m_b10r0_summary_sha256": "546a050a82cd5163216d4f74970ade2028501a455194fe7434484511d086ecf4",
+    "metadata_v01_sha256": "a875a8369ff7adf5477cec009b99c0c6d0fbb8b0e60e5b0b07a551f3780d2e37",
+    "metadata_v02_sha256": "36039a6cffbc57162dbb4c720034da6dcfa49ef2f2d33238bee65a62aa133127",
+    "model_count": 3,
+    "original_final_token_rejected": "AUTHORIZED_FINAL_LOCKED_TEST_EVALUATION_TOKEN_V1",
+    "policy_decision_sha256": "1367982c96f03b6d846acd4105f69cf8716395b783cd398faa0df9c6aca64916",
+    "positional_truncation": false,
+    "preprocessing_contract_ids": {
+      "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+      "mmwave_resp_int8": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+      "mmwave_resp_int8_v0.2.0_candidate": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1"
+    },
+    "proposed_recovery_evaluation_contract_sha256": "a1f8563573a335526a3ec9579a19b62a472737d82fac7ddc3ef338101c2d1a3f",
+    "recovery_authorization_token_id": "M_B10R1_LIMITED_REUSE_RECOVERY_AUTHORIZATION_V1",
+    "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+    "result_not_pristine": true,
+    "reuse_exception_gate_results_sha256": "a6e3573327cccd815e03b2a6189ea69ad2b04c1e72e81550e19806fd0fd92147",
+    "schema_version": "M-B10R1_BOUND_CONTRACT_IDENTITY_V1",
+    "selected_candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+    "selected_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+    "selected_model_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+  },
+  "mmwave_phase_b_access_modified": false,
+  "phase_id": "M-B10R1-A",
+  "recovery_executed": false,
+  "schema_version": "M-B10R1A_INPUT_IDENTITY_V1",
+  "upstream": {
+    "M-B10A": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup",
+    "M-B10B": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation",
+    "M-B10R0": "datasets/mmwave/manifests/M-B10R0_holdout_policy_review"
+  }
+}

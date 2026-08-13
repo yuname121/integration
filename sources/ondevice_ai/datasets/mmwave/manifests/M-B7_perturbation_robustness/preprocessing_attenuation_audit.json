@@ -1,0 +1,430 @@
+{
+  "phase_id": "M-B7",
+  "profiles": {
+    "M-B7_AMP_X0_50": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 1.012293644,
+        "mean": 0.4563665,
+        "median": 0.43348542,
+        "min": 0.062816276
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.309145527,
+        "mean": 0.106623947,
+        "median": 0.089212803,
+        "min": 0.010980732
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 51.024817228,
+        "mean": 6.906615362,
+        "median": 4.530519213,
+        "min": 0.547907775
+      }
+    },
+    "M-B7_AMP_X0_75": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.506146823,
+        "mean": 0.22818325,
+        "median": 0.21674271,
+        "min": 0.031408138
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.309145527,
+        "mean": 0.106623947,
+        "median": 0.089212803,
+        "min": 0.010980732
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 25.512408614,
+        "mean": 3.453307681,
+        "median": 2.265259607,
+        "min": 0.273953887
+      }
+    },
+    "M-B7_AMP_X1_25": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.506146819,
+        "mean": 0.22818325,
+        "median": 0.21674271,
+        "min": 0.031408138
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.309145526,
+        "mean": 0.106623947,
+        "median": 0.089212803,
+        "min": 0.010980732
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 25.512408614,
+        "mean": 3.453307681,
+        "median": 2.265259607,
+        "min": 0.273953887
+      }
+    },
+    "M-B7_AMP_X1_50": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 1.012293643,
+        "mean": 0.4563665,
+        "median": 0.433485419,
+        "min": 0.062816276
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.309145528,
+        "mean": 0.106623947,
+        "median": 0.089212803,
+        "min": 0.010980732
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 51.024817228,
+        "mean": 6.906615362,
+        "median": 4.530519213,
+        "min": 0.547907775
+      }
+    },
+    "M-B7_COMBINED_MODERATE": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.668276935,
+        "mean": 0.265065149,
+        "median": 0.272230313,
+        "min": 0.031156432
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.291440592,
+        "mean": 0.108985985,
+        "median": 0.096932817,
+        "min": 0.024997318
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 26.733945689,
+        "mean": 3.617166323,
+        "median": 2.400141928,
+        "min": 0.281455213
+      }
+    },
+    "M-B7_DRIFT_MILD": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.138467228,
+        "mean": 0.017217455,
+        "median": 0.011593627,
+        "min": 0.001130582
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.009255831,
+        "mean": 0.007014041,
+        "median": 0.007023932,
+        "min": 0.003687353
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 18.039997135,
+        "mean": 2.441857279,
+        "median": 1.601780429,
+        "min": 0.193714651
+      }
+    },
+    "M-B7_DRIFT_SEVERE": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.280168721,
+        "mean": 0.034358281,
+        "median": 0.020213805,
+        "min": 0.001801413
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.009256416,
+        "mean": 0.006673247,
+        "median": 0.006576275,
+        "min": 0.003687539
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 36.07999427,
+        "mean": 4.883714558,
+        "median": 3.203560858,
+        "min": 0.387429303
+      }
+    },
+    "M-B7_DROPOUT_LONG": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.906468436,
+        "mean": 0.226385586,
+        "median": 0.212556156,
+        "min": 0.003948375
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.312343428,
+        "mean": 0.240898291,
+        "median": 0.244168994,
+        "min": 0.076702152
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 3.648689828,
+        "mean": 0.922126231,
+        "median": 0.903325978,
+        "min": 0.034571512
+      }
+    },
+    "M-B7_DROPOUT_SHORT": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.05769238,
+        "mean": 0.013522903,
+        "median": 0.008015598,
+        "min": 0.0
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 77,
+        "max": 0.259341251,
+        "mean": 0.144775836,
+        "median": 0.157868186,
+        "min": 0.022533781
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 0.343800643,
+        "mean": 0.089888332,
+        "median": 0.075922553,
+        "min": 0.0
+      }
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "injection_domain": "POST_B1_MODEL_INPUT",
+      "interpretation_limit": "Post-B1 companion; pre-B1 attenuation is not applicable.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.675720642,
+        "mean": 0.289622515,
+        "median": 0.269818641,
+        "min": 0.039338911
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null
+      },
+      "pre_b1_delta_rms": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null
+      }
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "injection_domain": "POST_B1_MODEL_INPUT",
+      "interpretation_limit": "Post-B1 companion; pre-B1 attenuation is not applicable.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.210817824,
+        "mean": 0.091294538,
+        "median": 0.08713494,
+        "min": 0.013890924
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null
+      },
+      "pre_b1_delta_rms": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null
+      }
+    },
+    "M-B7_GAUSSIAN_SNR10": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 3.209747414,
+        "mean": 0.483290393,
+        "median": 0.356234508,
+        "min": 0.029860266
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.204578475,
+        "mean": 0.113347713,
+        "median": 0.107915967,
+        "min": 0.075816351
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 32.575986016,
+        "mean": 4.336344776,
+        "median": 2.962050717,
+        "min": 0.362013151
+      }
+    },
+    "M-B7_GAUSSIAN_SNR20": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 1.109036447,
+        "mean": 0.156302041,
+        "median": 0.100016902,
+        "min": 0.010465171
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.165688705,
+        "mean": 0.111375064,
+        "median": 0.112051239,
+        "min": 0.068294383
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 10.437678283,
+        "mean": 1.381208458,
+        "median": 0.914034684,
+        "min": 0.110072267
+      }
+    },
+    "M-B7_MISSING_FRAME_1PCT": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.013881432,
+        "mean": 0.003291887,
+        "median": 0.002392301,
+        "min": 7.1974e-05
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.147325338,
+        "mean": 0.093176911,
+        "median": 0.090698032,
+        "min": 0.058457672
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 0.184867183,
+        "mean": 0.036287083,
+        "median": 0.026980858,
+        "min": 0.000755458
+      }
+    },
+    "M-B7_MISSING_FRAME_5PCT": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 0.025226248,
+        "mean": 0.00823488,
+        "median": 0.007017495,
+        "min": 0.000635468
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.128972341,
+        "mean": 0.094223796,
+        "median": 0.095529496,
+        "min": 0.062926658
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 0.267050781,
+        "mean": 0.086292473,
+        "median": 0.078839004,
+        "min": 0.008323221
+      }
+    },
+    "M-B7_MOTION_BURST_MILD": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 1.709970172,
+        "mean": 0.505031556,
+        "median": 0.464103385,
+        "min": 0.056855464
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.320706407,
+        "mean": 0.200102447,
+        "median": 0.194887722,
+        "min": 0.146533154
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 8.896683652,
+        "mean": 2.544764278,
+        "median": 2.360866286,
+        "min": 0.275716954
+      }
+    },
+    "M-B7_MOTION_BURST_SEVERE": {
+      "injection_domain": "CANONICAL_PHASE_PRE_B1",
+      "interpretation_limit": "Ratio quantifies frozen BPF/Z-score attenuation or amplification; it is not real-sensor robustness.",
+      "post_b1_delta_rms": {
+        "count": 79,
+        "max": 3.332649899,
+        "mean": 1.03468829,
+        "median": 0.915953223,
+        "min": 0.107269555
+      },
+      "post_to_pre_rms_ratio": {
+        "count": 79,
+        "max": 0.339074622,
+        "mean": 0.202951611,
+        "median": 0.194794867,
+        "min": 0.169118686
+      },
+      "pre_b1_delta_rms": {
+        "count": 79,
+        "max": 17.793367303,
+        "mean": 5.089528556,
+        "median": 4.721732572,
+        "min": 0.551433909
+      }
+    }
+  }
+}

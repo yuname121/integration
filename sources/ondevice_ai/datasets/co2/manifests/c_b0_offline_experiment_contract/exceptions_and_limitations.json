@@ -1,0 +1,42 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "warnings": [
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "WARNING",
+      "description": "UCI offline performance does not prove SCD40 deployment performance."
+    },
+    {
+      "code": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Existing TFLite remains unverified; B0 reference baselines are not promotions."
+    },
+    {
+      "code": "SCALER_FIT_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "Historical production scaler lineage remains unverified and unmodified."
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "description": "C-A3 150s offline baseline remains CANONICAL_OFFLINE_BASELINE_DESIGN; ablation deferred to C-B1."
+    },
+    {
+      "code": "SAFETY_RULE_CONTRACT_OUT_OF_SCOPE",
+      "severity": "WARNING",
+      "description": "B0 does not calibrate CO2 safety/alarm thresholds."
+    },
+    {
+      "code": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+      "severity": "WARNING",
+      "description": "Shared inventory/manifest updates deferred outside C-B0."
+    },
+    {
+      "code": "OPTIONAL_LINEAR_BASELINE_SKIPPED",
+      "severity": "WARNING",
+      "description": "scikit-learn unavailable; optional logistic baseline skipped. Majority baseline remains."
+    }
+  ],
+  "blockers": []
+}

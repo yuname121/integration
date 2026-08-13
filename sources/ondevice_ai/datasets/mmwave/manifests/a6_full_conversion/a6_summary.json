@@ -1,0 +1,69 @@
+{
+  "profile_id": "MMWAVE_FULL_CONVERSION_PROFILE_001",
+  "a0_measured_metrics": {
+    "measured_subject_count": 110,
+    "measured_recording_count": 440,
+    "min_recordings_per_subject": 4,
+    "max_recordings_per_subject": 4,
+    "recording_count_distribution": {
+      "4": 110
+    },
+    "evidence_source": "datasets/mmwave/manifests/a0_raw_inventory/recording_index.jsonl"
+  },
+  "processed_recording_count": 440,
+  "processed_window_count": 530,
+  "canonical_npy_artifact": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+  "canonical_npy_shape": [
+    530,
+    300
+  ],
+  "pre_a6_archive_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "post_a6_archive_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_unchanged": true,
+  "recording_status_breakdown": {
+    "SUCCESS_WITH_WARNINGS": 350,
+    "SUCCESS": 90
+  },
+  "split_subject_distribution": {
+    "TRAIN": 77,
+    "VALIDATION": 17,
+    "LOCKED_TEST": 16
+  },
+  "split_window_distribution": {
+    "TRAIN": 358,
+    "VALIDATION": 84,
+    "LOCKED_TEST": 88
+  },
+  "label_window_distribution": {
+    "RAPID_OR_ABNORMAL": 119,
+    "APNEA": 213,
+    "NORMAL": 149,
+    "AMBIGUOUS": 49
+  },
+  "leakage_audit_summary": {
+    "cross_split_exact_signal_overlap": 0,
+    "cross_split_subject_overlap": 0,
+    "cross_split_recording_overlap": 0,
+    "cross_split_window_id_overlap": 0
+  },
+  "validator_verdict": {
+    "validation_success": true,
+    "a6_gate_status": "PASS_WITH_WARNINGS",
+    "phase_b_entry_status": "READY_WITH_CONDITIONS",
+    "total_recordings_validated": 440,
+    "total_windows_validated": 530,
+    "total_provenance_validated": 530,
+    "canonical_npy_rows_validated": 530,
+    "checksum_entries_validated": 11,
+    "raw_archive_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+    "leakage_recalculated": {
+      "cross_split_subject_overlap": 0,
+      "cross_split_recording_overlap": 0,
+      "cross_split_window_id_overlap": 0,
+      "cross_split_exact_signal_overlap": 0
+    }
+  },
+  "validation_passed": true,
+  "a6_gate_status": "PASS_WITH_WARNINGS",
+  "phase_b_entry_status": "READY_WITH_CONDITIONS"
+}

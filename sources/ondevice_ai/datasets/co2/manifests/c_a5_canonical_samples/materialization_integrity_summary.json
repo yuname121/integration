@@ -1,0 +1,18 @@
+{
+  "manifest_version": "1.0",
+  "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "source_observation_count": 20560,
+  "canonical_source_sample_count": 20560,
+  "missing_source_mappings": 0,
+  "extra_canonical_mappings": 0,
+  "duplicate_canonical_ids": 0,
+  "one_to_one_ok": true,
+  "target_labels_modified": 0,
+  "split_assignments_modified": 0,
+  "slope_status_modified": 0,
+  "random_row_wise_split_used": false,
+  "scaler_fitted": false,
+  "model_trained": false,
+  "synthetic_npz_used_as_real_source": false,
+  "a_series_release_status": "DEFERRED_UNTIL_C-A6"
+}

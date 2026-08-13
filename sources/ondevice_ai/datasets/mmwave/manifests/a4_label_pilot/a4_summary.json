@@ -1,0 +1,78 @@
+{
+  "a4_gate_status": "PASS_WITH_WARNINGS",
+  "a5_entry_status": "READY_WITH_CONDITIONS",
+  "annotation_bearing_recordings_count": 6,
+  "annotation_coverage": {
+    "annotated_seconds_lost_to_dropped_tails": 13.605943,
+    "annotated_seconds_represented_in_a3": 54.31876,
+    "events_fully_covered": 2,
+    "events_not_covered": 0,
+    "events_partially_covered": 4,
+    "total_annotated_events": 6,
+    "total_annotated_seconds": 67.924703
+  },
+  "archive_sha256_after_a4": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_sha256_before_a4": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "archive_unchanged_after_a4": true,
+  "artifact_audit": {
+    "clinical_apnea_claimed_flag": false,
+    "label_x_posture": {
+      "APNEA": {
+        "Lying": 3,
+        "Sitting": 3
+      },
+      "NORMAL": {
+        "Lying": 2,
+        "Sitting": 3
+      },
+      "RAPID_OR_ABNORMAL": {
+        "Lying": 3
+      },
+      "UNASSIGNED_AMBIGUOUS": {
+        "Lying": 1
+      }
+    },
+    "label_x_source_condition": {
+      "APNEA": {
+        "Rest": 6
+      },
+      "NORMAL": {
+        "Post-exercise": 5
+      },
+      "RAPID_OR_ABNORMAL": {
+        "Post-exercise": 3
+      },
+      "UNASSIGNED_AMBIGUOUS": {
+        "Rest": 1
+      }
+    },
+    "movesense_chest_acc_reference_used": true,
+    "post_exercise_auto_rapid_flag": false
+  },
+  "evaluated_a3_windows_count": 15,
+  "exception_count": 5,
+  "explicit_non_scope": {
+    "a5": "NOT_PERFORMED",
+    "class_balancing": "NOT_PERFORMED",
+    "final_training_npz_generation": "NOT_PERFORMED",
+    "full_440_recording_conversion": "NOT_PERFORMED",
+    "int8_quantization": "NOT_PERFORMED",
+    "model_training": "NOT_PERFORMED",
+    "preprocessing_ablation": "NOT_PERFORMED",
+    "subject_split": "NOT_PERFORMED",
+    "tflite_conversion": "NOT_PERFORMED",
+    "train_val_test_assignment": "NOT_PERFORMED"
+  },
+  "label_distribution": {
+    "AMBIGUOUS": 1,
+    "APNEA": 6,
+    "EXCLUDED": 0,
+    "NORMAL": 5,
+    "RAPID_OR_ABNORMAL": 3,
+    "UNMAPPED": 0
+  },
+  "pilot_recording_count": 13,
+  "schema_version": "1.0",
+  "selected_profile_id": "MMWAVE_LABEL_MAPPING_PROFILE_001",
+  "validation_success": true
+}

@@ -1,0 +1,45 @@
+{
+  "manifest_version": "1.0",
+  "profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "random_row_wise_split": false,
+  "split_assignments": {
+    "TRAIN": "BLOCK_02_DATATRAINING",
+    "VALIDATION": "BLOCK_01_DATATEST",
+    "LOCKED_TEST": "BLOCK_03_DATATEST2"
+  },
+  "by_role": {
+    "TRAIN": {
+      "future_split_role": "TRAIN",
+      "canonical_source_samples": 8143,
+      "slope_eligible_samples": 8140,
+      "warmup_unavailable_samples": 3,
+      "vacant_count": 6414,
+      "occupied_count": 1729,
+      "scaler_fit_authorized": true,
+      "locked_test_fit_authorized": false,
+      "locked_test_tuning_authorized": false
+    },
+    "VALIDATION": {
+      "future_split_role": "VALIDATION",
+      "canonical_source_samples": 2665,
+      "slope_eligible_samples": 2662,
+      "warmup_unavailable_samples": 3,
+      "vacant_count": 1693,
+      "occupied_count": 972,
+      "scaler_fit_authorized": false,
+      "locked_test_fit_authorized": false,
+      "locked_test_tuning_authorized": false
+    },
+    "LOCKED_TEST": {
+      "future_split_role": "LOCKED_TEST",
+      "canonical_source_samples": 9752,
+      "slope_eligible_samples": 9749,
+      "warmup_unavailable_samples": 3,
+      "vacant_count": 7703,
+      "occupied_count": 2049,
+      "scaler_fit_authorized": false,
+      "locked_test_fit_authorized": false,
+      "locked_test_tuning_authorized": false
+    }
+  }
+}

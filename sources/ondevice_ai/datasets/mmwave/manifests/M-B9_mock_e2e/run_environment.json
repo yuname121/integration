@@ -1,0 +1,16 @@
+{
+  "c_b2_guard": "NO_M-B8_LATENCY_RERUN_DURING_M-B9",
+  "formal_benchmark_idle_stabilization_required_seconds": 30.0,
+  "formal_m_b8_latency_measurement_rerun_during_m_b9": false,
+  "known_safenest_workload_check": "NOT_APPLICABLE; M-B8 BENCHMARK NOT RERUN DURING M-B9",
+  "m_b8_prior_formal_latency_benchmark_completed": true,
+  "machine": "arm64",
+  "numpy": "1.26.4",
+  "phase_id": "M-B9",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.9.6",
+  "root_policy": "CANONICAL_ACTIVE_ROOT_ONLY",
+  "tensorflow": "2.20.0",
+  "timestamp_utc": "2026-08-11T16:32:39Z"
+}

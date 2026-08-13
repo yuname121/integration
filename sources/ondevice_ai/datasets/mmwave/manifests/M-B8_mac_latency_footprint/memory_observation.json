@@ -1,0 +1,1248 @@
+{
+  "formal_series_observations": {
+    "confirmation_series_01": {
+      "42": {
+        "interpreter_structure": {
+          "bytes": 22080,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "thread_count": 1
+        }
+      },
+      "43": {
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "thread_count": 1
+        }
+      },
+      "44": {
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "thread_count": 1
+        }
+      }
+    },
+    "formal_series_01": {
+      "42": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 207142912,
+          "timestamp_utc": "2026-08-11T03:23:28.758714+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212058112,
+            "timestamp_utc": "2026-08-11T03:23:28.926205+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212074496,
+            "timestamp_utc": "2026-08-11T03:23:29.103059+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212058112,
+            "timestamp_utc": "2026-08-11T03:23:28.941583+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 209207296,
+            "timestamp_utc": "2026-08-11T03:23:28.780301+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212008960,
+            "timestamp_utc": "2026-08-11T03:23:28.798719+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212058112,
+            "timestamp_utc": "2026-08-11T03:23:28.960600+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212058112,
+            "timestamp_utc": "2026-08-11T03:23:28.931497+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 208945152,
+            "timestamp_utc": "2026-08-11T03:23:28.767330+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 202653696,
+          "timestamp_utc": "2026-08-11T03:23:28.751002+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22080,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "thread_count": 1
+        }
+      },
+      "43": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 212320256,
+          "timestamp_utc": "2026-08-11T03:23:29.161675+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212303872,
+            "timestamp_utc": "2026-08-11T03:23:29.349955+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212320256,
+            "timestamp_utc": "2026-08-11T03:23:29.539882+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212303872,
+            "timestamp_utc": "2026-08-11T03:23:29.369051+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212320256,
+            "timestamp_utc": "2026-08-11T03:23:29.181904+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212320256,
+            "timestamp_utc": "2026-08-11T03:23:29.204311+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212303872,
+            "timestamp_utc": "2026-08-11T03:23:29.390153+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212303872,
+            "timestamp_utc": "2026-08-11T03:23:29.357441+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212320256,
+            "timestamp_utc": "2026-08-11T03:23:29.167916+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 212271104,
+          "timestamp_utc": "2026-08-11T03:23:29.154728+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "thread_count": 1
+        }
+      },
+      "44": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 212418560,
+          "timestamp_utc": "2026-08-11T03:23:29.600505+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212451328,
+            "timestamp_utc": "2026-08-11T03:23:29.761665+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212467712,
+            "timestamp_utc": "2026-08-11T03:23:29.939320+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212451328,
+            "timestamp_utc": "2026-08-11T03:23:29.776906+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212434944,
+            "timestamp_utc": "2026-08-11T03:23:29.619026+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212434944,
+            "timestamp_utc": "2026-08-11T03:23:29.636192+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212451328,
+            "timestamp_utc": "2026-08-11T03:23:29.796013+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212451328,
+            "timestamp_utc": "2026-08-11T03:23:29.766967+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 212434944,
+            "timestamp_utc": "2026-08-11T03:23:29.606683+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 212385792,
+          "timestamp_utc": "2026-08-11T03:23:29.593994+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "thread_count": 1
+        }
+      }
+    },
+    "formal_series_02": {
+      "42": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 34521088,
+          "timestamp_utc": "2026-08-11T03:24:01.166213+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34537472,
+            "timestamp_utc": "2026-08-11T03:24:01.350375+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34553856,
+            "timestamp_utc": "2026-08-11T03:24:01.561046+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34537472,
+            "timestamp_utc": "2026-08-11T03:24:01.370459+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34521088,
+            "timestamp_utc": "2026-08-11T03:24:01.191411+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34521088,
+            "timestamp_utc": "2026-08-11T03:24:01.213028+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34537472,
+            "timestamp_utc": "2026-08-11T03:24:01.401734+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34537472,
+            "timestamp_utc": "2026-08-11T03:24:01.357558+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34521088,
+            "timestamp_utc": "2026-08-11T03:24:01.175124+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 34455552,
+          "timestamp_utc": "2026-08-11T03:24:01.158555+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22080,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "thread_count": 1
+        }
+      },
+      "43": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 33751040,
+          "timestamp_utc": "2026-08-11T03:24:00.199052+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34455552,
+            "timestamp_utc": "2026-08-11T03:24:00.389726+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34275328,
+            "timestamp_utc": "2026-08-11T03:24:00.607023+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34291712,
+            "timestamp_utc": "2026-08-11T03:24:00.421567+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34652160,
+            "timestamp_utc": "2026-08-11T03:24:00.222530+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 37519360,
+            "timestamp_utc": "2026-08-11T03:24:00.243605+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34291712,
+            "timestamp_utc": "2026-08-11T03:24:00.444062+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34390016,
+            "timestamp_utc": "2026-08-11T03:24:00.404689+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34504704,
+            "timestamp_utc": "2026-08-11T03:24:00.207946+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 29540352,
+          "timestamp_utc": "2026-08-11T03:24:00.184875+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "thread_count": 1
+        }
+      },
+      "44": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 34521088,
+          "timestamp_utc": "2026-08-11T03:24:00.689282+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34455552,
+            "timestamp_utc": "2026-08-11T03:24:00.884255+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34439168,
+            "timestamp_utc": "2026-08-11T03:24:01.097804+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34455552,
+            "timestamp_utc": "2026-08-11T03:24:00.903159+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34504704,
+            "timestamp_utc": "2026-08-11T03:24:00.714020+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34488320,
+            "timestamp_utc": "2026-08-11T03:24:00.740824+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34422784,
+            "timestamp_utc": "2026-08-11T03:24:00.930583+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34455552,
+            "timestamp_utc": "2026-08-11T03:24:00.891355+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 34521088,
+            "timestamp_utc": "2026-08-11T03:24:00.696990+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 34488320,
+          "timestamp_utc": "2026-08-11T03:24:00.681214+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "thread_count": 1
+        }
+      }
+    },
+    "formal_series_03": {
+      "42": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 47529984,
+          "timestamp_utc": "2026-08-11T03:24:32.248699+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47546368,
+            "timestamp_utc": "2026-08-11T03:24:32.411141+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47562752,
+            "timestamp_utc": "2026-08-11T03:24:32.589273+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47546368,
+            "timestamp_utc": "2026-08-11T03:24:32.426968+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47529984,
+            "timestamp_utc": "2026-08-11T03:24:32.267172+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47529984,
+            "timestamp_utc": "2026-08-11T03:24:32.284513+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47546368,
+            "timestamp_utc": "2026-08-11T03:24:32.445972+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47546368,
+            "timestamp_utc": "2026-08-11T03:24:32.416905+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47529984,
+            "timestamp_utc": "2026-08-11T03:24:32.254856+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 47480832,
+          "timestamp_utc": "2026-08-11T03:24:32.241437+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22080,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+          "thread_count": 1
+        }
+      },
+      "43": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 47579136,
+          "timestamp_utc": "2026-08-11T03:24:32.648449+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47595520,
+            "timestamp_utc": "2026-08-11T03:24:32.811694+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47611904,
+            "timestamp_utc": "2026-08-11T03:24:32.989165+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47595520,
+            "timestamp_utc": "2026-08-11T03:24:32.827169+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47579136,
+            "timestamp_utc": "2026-08-11T03:24:32.667639+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47579136,
+            "timestamp_utc": "2026-08-11T03:24:32.685678+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47595520,
+            "timestamp_utc": "2026-08-11T03:24:32.846234+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47595520,
+            "timestamp_utc": "2026-08-11T03:24:32.817241+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47579136,
+            "timestamp_utc": "2026-08-11T03:24:32.654745+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 47579136,
+          "timestamp_utc": "2026-08-11T03:24:32.641225+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+          "thread_count": 1
+        }
+      },
+      "44": {
+        "after_allocation": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 43450368,
+          "timestamp_utc": "2026-08-11T03:24:31.846301+00:00"
+        },
+        "after_measured_metrics": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47366144,
+            "timestamp_utc": "2026-08-11T03:24:32.010618+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47382528,
+            "timestamp_utc": "2026-08-11T03:24:32.189654+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47366144,
+            "timestamp_utc": "2026-08-11T03:24:32.026322+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 44564480,
+            "timestamp_utc": "2026-08-11T03:24:31.866556+00:00"
+          }
+        },
+        "after_warmup": {
+          "PREPROCESSING_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47349760,
+            "timestamp_utc": "2026-08-11T03:24:31.884589+00:00"
+          },
+          "PREPROCESSING_QUANTIZATION_INVOKE": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47366144,
+            "timestamp_utc": "2026-08-11T03:24:32.045694+00:00"
+          },
+          "QUANTIZATION_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 47366144,
+            "timestamp_utc": "2026-08-11T03:24:32.016198+00:00"
+          },
+          "TFLITE_INVOKE_ONLY": {
+            "measurement_type": "PROCESS_RSS_PROXY",
+            "method": "PS_RSS_KIB_PROCESS_PROXY",
+            "rss_bytes": 44433408,
+            "timestamp_utc": "2026-08-11T03:24:31.853386+00:00"
+          }
+        },
+        "before_interpreter": {
+          "measurement_type": "PROCESS_RSS_PROXY",
+          "method": "PS_RSS_KIB_PROCESS_PROXY",
+          "rss_bytes": 38830080,
+          "timestamp_utc": "2026-08-11T03:24:31.838378+00:00"
+        },
+        "interpreter_structure": {
+          "bytes": 22136,
+          "delegate_runtime_mode": "DEFAULT_TFLITE_CPU_RUNTIME_WITH_AUTOMATIC_XNNPACK_CPU_DELEGATE_OBSERVED",
+          "input_dtype": "int8",
+          "input_scale": 0.041720833629369736,
+          "input_shape": [
+            1,
+            300,
+            1
+          ],
+          "input_zero_point": -3,
+          "op_types": [
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "MUL",
+            "ADD",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "MAX_POOL_2D",
+            "RESHAPE",
+            "EXPAND_DIMS",
+            "CONV_2D",
+            "RESHAPE",
+            "MEAN",
+            "FULLY_CONNECTED",
+            "SOFTMAX",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE",
+            "DELEGATE"
+          ],
+          "output_dtype": "int8",
+          "output_scale": 0.00390625,
+          "output_shape": [
+            1,
+            3
+          ],
+          "output_zero_point": -128,
+          "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+          "select_tf_ops_count": 0,
+          "sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+          "thread_count": 1
+        }
+      }
+    }
+  },
+  "limitations": [
+    "RSS includes Python, TensorFlow, allocator state, and other process allocations.",
+    "PROCESS_RSS_PROXY must not be interpreted as exact TFLite arena bytes."
+  ],
+  "measurement_type": "PROCESS_RSS_PROXY",
+  "method": "PS_RSS_KIB_PROCESS_PROXY",
+  "peak_during_benchmark": {
+    "measurement_type": "PEAK_MODEL_MEMORY_NOT_RELIABLY_MEASURABLE_ON_CURRENT_MAC_RUNTIME",
+    "reason": "The available ps RSS interface provides snapshots, not a reliable continuous process peak."
+  },
+  "phase_id": "M-B8",
+  "semantics": "PROCESS_LEVEL_RSS_OBSERVATION_NOT_TFLITE_ARENA_OR_MODEL_RAM_REQUIREMENT"
+}

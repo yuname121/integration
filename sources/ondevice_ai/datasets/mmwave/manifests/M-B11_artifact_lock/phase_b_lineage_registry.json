@@ -1,0 +1,127 @@
+{
+  "m_b11": {
+    "improves_candidate": false,
+    "role": "immutable_offline_candidate_lock"
+  },
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "selected_path": {
+    "M-B0": {
+      "role": "evaluation_protocol_and_locked_test_access_control",
+      "summary": "datasets/mmwave/manifests/M-B0_evaluation_protocol/m_b0_summary.json"
+    },
+    "M-B1": {
+      "selected_preprocessing": "M-B1_D0_B1_Z1",
+      "selected_profile": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/selected_preprocessing_profile.json",
+      "semantic_name": "BPF_ZSCORE",
+      "summary": "datasets/mmwave/manifests/M-B1_preprocessing_ablation/m_b1_summary.json"
+    },
+    "M-B10A": {
+      "locked_test_accesses": 0,
+      "role": "candidate_preregistration_before_LOCKED_TEST",
+      "selected_candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+      "summary": "datasets/mmwave/manifests/M-B10A_candidate_selection_setup/m_b10a_summary.json"
+    },
+    "M-B10B": {
+      "metrics": 0,
+      "model_inference": 0,
+      "original_final_accessor_invocations": 1,
+      "original_locked_test_consumed": true,
+      "payload_returned": 75,
+      "predictions": 0,
+      "root_cause": "PRETEST_CONTRACT_COUNT_SEMANTICS_CONFLATION",
+      "summary": "datasets/mmwave/manifests/M-B10B_locked_test_final_evaluation/m_b10b_summary.json"
+    },
+    "M-B10R0": {
+      "policy_decision": "LIMITED_LOCKED_TEST_REUSE_EXCEPTION_RECOMMENDED",
+      "summary": "datasets/mmwave/manifests/M-B10R0_holdout_policy_review/m_b10r0_summary.json"
+    },
+    "M-B10R1-A": {
+      "new_access": 0,
+      "recovery_harness_frozen_before_reuse": true,
+      "summary": "datasets/mmwave/manifests/M-B10R1A_recovery_prefreeze/m_b10r1a_summary.json"
+    },
+    "M-B10R1-B": {
+      "actual_tflite_invokes": 225,
+      "recovery_accessor": 1,
+      "recovery_payload_release": 1,
+      "rerun": false,
+      "second_recovery": false,
+      "summary": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/m_b10r1b_summary.json"
+    },
+    "M-B2": {
+      "selected_strategy": "M-B2_CE_UNWEIGHTED",
+      "summary": "datasets/mmwave/manifests/M-B2_class_imbalance/m_b2_summary.json"
+    },
+    "M-B3": {
+      "selected_architecture": "M-B3_CONV1D_GAP_BASELINE",
+      "strict_int8_artifact": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "summary": "datasets/mmwave/manifests/M-B3_architecture_comparison/m_b3_summary.json"
+    },
+    "M-B4": {
+      "initialization_sensitivity": true,
+      "primary_stable_float_finalist": "M-B3_CONV1D_GAP_BASELINE",
+      "seed42_materially_better_than_seed44": true,
+      "seed_set": [
+        42,
+        43,
+        44
+      ],
+      "summary": "datasets/mmwave/manifests/M-B4_multiseed_stability/m_b4_summary.json",
+      "validation_macro_f1": {
+        "seed42": 0.663708,
+        "seed43": 0.45101,
+        "seed44": 0.329107
+      }
+    },
+    "M-B5": {
+      "selected_calibration": "M-B5_CAL_CLASS_BALANCED_120",
+      "summary": "datasets/mmwave/manifests/M-B5_representative_calibration/m_b5_summary.json"
+    },
+    "M-B6": {
+      "frozen_int8_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "stage_artifact_manifest": "datasets/mmwave/manifests/M-B6_stage_equivalence/stage_artifact_manifest.json",
+      "stage_equivalence_verified": true,
+      "summary": "datasets/mmwave/manifests/M-B6_stage_equivalence/m_b6_summary.json"
+    },
+    "M-B7": {
+      "new_collapse_conditions": [
+        {
+          "affected_seeds": [
+            42,
+            44
+          ],
+          "profile_id": "M-B7_AMP_X0_50"
+        },
+        {
+          "affected_seeds": [
+            44
+          ],
+          "profile_id": "M-B7_AMP_X0_75"
+        },
+        {
+          "affected_seeds": [
+            44
+          ],
+          "profile_id": "M-B7_COMBINED_MODERATE"
+        }
+      ],
+      "perturbation_robustness_evidence": true,
+      "seed42_retained": true,
+      "seed44_moderate_profile_collapse": true,
+      "summary": "datasets/mmwave/manifests/M-B7_perturbation_robustness/m_b7_summary.json"
+    },
+    "M-B8": {
+      "host": "Apple M2",
+      "not_raspberry_pi_latency": true,
+      "scope": "MAC_M2_LATENCY_AND_FOOTPRINT_ONLY",
+      "seed42_median_ms": 0.006583,
+      "seed42_p99_ms": 0.00933301,
+      "summary": "datasets/mmwave/manifests/M-B8_mac_latency_footprint/m_b8_summary.json"
+    },
+    "M-B9": {
+      "not_physical_sensor_integration": true,
+      "scope": "MOCK_RUNTIME_PATH_EQUIVALENCE_AND_FAIL_CLOSED",
+      "summary": "datasets/mmwave/manifests/M-B9_mock_e2e/m_b9_summary.json"
+    }
+  }
+}

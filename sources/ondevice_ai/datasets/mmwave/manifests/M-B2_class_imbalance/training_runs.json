@@ -1,0 +1,45 @@
+{
+  "phase_id": "M-B2",
+  "training_runs": {
+    "M-B2_CE_UNWEIGHTED": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "42dbb04e98f7da8ea9ce1e1df3b2b4a5e1e1e66fe9bfa6ea26f2fe3f256a9bd7",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.598058,
+      "final_val_loss": 0.825287,
+      "best_val_loss": 0.825287
+    },
+    "M-B2_CE_CLASS_WEIGHT": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "d0d6c456d27ef7365fa67a5536af5c93d225db3a12a8a6c0b85ca778f3ee279d",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.68103,
+      "final_val_loss": 0.815959,
+      "best_val_loss": 0.815959
+    },
+    "M-B2_CE_RANDOM_OVERSAMPLE": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "94d1323874b8996444184e4d3d96637970642c3ee8a618f50127b384270b9133",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.63234,
+      "final_val_loss": 0.76898,
+      "best_val_loss": 0.76898
+    },
+    "M-B2_FOCAL_CLASS_ALPHA": {
+      "initial_weights_sha256": "03253f5697701f5fe7dce436d1368320936d9ba837432e2d8f2710e6fa93a6e3",
+      "final_weights_sha256": "e7be99ea401f505c7b89039f1fad5c4858c6fdbb5bbf844bcc8148d6747613ed",
+      "parameter_count": 9315,
+      "best_epoch": 25,
+      "epochs_run": 25,
+      "final_train_loss": 0.263531,
+      "final_val_loss": 0.360451,
+      "best_val_loss": 0.360451
+    }
+  }
+}

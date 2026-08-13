@@ -1,0 +1,16 @@
+{
+  "phase_id": "M-B1",
+  "selected_profile_id": "M-B1_D0_B1_Z1",
+  "selected_profile_name": "BPF_ZSCORE",
+  "detrend": false,
+  "bpf": true,
+  "zscore": true,
+  "validation_performance": {
+    "macro_f1": 0.663708,
+    "accuracy": 0.721519,
+    "min_per_class_recall": 0.454545,
+    "apnea_proxy_recall": 1.0,
+    "apnea_proxy_miss_rate": 0.0
+  },
+  "selection_rationale": "Selected M-B1_D0_B1_Z1 (BPF_ZSCORE) with highest VALIDATION Macro F1 = 0.663708 under pre-registered 6-step ranking rule in pinned environment."
+}

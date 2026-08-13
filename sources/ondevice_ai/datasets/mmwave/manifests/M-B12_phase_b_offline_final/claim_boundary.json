@@ -1,0 +1,23 @@
+{
+  "FIRST_LOCKED_TEST_EVALUATION": false,
+  "MR60_device_validation_complete": false,
+  "PRISTINE_LOCKED_TEST": false,
+  "Phase_B_release_ready": false,
+  "Raspberry_Pi_validation_complete": false,
+  "artifact_status": "REAL_DATA_OFFLINE_CANDIDATE",
+  "clinical_apnea_validated": false,
+  "deployment_ready": false,
+  "git_tag_created": false,
+  "github_release_created": false,
+  "locked_test_reopen_allowed": false,
+  "m_c_started": false,
+  "multisensor_integration_complete": false,
+  "phase_b_offline_final_report_complete": true,
+  "phase_b_offline_intermediate_release_ready_after_merge": true,
+  "production_ready": false,
+  "recovery_reopen_allowed": false,
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "schema_version": "M-B12_PHASE_B_OFFLINE_FINAL_V1",
+  "status_label": "PHASE_B_OFFLINE_INTERMEDIATE_RELEASE_READY_AFTER_MERGE"
+}

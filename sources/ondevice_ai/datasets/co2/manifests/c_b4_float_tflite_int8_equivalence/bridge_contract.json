@@ -1,0 +1,15 @@
+{
+  "coefficient_parity": true,
+  "epochs": 0,
+  "float32_weight_cast": true,
+  "intercept_parity": true,
+  "manifest_version": "1.0",
+  "model_type": "Input(shape=(4,), dtype=float32) -> Dense(1, activation=sigmoid, use_bias=True)",
+  "new_architecture_candidate": false,
+  "optimizer": null,
+  "phase": "C-B4",
+  "profile_id": "CO2_B4_WEIGHT_TRANSFER_EQUIVALENT_CONVERSION_BRIDGE_001",
+  "retrained": false,
+  "trained": false,
+  "weight_transfer": "C-B3 sklearn coefficient/intercept -> Keras Dense kernel/bias"
+}

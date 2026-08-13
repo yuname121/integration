@@ -1,0 +1,262 @@
+{
+  "schema_version": "1.0",
+  "project": "SafeNest_V6",
+  "generated_at": "2026-07-25T18:54:00+09:00",
+  "models": {
+    "thermal": {
+      "model_id": "thermal_fall_int8",
+      "version": "0.1.0",
+      "status": "candidate",
+      "artifact_status": "CONFIRMED",
+      "validation_status": "CONFIRMED_SYNTHETIC_ONLY",
+      "deployment_allowed": true,
+      "role": "thermal_posture_3class",
+      "framework": "TensorFlow Lite",
+      "quantization": "full_int8",
+      "path": "models/thermal/thermal_fall_int8_v0.1.0.tflite",
+      "size_bytes": 318184,
+      "sha256": "5b56da8d127ccef85f30b6459cc0cfe2d86490e41f3caa5bd2a7b70bbc46ae84",
+      "input": {
+        "name": "serving_default_keras_tensor:0",
+        "shape": [
+          1,
+          62,
+          80,
+          1
+        ],
+        "dtype": "int8",
+        "scale": 0.003921568859368563,
+        "zero_point": -128,
+        "semantic": "normalized_thermal_frame"
+      },
+      "output": {
+        "shape": [
+          1,
+          3
+        ],
+        "dtype": "int8",
+        "scale": 0.00390625,
+        "zero_point": -128,
+        "semantic": "softmax_probabilities"
+      },
+      "class_map": {
+        "0": "NOT_HUMAN",
+        "1": "HUMAN_NORMAL",
+        "2": "HUMAN_FALL"
+      }
+    },
+    "co2": {
+      "model_id": "co2_occupancy_int8",
+      "version": "0.1.0",
+      "status": "candidate",
+      "artifact_status": "CONFIRMED",
+      "validation_status": "CONFIRMED_SYNTHETIC_ONLY",
+      "deployment_allowed": true,
+      "role": "co2_occupancy_classification",
+      "framework": "TensorFlow Lite",
+      "quantization": "full_int8",
+      "path": "models/co2/co2_occupancy_int8_v0.1.0.tflite",
+      "metadata_path": "models/co2/co2_scaling_metadata_v0.1.0.json",
+      "size_bytes": 4464,
+      "sha256": "3a8c86c4c132df0f1edaac668d9a136c3f6234789df48f02bdda8e92f29d0462",
+      "input": {
+        "shape": [
+          1,
+          3
+        ],
+        "dtype": "int8",
+        "scale": 0.005828449968248606,
+        "zero_point": 57,
+        "semantic": "co2_slope_humidity_co2_ppm"
+      },
+      "output": {
+        "shape": [
+          1,
+          2
+        ],
+        "dtype": "int8",
+        "scale": 0.00390625,
+        "zero_point": -128,
+        "semantic": "softmax_probabilities"
+      },
+      "class_map": {
+        "0": "VACANT",
+        "1": "OCCUPIED"
+      }
+    },
+    "mmwave": {
+      "model_id": "mmwave_resp_int8",
+      "version": "0.1.0",
+      "status": "local_runtime_validated",
+      "artifact_status": "CONFIRMED",
+      "validation_status": "BLOCKED",
+      "deployment_allowed": false,
+      "block_reason": "CLASS_COLLAPSE_ON_REPOSITORY_NPZ",
+      "role": "respiration_anomaly_classification",
+      "framework": "TensorFlow Lite",
+      "quantization": "full_int8",
+      "path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+      "metadata_path": "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+      "size_bytes": 466616,
+      "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158",
+      "input": {
+        "name": "serving_default_keras_tensor_8:0",
+        "shape": [
+          1,
+          300,
+          1
+        ],
+        "dtype": "int8",
+        "scale": 0.03259856998920441,
+        "zero_point": -13,
+        "sample_rate_hz": 10,
+        "window_seconds": 30,
+        "semantic": "resp_phase"
+      },
+      "output": {
+        "name": "StatefulPartitionedCall_1:0",
+        "shape": [
+          1,
+          3
+        ],
+        "dtype": "int8",
+        "scale": 0.00390625,
+        "zero_point": -128,
+        "semantic": "softmax_probabilities"
+      },
+      "evaluation": {
+        "dataset_scope": "SYNTHETIC_REPOSITORY_NPZ",
+        "test_samples": 468,
+        "accuracy": 0.3996,
+        "macro_f1": 0.19,
+        "abnormal_recall": 0.0,
+        "apnea_recall": 0.0,
+        "prediction_distribution": {
+          "NORMAL": 468,
+          "RAPID_OR_ABNORMAL": 0,
+          "APNEA": 0
+        }
+      },
+      "validation": {
+        "artifact_imported": true,
+        "sha256_verified": true,
+        "tensor_contract_verified": true,
+        "local_runtime_smoke_test": true,
+        "raspberry_pi_5_benchmark": false,
+        "real_sensor_csv_validation": false
+      },
+      "class_map": {
+        "0": "NORMAL",
+        "1": "RAPID_OR_ABNORMAL",
+        "2": "APNEA"
+      }
+    },
+    "mmwave_v0_2_0_candidate": {
+      "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+      "version": "0.2.0_candidate",
+      "status": "candidate",
+      "artifact_status": "CONFIRMED",
+      "validation_status": "SYNTHETIC_SMOKE_ONLY",
+      "deployment_allowed": true,
+      "real_sensor_performance": "NOT_VERIFIABLE",
+      "hardware_validation": "BLOCKED_HARDWARE",
+      "role": "respiration_anomaly_classification",
+      "framework": "TensorFlow Lite",
+      "quantization": "full_int8",
+      "path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+      "metadata_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+      "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+      "input": {
+        "shape": [
+          1,
+          300,
+          1
+        ],
+        "dtype": "int8",
+        "sample_rate_hz": 10,
+        "window_seconds": 30,
+        "semantic": "resp_phase"
+      },
+      "class_map": {
+        "0": "NORMAL",
+        "1": "RAPID_OR_ABNORMAL",
+        "2": "APNEA"
+      },
+      "evaluation": {
+        "total_samples": 468,
+        "accuracy": 1.0,
+        "macro_precision": 1.0,
+        "macro_recall": 1.0,
+        "macro_f1": 1.0,
+        "per_class_precision": {
+          "NORMAL": 1.0,
+          "RAPID_OR_ABNORMAL": 1.0,
+          "APNEA": 1.0
+        },
+        "per_class_recall": {
+          "NORMAL": 1.0,
+          "RAPID_OR_ABNORMAL": 1.0,
+          "APNEA": 1.0
+        },
+        "per_class_f1": {
+          "NORMAL": 1.0,
+          "RAPID_OR_ABNORMAL": 1.0,
+          "APNEA": 1.0
+        },
+        "confusion_matrix": [
+          [
+            187,
+            0,
+            0
+          ],
+          [
+            0,
+            239,
+            0
+          ],
+          [
+            0,
+            0,
+            42
+          ]
+        ],
+        "apnea_window_miss_rate": 0.0,
+        "false_alarm_per_hour": null,
+        "false_alarm_status": "NOT_COMPUTABLE",
+        "false_alarm_reason": "CONTINUOUS_SESSION_TIMELINE_MISSING",
+        "prediction_distribution": {
+          "NORMAL": 187,
+          "RAPID_OR_ABNORMAL": 239,
+          "APNEA": 42
+        },
+        "class_collapse": false,
+        "model_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+        "model_sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff",
+        "model_type": "INT8 TFLite",
+        "input_saturation_count": 0,
+        "input_saturation_ratio": 0.0,
+        "output_saturation_count": 0,
+        "output_saturation_ratio": 0.0,
+        "input_contract": {
+          "shape": [
+            1,
+            300,
+            1
+          ],
+          "dtype": "int8",
+          "scale": 0.012282303534448147,
+          "zero_point": 12
+        },
+        "output_contract": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "int8",
+          "scale": 0.00390625,
+          "zero_point": -128
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "blockers": [],
+  "device_validation": "NOT_PERFORMED",
+  "manifest_version": "1.0",
+  "phase": "C-B2",
+  "raspberry_pi_validation": "NOT_PERFORMED",
+  "real_scd40_validation": "NOT_PERFORMED",
+  "warnings": [
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "description": "C-B2 remains OFFLINE_UCI; SCD40 cadence/domain is unvalidated."
+    },
+    {
+      "code": "REFERENCE_PROBE_ONLY",
+      "description": "The logistic probe and its numeric threshold are not production-final."
+    },
+    {
+      "code": "DOMAIN_FP_FN_COST_RATIO_UNSPECIFIED",
+      "description": "FP and FN are reported separately; no domain cost ratio is invented."
+    }
+  ]
+}

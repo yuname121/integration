@@ -1,0 +1,40 @@
+{
+  "phase_id": "M-B0",
+  "diagnostic_status": "COMPLETED",
+  "methodology": "Standardized Waveform Pearson Correlation and Normalized RMSE (NRMSE)",
+  "train_only_empirical_calibration": {
+    "calibration_population": "All 358 TRAIN split windows",
+    "deterministic_seed": 42,
+    "distinct_train_correlation_summary": {
+      "min": -0.982518,
+      "max": 0.976145,
+      "mean": 0.003715,
+      "std": 0.442668
+    },
+    "distinct_train_nrmse_summary": {
+      "min": 0.175854,
+      "max": 16.910633,
+      "mean": 1.471248,
+      "std": 0.974867
+    },
+    "controlled_micro_perturbation_summary": {
+      "sample_count": 50,
+      "correlation": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      },
+      "nrmse": {
+        "min": 4.4e-05,
+        "max": 5.5e-05,
+        "mean": 5e-05
+      }
+    },
+    "threshold_rationale": "Distinct physiological breathing windows in TRAIN reach maximum Pearson correlation r = 0.9761. Controlled micro-perturbations maintain r > 0.99999 and NRMSE < 0.001. The frozen rule (r >= 0.995 and NRMSE <= 0.05) reliably isolates duplicate signal replicas from distinct physiological respiration."
+  },
+  "frozen_threshold_applied": {
+    "min_correlation": 0.995,
+    "max_nrmse": 0.05
+  },
+  "locked_test_used_for_calibration": false
+}

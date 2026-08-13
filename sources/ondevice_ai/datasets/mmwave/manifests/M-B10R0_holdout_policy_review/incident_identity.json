@@ -1,0 +1,19 @@
+{
+  "excluded_ambiguous_windows": 13,
+  "forensic_root_cause": "PRETEST_CONTRACT_COUNT_SEMANTICS_CONFLATION",
+  "incident_closure_commit": "807a50316f750e1e877931b46fe9ea87113418e4",
+  "locked_test_consumed": true,
+  "metrics_generated": false,
+  "model_inference_invocations": 0,
+  "original_accessor_invocations": 1,
+  "phase_id": "M-B10R0",
+  "predictions_generated": false,
+  "registry_generated": false,
+  "rerun_performed": false,
+  "returned_subject_count": "NOT_RECORDED_BEFORE_ABORT",
+  "rows_returned": 75,
+  "runtime_detection_code": "M-B10B_LOCKED_SPLIT_IDENTITY_MISMATCH",
+  "schema_version": "M-B10R0_INCIDENT_IDENTITY_V1",
+  "structural_windows": 88,
+  "supervised_eligible_windows": 75
+}

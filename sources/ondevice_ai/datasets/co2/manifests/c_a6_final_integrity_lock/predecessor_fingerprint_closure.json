@@ -1,0 +1,56 @@
+{
+  "manifest_version": "1.0",
+  "consumer_phase": "C-A6",
+  "audit_profile_id": "CO2_A_SERIES_FULL_CHAIN_AUDIT_PROFILE_001",
+  "c_a5_predecessor_registry_path": "datasets/co2/manifests/c_a5_canonical_samples/predecessor_fingerprint_registry.json",
+  "c_a5_predecessor_fingerprint_errors": [],
+  "c_a5_predecessor_fingerprints_ok": true,
+  "c_a5_artifact_fingerprints": [
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/canonical_sample_profile.json",
+      "sha256": "af7d298059ecd1ec8077cc4918209149be97f75d0aa7f7784f7e55980cc5b097",
+      "byte_size": 2200
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/predecessor_fingerprint_registry.json",
+      "sha256": "e2a788255d946b326a0eb92fa34b5dc12e918459b8ab885a757d3fb9a6452dbc",
+      "byte_size": 3597
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/split_membership_manifest.json",
+      "sha256": "492a74cc9faedfe65ea75d3504333074f72dd7add42cd755d3cab34242f0bbba",
+      "byte_size": 1381
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/feature_availability_manifest.json",
+      "sha256": "55737b24fedff0b3e62de790abfe0c664a232e409894b7de356c43e488e4b34b",
+      "byte_size": 3032
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/materialization_integrity_summary.json",
+      "sha256": "8079c3df611b50de6970d58f0168dbe4894bc310a645cf6922d74358eef01b05",
+      "byte_size": 570
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/canonical_source_samples.jsonl",
+      "sha256": "d157290a6ddcb7ff14f99f37331b713d897f64ca480e91912acde40f11d229f7",
+      "byte_size": 26975652
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/model_eligible_sample_ids.jsonl",
+      "sha256": "5c69db52bf86e4045c54b65277e623c7920dcd7e8e685f970799a6a5530f5863",
+      "byte_size": 2609033
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/artifact_identity.json",
+      "sha256": "22efcf85d58079e10062a4e0877b94e8092a9d50a135a9c84859f5b2a2f59925",
+      "byte_size": 2059
+    },
+    {
+      "path": "datasets/co2/manifests/c_a5_canonical_samples/checksums.sha256",
+      "sha256": "5c110e4c5ec3b87fb4cfcd93bffb945add96a403ce6d8e366723c43cdda6411b",
+      "byte_size": 1436
+    }
+  ],
+  "status": "LOCKED"
+}

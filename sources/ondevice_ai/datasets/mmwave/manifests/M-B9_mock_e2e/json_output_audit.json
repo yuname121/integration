@@ -1,0 +1,195 @@
+{
+  "all_valid": true,
+  "phase_id": "M-B9",
+  "records": [
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "A_NORMAL",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "C_APNEA",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "A_NORMAL",
+      "schema_fields_present": true,
+      "seed": 43,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "schema_fields_present": true,
+      "seed": 43,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "C_APNEA",
+      "schema_fields_present": true,
+      "seed": 43,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "A_NORMAL",
+      "schema_fields_present": true,
+      "seed": 44,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "B_RAPID_OR_ABNORMAL",
+      "schema_fields_present": true,
+      "seed": 44,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "C_APNEA",
+      "schema_fields_present": true,
+      "seed": 44,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "D_INSUFFICIENT_HISTORY",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "E_INVALID_SHAPE",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "F_NAN",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "G_INF",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "H_STALE",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "I_PROVIDER_SENSOR_FAULT",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "J_READ_EXCEPTION",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "K_TIMEOUT",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "L_MISSING_MODEL",
+      "schema_fields_present": true,
+      "seed": null,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "M_SHA_MISMATCH",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "O_NOT_CONNECTED_PROVIDER",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    },
+    {
+      "finite": true,
+      "parse_success": true,
+      "parsed_schema_version": "5.0",
+      "scenario_id": "N_VALID_EXPLICIT_FINALIST",
+      "schema_fields_present": true,
+      "seed": 42,
+      "serialized_with": "SafeNestRiskOutput.to_json"
+    }
+  ]
+}

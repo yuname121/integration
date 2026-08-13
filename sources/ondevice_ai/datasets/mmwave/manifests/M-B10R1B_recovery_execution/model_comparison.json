@@ -1,0 +1,35 @@
+{
+  "by_model": {
+    "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8": {
+      "accuracy": 0.56,
+      "invalid_count": 0,
+      "macro_f1": 0.494836,
+      "macro_precision": 0.557692,
+      "macro_recall": 0.518846,
+      "planned_count": 75,
+      "valid_count": 75
+    },
+    "mmwave_resp_int8": {
+      "accuracy": 0.333333,
+      "invalid_count": 0,
+      "macro_f1": 0.166667,
+      "macro_precision": 0.111111,
+      "macro_recall": 0.333333,
+      "planned_count": 75,
+      "valid_count": 75
+    },
+    "mmwave_resp_int8_v0.2.0_candidate": {
+      "accuracy": 0.506667,
+      "invalid_count": 0,
+      "macro_f1": 0.391074,
+      "macro_precision": 0.412281,
+      "macro_recall": 0.467957,
+      "planned_count": 75,
+      "valid_count": 75
+    }
+  },
+  "no_performance_threshold_gating": true,
+  "no_post_result_branching": true,
+  "numerical_acceptance_threshold": "FINAL_LOCKED_TEST_NUMERICAL_ACCEPTANCE_THRESHOLD_NOT_PREDEFINED",
+  "primary": "macro_f1"
+}

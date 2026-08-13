@@ -1,0 +1,493 @@
+{
+  "phase_id": "M-B1",
+  "results": {
+    "M-B1_D0_B0_Z0": {
+      "profile_id": "M-B1_D0_B0_Z0",
+      "name": "RAW",
+      "detrend": false,
+      "bpf": false,
+      "zscore": false,
+      "macro_f1": 0.578435,
+      "accuracy": 0.670886,
+      "min_per_class_recall": 0.25,
+      "apnea_proxy_recall": 0.972973,
+      "apnea_proxy_miss_rate": 0.027027,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.521739,
+          "recall": 0.545455,
+          "f1_score": 0.533333,
+          "tp": 12,
+          "fp": 11,
+          "fn": 10
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.555556,
+          "recall": 0.25,
+          "f1_score": 0.344828,
+          "tp": 5,
+          "fp": 4,
+          "fn": 15
+        },
+        "APNEA": {
+          "precision": 0.765957,
+          "recall": 0.972973,
+          "f1_score": 0.857143,
+          "tp": 36,
+          "fp": 11,
+          "fn": 1
+        }
+      },
+      "confusion_matrix": [
+        [
+          12,
+          4,
+          6
+        ],
+        [
+          10,
+          5,
+          5
+        ],
+        [
+          1,
+          0,
+          36
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 23,
+        "RAPID_OR_ABNORMAL": 9,
+        "APNEA": 47
+      }
+    },
+    "M-B1_D1_B0_Z0": {
+      "profile_id": "M-B1_D1_B0_Z0",
+      "name": "DETREND_ONLY",
+      "detrend": true,
+      "bpf": false,
+      "zscore": false,
+      "macro_f1": 0.652975,
+      "accuracy": 0.721519,
+      "min_per_class_recall": 0.35,
+      "apnea_proxy_recall": 0.972973,
+      "apnea_proxy_miss_rate": 0.027027,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.583333,
+          "recall": 0.636364,
+          "f1_score": 0.608696,
+          "tp": 14,
+          "fp": 10,
+          "fn": 8
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.777778,
+          "recall": 0.35,
+          "f1_score": 0.482759,
+          "tp": 7,
+          "fp": 2,
+          "fn": 13
+        },
+        "APNEA": {
+          "precision": 0.782609,
+          "recall": 0.972973,
+          "f1_score": 0.86747,
+          "tp": 36,
+          "fp": 10,
+          "fn": 1
+        }
+      },
+      "confusion_matrix": [
+        [
+          14,
+          2,
+          6
+        ],
+        [
+          9,
+          7,
+          4
+        ],
+        [
+          1,
+          0,
+          36
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 24,
+        "RAPID_OR_ABNORMAL": 9,
+        "APNEA": 46
+      }
+    },
+    "M-B1_D0_B1_Z0": {
+      "profile_id": "M-B1_D0_B1_Z0",
+      "name": "BPF_ONLY",
+      "detrend": false,
+      "bpf": true,
+      "zscore": false,
+      "macro_f1": 0.617859,
+      "accuracy": 0.64557,
+      "min_per_class_recall": 0.45,
+      "apnea_proxy_recall": 0.702703,
+      "apnea_proxy_miss_rate": 0.297297,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.516129,
+          "recall": 0.727273,
+          "f1_score": 0.603774,
+          "tp": 16,
+          "fp": 15,
+          "fn": 6
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.5,
+          "recall": 0.45,
+          "f1_score": 0.473684,
+          "tp": 9,
+          "fp": 9,
+          "fn": 11
+        },
+        "APNEA": {
+          "precision": 0.866667,
+          "recall": 0.702703,
+          "f1_score": 0.776119,
+          "tp": 26,
+          "fp": 4,
+          "fn": 11
+        }
+      },
+      "confusion_matrix": [
+        [
+          16,
+          4,
+          2
+        ],
+        [
+          9,
+          9,
+          2
+        ],
+        [
+          6,
+          5,
+          26
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 31,
+        "RAPID_OR_ABNORMAL": 18,
+        "APNEA": 30
+      }
+    },
+    "M-B1_D1_B1_Z0": {
+      "profile_id": "M-B1_D1_B1_Z0",
+      "name": "DETREND_BPF",
+      "detrend": true,
+      "bpf": true,
+      "zscore": false,
+      "macro_f1": 0.614146,
+      "accuracy": 0.64557,
+      "min_per_class_recall": 0.4,
+      "apnea_proxy_recall": 0.702703,
+      "apnea_proxy_miss_rate": 0.297297,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.5,
+          "recall": 0.772727,
+          "f1_score": 0.607143,
+          "tp": 17,
+          "fp": 17,
+          "fn": 5
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.571429,
+          "recall": 0.4,
+          "f1_score": 0.470588,
+          "tp": 8,
+          "fp": 6,
+          "fn": 12
+        },
+        "APNEA": {
+          "precision": 0.83871,
+          "recall": 0.702703,
+          "f1_score": 0.764706,
+          "tp": 26,
+          "fp": 5,
+          "fn": 11
+        }
+      },
+      "confusion_matrix": [
+        [
+          17,
+          3,
+          2
+        ],
+        [
+          9,
+          8,
+          3
+        ],
+        [
+          8,
+          3,
+          26
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 34,
+        "RAPID_OR_ABNORMAL": 14,
+        "APNEA": 31
+      }
+    },
+    "M-B1_D0_B0_Z1": {
+      "profile_id": "M-B1_D0_B0_Z1",
+      "name": "ZSCORE_ONLY",
+      "detrend": false,
+      "bpf": false,
+      "zscore": true,
+      "macro_f1": 0.27626,
+      "accuracy": 0.493671,
+      "min_per_class_recall": 0.0,
+      "apnea_proxy_recall": 1.0,
+      "apnea_proxy_miss_rate": 0.0,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.666667,
+          "recall": 0.1,
+          "f1_score": 0.173913,
+          "tp": 2,
+          "fp": 1,
+          "fn": 18
+        },
+        "APNEA": {
+          "precision": 0.486842,
+          "recall": 1.0,
+          "f1_score": 0.654867,
+          "tp": 37,
+          "fp": 39,
+          "fn": 0
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          1,
+          21
+        ],
+        [
+          0,
+          2,
+          18
+        ],
+        [
+          0,
+          0,
+          37
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 0,
+        "RAPID_OR_ABNORMAL": 3,
+        "APNEA": 76
+      }
+    },
+    "M-B1_D1_B0_Z1": {
+      "profile_id": "M-B1_D1_B0_Z1",
+      "name": "DETREND_ZSCORE",
+      "detrend": true,
+      "bpf": false,
+      "zscore": true,
+      "macro_f1": 0.212644,
+      "accuracy": 0.468354,
+      "min_per_class_recall": 0.0,
+      "apnea_proxy_recall": 1.0,
+      "apnea_proxy_miss_rate": 0.0,
+      "is_class_collapsed": true,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 22
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 20
+        },
+        "APNEA": {
+          "precision": 0.468354,
+          "recall": 1.0,
+          "f1_score": 0.637931,
+          "tp": 37,
+          "fp": 42,
+          "fn": 0
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          22
+        ],
+        [
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          37
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 0,
+        "RAPID_OR_ABNORMAL": 0,
+        "APNEA": 79
+      }
+    },
+    "M-B1_D0_B1_Z1": {
+      "profile_id": "M-B1_D0_B1_Z1",
+      "name": "BPF_ZSCORE",
+      "detrend": false,
+      "bpf": true,
+      "zscore": true,
+      "macro_f1": 0.663708,
+      "accuracy": 0.721519,
+      "min_per_class_recall": 0.454545,
+      "apnea_proxy_recall": 1.0,
+      "apnea_proxy_miss_rate": 0.0,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.833333,
+          "recall": 0.454545,
+          "f1_score": 0.588235,
+          "tp": 10,
+          "fp": 2,
+          "fn": 12
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.666667,
+          "recall": 0.5,
+          "f1_score": 0.571429,
+          "tp": 10,
+          "fp": 5,
+          "fn": 10
+        },
+        "APNEA": {
+          "precision": 0.711538,
+          "recall": 1.0,
+          "f1_score": 0.831461,
+          "tp": 37,
+          "fp": 15,
+          "fn": 0
+        }
+      },
+      "confusion_matrix": [
+        [
+          10,
+          5,
+          7
+        ],
+        [
+          2,
+          10,
+          8
+        ],
+        [
+          0,
+          0,
+          37
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 12,
+        "RAPID_OR_ABNORMAL": 15,
+        "APNEA": 52
+      }
+    },
+    "M-B1_D1_B1_Z1": {
+      "profile_id": "M-B1_D1_B1_Z1",
+      "name": "DETREND_BPF_ZSCORE",
+      "detrend": true,
+      "bpf": true,
+      "zscore": true,
+      "macro_f1": 0.611265,
+      "accuracy": 0.683544,
+      "min_per_class_recall": 0.35,
+      "apnea_proxy_recall": 1.0,
+      "apnea_proxy_miss_rate": 0.0,
+      "is_class_collapsed": false,
+      "per_class": {
+        "NORMAL": {
+          "precision": 0.769231,
+          "recall": 0.454545,
+          "f1_score": 0.571429,
+          "tp": 10,
+          "fp": 3,
+          "fn": 12
+        },
+        "RAPID_OR_ABNORMAL": {
+          "precision": 0.7,
+          "recall": 0.35,
+          "f1_score": 0.466667,
+          "tp": 7,
+          "fp": 3,
+          "fn": 13
+        },
+        "APNEA": {
+          "precision": 0.660714,
+          "recall": 1.0,
+          "f1_score": 0.795699,
+          "tp": 37,
+          "fp": 19,
+          "fn": 0
+        }
+      },
+      "confusion_matrix": [
+        [
+          10,
+          3,
+          9
+        ],
+        [
+          3,
+          7,
+          10
+        ],
+        [
+          0,
+          0,
+          37
+        ]
+      ],
+      "prediction_distribution": {
+        "NORMAL": 13,
+        "RAPID_OR_ABNORMAL": 10,
+        "APNEA": 56
+      }
+    }
+  }
+}

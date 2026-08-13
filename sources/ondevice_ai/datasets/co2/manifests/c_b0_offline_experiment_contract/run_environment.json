@@ -1,0 +1,14 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "versions": {
+    "python": "3.9.6",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "numpy": "1.26.4",
+    "scikit_learn": null,
+    "tensorflow": "2.20.0"
+  },
+  "sklearn_available": false,
+  "optional_linear_baseline_status": "SKIPPED_MISSING_DEPENDENCY",
+  "path_policy": "repository-relative POSIX only"
+}

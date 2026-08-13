@@ -1,0 +1,13 @@
+{
+  "phase_id": "M-B3",
+  "gate_status": "PASS_WITH_WARNINGS",
+  "m_b4_entry_status": "READY_WITH_CONDITIONS",
+  "selected_architecture_shortlist": [
+    "M-B3_CONV1D_GAP_BASELINE",
+    "M-B3_SEPARABLECONV1D_GAP"
+  ],
+  "shortlisted_count": 2,
+  "architectures_audited": 3,
+  "baseline_equivalence_verified": true,
+  "locked_test_access_attempts": 0
+}

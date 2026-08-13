@@ -1,0 +1,178 @@
+{
+  "architecture": "LINEAR_LOGISTIC",
+  "b_series_release_status": "B_SERIES_RELEASE_READY_AFTER_MERGE",
+  "candidate_profile_id": "CO2_B5_FINAL_OFFLINE_UCI_CANDIDATE_001",
+  "candidate_status": "FINAL_OFFLINE_UCI_CANDIDATE_LOCKED",
+  "class_map": {
+    "0": "VACANT",
+    "1": "OCCUPIED",
+    "positive": "OCCUPIED",
+    "semantic": "ROOM_OCCUPANCY"
+  },
+  "device_domain_validation_status": "NOT_YET_COMPLETE",
+  "feature_order": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "float_reference_path": "models/co2/candidates/c_b4/float_reference_parameters.json",
+  "float_reference_sha256": "471b85852f661bd787e0bc130ae032bebb69ef0b51cfacb8e87ea04529970fee",
+  "freeze_identity": {
+    "profile_id": "CO2_B5_PRE_LOCKED_TEST_CANDIDATE_FREEZE_001",
+    "sha256": "97cafb43306d61cf590b69b1db38d6e07b796161d172e79b78fda7bdb71e1a85"
+  },
+  "historical_production_model_modified": false,
+  "historical_production_scaler_modified": false,
+  "imbalance_strategy": "BALANCED_RANDOM_OVERSAMPLE",
+  "input_dtype": "int8",
+  "input_quantization": {
+    "scale": 0.03529411926865578,
+    "zero_point": 0
+  },
+  "known_limitations": [
+    "SOURCE_TIMEZONE_UNVERIFIED",
+    "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+    "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+    "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+    "SAFETY_RULE_CONTRACT_OUT_OF_SCOPE",
+    "SENSOR_HEALTH_CONTRACT_OUT_OF_SCOPE",
+    "MULTISENSOR_RISK_CONTRACT_OUT_OF_SCOPE",
+    "DEFERRED_SHARED_INTEGRATION_UPDATE",
+    "INT8_INPUT_SATURATION_OBSERVED"
+  ],
+  "latency_evidence_identity": {
+    "evidence_id": "CO2_B5_HOST_MAC_LATENCY_SANITY_001",
+    "sha256": "455bf875a69eb820cb534669d6cf8236494bd3b57f1ea48b1259f8762839061a"
+  },
+  "locked_test_evaluation_count": 1,
+  "locked_test_fingerprint": "0bac8dc1affae1de48ea68f01e866508ea19f31e194a7c0dccbf617e529344e7",
+  "locked_test_metrics": {
+    "accuracy": 0.75412862857729,
+    "balanced_accuracy": 0.7286534400467807,
+    "brier_score": 0.215651880448776,
+    "confusion_matrix": {
+      "fn": 645,
+      "fp": 1752,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          5951,
+          1752
+        ],
+        [
+          645,
+          1401
+        ]
+      ],
+      "tn": 5951,
+      "tp": 1401
+    },
+    "decision_threshold": 0.58,
+    "ece": 0.19781075302595139,
+    "f1_occupied": 0.5389497980380843,
+    "f1_vacant": 0.8323658997132666,
+    "false_negative_rate": 0.3152492668621701,
+    "false_positive_rate": 0.22744385304426848,
+    "fn": 645,
+    "fp": 1752,
+    "log_loss": 0.9175243904209656,
+    "macro_f1": 0.6856578488756755,
+    "occupied_recall": 0.6847507331378299,
+    "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+    "pr_auc_average_precision": 0.38410017119790935,
+    "precision_occupied": 0.44433872502378685,
+    "precision_vacant": 0.9022134627046695,
+    "recall_occupied": 0.6847507331378299,
+    "recall_vacant": 0.7725561469557315,
+    "roc_auc": 0.7691397544900369,
+    "sample_count": 9749,
+    "sensitivity": 0.6847507331378299,
+    "specificity": 0.7725561469557315,
+    "tn": 5951,
+    "tp": 1401
+  },
+  "manifest_version": "1.0",
+  "model_path": "models/co2/candidates/c_b4/full_integer_int8.tflite",
+  "model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+  "output_dtype": "int8",
+  "output_quantization": {
+    "scale": 0.00390625,
+    "zero_point": -128
+  },
+  "phase": "C-B5",
+  "post_test_tuning": "NONE",
+  "robustness_evidence_identity": {
+    "protocol_id": "CO2_B5_ROBUSTNESS_PROTOCOL_001",
+    "results_sha256": "dfc43af3a67c15afc23c77f6cd899dbd120d71b7cc8c908387dc287ab5ee9e69"
+  },
+  "safety_risk_semantic_status": "ROOM_OCCUPANCY_ONLY_NO_SAFETY_SEMANTIC",
+  "scaler_identity": {
+    "fingerprint": "d0cf83558fb0de9dcdc97f0d94781a5a475a6f68e8d818121aee929030e5dc89",
+    "path": "datasets/co2/manifests/c_b2_imbalance_calibration/preprocessing_scaler_evidence.json"
+  },
+  "scd40_deployment_candidate_validation": "NOT_YET_COMPLETE",
+  "slope_profile": "ENDPOINT_H150",
+  "threshold": 0.58,
+  "train_fingerprint": "492ca1f67e44b4a2018b743ec0fc3d20b418f7823d5f2643d8c90b0d39de8fab",
+  "validation_fingerprint": "19321e57fe72f6482b3c7b5d3714d21e9c13b753173ceb56ea694524ac6529ef",
+  "validation_metrics": {
+    "accuracy": 0.9139744552967694,
+    "balanced_accuracy": 0.9158189156223313,
+    "brier_score": 0.07183837890625,
+    "confusion_matrix": {
+      "fn": 75,
+      "fp": 154,
+      "label_names": [
+        "VACANT",
+        "OCCUPIED"
+      ],
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          1539,
+          154
+        ],
+        [
+          75,
+          894
+        ]
+      ],
+      "tn": 1539,
+      "tp": 894
+    },
+    "decision_threshold": 0.58,
+    "ece": 0.0835632278362134,
+    "f1_occupied": 0.886465047099653,
+    "f1_vacant": 0.9307529482915029,
+    "false_negative_rate": 0.07739938080495357,
+    "false_positive_rate": 0.09096278795038393,
+    "fn": 75,
+    "fp": 154,
+    "log_loss": 0.26485964759399666,
+    "macro_f1": 0.908608997695578,
+    "occupied_recall": 0.9226006191950464,
+    "positive_prediction_rule": "occupancy_probability_greater_than_or_equal_to_threshold",
+    "pr_auc_average_precision": 0.9493714086704265,
+    "precision_occupied": 0.8530534351145038,
+    "precision_vacant": 0.9535315985130112,
+    "recall_occupied": 0.9226006191950464,
+    "recall_vacant": 0.9090372120496161,
+    "roc_auc": 0.9694123864610972,
+    "sample_count": 2662,
+    "sensitivity": 0.9226006191950464,
+    "specificity": 0.9090372120496161,
+    "tn": 1539,
+    "tp": 894
+  }
+}

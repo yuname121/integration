@@ -1,0 +1,38 @@
+{
+  "classification": "HOST_MAC_LATENCY_SANITY_ONLY",
+  "evidence_id": "CO2_B5_HOST_MAC_LATENCY_SANITY_001",
+  "latency_protocol_fingerprint": "7834f5be27d7a0ad97f2a71ab08087f96d5753073fb9dce4b3847cf66ab1abf2",
+  "manifest_version": "1.0",
+  "maximum": 0.070417,
+  "mean": 0.0020378250000000005,
+  "median_p50": 0.001666,
+  "minimum": 0.001542,
+  "model_path": "models/co2/candidates/c_b4/full_integer_int8.tflite",
+  "model_sha256": "bb2ed28533bca75d4fa3d06348e017c506df47d7c34b29574b77f70b6b386816",
+  "p95": 0.002375,
+  "p99": 0.01313499999999999,
+  "phase": "C-B5",
+  "platform": {
+    "machine": "arm64",
+    "processor": "arm",
+    "release": "25.5.0",
+    "system": "Darwin"
+  },
+  "production_realtime_claim": false,
+  "python_version": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "raspberry_pi_latency_claimed": false,
+  "runtime": {
+    "delegate": "default",
+    "input_dtype": "int8",
+    "input_shape": [
+      1,
+      4
+    ],
+    "interpreter_threads": 1,
+    "output_dtype": "int8",
+    "tensorflow_version": "2.20.0"
+  },
+  "timed_iterations": 2000,
+  "units": "milliseconds",
+  "warmup_iterations": 100
+}

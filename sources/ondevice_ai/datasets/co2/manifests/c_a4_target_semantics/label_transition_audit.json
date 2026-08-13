@@ -1,0 +1,50 @@
+{
+  "manifest_version": "1.0",
+  "target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "audit_role": "DESCRIPTIVE_PROVENANCE_ONLY",
+  "label_smoothing_applied": false,
+  "debounce_applied": false,
+  "hysteresis_applied": false,
+  "labels_modified": false,
+  "per_block": [
+    {
+      "temporal_block_id": "BLOCK_01_DATATEST",
+      "source_member_name": "datatest.txt",
+      "future_split_role": "VALIDATION",
+      "row_count": 2665,
+      "occupancy_0_count": 1693,
+      "occupancy_1_count": 972,
+      "transitions_0_to_1": 13,
+      "transitions_1_to_0": 13,
+      "run_count": 27,
+      "max_run_length": 811,
+      "min_run_length": 1
+    },
+    {
+      "temporal_block_id": "BLOCK_02_DATATRAINING",
+      "source_member_name": "datatraining.txt",
+      "future_split_role": "TRAIN",
+      "row_count": 8143,
+      "occupancy_0_count": 6414,
+      "occupancy_1_count": 1729,
+      "transitions_0_to_1": 20,
+      "transitions_1_to_0": 20,
+      "run_count": 41,
+      "max_run_length": 3758,
+      "min_run_length": 1
+    },
+    {
+      "temporal_block_id": "BLOCK_03_DATATEST2",
+      "source_member_name": "datatest2.txt",
+      "future_split_role": "LOCKED_TEST",
+      "row_count": 9752,
+      "occupancy_0_count": 7703,
+      "occupancy_1_count": 2049,
+      "transitions_0_to_1": 24,
+      "transitions_1_to_0": 24,
+      "run_count": 49,
+      "max_run_length": 3757,
+      "min_run_length": 1
+    }
+  ]
+}

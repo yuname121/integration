@@ -1,0 +1,13 @@
+{
+  "locked_test_rows": 0,
+  "percentile": 99.9,
+  "percentile_value": 4.473814516850411,
+  "policy_id": "CO2_B4_TRAIN_ABS_P99_9_ROUND_UP_0_5_001",
+  "range_max": 4.5,
+  "range_min": -4.5,
+  "representative_rows": 8140,
+  "rounding_increment": 0.5,
+  "source_population": "ORIGINAL_NATURALLY_DISTRIBUTED_TRAIN_ONLY",
+  "source_sample_count": 8140,
+  "validation_rows": 0
+}

@@ -1,0 +1,546 @@
+{
+  "diagnostic_scope": "PRE_CLAMP_INPUT_SATURATION_AND_OUTPUT_ENDPOINT_OCCUPANCY",
+  "phase_id": "M-B7",
+  "runs": {
+    "seed_42__M-B7_AMP_X0_50": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_AMP_X0_75": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_AMP_X1_25": {
+      "input_saturation_ratio": 0.000168776,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 4,
+      "saturated_sample_count": 1,
+      "worst_per_sample_saturation_count": 4,
+      "worst_per_sample_saturation_ratio": 0.013333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_AMP_X1_50": {
+      "input_saturation_ratio": 0.001434599,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 34,
+      "saturated_sample_count": 5,
+      "worst_per_sample_saturation_count": 19,
+      "worst_per_sample_saturation_ratio": 0.063333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_CLEAN": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_COMBINED_MODERATE": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_DRIFT_MILD": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_DRIFT_SEVERE": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_DROPOUT_LONG": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_DROPOUT_SHORT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "input_saturation_ratio": 4.2194e-05,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 1,
+      "saturated_sample_count": 1,
+      "worst_per_sample_saturation_count": 1,
+      "worst_per_sample_saturation_ratio": 0.003333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_GAUSSIAN_SNR10": {
+      "input_saturation_ratio": 0.001729958,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 41,
+      "saturated_sample_count": 4,
+      "worst_per_sample_saturation_count": 25,
+      "worst_per_sample_saturation_ratio": 0.083333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p036-sitting-post_exercise__W0001"
+    },
+    "seed_42__M-B7_GAUSSIAN_SNR20": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_MISSING_FRAME_1PCT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_MISSING_FRAME_5PCT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_42__M-B7_MOTION_BURST_MILD": {
+      "input_saturation_ratio": 0.003037975,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 72,
+      "saturated_sample_count": 9,
+      "worst_per_sample_saturation_count": 12,
+      "worst_per_sample_saturation_ratio": 0.04,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p036-sitting-post_exercise__W0000"
+    },
+    "seed_42__M-B7_MOTION_BURST_SEVERE": {
+      "input_saturation_ratio": 0.014303797,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 339,
+      "saturated_sample_count": 36,
+      "worst_per_sample_saturation_count": 27,
+      "worst_per_sample_saturation_ratio": 0.09,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p073-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_AMP_X0_50": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_AMP_X0_75": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_AMP_X1_25": {
+      "input_saturation_ratio": 0.000168776,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 4,
+      "saturated_sample_count": 1,
+      "worst_per_sample_saturation_count": 4,
+      "worst_per_sample_saturation_ratio": 0.013333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_AMP_X1_50": {
+      "input_saturation_ratio": 0.001434599,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 34,
+      "saturated_sample_count": 5,
+      "worst_per_sample_saturation_count": 19,
+      "worst_per_sample_saturation_ratio": 0.063333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_CLEAN": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_COMBINED_MODERATE": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_DRIFT_MILD": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_DRIFT_SEVERE": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_DROPOUT_LONG": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_DROPOUT_SHORT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "input_saturation_ratio": 4.2194e-05,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 1,
+      "saturated_sample_count": 1,
+      "worst_per_sample_saturation_count": 1,
+      "worst_per_sample_saturation_ratio": 0.003333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_GAUSSIAN_SNR10": {
+      "input_saturation_ratio": 0.001729958,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 41,
+      "saturated_sample_count": 4,
+      "worst_per_sample_saturation_count": 25,
+      "worst_per_sample_saturation_ratio": 0.083333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p036-sitting-post_exercise__W0001"
+    },
+    "seed_43__M-B7_GAUSSIAN_SNR20": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_MISSING_FRAME_1PCT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_MISSING_FRAME_5PCT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_43__M-B7_MOTION_BURST_MILD": {
+      "input_saturation_ratio": 0.003037975,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 72,
+      "saturated_sample_count": 9,
+      "worst_per_sample_saturation_count": 12,
+      "worst_per_sample_saturation_ratio": 0.04,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p036-sitting-post_exercise__W0000"
+    },
+    "seed_43__M-B7_MOTION_BURST_SEVERE": {
+      "input_saturation_ratio": 0.014303797,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 339,
+      "saturated_sample_count": 36,
+      "worst_per_sample_saturation_count": 27,
+      "worst_per_sample_saturation_ratio": 0.09,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p073-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_AMP_X0_50": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_AMP_X0_75": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_AMP_X1_25": {
+      "input_saturation_ratio": 0.000168776,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 4,
+      "saturated_sample_count": 1,
+      "worst_per_sample_saturation_count": 4,
+      "worst_per_sample_saturation_ratio": 0.013333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_AMP_X1_50": {
+      "input_saturation_ratio": 0.001434599,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 34,
+      "saturated_sample_count": 5,
+      "worst_per_sample_saturation_count": 19,
+      "worst_per_sample_saturation_ratio": 0.063333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_CLEAN": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_COMBINED_MODERATE": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_DRIFT_MILD": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_DRIFT_SEVERE": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_DROPOUT_LONG": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_DROPOUT_SHORT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "input_saturation_ratio": 4.2194e-05,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 1,
+      "saturated_sample_count": 1,
+      "worst_per_sample_saturation_count": 1,
+      "worst_per_sample_saturation_ratio": 0.003333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p016-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_GAUSSIAN_SNR10": {
+      "input_saturation_ratio": 0.001729958,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 41,
+      "saturated_sample_count": 4,
+      "worst_per_sample_saturation_count": 25,
+      "worst_per_sample_saturation_ratio": 0.083333333,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p036-sitting-post_exercise__W0001"
+    },
+    "seed_44__M-B7_GAUSSIAN_SNR20": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_MISSING_FRAME_1PCT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_MISSING_FRAME_5PCT": {
+      "input_saturation_ratio": 0.0,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 0,
+      "saturated_sample_count": 0,
+      "worst_per_sample_saturation_count": 0,
+      "worst_per_sample_saturation_ratio": 0.0,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p009-lying-post_exercise__W0000"
+    },
+    "seed_44__M-B7_MOTION_BURST_MILD": {
+      "input_saturation_ratio": 0.003037975,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 72,
+      "saturated_sample_count": 9,
+      "worst_per_sample_saturation_count": 12,
+      "worst_per_sample_saturation_ratio": 0.04,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p036-sitting-post_exercise__W0000"
+    },
+    "seed_44__M-B7_MOTION_BURST_SEVERE": {
+      "input_saturation_ratio": 0.014303797,
+      "output_endpoint_count": 0,
+      "output_endpoint_ratio": 0.0,
+      "saturated_element_count": 339,
+      "saturated_sample_count": 36,
+      "worst_per_sample_saturation_count": 27,
+      "worst_per_sample_saturation_ratio": 0.09,
+      "worst_sample_window_id": "dataset-10_5281_zenodo_18599983-p073-lying-post_exercise__W0000"
+    }
+  }
+}

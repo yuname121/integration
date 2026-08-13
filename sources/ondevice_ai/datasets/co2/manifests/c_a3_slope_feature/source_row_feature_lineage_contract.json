@@ -1,0 +1,28 @@
+{
+  "manifest_version": "1.0",
+  "feature_contract_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "lineage_reconstruction_rule": "Every FEATURE_AVAILABLE slope is fully determined by the target source row plus the contiguous same-block past window from history_start through target, using SOURCE_ACQUISITION_CLOCK timestamps and raw CO2 values.",
+  "required_lineage_fields": [
+    "target_source_member",
+    "target_source_row_identifier",
+    "target_physical_line",
+    "target_timestamp_raw",
+    "temporal_block_id",
+    "feature_name",
+    "feature_contract_id",
+    "history_start_source_row_identifier",
+    "history_end_source_row_identifier",
+    "history_start_timestamp",
+    "history_end_timestamp",
+    "history_elapsed_seconds",
+    "source_sample_count_used",
+    "slope_method",
+    "slope_unit",
+    "feature_status",
+    "co2_slope"
+  ],
+  "compact_evidence_strategy": "Full per-row lineage is regenerable via datasets.co2.slope_feature.reconstruct_all_slope_features; C-A3 persists compact eligibility summary, manual verification lineages, and checksums instead of a giant redundant row dump.",
+  "absolute_paths_forbidden": true,
+  "cross_block_history_forbidden": true,
+  "future_sample_use_forbidden": true
+}

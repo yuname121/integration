@@ -1,0 +1,86 @@
+{
+  "MR60_device_validation_complete": false,
+  "Raspberry_Pi_validation_complete": false,
+  "bytes": 22080,
+  "calibration": "M-B5_CAL_CLASS_BALANCED_120",
+  "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "clinical_apnea_validated": false,
+  "deployment_ready": false,
+  "final_evaluation_identity": {
+    "eligible_evaluated": 75,
+    "macro_f1": 0.494836,
+    "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+    "source": "M-B10R1-B"
+  },
+  "future_m_c_requirement": true,
+  "limitations": {
+    "beats_both_frozen_historical_baselines_on_final_macro_f1": true,
+    "does_not_collapse_all_required_classes": true,
+    "high_apnea_false_positive_rate": 0.522727,
+    "initialization_sensitivity_from_m_b4": true,
+    "moderate_rapid_recall": 0.421053,
+    "seed42_val_macro_f1": 0.663708,
+    "seed44_val_macro_f1": 0.329107,
+    "strong_apnea_proxy_recall": 0.935484,
+    "weak_normal_recall": 0.2,
+    "weak_worst_subject_generalization": 0.095238
+  },
+  "models_model_manifest_json_modified": false,
+  "preprocessing_contract": {
+    "execution_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+    "profile_id": "M-B1_D0_B1_Z1",
+    "profile_name": "BPF_ZSCORE"
+  },
+  "repo_relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+  "result_limitation": "REUSED_LOCKED_TEST_AFTER_PREINFERENCE_STRUCTURAL_ABORT",
+  "result_not_pristine": true,
+  "runtime_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "schema_version": "M-B11_SENSOR_LOCAL_OFFLINE_CANDIDATE_LOCK_V1",
+  "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+  "source_data_lineage": {
+    "canonical_npy": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+    "canonical_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+    "raw_archive": "datasets/raw_archives/external_datasets/db_records.zip",
+    "raw_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0"
+  },
+  "split_lineage": {
+    "split_artifact": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+    "split_seed": 20260808,
+    "split_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa"
+  },
+  "status": "REAL_DATA_OFFLINE_CANDIDATE",
+  "tensor_contract": {
+    "flex_ops_present": false,
+    "input": {
+      "dtype": "int8",
+      "scale": 0.041720833629369736,
+      "shape": [
+        1,
+        300,
+        1
+      ],
+      "zero_point": -3
+    },
+    "output": {
+      "dtype": "int8",
+      "scale": 0.00390625,
+      "shape": [
+        1,
+        3
+      ],
+      "zero_point": -128
+    },
+    "select_tf_ops_present": false,
+    "strict_int8": true
+  },
+  "tflite_binary_copied_or_renamed": false,
+  "training_contract": {
+    "seed": 42,
+    "strategy_id": "M-B2_CE_UNWEIGHTED"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "phase_id": "M-B0",
+  "total_blockers": 0,
+  "total_warnings": 0,
+  "exceptions": [
+    {
+      "category": "NON_BLOCKING_WARNING",
+      "code": "SAME_RECORDING_NEAR_DUPLICATE_PHASE_CONTINUITY",
+      "count": 0,
+      "description": "Flagged 0 highly correlated window pairs originating from adjacent 30s segments of the same 5-minute recording. Expected physiological time-series continuity."
+    }
+  ]
+}

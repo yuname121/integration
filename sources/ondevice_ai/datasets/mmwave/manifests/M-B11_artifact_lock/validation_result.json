@@ -1,0 +1,9 @@
+{
+  "does_not_access_locked_test": true,
+  "does_not_invoke_tflite": true,
+  "phase_id": "M-B11",
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "standalone_validator": "scripts/validate_mmwave_m_b11.py",
+  "status": "LOCK_ARTIFACTS_GENERATED",
+  "validator_required": true
+}

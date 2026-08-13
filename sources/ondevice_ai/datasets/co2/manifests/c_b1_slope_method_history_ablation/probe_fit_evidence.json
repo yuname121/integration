@@ -1,0 +1,208 @@
+{
+  "evaluation_population": "VALIDATION",
+  "fit_population": "TRAIN",
+  "manifest_version": "1.0",
+  "no_slope_control": {
+    "class_priors_used": false,
+    "class_weights_used": false,
+    "deployable": false,
+    "feature_order": [
+      "CO2",
+      "Temperature",
+      "Humidity"
+    ],
+    "occupied_centroid": [
+      1.3734829733280922,
+      1.0360182845228272,
+      0.2561181223749348
+    ],
+    "production_model": false,
+    "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+    "status": "C_B1_REFERENCE_PROBE_ONLY",
+    "threshold_tuned": false,
+    "tie_rule": "exact_equal_distance_predicts_VACANT",
+    "train_sample_count": 8140,
+    "vacant_centroid": [
+      -0.36960268349926173,
+      -0.2787913250845322,
+      -0.06892109124104055
+    ]
+  },
+  "per_candidate": {
+    "ENDPOINT_H120": {
+      "class_priors_used": false,
+      "class_weights_used": false,
+      "deployable": false,
+      "feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "candidate_CO2_slope"
+      ],
+      "occupied_centroid": [
+        1.3734829733280922,
+        1.0360182845228272,
+        0.2561181223749348,
+        0.23878243585993336
+      ],
+      "production_model": false,
+      "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+      "status": "C_B1_REFERENCE_PROBE_ONLY",
+      "threshold_tuned": false,
+      "tie_rule": "exact_equal_distance_predicts_VACANT",
+      "train_sample_count": 8140,
+      "vacant_centroid": [
+        -0.36960268349926173,
+        -0.2787913250845322,
+        -0.06892109124104055,
+        -0.06425607800035
+      ]
+    },
+    "ENDPOINT_H150": {
+      "class_priors_used": false,
+      "class_weights_used": false,
+      "deployable": false,
+      "feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "candidate_CO2_slope"
+      ],
+      "occupied_centroid": [
+        1.3734829733280922,
+        1.0360182845228272,
+        0.2561181223749348,
+        0.28906459590249917
+      ],
+      "production_model": false,
+      "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+      "status": "C_B1_REFERENCE_PROBE_ONLY",
+      "threshold_tuned": false,
+      "tie_rule": "exact_equal_distance_predicts_VACANT",
+      "train_sample_count": 8140,
+      "vacant_centroid": [
+        -0.36960268349926173,
+        -0.2787913250845322,
+        -0.06892109124104055,
+        -0.07778694925595779
+      ]
+    },
+    "ENDPOINT_H60": {
+      "class_priors_used": false,
+      "class_weights_used": false,
+      "deployable": false,
+      "feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "candidate_CO2_slope"
+      ],
+      "occupied_centroid": [
+        1.3734829733280922,
+        1.0360182845228272,
+        0.2561181223749348,
+        0.14209434503701154
+      ],
+      "production_model": false,
+      "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+      "status": "C_B1_REFERENCE_PROBE_ONLY",
+      "threshold_tuned": false,
+      "tie_rule": "exact_equal_distance_predicts_VACANT",
+      "train_sample_count": 8140,
+      "vacant_centroid": [
+        -0.36960268349926173,
+        -0.2787913250845322,
+        -0.06892109124104055,
+        -0.03823742431148738
+      ]
+    },
+    "LINEAR_REGRESSION_H120": {
+      "class_priors_used": false,
+      "class_weights_used": false,
+      "deployable": false,
+      "feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "candidate_CO2_slope"
+      ],
+      "occupied_centroid": [
+        1.3734829733280922,
+        1.0360182845228272,
+        0.2561181223749348,
+        0.23579308868242435
+      ],
+      "production_model": false,
+      "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+      "status": "C_B1_REFERENCE_PROBE_ONLY",
+      "threshold_tuned": false,
+      "tie_rule": "exact_equal_distance_predicts_VACANT",
+      "train_sample_count": 8140,
+      "vacant_centroid": [
+        -0.36960268349926173,
+        -0.2787913250845322,
+        -0.06892109124104055,
+        -0.06345164812377077
+      ]
+    },
+    "LINEAR_REGRESSION_H150": {
+      "class_priors_used": false,
+      "class_weights_used": false,
+      "deployable": false,
+      "feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "candidate_CO2_slope"
+      ],
+      "occupied_centroid": [
+        1.3734829733280922,
+        1.0360182845228272,
+        0.2561181223749348,
+        0.29237383543324236
+      ],
+      "production_model": false,
+      "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+      "status": "C_B1_REFERENCE_PROBE_ONLY",
+      "threshold_tuned": false,
+      "tie_rule": "exact_equal_distance_predicts_VACANT",
+      "train_sample_count": 8140,
+      "vacant_centroid": [
+        -0.36960268349926173,
+        -0.2787913250845322,
+        -0.06892109124104055,
+        -0.07867746179572417
+      ]
+    },
+    "LINEAR_REGRESSION_H60": {
+      "class_priors_used": false,
+      "class_weights_used": false,
+      "deployable": false,
+      "feature_order": [
+        "CO2",
+        "Temperature",
+        "Humidity",
+        "candidate_CO2_slope"
+      ],
+      "occupied_centroid": [
+        1.3734829733280922,
+        1.0360182845228272,
+        0.2561181223749348,
+        0.14212406245368506
+      ],
+      "production_model": false,
+      "profile_id": "B1_FIXED_NEAREST_CENTROID_PROBE_001",
+      "status": "C_B1_REFERENCE_PROBE_ONLY",
+      "threshold_tuned": false,
+      "tie_rule": "exact_equal_distance_predicts_VACANT",
+      "train_sample_count": 8140,
+      "vacant_centroid": [
+        -0.36960268349926173,
+        -0.2787913250845322,
+        -0.06892109124104055,
+        -0.03824542123402857
+      ]
+    }
+  },
+  "phase": "C-B1"
+}

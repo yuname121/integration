@@ -1,0 +1,90 @@
+{
+  "profile_id": "C-A1_UCI_OCCUPANCY_SCHEMA_PROFILE_001",
+  "schema_version": "1.0",
+  "dataset_name": "UCI Occupancy Detection Dataset",
+  "expected_members": [
+    "datatest.txt",
+    "datatest2.txt",
+    "datatraining.txt"
+  ],
+  "header_contract": {
+    "header_raw": "\"date\",\"Temperature\",\"Humidity\",\"Light\",\"CO2\",\"HumidityRatio\",\"Occupancy\"",
+    "header_field_count": 7,
+    "header_fields": [
+      "date",
+      "Temperature",
+      "Humidity",
+      "Light",
+      "CO2",
+      "HumidityRatio",
+      "Occupancy"
+    ]
+  },
+  "physical_row_contract": {
+    "physical_field_count": 8,
+    "unnamed_field_0_role": "EXPORTED_ROW_INDEX",
+    "physical_field_mapping": {
+      "0": {
+        "name": "source_row_identifier",
+        "type": "str",
+        "role": "EXPORTED_ROW_INDEX"
+      },
+      "1": {
+        "name": "source_timestamp_raw",
+        "type": "str",
+        "role": "ACQUISITION_TIMESTAMP"
+      },
+      "2": {
+        "name": "temperature",
+        "type": "float",
+        "unit": "Celsius"
+      },
+      "3": {
+        "name": "humidity",
+        "type": "float",
+        "unit": "Percent"
+      },
+      "4": {
+        "name": "light",
+        "type": "float",
+        "unit": "Lux"
+      },
+      "5": {
+        "name": "co2",
+        "type": "float",
+        "unit": "ppm"
+      },
+      "6": {
+        "name": "humidity_ratio",
+        "type": "float",
+        "unit": "kg/kg"
+      },
+      "7": {
+        "name": "occupancy",
+        "type": "int",
+        "values": [
+          0,
+          1
+        ],
+        "role": "ROOM_OCCUPANCY_LABEL"
+      }
+    },
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "timestamp_contract": {
+    "format": "YYYY-MM-DD HH:MM:SS",
+    "timestamp_reference": "SOURCE_ACQUISITION_CLOCK",
+    "source_timezone": "UNVERIFIED",
+    "utc_conversion_claimed": false
+  },
+  "failure_behavior": {
+    "HEADER_MISMATCH": "RAISE_SCHEMA_VALIDATION_ERROR",
+    "PHYSICAL_ROW_WIDTH_MISMATCH": "RAISE_SCHEMA_VALIDATION_ERROR",
+    "SOURCE_ROW_ID_INVALID": "RAISE_SOURCE_ROW_PARSE_ERROR",
+    "TIMESTAMP_EMPTY": "RAISE_SOURCE_ROW_PARSE_ERROR",
+    "NUMERIC_PARSE_FAILURE": "RAISE_SOURCE_ROW_PARSE_ERROR",
+    "INVALID_OCCUPANCY_LABEL": "RAISE_SOURCE_ROW_PARSE_ERROR",
+    "ROW_COUNT_MISMATCH": "RAISE_SCHEMA_VALIDATION_ERROR"
+  }
+}

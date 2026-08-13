@@ -1,0 +1,215 @@
+{
+  "phase_id": "M-B7",
+  "profiles": {
+    "M-B7_AMP_X0_50": {
+      "deterministic_regeneration_verified": true,
+      "family": "AMPLITUDE_SCALING",
+      "maximum_formula_error": 0.0,
+      "sample_count": 79,
+      "scale": 0.5,
+      "valid_sample_count": 79
+    },
+    "M-B7_AMP_X0_75": {
+      "deterministic_regeneration_verified": true,
+      "family": "AMPLITUDE_SCALING",
+      "maximum_formula_error": 0.0,
+      "sample_count": 79,
+      "scale": 0.75,
+      "valid_sample_count": 79
+    },
+    "M-B7_AMP_X1_25": {
+      "deterministic_regeneration_verified": true,
+      "family": "AMPLITUDE_SCALING",
+      "maximum_formula_error": 0.0,
+      "sample_count": 79,
+      "scale": 1.25,
+      "valid_sample_count": 79
+    },
+    "M-B7_AMP_X1_50": {
+      "deterministic_regeneration_verified": true,
+      "family": "AMPLITUDE_SCALING",
+      "maximum_formula_error": 0.0,
+      "sample_count": 79,
+      "scale": 1.5,
+      "valid_sample_count": 79
+    },
+    "M-B7_COMBINED_MODERATE": {
+      "all_dropout_masks_have_exact_duration": true,
+      "application_order": [
+        "GAUSSIAN_SNR20",
+        "AMPLITUDE_X0_75",
+        "DROPOUT_SHORT_LINEAR_INTERPOLATION"
+      ],
+      "application_order_verified_all_samples": true,
+      "deterministic_regeneration_verified": true,
+      "family": "COMBINED",
+      "gaussian_achieved_snr_db": {
+        "count": 79,
+        "max": 21.194140597,
+        "mean": 20.080890391,
+        "median": 20.044277234,
+        "min": 18.974655711
+      },
+      "sample_count": 79,
+      "valid_sample_count": 79
+    },
+    "M-B7_DRIFT_MILD": {
+      "amplitude_multiplier": 0.25,
+      "deterministic_regeneration_verified": true,
+      "drift_pre_b1_rms": {
+        "count": 79,
+        "max": 18.039997135,
+        "mean": 2.441857279,
+        "median": 1.601780429,
+        "min": 0.193714651
+      },
+      "family": "BASELINE_DRIFT",
+      "frequency_hz": 0.05,
+      "sample_count": 79,
+      "valid_sample_count": 79
+    },
+    "M-B7_DRIFT_SEVERE": {
+      "amplitude_multiplier": 0.5,
+      "deterministic_regeneration_verified": true,
+      "drift_pre_b1_rms": {
+        "count": 79,
+        "max": 36.07999427,
+        "mean": 4.883714558,
+        "median": 3.203560858,
+        "min": 0.387429303
+      },
+      "family": "BASELINE_DRIFT",
+      "frequency_hz": 0.05,
+      "sample_count": 79,
+      "valid_sample_count": 79
+    },
+    "M-B7_DROPOUT_LONG": {
+      "all_masks_have_exact_duration": true,
+      "deterministic_regeneration_verified": true,
+      "duration_samples": 30,
+      "family": "CONTIGUOUS_DROPOUT",
+      "mask_fingerprint_count": 65,
+      "sample_count": 79,
+      "valid_sample_count": 79
+    },
+    "M-B7_DROPOUT_SHORT": {
+      "all_masks_have_exact_duration": true,
+      "deterministic_regeneration_verified": true,
+      "duration_samples": 5,
+      "family": "CONTIGUOUS_DROPOUT",
+      "mask_fingerprint_count": 72,
+      "sample_count": 79,
+      "valid_sample_count": 79
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "achieved_snr_db": {
+        "count": 79,
+        "max": 11.220412151,
+        "mean": 9.993674143,
+        "median": 10.033378145,
+        "min": 8.992084055
+      },
+      "deterministic_regeneration_verified": true,
+      "family": "GAUSSIAN_NOISE",
+      "noise_fingerprint_count": 79,
+      "sample_count": 79,
+      "target_snr_db": 10.0,
+      "valid_sample_count": 79
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "achieved_snr_db": {
+        "count": 79,
+        "max": 21.145361914,
+        "mean": 20.01932899,
+        "median": 20.089300339,
+        "min": 19.064013675
+      },
+      "deterministic_regeneration_verified": true,
+      "family": "GAUSSIAN_NOISE",
+      "noise_fingerprint_count": 79,
+      "sample_count": 79,
+      "target_snr_db": 20.0,
+      "valid_sample_count": 79
+    },
+    "M-B7_GAUSSIAN_SNR10": {
+      "achieved_snr_db": {
+        "count": 79,
+        "max": 10.855173019,
+        "mean": 10.0055448,
+        "median": 10.011873574,
+        "min": 9.299486305
+      },
+      "deterministic_regeneration_verified": true,
+      "family": "GAUSSIAN_NOISE",
+      "noise_fingerprint_count": 79,
+      "sample_count": 79,
+      "target_snr_db": 10.0,
+      "valid_sample_count": 79
+    },
+    "M-B7_GAUSSIAN_SNR20": {
+      "achieved_snr_db": {
+        "count": 79,
+        "max": 21.057653311,
+        "mean": 20.043139577,
+        "median": 20.067885053,
+        "min": 19.057420141
+      },
+      "deterministic_regeneration_verified": true,
+      "family": "GAUSSIAN_NOISE",
+      "noise_fingerprint_count": 79,
+      "sample_count": 79,
+      "target_snr_db": 20.0,
+      "valid_sample_count": 79
+    },
+    "M-B7_MISSING_FRAME_1PCT": {
+      "all_removed_counts_exact": true,
+      "deterministic_regeneration_verified": true,
+      "family": "MISSING_FRAME",
+      "missing_count": 3,
+      "sample_count": 79,
+      "total_interpolated_count": 237,
+      "total_rejected_count": 0,
+      "valid_sample_count": 79
+    },
+    "M-B7_MISSING_FRAME_5PCT": {
+      "all_removed_counts_exact": true,
+      "deterministic_regeneration_verified": true,
+      "family": "MISSING_FRAME",
+      "missing_count": 15,
+      "sample_count": 79,
+      "total_interpolated_count": 1185,
+      "total_rejected_count": 0,
+      "valid_sample_count": 79
+    },
+    "M-B7_MOTION_BURST_MILD": {
+      "achieved_abs_amplitude_to_std_ratio": {
+        "count": 79,
+        "max": 3.0,
+        "mean": 3.0,
+        "median": 3.0,
+        "min": 3.0
+      },
+      "deterministic_regeneration_verified": true,
+      "duration_samples": 5,
+      "family": "MOTION_BURST",
+      "sample_count": 79,
+      "std_multiplier": 3.0,
+      "valid_sample_count": 79
+    },
+    "M-B7_MOTION_BURST_SEVERE": {
+      "achieved_abs_amplitude_to_std_ratio": {
+        "count": 79,
+        "max": 6.0,
+        "mean": 6.0,
+        "median": 6.0,
+        "min": 6.0
+      },
+      "deterministic_regeneration_verified": true,
+      "duration_samples": 5,
+      "family": "MOTION_BURST",
+      "sample_count": 79,
+      "std_multiplier": 6.0,
+      "valid_sample_count": 79
+    }
+  }
+}

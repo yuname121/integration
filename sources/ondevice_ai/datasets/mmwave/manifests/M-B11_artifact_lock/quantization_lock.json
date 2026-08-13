@@ -1,0 +1,18 @@
+{
+  "inference_rerun": false,
+  "input_saturation_ratio": 0.0,
+  "pre_clamp_out_of_range_count": 0,
+  "recomputed_from_stored_seed42_rows": true,
+  "samples_with_any_saturation": 0,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "source": "datasets/mmwave/manifests/M-B10R1B_recovery_execution/selected_candidate_quantization_audit.json",
+  "stored_audit": {
+    "input_saturation_ratio": 0.0,
+    "pre_clamp_out_of_range_count": 0,
+    "samples_with_any_saturation": 0,
+    "total_quantized_elements": 22500,
+    "worst_sample_saturation_ratio": 0.0
+  },
+  "total_quantized_elements": 22500,
+  "worst_sample_saturation_ratio": 0.0
+}

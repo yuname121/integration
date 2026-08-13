@@ -1,0 +1,23 @@
+{
+  "blockers": [],
+  "limitations": [
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "severity": "UCI acquisition cadence is not the SCD40 runtime cadence."
+    },
+    {
+      "code": "CO2_SLOPE_HISTORY_LINEAGE_UNVERIFIED",
+      "severity": "B1 does not retroactively establish historical TFLite/scaler training lineage."
+    },
+    {
+      "code": "REFERENCE_PROBE_ONLY",
+      "severity": "Nearest-centroid probe is not a production model or architecture candidate."
+    },
+    {
+      "code": "FINAL_FEATURE_SELECTION_DEFERRED",
+      "severity": "B1 selects slope reconstruction only; feature inclusion is later."
+    }
+  ],
+  "manifest_version": "1.0",
+  "phase": "C-B1"
+}

@@ -1,0 +1,14 @@
+{
+  "phase_id": "M-B4",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "inherited_seed_42": 42,
+  "new_training_seeds": [
+    43,
+    44
+  ],
+  "subject_split_variation": "NOT_PERFORMED_IN_M-B4"
+}

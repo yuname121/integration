@@ -1,0 +1,67 @@
+{
+  "phase_id": "M-B0",
+  "title": "Authoritative Input Identity Record",
+  "total_inputs": 10,
+  "inputs": [
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a5_subject_split/split_profile.json",
+      "measured_sha256": "d022295eed222712927c4a8c7edea4613a5ba650dcbb84710af72f95a72b0c93",
+      "evidence_role": "A5 split profile configuration",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a5_subject_split/subject_split_manifest.jsonl",
+      "measured_sha256": "777cdaa1a8cda54ab0db63dcc916d3ba208c10f30cc2f48d3bc91e94bcb2dfc7",
+      "evidence_role": "A5 subject assignment manifest",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/splits/mmwave_real_subject_split_v1.json",
+      "measured_sha256": "a1996ea00a1d5066eae6d25f022d04137085434d4768e27cbebcdad4e0385baa",
+      "evidence_role": "Real-data subject split contract lookup mapping",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/processed/mmwave_canonical_real_v1.npy",
+      "measured_sha256": "c2e2cd1615c7af0f0e21700f291ee12ac0347a9f7fc6ccc9f337433c16868f0e",
+      "evidence_role": "Canonical float64 phase window dataset matrix (530x300)",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/a6_summary.json",
+      "measured_sha256": "2657c703d691e1e4a2aea6033b351e64ff124ac09438ab02b843210596189d34",
+      "evidence_role": "Full conversion audit summary",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_window_manifest.jsonl",
+      "measured_sha256": "1d1728eafdc3d4786e34fc663329a12a311322a698bdbf2fd01e6bce95c50acf",
+      "evidence_role": "530 canonical 30s window manifest",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_provenance_manifest.jsonl",
+      "measured_sha256": "7b94b73fea7ed51be2813e1014a1760fa22325c9399490b855c9ea59093a6dc2",
+      "evidence_role": "530 end-to-end provenance records",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/full_duplicate_audit.json",
+      "measured_sha256": "14e75d39df2ae20724f31d0ba6eeae3404c428ab3ff50f4ce7710bb2888d7c1b",
+      "evidence_role": "M-A6 exact duplicate audit record",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/mmwave/manifests/a6_full_conversion/processing_profile.json",
+      "measured_sha256": "c533fc590093f4b6ba765347181becd959f4d576d26a02ab2dc14e983811a2a2",
+      "evidence_role": "M-A6 full conversion profile configuration",
+      "validation_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "repository_relative_path": "datasets/raw_archives/external_datasets/db_records.zip",
+      "measured_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+      "evidence_role": "Immutable raw Zenodo 60GHz radar dataset archive",
+      "validation_status": "VERIFIED"
+    }
+  ]
+}

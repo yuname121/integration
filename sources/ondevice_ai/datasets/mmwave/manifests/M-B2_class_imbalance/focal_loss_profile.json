@@ -1,0 +1,12 @@
+{
+  "phase_id": "M-B2",
+  "gamma": 2.0,
+  "alpha_weights": {
+    "NORMAL": 1.068627,
+    "RAPID_OR_ABNORMAL": 1.3625,
+    "APNEA": 0.751724
+  },
+  "formula": "FL(y, p) = -sum_c alpha_c * I(y=c) * (1 - p_c)^gamma * log(max(p_c, 1e-7))",
+  "epsilon_clipping": 1e-07,
+  "fit_split": "TRAIN"
+}

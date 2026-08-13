@@ -1,0 +1,14 @@
+{
+  "audit_status": "PASS_ZERO_ACCESS",
+  "final_accessor_calls": 0,
+  "label_access_attempts": 0,
+  "locked_test_inputs_loaded": false,
+  "locked_test_labels_loaded": false,
+  "locked_test_performance_computed": false,
+  "locked_test_prediction_output_generated": false,
+  "metric_access_attempts": 0,
+  "performance_access_attempts": 0,
+  "phase_id": "M-B10A",
+  "prediction_access_attempts": 0,
+  "tensor_access_attempts": 0
+}

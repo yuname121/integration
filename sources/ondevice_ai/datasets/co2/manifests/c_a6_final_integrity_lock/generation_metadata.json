@@ -1,0 +1,20 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-A6",
+  "audit_profile_id": "CO2_A_SERIES_FULL_CHAIN_AUDIT_PROFILE_001",
+  "lock_profile_id": "CO2_A_SERIES_ARTIFACT_LOCK_PROFILE_001",
+  "release_readiness_profile_id": "CO2_A_SERIES_RELEASE_READINESS_PROFILE_001",
+  "generator_script": "scripts/audit_co2_final_integrity.py",
+  "module": "datasets/co2/integrity_audit.py",
+  "scaler_fitted": false,
+  "model_trained": false,
+  "synthetic_npz_used_as_real_source": false,
+  "git_tag_created": false,
+  "github_release_created": false,
+  "proposed_release_tag": "co2-a-series-raw-to-canonical",
+  "determinism": {
+    "host_timezone_independent": true,
+    "locale_independent": true,
+    "random_values_used": false
+  }
+}

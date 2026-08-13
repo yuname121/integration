@@ -1,0 +1,29 @@
+{
+  "manifest_version": "1.0",
+  "phase": "C-B0",
+  "a_series_release_tag": "co2-a-series-raw-to-canonical",
+  "a_series_release_commit": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+  "release_verification": {
+    "expected_tag": "co2-a-series-raw-to-canonical",
+    "expected_commit": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+    "resolved_commit": "bfd860cad2bb8dafe35ef7600cfa931d7d2d554d",
+    "matches_expected": true,
+    "status": "VERIFIED"
+  },
+  "artifact_lock": {
+    "path": "datasets/co2/manifests/c_a6_final_integrity_lock/artifact_lock_manifest.json",
+    "lock_profile_id": "CO2_A_SERIES_ARTIFACT_LOCK_PROFILE_001",
+    "locked_artifact_count": 33,
+    "sha256": "b63f5e2da988f8e685cf1a01ec8e79c2c37f5bc77359be647f1147ecfb04e3da",
+    "matches_released_lock_sha256": true,
+    "entry_errors": [],
+    "status": "VERIFIED"
+  },
+  "canonical_sample_profile_id": "CO2_CANONICAL_SAMPLE_PROFILE_001",
+  "slope_feature_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
+  "occupancy_target_profile_id": "CO2_OCCUPANCY_TARGET_PROFILE_001",
+  "canonical_source_samples": 20560,
+  "model_eligible_samples": 20551,
+  "warmup_samples": 9,
+  "baseline_drift_status": "NONE"
+}

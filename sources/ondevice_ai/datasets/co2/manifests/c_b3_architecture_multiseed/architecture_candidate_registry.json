@@ -1,0 +1,170 @@
+{
+  "candidate_count": 4,
+  "candidate_ids": [
+    "LINEAR_LOGISTIC",
+    "TREE_RANDOM_FOREST",
+    "TINY_MLP",
+    "SMALL_MLP"
+  ],
+  "candidates": [
+    {
+      "architecture_id": "LINEAR_LOGISTIC",
+      "complexity": {
+        "coefficient_count": 4,
+        "intercept_count": 1
+      },
+      "deployment_status": "OFFLINE_DIAGNOSTIC_ONLY",
+      "family": "LINEAR",
+      "hyperparameter_search_performed": false,
+      "implementation": "sklearn.linear_model.LogisticRegression",
+      "parameters": {
+        "C": 1.0,
+        "class_weight": null,
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": "l2",
+        "random_state": "ARCHITECTURE_SEED",
+        "solver": "lbfgs"
+      },
+      "profile_id": "CO2_B3_LINEAR_LOGISTIC_001",
+      "seed_affects": [
+        "random_state_if_accepted"
+      ]
+    },
+    {
+      "architecture_id": "TREE_RANDOM_FOREST",
+      "complexity": {
+        "depth_configuration": "max_depth=8",
+        "estimated_serialized_size_bytes": null,
+        "tree_count": 200
+      },
+      "deployment_status": "OFFLINE_TREE_DIAGNOSTIC_NOT_TFLITE_VALIDATED",
+      "family": "TREE",
+      "hyperparameter_search_performed": false,
+      "implementation": "sklearn.ensemble.RandomForestClassifier",
+      "parameters": {
+        "bootstrap": true,
+        "class_weight": null,
+        "max_depth": 8,
+        "max_features": "sqrt",
+        "min_samples_leaf": 2,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "random_state": "ARCHITECTURE_SEED"
+      },
+      "profile_id": "CO2_B3_RANDOM_FOREST_001",
+      "seed_affects": [
+        "bootstrap",
+        "tree_rng"
+      ]
+    },
+    {
+      "architecture_id": "TINY_MLP",
+      "complexity": {
+        "trainable_parameter_count": 49
+      },
+      "deployment_status": "OFFLINE_TINYML_SCALE_ONLY",
+      "family": "MLP",
+      "hyperparameter_search_performed": false,
+      "implementation": "tensorflow.keras",
+      "parameters": {
+        "batch_size": 64,
+        "early_stopping": false,
+        "epochs": 100,
+        "input_dimension": 4,
+        "layers": [
+          {
+            "shape": [
+              4
+            ],
+            "type": "Input"
+          },
+          {
+            "activation": "relu",
+            "type": "Dense",
+            "units": 8
+          },
+          {
+            "activation": "sigmoid",
+            "type": "Dense",
+            "units": 1
+          }
+        ],
+        "learning_rate": 0.001,
+        "loss": "binary_crossentropy",
+        "optimizer": "Adam",
+        "seed": "ARCHITECTURE_SEED",
+        "shuffle": true
+      },
+      "profile_id": "CO2_B3_TINY_MLP_001",
+      "seed_affects": [
+        "weight_initialization",
+        "minibatch_order"
+      ]
+    },
+    {
+      "architecture_id": "SMALL_MLP",
+      "complexity": {
+        "trainable_parameter_count": 225
+      },
+      "deployment_status": "OFFLINE_SMALL_MLP_ONLY",
+      "family": "MLP",
+      "hyperparameter_search_performed": false,
+      "implementation": "tensorflow.keras",
+      "parameters": {
+        "batch_size": 64,
+        "early_stopping": false,
+        "epochs": 100,
+        "input_dimension": 4,
+        "layers": [
+          {
+            "shape": [
+              4
+            ],
+            "type": "Input"
+          },
+          {
+            "activation": "relu",
+            "type": "Dense",
+            "units": 16
+          },
+          {
+            "activation": "relu",
+            "type": "Dense",
+            "units": 8
+          },
+          {
+            "activation": "sigmoid",
+            "type": "Dense",
+            "units": 1
+          }
+        ],
+        "learning_rate": 0.001,
+        "loss": "binary_crossentropy",
+        "optimizer": "Adam",
+        "seed": "ARCHITECTURE_SEED",
+        "shuffle": true
+      },
+      "profile_id": "CO2_B3_SMALL_MLP_001",
+      "seed_affects": [
+        "weight_initialization",
+        "minibatch_order"
+      ]
+    }
+  ],
+  "early_stopping_tuning_performed": false,
+  "fixed_feature_context": [
+    "CO2",
+    "Temperature",
+    "Humidity",
+    "CO2_slope"
+  ],
+  "fixed_imbalance_policy": "BALANCED_RANDOM_OVERSAMPLE",
+  "fixed_scaler_profile_id": "CO2_B2_TRAIN_ONLY_STANDARD_SCALER_001",
+  "hyperparameter_search_performed": false,
+  "manifest_version": "1.0",
+  "phase": "C-B3",
+  "registry_created_before_results": true,
+  "registry_id": "CO2_B3_ARCHITECTURE_CANDIDATE_REGISTRY_001",
+  "selection_rule_id": "CO2_B3_ARCHITECTURE_RANKING_RULE_001"
+}

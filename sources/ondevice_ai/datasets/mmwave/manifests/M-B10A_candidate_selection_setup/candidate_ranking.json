@@ -1,0 +1,66 @@
+{
+  "deciding_criterion": {
+    "absolute_difference": 0.224991,
+    "criterion_rank": 1,
+    "description": "Higher clean strict-INT8 VALIDATION Macro F1",
+    "direction": "higher",
+    "metric": "clean_strict_int8_macro_f1",
+    "runner_up_value": 0.44124,
+    "winner_value": 0.666231
+  },
+  "eligible_candidate_count": 2,
+  "eligible_candidate_ids": [
+    "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+    "M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120"
+  ],
+  "epsilon": 1e-05,
+  "no_composite_score_used": true,
+  "ordered_candidates": [
+    {
+      "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+      "rank": 1,
+      "ranking_metrics": {
+        "clean_apnea_proxy_precision": 0.698113,
+        "clean_apnea_proxy_recall": 1.0,
+        "clean_min_per_class_recall": 0.454545,
+        "clean_strict_int8_macro_f1": 0.666231,
+        "m_b6_keras_to_int8_top1_agreement": 0.987342,
+        "m_b6_positive_float_to_int8_macro_f1_degradation": 0.0,
+        "m_b8_pipeline_p99_ns": 164461.7499999999,
+        "moderate_max_input_saturation_ratio": 0.003037975,
+        "moderate_min_top1_agreement": 0.721519,
+        "moderate_worst_positive_macro_f1_degradation": 0.191767,
+        "moderate_worst_positive_recall_degradation": 0.35,
+        "tflite_bytes": 22080,
+        "training_seed": 42,
+        "worst_subject_clean_macro_f1": 0.222222
+      },
+      "seed": 42
+    },
+    {
+      "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120",
+      "rank": 2,
+      "ranking_metrics": {
+        "clean_apnea_proxy_precision": 0.857143,
+        "clean_apnea_proxy_recall": 0.486486,
+        "clean_min_per_class_recall": 0.272727,
+        "clean_strict_int8_macro_f1": 0.44124,
+        "m_b6_keras_to_int8_top1_agreement": 0.936709,
+        "m_b6_positive_float_to_int8_macro_f1_degradation": 0.00977,
+        "m_b8_pipeline_p99_ns": 164212.32999999993,
+        "moderate_max_input_saturation_ratio": 0.003037975,
+        "moderate_min_top1_agreement": 0.632911,
+        "moderate_worst_positive_macro_f1_degradation": 0.064106,
+        "moderate_worst_positive_recall_degradation": 0.3,
+        "tflite_bytes": 22136,
+        "training_seed": 43,
+        "worst_subject_clean_macro_f1": 0.0
+      },
+      "seed": 43
+    }
+  ],
+  "phase_id": "M-B10A",
+  "selected_candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "selection_rule_sha256": "cddf98cbcf2231075bcfc02db2223fbc80fa33f7c52e23820609b5a273046f84",
+  "selection_status": "SELECTED_PRELOCKED_REAL_DATA_CANDIDATE"
+}

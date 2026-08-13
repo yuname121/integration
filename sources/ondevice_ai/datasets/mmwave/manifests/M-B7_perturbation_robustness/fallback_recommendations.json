@@ -1,0 +1,142 @@
+{
+  "phase_id": "M-B7",
+  "profiles": {
+    "M-B7_AMP_X0_50": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_AMP_X0_75": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_AMP_X1_25": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_AMP_X1_50": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_COMBINED_MODERATE": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_DRIFT_MILD": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_DRIFT_SEVERE": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_DROPOUT_LONG": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_DROPOUT_SHORT": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR10": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_GAUSSIAN_POST_B1_SNR20": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_GAUSSIAN_SNR10": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_GAUSSIAN_SNR20": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_MISSING_FRAME_1PCT": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_MISSING_FRAME_5PCT": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_MOTION_BURST_MILD": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    },
+    "M-B7_MOTION_BURST_SEVERE": {
+      "condition_recommendation": "INFERENCE_VALID_FOR_OFFLINE_STRESS_EVALUATION",
+      "invalid_or_fallback_samples": 0,
+      "reason_counts": {},
+      "runtime_policy_changed": false,
+      "total_samples": 79,
+      "valid_samples": 79
+    }
+  },
+  "recommendation_scope": "LATER_INTEGRATION_GUIDANCE_ONLY_NO_RUNTIME_POLICY_CHANGE"
+}

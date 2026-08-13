@@ -1,0 +1,139 @@
+{
+  "phase_id": "M-B9",
+  "records": [
+    {
+      "error": "INSUFFICIENT_HISTORY",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "D_INSUFFICIENT_HISTORY",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "INVALID_SHAPE",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "E_INVALID_SHAPE",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "NAN_OR_INF",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "F_NAN",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "NAN_OR_INF",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "G_INF",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": null,
+      "invalid_sensors": [],
+      "scenario_id": "H_STALE",
+      "seed": 42,
+      "stale_sensors": [
+        "mmwave"
+      ],
+      "system_health": "DEGRADED",
+      "valid": true
+    },
+    {
+      "error": "SIMULATED_MMWAVE_SENSOR_FAULT",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "I_PROVIDER_SENSOR_FAULT",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "PROVIDER_READ_EXCEPTION",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "J_READ_EXCEPTION",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "PROVIDER_READ_TIMEOUT",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "K_TIMEOUT",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "M-B9_FINALIST_MODEL_MANIFEST_MISSING",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "L_MISSING_MODEL",
+      "seed": null,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "M-B9_FINALIST_ARTIFACT_IDENTITY_MISMATCH",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "M_SHA_MISMATCH",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    },
+    {
+      "error": "PROVIDER_CONNECT_FAILED",
+      "invalid_sensors": [
+        "mmwave"
+      ],
+      "scenario_id": "O_NOT_CONNECTED_PROVIDER",
+      "seed": 42,
+      "stale_sensors": [],
+      "system_health": "DEGRADED",
+      "valid": false
+    }
+  ],
+  "required_fault_ids": [
+    "D_INSUFFICIENT_HISTORY",
+    "E_INVALID_SHAPE",
+    "F_NAN",
+    "G_INF",
+    "H_STALE",
+    "I_PROVIDER_SENSOR_FAULT",
+    "J_READ_EXCEPTION",
+    "K_TIMEOUT",
+    "L_MISSING_MODEL",
+    "M_SHA_MISMATCH",
+    "O_NOT_CONNECTED_PROVIDER"
+  ]
+}

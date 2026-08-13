@@ -1,0 +1,144 @@
+"""Pure response builders kept testable without importing FastAPI."""
+
+from __future__ import annotations
+
+import copy
+import time
+from typing import Any, Mapping
+
+
+ROUTE_CONTRACTS = {
+    "GET /dashboard": "responsive same-origin live monitoring dashboard",
+    "GET /api/status": "full current system, risk, and sensor view",
+    "GET /api/sensors": "sensor state with AI and risk component overlays",
+    "GET /api/events": "bounded newest-first transition events",
+    "GET /api/history": "newest-first persisted sensor and risk snapshots",
+    "GET /api/state": "read-only compatibility view for the existing LCD server",
+    "GET /health": "process liveness and runtime readiness",
+    "WS /ws": "current status publication stream",
+}
+
+
+def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
+    if publication is None:
+        return {
+            "schema": "safenest.api.status.v1",
+            "timestamp": time.time(),
+            "revision": None,
+            "system": "OFFLINE",
+            "system_health": "FAILED",
+            "risk": None,
+            "mmwave": None,
+            "thermal": None,
+            "co2": None,
+            "pir": None,
+            "ready": False,
+        }
+    state = _mapping(publication.get("state"))
+    risk = _mapping(publication.get("risk"))
+    ai = _mapping(_mapping(publication.get("ai")).get("ai"))
+    sensors = _mapping(state.get("sensors"))
+    components = _mapping(risk.get("components"))
+    document: dict[str, Any] = {
+        "schema": "safenest.api.status.v1",
+        "timestamp": publication.get("timestamp"),
+        "revision": state.get("revision"),
+        "publication_revision": publication.get("publication_revision"),
+        "system": state.get("system"),
+        "system_health": risk.get("system_health"),
+        "risk": copy.deepcopy(dict(risk)),
+        "ready": True,
+    }
+    for sensor_id in ("mmwave", "thermal", "co2", "pir"):
+        document[sensor_id] = {
+            "state": copy.deepcopy(dict(_mapping(sensors.get(sensor_id)))),
+            "ai": copy.deepcopy(dict(_mapping(ai.get(sensor_id)))),
+            "risk_component": copy.deepcopy(dict(_mapping(components.get(sensor_id)))),
+        }
+    return document
+
+
+def sensors_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
+    status = status_document(publication)
+    return {
+        "schema": "safenest.api.sensors.v1",
+        "timestamp": status["timestamp"],
+        "revision": status["revision"],
+        "system": status["system"],
+        "sensors": {
+            sensor_id: status[sensor_id]
+            for sensor_id in ("mmwave", "thermal", "co2", "pir")
+        },
+    }
+
+
+def legacy_state_document(
+    publication: Mapping[str, Any] | None,
+    *,
+    room: str,
+) -> dict[str, Any]:
+    status = status_document(publication)
+    risk = status.get("risk") if isinstance(status.get("risk"), Mapping) else {}
+    level = risk.get("risk_level")
+    emergency = bool(risk.get("is_emergency"))
+    if emergency:
+        display_state = "emergency"
+    elif level == "DANGER":
+        display_state = "danger"
+    elif level == "WARNING":
+        display_state = "warning"
+    elif level == "NORMAL":
+        thermal_ai = _mapping(_mapping(status.get("thermal")).get("ai"))
+        human = thermal_ai.get("state") in {"HUMAN_NORMAL", "HUMAN_FALL"}
+        display_state = "normal-occupied" if human else "normal-empty"
+    else:
+        display_state = "offline"
+    return {
+        "state": display_state,
+        "room": room,
+        "revision": status.get("revision") or 0,
+        "updated_at": int(float(status["timestamp"])),
+        "sensors": sensors_document(publication)["sensors"],
+        "risk": copy.deepcopy(dict(risk)),
+    }
+
+
+def events_document(
+    events: list[dict[str, Any]],
+    *,
+    persistent: bool = False,
+) -> dict[str, Any]:
+    return {
+        "schema": "safenest.api.events.v1",
+        "count": len(events),
+        "events": copy.deepcopy(events),
+        "persistence": "sqlite" if persistent else "memory_only_phase7",
+    }
+
+
+def history_document(history: list[dict[str, Any]], *, persistent: bool) -> dict[str, Any]:
+    return {
+        "schema": "safenest.api.history.v1",
+        "count": len(history),
+        "history": copy.deepcopy(history),
+        "persistence": "sqlite" if persistent else "latest_only_memory",
+    }
+
+
+def health_document(
+    diagnostics: Mapping[str, Any],
+    receiver_stats: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    return {
+        "ok": True,
+        "ready": bool(diagnostics.get("ready")),
+        "publication_revision": diagnostics.get("publication_revision", 0),
+        "event_count": diagnostics.get("event_count", 0),
+        "last_error": copy.deepcopy(diagnostics.get("last_error")),
+        "receiver": copy.deepcopy(dict(receiver_stats or {})),
+        "database": copy.deepcopy(diagnostics.get("database")),
+    }
+
+
+def _mapping(value: object) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}

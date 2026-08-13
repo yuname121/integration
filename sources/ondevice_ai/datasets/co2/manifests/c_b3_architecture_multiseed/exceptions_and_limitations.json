@@ -1,0 +1,24 @@
+{
+  "blockers": [],
+  "clinical_claim": false,
+  "deferred_shared_integration_update": "DEFERRED_SHARED_INTEGRATION_UPDATE",
+  "manifest_version": "1.0",
+  "phase": "C-B3",
+  "production_model_created": false,
+  "production_scaler_modified": false,
+  "safety_threshold_calibrated": false,
+  "warnings": [
+    {
+      "code": "DEVICE_UCI_CADENCE_DOMAIN_GAP",
+      "description": "UCI occupancy cadence/domain equivalence to SCD40 is not validated."
+    },
+    {
+      "code": "DEPLOYMENT_PATH_NOT_YET_VALIDATED",
+      "description": "C-B3 selects an offline architecture candidate only; no TFLite, INT8, or Pi evidence is produced."
+    },
+    {
+      "code": "TRAINING_DURATION_OMITTED_FOR_DETERMINISM",
+      "description": "Wall-clock duration is diagnostic-only and omitted from persisted evidence to keep checksums bit-identical."
+    }
+  ]
+}

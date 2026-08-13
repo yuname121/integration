@@ -1,0 +1,14 @@
+{
+  "a0_source_identity": "datasets/mmwave/manifests/a0_raw_inventory/source_identity.json",
+  "dataset_id": "dataset-10_5281_zenodo_18599983",
+  "doi": "10.5281/zenodo.18599983",
+  "measured_recordings": 440,
+  "measured_subjects": 110,
+  "raw_archive_bytes": 246597320,
+  "raw_archive_repo_relative_path": "datasets/raw_archives/external_datasets/db_records.zip",
+  "raw_archive_sha256": "f0bcfdac94f88b43bb34d3da8e8f071a787291f86c97798059b8dbf4d4be08b0",
+  "raw_payload_copied_into_lock": false,
+  "schema_version": "M-B11_ARTIFACT_LOCK_V1",
+  "source": "Zenodo",
+  "version": "v1.1"
+}

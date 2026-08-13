@@ -1,0 +1,62 @@
+{
+  "DOMAIN_FP_FN_COST_RATIO": "UNSPECIFIED",
+  "fabricated_weighted_safety_score": false,
+  "manifest_version": "1.0",
+  "phase": "C-B2",
+  "selected_strategy_default_vs_calibrated": {
+    "calibrated": {
+      "false_negative_rate": 0.0804953560371517,
+      "false_positive_rate": 0.0897814530419374,
+      "fn": 78,
+      "fp": 152,
+      "occupied_recall": 0.9195046439628483,
+      "specificity": 0.9102185469580626
+    },
+    "calibrated_threshold": 0.58,
+    "default": {
+      "false_negative_rate": 0.05779153766769866,
+      "false_positive_rate": 0.10809214412285884,
+      "fn": 56,
+      "fp": 183,
+      "occupied_recall": 0.9422084623323014,
+      "specificity": 0.8919078558771412
+    },
+    "default_threshold": 0.5,
+    "deltas": {
+      "delta_balanced_accuracy": -0.002196563644265903,
+      "delta_false_negative_rate": 0.022703818369453045,
+      "delta_false_positive_rate": -0.01831069108092144,
+      "delta_fn": 22,
+      "delta_fp": -31,
+      "delta_macro_f1": 0.0026576589936745387,
+      "delta_occupied_recall": -0.02270381836945312
+    },
+    "strategy_id": "BALANCED_RANDOM_OVERSAMPLE"
+  },
+  "stage1_default_threshold": {
+    "BALANCED_RANDOM_OVERSAMPLE": {
+      "false_negative_rate": 0.05779153766769866,
+      "false_positive_rate": 0.10809214412285884,
+      "fn": 56,
+      "fp": 183,
+      "occupied_recall": 0.9422084623323014,
+      "specificity": 0.8919078558771412
+    },
+    "CLASS_WEIGHT_BALANCED": {
+      "false_negative_rate": 0.05779153766769866,
+      "false_positive_rate": 0.11163614884819846,
+      "fn": 56,
+      "fp": 189,
+      "occupied_recall": 0.9422084623323014,
+      "specificity": 0.8883638511518015
+    },
+    "NATURAL_DISTRIBUTION": {
+      "false_negative_rate": 0.19607843137254902,
+      "false_positive_rate": 0.042528056704075605,
+      "fn": 190,
+      "fp": 72,
+      "occupied_recall": 0.803921568627451,
+      "specificity": 0.9574719432959244
+    }
+  }
+}

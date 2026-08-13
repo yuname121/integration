@@ -1,0 +1,78 @@
+{
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "forbidden_seeds": [
+    43,
+    44
+  ],
+  "model_count": 3,
+  "models": [
+    {
+      "baseline_id": null,
+      "bytes": 22080,
+      "calibration": "M-B5_CAL_CLASS_BALANCED_120",
+      "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+      "class_map": {
+        "0": "NORMAL",
+        "1": "RAPID_OR_ABNORMAL",
+        "2": "APNEA"
+      },
+      "model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "preprocessing": "BPF_ZSCORE",
+      "preprocessing_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+      "preprocessing_profile": "M-B1_D0_B1_Z1",
+      "role": "SELECTED_NEW_REAL_DATA_CANDIDATE",
+      "seed": 42,
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+    },
+    {
+      "baseline_id": "mmwave_resp_int8",
+      "bytes": 466616,
+      "class_map": {
+        "0": "NORMAL",
+        "1": "RAPID_OR_ABNORMAL",
+        "2": "APNEA"
+      },
+      "executor_path": "scripts/mmwave_m_b10b_baseline_preprocessing.py",
+      "executor_sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f",
+      "interpretation": "HISTORICAL_MODEL_COMPATIBILITY_BENCHMARK",
+      "metadata_path": "models/mmwave/sensor_stats_metadata_v0.1.0.json",
+      "metadata_sha256": "a875a8369ff7adf5477cec009b99c0c6d0fbb8b0e60e5b0b07a551f3780d2e37",
+      "model_id": "mmwave_resp_int8",
+      "path": "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+      "preprocessing_contract_id": "M-B10B_HISTORICAL_V0_1_COMPATIBILITY_PREPROCESSING_V1",
+      "role": "HISTORICAL_MODEL_COMPATIBILITY_BASELINE",
+      "sha256": "43cdd6f321c2b645232162233e098c2b65549388cbc9e680a17a0eccdc8f0158"
+    },
+    {
+      "baseline_id": "mmwave_resp_int8_v0.2.0_candidate",
+      "bytes": 22472,
+      "class_map": {
+        "0": "NORMAL",
+        "1": "RAPID_OR_ABNORMAL",
+        "2": "APNEA"
+      },
+      "executor_path": "scripts/mmwave_m_b10b_baseline_preprocessing.py",
+      "executor_sha256": "8ca87f457d0a151cffa2da23ae9ab9d87764b144fa826b91444776f3dc58ec4f",
+      "interpretation": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BENCHMARK",
+      "metadata_path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate_metadata.json",
+      "metadata_sha256": "36039a6cffbc57162dbb4c720034da6dcfa49ef2f2d33238bee65a62aa133127",
+      "model_id": "mmwave_resp_int8_v0.2.0_candidate",
+      "path": "models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+      "preprocessing_contract_id": "M-B10B_SYNTHETIC_V0_2_EXTERNAL_COMPATIBILITY_PREPROCESSING_V1",
+      "role": "SYNTHETIC_TRAINED_EXTERNAL_COMPATIBILITY_BASELINE",
+      "sha256": "85c023d3eefca13ecbb72a841974e53a56d5f4173920645d46df49a9088452ff"
+    }
+  ],
+  "phase_id": "M-B10R1-A",
+  "schema_version": "M-B10R1A_MODEL_IDENTITY_REGISTRY_V1",
+  "seed42_exact": true,
+  "selected_candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+  "selected_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+  "selected_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+  "selected_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5"
+}

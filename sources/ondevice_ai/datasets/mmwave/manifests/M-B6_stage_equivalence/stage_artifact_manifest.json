@@ -1,0 +1,68 @@
+{
+  "phase_id": "M-B6",
+  "artifacts": {
+    "M-B3_CONV1D_GAP_BASELINE_seed_42_stage_b": {
+      "seed": 42,
+      "stage": "Stage B (Float TFLite)",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_float32.tflite",
+      "bytes": 45460,
+      "sha256": "428335e06ae8bc2eed7dc71b1b7d8839c114819567ab50553a756f7b5fd34096",
+      "input_dtype": "float32",
+      "output_dtype": "float32",
+      "select_tf_ops_count": 0
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_42_stage_c": {
+      "seed": 42,
+      "stage": "Stage C (Strict INT8 TFLite)",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "bytes": 22080,
+      "sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "select_tf_ops_count": 0,
+      "m_b5_selected_int8_reused": true
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43_stage_b": {
+      "seed": 43,
+      "stage": "Stage B (Float TFLite)",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_float32.tflite",
+      "bytes": 45516,
+      "sha256": "220f8db81423b09a842f71831631ab7d4dbadb9843256a9d89e6d8c0b8ccfae1",
+      "input_dtype": "float32",
+      "output_dtype": "float32",
+      "select_tf_ops_count": 0
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_43_stage_c": {
+      "seed": 43,
+      "stage": "Stage C (Strict INT8 TFLite)",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed43_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "bytes": 22136,
+      "sha256": "cf39c5ce28b4e495d2d721ec5456713618a8f19c3dbe55c600ca222d0228d8f6",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "select_tf_ops_count": 0,
+      "m_b5_selected_int8_reused": true
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44_stage_b": {
+      "seed": 44,
+      "stage": "Stage B (Float TFLite)",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_float32.tflite",
+      "bytes": 45516,
+      "sha256": "cf0d0c065f9aaf8f98a186be3998a74479f873d562559799c94d52e3f7c989fe",
+      "input_dtype": "float32",
+      "output_dtype": "float32",
+      "select_tf_ops_count": 0
+    },
+    "M-B3_CONV1D_GAP_BASELINE_seed_44_stage_c": {
+      "seed": 44,
+      "stage": "Stage C (Strict INT8 TFLite)",
+      "relative_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed44_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "bytes": 22136,
+      "sha256": "30a487f73239078e9e22ce09b530750ac16f4850e33cce5af11e6feced98d08d",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "select_tf_ops_count": 0,
+      "m_b5_selected_int8_reused": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "automatic_retry": false,
+  "historical_total_payload_release_events": 1,
+  "original_final_accessor_invocations": 1,
+  "original_final_payload_release_events": 1,
+  "original_locked_test_consumed": true,
+  "payload_consumed": false,
+  "recovery_accessor_invocations": 0,
+  "recovery_payload_release_events": 0,
+  "rerun_performed": false,
+  "schema_version": "M-B10R1_RECOVERY_ACCESS_RUNTIME_STATE_V1"
+}

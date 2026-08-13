@@ -1,0 +1,50 @@
+{
+  "manifest_version": "1.0",
+  "anomalies_and_limitations": [
+    {
+      "id": "ANOMALY-C-A0-01",
+      "condition_code": "HEADER_DATA_WIDTH_MISMATCH",
+      "severity": "WARNING",
+      "scope": "raw_csv_schema",
+      "description": "Visible CSV header has 7 named fields, but data rows have 8 comma-separated fields. Field 0 is an exported dataframe index (1, 2, ...).",
+      "impact": "Field indexing must use explicit physical offset mapping rather than positional split by header length.",
+      "mitigation": "Physical column mapping is explicitly documented and enforced in C-A0 inventory."
+    },
+    {
+      "id": "ANOMALY-C-A0-02",
+      "condition_code": "SOURCE_TIMEZONE_UNVERIFIED",
+      "severity": "WARNING",
+      "scope": "timestamp_semantics",
+      "description": "Source timestamps (e.g. '2015-02-04 17:51:00') are timezone-naive local clock readings without UTC offset.",
+      "impact": "Timestamps must not be assumed to be UTC or modified with 'Z'.",
+      "mitigation": "Preserved as SOURCE_ACQUISITION_CLOCK with UNVERIFIED timezone."
+    },
+    {
+      "id": "ANOMALY-C-A0-03",
+      "condition_code": "MODEL_TRAINING_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "scope": "model_lineage",
+      "description": "Existing co2_occupancy_int8_v0.1.0.tflite model training script and dataset provenance are unverified in repository history.",
+      "impact": "Model status remains CONFIRMED_SYNTHETIC_ONLY.",
+      "mitigation": "Lineage C is explicitly separated from Lineage A (real raw source)."
+    },
+    {
+      "id": "ANOMALY-C-A0-04",
+      "condition_code": "SCALER_FIT_LINEAGE_UNVERIFIED",
+      "severity": "WARNING",
+      "scope": "scaling_metadata_lineage",
+      "description": "Existing co2_scaling_metadata_v0.1.0.json recorded values do not match synthetic NPZ statistics or raw UCI feature means.",
+      "impact": "Scaler metadata source cannot be assumed to be the local UCI archive.",
+      "mitigation": "Lineage D is explicitly classified as FIT_DATA_LINEAGE_UNVERIFIED."
+    },
+    {
+      "id": "ANOMALY-C-A0-05",
+      "condition_code": "GROUP_INDEPENDENCE_NOT_VERIFIABLE",
+      "severity": "WARNING",
+      "scope": "temporal_split",
+      "description": "Source dataset records office occupancy from a single room across 3 consecutive time periods.",
+      "impact": "Cross-building or multi-room generalization cannot be guaranteed from this dataset alone.",
+      "mitigation": "Dataset limitation explicitly documented for future C-A2 split design."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "seed": 42,
+  "epochs": 2,
+  "batch_size": 32,
+  "optimizer": "adam",
+  "learning_rate": 0.001,
+  "loss": "sparse_categorical_crossentropy",
+  "class_map": {
+    "0": "NORMAL",
+    "1": "RAPID_OR_ABNORMAL",
+    "2": "APNEA"
+  },
+  "preprocessor": {
+    "mean": 0.17212218046188354,
+    "std": 1.7171541452407837,
+    "clip_min": -5.0,
+    "clip_max": 5.0,
+    "stage": "EXPERIMENTAL_PREPROCESSING_V1"
+  }
+}
