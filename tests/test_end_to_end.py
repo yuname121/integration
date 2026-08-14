@@ -92,7 +92,8 @@ class Phase10EndToEndTests(unittest.TestCase):
             first = harness.connect_and_send(sequence=1, fragment_size=37)
             harness.evaluate()
             harness.close_client(first)
-            harness.wait_for_system("OFFLINE")
+            harness.wait_for_sensor_status("mmwave", "DISCONNECTED")
+            self.assertEqual(harness.manager.snapshot()["system"], "DEGRADED")
             second = harness.connect_and_send(sequence=2, fragment_size=53)
             publication = harness.evaluate()
             self.assertEqual(publication["state"]["system"], "ONLINE")
@@ -103,7 +104,7 @@ class Phase10EndToEndTests(unittest.TestCase):
         with EndToEndHarness() as harness:
             first = harness.connect_and_send(sequence=100)
             harness.close_client(first)
-            harness.wait_for_system("OFFLINE")
+            harness.wait_for_sensor_status("mmwave", "DISCONNECTED")
             second = harness.connect_and_send(sequence=1)
             publication = harness.evaluate()
             self.assertEqual(publication["state"]["sensors"]["thermal"]["sequence"], 1)

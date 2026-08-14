@@ -1,5 +1,12 @@
 # Source Manifest
 
+## 2026-08-14 Thermal UDP transport update
+
+- 운영 sender `display-test2/esp32_sensor_node/esp32_sensor_node.ino`는 mmWave, CO2, PIR telemetry를 기존 SafeNest TCP v1 port 9000으로 유지한다.
+- Thermal-44만 SafeNest Thermal UDP v1 port 5005의 1,200-byte 이하 chunk로 송신한다.
+- `gateway/thermal_udp.py`가 CRC32, timeout, 순서 무관 reassembly와 bounded pending-frame 정책을 적용한 후 기존 `gateway/protocol.py::decode_thermal()`로 전달한다.
+- `devices/thermal/thermal_sensor_test/`의 과거 단일 oversized UDP datagram은 참고 자료일 뿐 운영 packet contract로 사용하지 않는다.
+
 이 파일은 standalone 저장소 루트 기준의 원본·통합 경계를 기록한다. `sources/ondevice_ai/`는 동결된 upstream snapshot이며, 실제 운영 모델 승격은 별도 검증과 승인 없이는 수행하지 않는다.
 
 기계 판독 가능한 출처와 배포 결정은 루트의 `LATEST_SOURCE_PROVENANCE.json`에도 기록했다.

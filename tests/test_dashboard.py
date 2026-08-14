@@ -46,6 +46,8 @@ class DashboardStaticTests(unittest.TestCase):
         for element_id in (
             "riskLevel", "riskScore", "reasonList", "mmwaveCard", "thermalCard",
             "co2Card", "pirCard", "thermalCanvas", "trendCanvas", "eventList",
+            "emergencyOverlay", "report119Button", "contactManagerButton",
+            "acknowledgeButton", "voiceToggleButton", "simulationModal",
         ):
             with self.subTest(element_id=element_id):
                 self.assertIn(f'id="{element_id}"', self.html)
@@ -59,8 +61,19 @@ class DashboardStaticTests(unittest.TestCase):
 
     def test_dashboard_never_posts_or_injects_api_html(self):
         self.assertNotIn("innerHTML", self.javascript)
-        self.assertNotIn('method: "POST"', self.javascript)
+        self.assertIn('method: "POST"', self.javascript)
         self.assertIn("textContent", self.javascript)
+        for endpoint in (
+            "/api/emergency/119/simulation/start",
+            "/api/emergency/119/simulation/complete",
+            "/api/emergency/contact",
+            "/api/emergency/acknowledge",
+            "/api/emergency/voice",
+        ):
+            with self.subTest(endpoint=endpoint):
+                self.assertIn(endpoint, self.javascript)
+        self.assertIn("simulationRunning", self.javascript)
+        self.assertIn("transitionId", self.javascript)
 
     def test_thermal_values_are_explicitly_raw_and_uncalibrated(self):
         self.assertIn("온도 보정", self.html)

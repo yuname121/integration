@@ -10,7 +10,7 @@ import threading
 from typing import Any, Mapping, Sequence
 
 
-SCHEMA_VERSION = "1"
+SCHEMA_VERSION = "2"
 SCHEMA_PATH = Path(__file__).resolve().with_name("schema.sql")
 
 
@@ -56,7 +56,10 @@ class SQLiteRepository:
                         thermal_max_raw, thermal_max_temp_c,
                         thermal_human_probability, thermal_ai_state,
                         co2_ppm, pir_motion, risk_score, risk_level,
-                        is_emergency, event_type, risk_reasons_json
+                        is_emergency, emergency_active, danger_transition_id,
+                        danger_entered_at, alarm_acknowledged, alarm_acknowledged_at,
+                        buzzer_active, latched_while_offline,
+                        event_type, risk_reasons_json
                     ) VALUES (
                         :timestamp, :state_revision, :publication_revision,
                         :system, :system_health,
@@ -66,7 +69,10 @@ class SQLiteRepository:
                         :thermal_max_raw, :thermal_max_temp_c,
                         :thermal_human_probability, :thermal_ai_state,
                         :co2_ppm, :pir_motion, :risk_score, :risk_level,
-                        :is_emergency, :event_type, :risk_reasons_json
+                        :is_emergency, :emergency_active, :danger_transition_id,
+                        :danger_entered_at, :alarm_acknowledged, :alarm_acknowledged_at,
+                        :buzzer_active, :latched_while_offline,
+                        :event_type, :risk_reasons_json
                     )
                     ON CONFLICT(publication_revision) DO NOTHING
                     """,
@@ -132,6 +138,40 @@ class SQLiteRepository:
             ).fetchone()[0]
         return int(value)
 
+    def update_emergency_state(
+        self,
+        publication_revision: int,
+        emergency: Mapping[str, Any],
+    ) -> None:
+        state = _mapping(emergency)
+        row = {
+            "publication_revision": _integer_required(publication_revision, "publication_revision"),
+            "emergency_active": int(bool(state.get("active"))),
+            "danger_transition_id": _text_optional(state.get("transition_id")),
+            "danger_entered_at": _finite_optional(state.get("entered_at")),
+            "alarm_acknowledged": int(bool(state.get("acknowledged"))),
+            "alarm_acknowledged_at": _finite_optional(state.get("acknowledged_at")),
+            "buzzer_active": int(bool(state.get("buzzer_active"))),
+            "latched_while_offline": int(bool(state.get("latched_while_offline"))),
+        }
+        with self._lock:
+            self._ensure_open()
+            with self._connection:
+                self._connection.execute(
+                    """
+                    UPDATE sensor_snapshots
+                    SET emergency_active = :emergency_active,
+                        danger_transition_id = :danger_transition_id,
+                        danger_entered_at = :danger_entered_at,
+                        alarm_acknowledged = :alarm_acknowledged,
+                        alarm_acknowledged_at = :alarm_acknowledged_at,
+                        buzzer_active = :buzzer_active,
+                        latched_while_offline = :latched_while_offline
+                    WHERE publication_revision = :publication_revision
+                    """,
+                    row,
+                )
+
     def close(self) -> None:
         with self._lock:
             if self._closed:
@@ -143,16 +183,44 @@ class SQLiteRepository:
         schema = SCHEMA_PATH.read_text(encoding="utf-8")
         with self._connection:
             self._connection.executescript(schema)
+            self._ensure_emergency_columns()
         row = self._connection.execute(
             "SELECT value FROM schema_meta WHERE key = 'schema_version'"
         ).fetchone()
-        if row is None or row[0] != SCHEMA_VERSION:
+        found = None if row is None else str(row[0])
+        if found == "1":
+            with self._connection:
+                self._connection.execute(
+                    "UPDATE schema_meta SET value = ? WHERE key = 'schema_version'",
+                    (SCHEMA_VERSION,),
+                )
+            found = SCHEMA_VERSION
+        if found != SCHEMA_VERSION:
             self._connection.close()
             self._closed = True
-            found = None if row is None else row[0]
             raise RuntimeError(
                 f"unsupported SafeNest database schema: expected={SCHEMA_VERSION}, found={found}"
             )
+
+    def _ensure_emergency_columns(self) -> None:
+        existing = {
+            str(row[1])
+            for row in self._connection.execute("PRAGMA table_info(sensor_snapshots)").fetchall()
+        }
+        columns = {
+            "emergency_active": "INTEGER NOT NULL DEFAULT 0",
+            "danger_transition_id": "TEXT",
+            "danger_entered_at": "REAL",
+            "alarm_acknowledged": "INTEGER NOT NULL DEFAULT 0",
+            "alarm_acknowledged_at": "REAL",
+            "buzzer_active": "INTEGER NOT NULL DEFAULT 0",
+            "latched_while_offline": "INTEGER NOT NULL DEFAULT 0",
+        }
+        for name, definition in columns.items():
+            if name not in existing:
+                self._connection.execute(
+                    f"ALTER TABLE sensor_snapshots ADD COLUMN {name} {definition}"
+                )
 
     def _ensure_open(self) -> None:
         if self._closed:
@@ -169,6 +237,7 @@ def _snapshot_row(publication: Mapping[str, Any]) -> dict[str, Any]:
     co2 = _mapping(_mapping(sensors.get("co2")).get("values"))
     pir = _mapping(_mapping(sensors.get("pir")).get("values"))
     thermal_ai = _mapping(ai.get("thermal"))
+    emergency = _mapping(publication.get("emergency"))
 
     presence = None
     if mmwave.get("presence_available") is True and isinstance(mmwave.get("presence"), bool):
@@ -207,6 +276,13 @@ def _snapshot_row(publication: Mapping[str, Any]) -> dict[str, Any]:
         "risk_score": _finite_optional(risk.get("risk_score")),
         "risk_level": _text_optional(risk.get("risk_level")),
         "is_emergency": int(bool(risk.get("is_emergency"))),
+        "emergency_active": int(bool(emergency.get("active"))),
+        "danger_transition_id": _text_optional(emergency.get("transition_id")),
+        "danger_entered_at": _finite_optional(emergency.get("entered_at")),
+        "alarm_acknowledged": int(bool(emergency.get("acknowledged"))),
+        "alarm_acknowledged_at": _finite_optional(emergency.get("acknowledged_at")),
+        "buzzer_active": int(bool(emergency.get("buzzer_active"))),
+        "latched_while_offline": int(bool(emergency.get("latched_while_offline"))),
         "event_type": "SNAPSHOT",
         "risk_reasons_json": _json(reasons_list),
     }
@@ -233,6 +309,10 @@ def _decode_snapshot(row: sqlite3.Row) -> dict[str, Any]:
     result["mmwave_presence"] = _database_bool(result["mmwave_presence"])
     result["pir_motion"] = _database_bool(result["pir_motion"])
     result["is_emergency"] = bool(result["is_emergency"])
+    result["emergency_active"] = bool(result["emergency_active"])
+    result["alarm_acknowledged"] = bool(result["alarm_acknowledged"])
+    result["buzzer_active"] = bool(result["buzzer_active"])
+    result["latched_while_offline"] = bool(result["latched_while_offline"])
     result["risk_reasons"] = json.loads(result.pop("risk_reasons_json"))
     return result
 

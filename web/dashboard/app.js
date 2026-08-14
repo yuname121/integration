@@ -1,7 +1,24 @@
 "use strict";
 
 const $ = (id) => document.getElementById(id);
-const state = { publication: null, socket: null, pollTimer: null, reconnectTimer: null, auxiliaryAt: 0 };
+const state = {
+  publication: null,
+  socket: null,
+  pollTimer: null,
+  reconnectTimer: null,
+  auxiliaryAt: 0,
+  previousLevel: null,
+  dangerTransitionId: null,
+  simulationRunning: false,
+  simulationId: null,
+  busyActions: new Set(),
+  transportWarning: false,
+  connectionMode: "connecting",
+  smsCooldownUntil: 0,
+  cooldownTimer: null,
+  voiceEnabled: readStorage("safenest.voiceEnabled") !== "false",
+  lastAnnouncedTransitionId: readSessionStorage("safenest.lastDangerTransition") || null,
+};
 
 const reasonLabels = {
   EMERGENCY_HUMAN_FALL: "Thermal AI가 높은 신뢰도로 낙상을 감지했습니다.",
@@ -19,17 +36,47 @@ const reasonLabels = {
   PRESENCE_FROM_MMWAVE: "mmWave로 사람 존재를 확인했습니다.",
   MMWAVE_THERMAL_MISMATCH: "mmWave와 Thermal의 사람 존재 판정이 일치하지 않습니다.",
   ALL_RISK_COMPONENTS_UNAVAILABLE: "사용 가능한 위험도 입력이 없습니다.",
-  ALL_SENSORS_FAULT_OR_MISSING: "모든 센서가 결측 또는 고장 상태입니다."
+  ALL_SENSORS_FAULT_OR_MISSING: "모든 센서가 결측 또는 고장 상태입니다.",
 };
 
 const eventLabels = {
   SNAPSHOT_INITIALIZED: "관제 상태 초기화",
   RISK_LEVEL_CHANGED: "위험 단계 변경",
+  WARNING_ENTERED: "주의 단계 진입",
+  DANGER_ENTERED: "DANGER 진입",
+  DANGER_CLEARED: "DANGER 해제",
+  NORMAL_RESTORED: "정상 상태 복구",
   SYSTEM_HEALTH_CHANGED: "시스템 건강도 변경",
   EMERGENCY_STARTED: "긴급 경보 시작",
   EMERGENCY_CLEARED: "긴급 경보 해제",
   SENSOR_STATUS_CHANGED: "센서 상태 변경",
-  RUNTIME_ERROR: "Runtime 오류"
+  SENSOR_OFFLINE: "센서 오프라인",
+  SENSOR_RECOVERED: "센서 복구",
+  GATEWAY_OFFLINE: "Gateway 오프라인",
+  GATEWAY_ONLINE: "Gateway 온라인",
+  GATEWAY_DEGRADED: "Gateway 부분 연결",
+  WEBSOCKET_OFFLINE: "WebSocket 오프라인",
+  WEBSOCKET_ONLINE: "WebSocket 온라인",
+  BUZZER_ACTIVATED: "부저 활성화",
+  BUZZER_UNAVAILABLE: "부저 모의/미사용",
+  ALARM_ACKNOWLEDGED: "사용자 경고 확인",
+  EMERGENCY_SIMULATION_STARTED: "119 모의 신고 시작",
+  EMERGENCY_SIMULATION_COMPLETED: "119 모의 신고 완료",
+  MANAGER_SMS_REQUESTED: "담당자 SMS 요청",
+  MANAGER_SMS_SUCCEEDED: "담당자 SMS 전송 성공",
+  MANAGER_SMS_FAILED: "담당자 SMS 전송 실패",
+  MANAGER_SMS_COOLDOWN_REJECTED: "SMS 재전송 대기",
+  RUNTIME_ERROR: "Runtime 오류",
+};
+
+const audioFiles = {
+  DANGER: "danger.mp3",
+  WARNING: "warning.mp3",
+  "119_START": "report_119.mp3",
+  "119_COMPLETE": "report_119_complete.mp3",
+  SMS_SUCCESS: "sms_sent.mp3",
+  SMS_FAILURE: "sms_failed.mp3",
+  SENSOR_OFFLINE: "sensor_offline.mp3",
 };
 
 function number(value, digits = 1) {
@@ -40,11 +87,15 @@ function percent(value) {
   return typeof value === "number" && Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : "—";
 }
 
-function setText(id, value) { $(id).textContent = value ?? "—"; }
+function setText(id, value) {
+  const element = $(id);
+  if (element) element.textContent = value ?? "—";
+}
 
 function setStatus(id, status) {
   const value = status || "NO DATA";
   const element = $(id);
+  if (!element) return;
   element.textContent = value.replaceAll("_", " ");
   element.dataset.status = value;
 }
@@ -59,23 +110,33 @@ function riskComponentText(sensor) {
   return `${number(component.score, 2)} · ${(component.source || "UNKNOWN").toUpperCase()}`;
 }
 
+function effectiveLevel(payload) {
+  const riskLevel = payload?.risk?.risk_level;
+  if (riskLevel) return riskLevel;
+  return payload?.emergency?.active ? "DANGER" : "UNKNOWN";
+}
+
 function renderOverview(payload) {
   const risk = payload.risk || {};
-  const level = risk.risk_level || "UNKNOWN";
+  const level = effectiveLevel(payload);
   const score = typeof risk.risk_score === "number" ? risk.risk_score : null;
   document.body.dataset.level = level;
   setText("riskLevel", level === "UNKNOWN" ? "NO DATA" : level);
-  setText("riskKicker", risk.is_emergency ? "즉시 현장 확인 필요" : level === "UNKNOWN" ? "데이터 수신 대기" : "실시간 융합 위험도");
+  setText("riskKicker", risk.is_emergency || payload.emergency?.active
+    ? "즉시 현장 확인 필요"
+    : level === "UNKNOWN" ? "데이터 수신 대기" : "실시간 융합 위험도");
   const summary = {
     NORMAL: "현재 사용 가능한 센서 기준으로 즉시 대응이 필요한 위험은 없습니다.",
     WARNING: "주의 신호가 감지되었습니다. 원인 센서와 현장 상태를 확인하세요.",
-    DANGER: "위험 신호가 확인되었습니다. 즉시 현장 대응 절차를 시작하세요.",
-    UNKNOWN: "유효한 센서 입력이 부족해 위험도를 계산할 수 없습니다."
+    DANGER: payload.offline
+      ? "마지막 위험 판정이 유지되고 있습니다. 센서 연결이 복구될 때까지 현장 대응을 계속하세요."
+      : "위험 신호가 확인되었습니다. 즉시 현장 대응 절차를 시작하세요.",
+    UNKNOWN: "유효한 센서 입력이 부족해 위험도를 계산할 수 없습니다.",
   }[level];
   setText("riskSummary", summary);
   setText("riskScore", score === null ? "—" : Math.round(score));
-  $("scoreGauge").style.setProperty("--score", score === null ? 0 : Math.max(0, Math.min(100, score)));
-  $("scoreGauge").setAttribute("aria-label", score === null ? "위험 점수 없음" : `위험 점수 ${score.toFixed(1)}점`);
+  $("scoreGauge")?.style.setProperty("--score", score === null ? 0 : Math.max(0, Math.min(100, score)));
+  $("scoreGauge")?.setAttribute("aria-label", score === null ? "위험 점수 없음" : `위험 점수 ${score.toFixed(1)}점`);
   setText("gatewayState", payload.system || "OFFLINE");
   setText("stateRevision", payload.revision ?? "—");
   setText("lastUpdate", formatTime(payload.timestamp));
@@ -87,6 +148,7 @@ function renderOverview(payload) {
 
 function renderReasons(reasons) {
   const list = $("reasonList");
+  if (!list) return;
   list.replaceChildren();
   const unique = [...new Set(reasons)];
   setText("reasonCount", unique.length);
@@ -99,8 +161,8 @@ function renderReasons(reasons) {
   }
   unique.slice(0, 8).forEach((reason) => {
     const item = document.createElement("li");
-    item.textContent = reasonLabels[reason] || reason.replaceAll("_", " ");
-    if (reason.startsWith("EMERGENCY") || reason.includes("DANGER")) item.className = "critical";
+    item.textContent = reasonLabels[reason] || String(reason).replaceAll("_", " ");
+    if (String(reason).startsWith("EMERGENCY") || String(reason).includes("DANGER")) item.className = "critical";
     list.append(item);
   });
 }
@@ -157,8 +219,99 @@ function renderSensors(payload) {
   setText("pirRisk", riskComponentText(pir));
 }
 
+function renderEmergency(payload) {
+  const level = effectiveLevel(payload);
+  const emergency = payload.emergency || {};
+  const active = level === "DANGER" || emergency.active === true;
+  const overlay = $("emergencyOverlay");
+  if (!overlay) return;
+  overlay.hidden = !active;
+  if (!active) return;
+
+  const risk = payload.risk || {};
+  const mmwave = payload.mmwave || {};
+  const thermal = payload.thermal || {};
+  const pir = payload.pir || {};
+  const reasons = [...new Set(risk.reasons || [])];
+  setText("emergencyRiskLevel", "DANGER");
+  setText("emergencyPill", payload.offline ? "DANGER · DATA OFFLINE" : "DANGER");
+  setText("emergencyRiskScore", typeof risk.risk_score === "number" ? Math.round(risk.risk_score) : "—");
+  setText("emergencyEnteredAt", emergency.entered_at ? `진입 시각 ${formatTime(emergency.entered_at)}` : "진입 시각 —");
+  setText("emergencyRespiration", `${number(valueAt(mmwave, "respiration_rate_bpm"), 1)} rpm`);
+  setText("emergencyCo2", `${number(valueAt(payload.co2 || {}, "ppm"), 0)} ppm`);
+  const noMotion = componentAt(pir).metadata?.no_motion_seconds;
+  setText("emergencyNoMotion", typeof noMotion === "number" ? `${noMotion.toFixed(1)}초` : "—");
+  setText("emergencyThermal", aiAt(thermal).state || componentAt(thermal).state || "—");
+
+  const reasonList = $("emergencyReasonList");
+  reasonList.replaceChildren();
+  (reasons.length ? reasons : ["DANGER 상태가 Risk Engine에서 전달되었습니다."]).slice(0, 6).forEach((reason) => {
+    const item = document.createElement("li");
+    item.textContent = reasonLabels[reason] || String(reason).replaceAll("_", " ");
+    reasonList.append(item);
+  });
+
+  const buzzer = emergency.buzzer || {};
+  setText("emergencyBuzzerMode", buzzer.simulated ? `부저 모의 모드 · ${buzzer.mode || "mock"}` : `부저 ${buzzer.mode || "GPIO"}`);
+  const acknowledged = emergency.acknowledged === true;
+  setText("emergencyAlarmState", acknowledged ? "사용자 경고 확인됨 · DANGER 유지" : (emergency.buzzer_active ? "부저 작동 중" : "부저 확인 필요"));
+  const ackButton = $("acknowledgeButton");
+  ackButton.disabled = acknowledged || isBusy("acknowledge");
+  ackButton.textContent = acknowledged ? "✓ 경고 확인됨" : "✓ 경고 확인";
+  $("emergencyOfflineNote").hidden = !(payload.offline || state.transportWarning || emergency.latched_while_offline);
+  updateVoiceButton();
+  updateSmsButton();
+}
+
+function renderOffline(payload) {
+  const offline = payload.offline === true || payload.system !== "ONLINE" || state.connectionMode === "offline";
+  const banner = $("offlineBanner");
+  if (!banner) return;
+  banner.hidden = !offline && !state.transportWarning;
+  if (!banner.hidden) {
+    const message = state.connectionMode === "offline"
+      ? "WebSocket와 polling 모두 연결되지 않았습니다. 마지막 값은 현재값으로 간주하지 마십시오."
+      : state.transportWarning
+        ? "WebSocket이 끊겨 polling으로 전환했습니다. 센서 데이터 freshness를 확인하십시오."
+        : "현재 센서 데이터를 수신하지 못하고 있습니다. 센서 및 Gateway 연결 상태를 확인하십시오.";
+    setText("offlineMessage", message);
+  }
+}
+
+function render(payload) {
+  const level = effectiveLevel(payload);
+  const transitionId = payload.emergency?.transition_id || `publication-${payload.publication_revision || payload.revision || "unknown"}`;
+  const enteredDanger = level === "DANGER" && (state.previousLevel !== "DANGER" || state.dangerTransitionId !== transitionId);
+  state.publication = payload;
+  if (enteredDanger) onDangerEntered(payload, transitionId);
+  state.previousLevel = level;
+  if (level === "DANGER") state.dangerTransitionId = transitionId;
+  renderOverview(payload);
+  renderSensors(payload);
+  renderEmergency(payload);
+  renderOffline(payload);
+  const now = Date.now();
+  if (now - state.auxiliaryAt > 4500) {
+    state.auxiliaryAt = now;
+    refreshAuxiliary();
+  }
+}
+
+function onDangerEntered(payload, transitionId) {
+  state.dangerTransitionId = transitionId;
+  setActionStatus("긴급 상황입니다. 위험 원인을 확인하고 대응 버튼을 선택하십시오.", "critical");
+  if (state.lastAnnouncedTransitionId !== transitionId) {
+    state.lastAnnouncedTransitionId = transitionId;
+    writeSessionStorage("safenest.lastDangerTransition", transitionId);
+    playVoice("DANGER");
+    recordVoice("DANGER");
+  }
+  if (payload.emergency?.acknowledged) setActionStatus("이전 경고 확인 상태를 복원했습니다. DANGER는 유지됩니다.", "warning");
+}
+
 function renderHeatmap(preview) {
   const canvas = $("thermalCanvas");
+  if (!canvas) return;
   const context = canvas.getContext("2d");
   context.fillStyle = "#071018";
   context.fillRect(0, 0, canvas.width, canvas.height);
@@ -185,23 +338,12 @@ function renderHeatmap(preview) {
   canvas.setAttribute("aria-label", `${preview.source_width} 곱하기 ${preview.source_height} Thermal frame 정규화 미리보기`);
 }
 
-function render(payload) {
-  state.publication = payload;
-  renderOverview(payload);
-  renderSensors(payload);
-  const now = Date.now();
-  if (now - state.auxiliaryAt > 4500) {
-    state.auxiliaryAt = now;
-    refreshAuxiliary();
-  }
-}
-
 async function refreshAuxiliary() {
   await Promise.allSettled([loadEvents(), loadHistory()]);
 }
 
 async function loadEvents() {
-  const response = await fetch("/api/events?limit=8", { cache: "no-store" });
+  const response = await fetch("/api/events?limit=12", { cache: "no-store" });
   if (!response.ok) throw new Error("events unavailable");
   const payload = await response.json();
   setText("storageBadge", (payload.persistence || "memory").toUpperCase());
@@ -224,7 +366,8 @@ function eventDetail(event) {
   const details = event.details || {};
   if (details.sensor_id) return `${details.sensor_id} · ${details.from ?? "—"} → ${details.to ?? "—"}`;
   if ("from" in details || "to" in details) return `${details.from ?? "—"} → ${details.to ?? "—"}`;
-  if (details.source) return `${details.source} · ${details.detail || "오류"}`;
+  if (details.source) return `${details.source} · ${details.detail || details.message || "상태 변경"}`;
+  if (details.manager_phone_masked) return `담당자 ${details.manager_phone_masked}`;
   return Object.entries(details).map(([key, value]) => `${key}: ${value}`).join(" · ") || "상세 정보 없음";
 }
 
@@ -237,6 +380,7 @@ async function loadHistory() {
 
 function drawTrend(history) {
   const canvas = $("trendCanvas");
+  if (!canvas) return;
   const context = canvas.getContext("2d");
   const width = canvas.width, height = canvas.height, pad = 34;
   context.clearRect(0, 0, width, height);
@@ -265,9 +409,187 @@ function drawTrend(history) {
   canvas.setAttribute("aria-label", `최근 ${usable.length}개 기록의 위험도와 CO₂ 추이`);
 }
 
+async function postJson(path, body = {}) {
+  let response;
+  try {
+    response = await fetch(path, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch (_error) {
+    return { ok: false, status: 0, message: "백엔드와 연결되지 않았습니다. 잠시 후 다시 시도하십시오." };
+  }
+  let payload = {};
+  try { payload = await response.json(); } catch (_error) { payload = {}; }
+  return { ok: response.ok, status: response.status, ...payload };
+}
+
+function isBusy(action) { return state.busyActions.has(action); }
+
+function setBusy(action, busy, buttonId) {
+  if (busy) state.busyActions.add(action); else state.busyActions.delete(action);
+  const button = $(buttonId);
+  if (button) button.disabled = busy;
+}
+
+function setActionStatus(message, tone = "") {
+  const status = $("emergencyActionStatus");
+  if (!status) return;
+  status.dataset.tone = tone;
+  setText("simulationStatus", message);
+}
+
+function updateVoiceButton() {
+  const button = $("voiceToggleButton");
+  if (!button) return;
+  button.textContent = state.voiceEnabled ? "🔊 음성 ON" : "🔇 음성 OFF";
+  button.setAttribute("aria-pressed", String(state.voiceEnabled));
+  button.dataset.enabled = String(state.voiceEnabled);
+}
+
+function updateSmsButton() {
+  const button = $("contactManagerButton");
+  if (!button) return;
+  const remaining = Math.max(0, state.smsCooldownUntil - Date.now());
+  if (remaining > 0) {
+    button.disabled = true;
+    button.textContent = `📱 담당자 연락 (${Math.ceil(remaining / 1000)}초 후)`;
+  } else if (!isBusy("sms")) {
+    button.disabled = false;
+    button.textContent = "📱 담당자 연락";
+  }
+}
+
+function showSimulationModal() {
+  if (state.simulationRunning) return;
+  $("simulationModal").hidden = false;
+  $("simulationCountdown").textContent = "준비";
+  $("confirmSimulationButton").focus();
+}
+
+function hideSimulationModal() {
+  if (!state.simulationRunning) $("simulationModal").hidden = true;
+}
+
+async function run119Simulation() {
+  if (state.simulationRunning) return;
+  state.simulationRunning = true;
+  setBusy("119", true, "confirmSimulationButton");
+  setBusy("119", true, "report119Button");
+  $("simulationCountdown").textContent = "신고 준비 중...";
+  const started = await postJson("/api/emergency/119/simulation/start");
+  if (!started.ok) {
+    state.simulationRunning = false;
+    setBusy("119", false, "confirmSimulationButton");
+    setBusy("119", false, "report119Button");
+    $("simulationModal").hidden = true;
+    setActionStatus(started.message || "119 모의 신고를 시작하지 못했습니다.", "error");
+    return;
+  }
+  state.simulationId = started.simulation_id;
+  playVoice("119_START");
+  recordVoice("119_START");
+  $("simulationModal").hidden = false;
+  for (const count of [3, 2, 1]) {
+    $("simulationCountdown").textContent = String(count);
+    await wait(1000);
+  }
+  $("simulationCountdown").textContent = "119 긴급 신고 진행 중...";
+  const completed = await postJson("/api/emergency/119/simulation/complete", { simulation_id: state.simulationId });
+  if (completed.ok) {
+    $("simulationCountdown").textContent = "신고 접수 완료";
+    setActionStatus("119 긴급 신고 시뮬레이션이 완료되었습니다. 실제 119와 연결되지 않습니다.", "success");
+    playVoice("119_COMPLETE");
+    recordVoice("119_COMPLETE");
+  } else {
+    $("simulationCountdown").textContent = "시뮬레이션 오류";
+    setActionStatus(completed.message || "119 모의 신고 완료 기록에 실패했습니다.", "error");
+  }
+  await wait(1600);
+  state.simulationRunning = false;
+  state.simulationId = null;
+  $("simulationModal").hidden = true;
+  setBusy("119", false, "confirmSimulationButton");
+  setBusy("119", false, "report119Button");
+  refreshAuxiliary();
+}
+
+async function contactManager() {
+  if (isBusy("sms") || Date.now() < state.smsCooldownUntil) return;
+  setBusy("sms", true, "contactManagerButton");
+  setText("smsStatus", "담당자에게 긴급 알림 전송 중...");
+  const response = await postJson("/api/emergency/contact", {
+    idempotency_key: `manager-${state.dangerTransitionId || "danger"}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+  });
+  if (response.ok) {
+    state.smsCooldownUntil = Date.now() + Number(response.cooldown_seconds || 60) * 1000;
+    setText("smsStatus", `✓ ${response.manager?.name || "안전 담당자"}에게 긴급 알림을 전송했습니다. ${response.manager?.phone_masked || ""}`);
+    setActionStatus("안전 담당자에게 긴급 알림을 전송했습니다.", "success");
+    playVoice("SMS_SUCCESS");
+    recordVoice("SMS_SUCCESS");
+  } else {
+    const retry = response.retry_after_seconds ? ` ${Math.ceil(response.retry_after_seconds)}초 후 재시도하십시오.` : "";
+    setText("smsStatus", `⚠ 담당자 긴급 알림 전송에 실패했습니다.${retry}`);
+    setActionStatus(response.message || "네트워크 또는 SMS 서비스 상태를 확인하십시오.", "error");
+    playVoice("SMS_FAILURE");
+    recordVoice("SMS_FAILURE");
+    if (response.retry_after_seconds) state.smsCooldownUntil = Date.now() + Number(response.retry_after_seconds) * 1000;
+  }
+  setBusy("sms", false, "contactManagerButton");
+  updateSmsButton();
+  refreshAuxiliary();
+}
+
+async function acknowledgeAlarm() {
+  if (isBusy("acknowledge") || $("acknowledgeButton").disabled) return;
+  setBusy("acknowledge", true, "acknowledgeButton");
+  const response = await postJson("/api/emergency/acknowledge");
+  if (response.ok) {
+    if (state.publication) state.publication.emergency = response.emergency;
+    setActionStatus("경고를 확인했습니다. 위험 단계는 Risk Engine이 낮출 때까지 DANGER로 유지됩니다.", "warning");
+    renderEmergency(state.publication || {});
+    refreshAuxiliary();
+  } else {
+    setActionStatus(response.message || "경고 확인에 실패했습니다.", "error");
+  }
+  setBusy("acknowledge", false, "acknowledgeButton");
+}
+
+function toggleVoice() {
+  state.voiceEnabled = !state.voiceEnabled;
+  writeStorage("safenest.voiceEnabled", String(state.voiceEnabled));
+  updateVoiceButton();
+  recordVoice(state.voiceEnabled ? "UNMUTED" : "MUTED");
+  setActionStatus(state.voiceEnabled ? "음성 안내를 켰습니다." : "음성 안내를 껐습니다. 위험 상태에는 영향을 주지 않습니다.", "warning");
+}
+
+function playVoice(action) {
+  if (!state.voiceEnabled) return;
+  const filename = audioFiles[action];
+  if (!filename) return;
+  const audio = new Audio(`/dashboard/assets/audio/${filename}`);
+  audio.volume = .95;
+  const result = audio.play();
+  if (result && typeof result.catch === "function") {
+    result.catch(() => setActionStatus("음성 파일이 없거나 브라우저 autoplay가 차단되었습니다. 화면 조작은 계속 가능합니다.", "warning"));
+  }
+}
+
+function recordVoice(action) {
+  postJson("/api/emergency/voice", { action }).catch(() => {});
+}
+
 function setConnection(mode, label) {
+  state.connectionMode = mode;
   $("connectionBadge").dataset.state = mode;
   $("connectionBadge").querySelector("span").textContent = label;
+  renderOffline(state.publication || { system: mode === "offline" ? "OFFLINE" : "ONLINE" });
+}
+
+function notifyConnection(source, status) {
+  postJson("/api/client-connection", { source, status }).catch(() => {});
 }
 
 function connect() {
@@ -276,13 +598,21 @@ function connect() {
   const socket = new WebSocket(`${protocol}//${location.host}/ws`);
   state.socket = socket;
   setConnection("connecting", "연결 중");
-  socket.addEventListener("open", () => { stopPolling(); setConnection("live", "실시간 연결"); });
+  socket.addEventListener("open", () => {
+    stopPolling();
+    state.transportWarning = false;
+    setConnection("live", "실시간 연결");
+    notifyConnection("websocket", "online");
+  });
   socket.addEventListener("message", (event) => {
     try { render(JSON.parse(event.data)); } catch (_error) { setConnection("polling", "데이터 오류"); }
   });
   socket.addEventListener("close", () => {
     if (state.socket !== socket) return;
-    setConnection("polling", "Polling 전환"); startPolling();
+    state.transportWarning = true;
+    setConnection("polling", "Polling 전환");
+    notifyConnection("websocket", "offline");
+    startPolling();
     state.reconnectTimer = setTimeout(connect, 2500);
   });
   socket.addEventListener("error", () => socket.close());
@@ -292,13 +622,22 @@ function startPolling() {
   if (state.pollTimer) return;
   poll(); state.pollTimer = setInterval(poll, 2000);
 }
+
 function stopPolling() { clearInterval(state.pollTimer); state.pollTimer = null; }
+
 async function poll() {
   try {
     const response = await fetch("/api/status", { cache: "no-store" });
     if (!response.ok) throw new Error("status unavailable");
-    render(await response.json()); setConnection("polling", "Polling 연결");
-  } catch (_error) { setConnection("offline", "연결 끊김"); }
+    render(await response.json());
+    state.transportWarning = false;
+    setConnection("polling", "Polling 연결");
+    notifyConnection("polling", "online");
+  } catch (_error) {
+    state.transportWarning = true;
+    setConnection("offline", "연결 끊김");
+    notifyConnection("polling", "offline");
+  }
 }
 
 function formatTime(unixSeconds) {
@@ -306,8 +645,33 @@ function formatTime(unixSeconds) {
   return new Intl.DateTimeFormat("ko-KR", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date(unixSeconds * 1000));
 }
 
+function wait(milliseconds) { return new Promise((resolve) => setTimeout(resolve, milliseconds)); }
+
+function readStorage(key) { try { return localStorage.getItem(key); } catch (_error) { return null; } }
+function writeStorage(key, value) { try { localStorage.setItem(key, value); } catch (_error) {} }
+function readSessionStorage(key) { try { return sessionStorage.getItem(key); } catch (_error) { return null; } }
+function writeSessionStorage(key, value) { try { sessionStorage.setItem(key, value); } catch (_error) {} }
+
 function tickClock() {
-  const now = new Date(); $("currentTime").dateTime = now.toISOString(); $("currentTime").textContent = now.toLocaleTimeString("ko-KR", { hour12: false });
+  const now = new Date();
+  $("currentTime").dateTime = now.toISOString();
+  $("currentTime").textContent = now.toLocaleTimeString("ko-KR", { hour12: false });
+  updateSmsButton();
 }
 
-tickClock(); setInterval(tickClock, 1000); renderHeatmap(null); startPolling(); connect();
+$("report119Button").addEventListener("click", showSimulationModal);
+$("cancelSimulationButton").addEventListener("click", hideSimulationModal);
+$("confirmSimulationButton").addEventListener("click", run119Simulation);
+$("contactManagerButton").addEventListener("click", contactManager);
+$("acknowledgeButton").addEventListener("click", acknowledgeAlarm);
+$("voiceToggleButton").addEventListener("click", toggleVoice);
+$("simulationModal").addEventListener("click", (event) => { if (event.target === $("simulationModal")) hideSimulationModal(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape") hideSimulationModal(); });
+
+updateVoiceButton();
+state.cooldownTimer = setInterval(updateSmsButton, 1000);
+tickClock();
+setInterval(tickClock, 1000);
+renderHeatmap(null);
+startPolling();
+connect();

@@ -1,11 +1,11 @@
-# SafeNest Standalone Integration
+# SafeNest System Integration
 
-이 저장소는 SafeNest 임베디드 시스템의 standalone 통합 릴리스다. GitHub 저장소 루트에 있는 파일만으로 테스트와 Raspberry Pi 실행을 수행할 수 있다. 원본 온디바이스 코드는 `sources/`에 동결 복사하고, 통합 코드는 별도 모듈로 유지한다.
+이 저장소는 `safenest-embedded-competition`의 단계별 시스템 통합 산출물을 한곳에 모은 독립 실행 번들이다. 기존 코드는 `sources/`에 동결 복사하고, 새 통합 코드는 별도 모듈로 작성한다.
 
 전체 단계의 작업 내용과 결과는 [`INTEGRATION_PHASE_SUMMARY.md`](INTEGRATION_PHASE_SUMMARY.md)에서 한 번에 확인할 수 있다.
 압축 전달, 최초 설치, 평상시 실행·종료 순서는 [`PACKAGE_AND_OPERATION_GUIDE.md`](PACKAGE_AND_OPERATION_GUIDE.md)를 따른다.
 최신 AI 변경 감사와 반영 결정은 [`docs/ON_DEVICE_UPDATE_AUDIT.md`](docs/ON_DEVICE_UPDATE_AUDIT.md)에 정리했다.
-standalone 저장소 공개 전 감사는 [`docs/STANDALONE_REPOSITORY_AUDIT.md`](docs/STANDALONE_REPOSITORY_AUDIT.md)에 정리했다.
+긴급 대응 HMI, DANGER 래치, 119 모의 신고, 서버 측 SMS, GPIO/mock buzzer와 오프라인 시연 순서는 [`docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md`](docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md)를 따른다.
 
 현재 완료 단계:
 
@@ -18,6 +18,7 @@ standalone 저장소 공개 전 감사는 [`docs/STANDALONE_REPOSITORY_AUDIT.md`
 - PHASE 7: FastAPI status/sensors/events API, health, WebSocket, LCD 호환 view 연결
 - PHASE 8: versioned SQLite snapshot/event 로그, WAL, 재시작 복원, history API 연결
 - PHASE 9: 반응형 실시간 관제 대시보드, WebSocket/polling 전환, Thermal 정규화 미리보기 연결
+- 긴급 대응: DANGER 전용 HMI 오버레이, 119 모의 신고, 담당자 SMS 쿨다운, GPIO/mock buzzer, SQLite 이벤트 기록
 - PHASE 10: loopback TCP 기반 전체 E2E 시나리오, 재연결·재부팅·AI 장애 검증
 - HIL 실행 패키지: Pi preflight, 물리 시나리오 증거 수집·판정, one-command 구동
 
@@ -37,16 +38,6 @@ standalone 저장소 공개 전 감사는 [`docs/STANDALONE_REPOSITORY_AUDIT.md`
 - `deployment/run_pi.sh`: Pi 의존성 설치·preflight·통합 backend 실행 진입점
 - `docs/`: 단계별 판단 근거와 실행 방법
 - `tests/`: 프로토콜, 상태, AI 경계 자동 테스트
-
-## 최초 실행
-
-```bash
-git clone https://github.com/yuname121/integration.git
-cd integration
-bash deployment/run_pi.sh --install
-```
-
-일반 실행은 `bash deployment/run_pi.sh`이며, 실행 전 ESP32 설정과 실제 하드웨어 연결이 필요하다. 비밀번호·Wi-Fi 값은 저장소에 포함하지 않는다.
 
 ## 검증
 

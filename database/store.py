@@ -17,8 +17,9 @@ class PersistentRuntimeStore(RuntimeStore):
         *,
         event_capacity: int = 500,
         repository: SQLiteRepository | None = None,
+        buzzer: Any | None = None,
     ) -> None:
-        super().__init__(event_capacity=event_capacity)
+        super().__init__(event_capacity=event_capacity, buzzer=buzzer)
         self._database_error: str | None = None
         try:
             self.repository = repository or SQLiteRepository(database_path)
@@ -31,6 +32,7 @@ class PersistentRuntimeStore(RuntimeStore):
             history = self.repository.fetch_history(1)
             if history:
                 self._latest = _publication_baseline(history[0])
+                self.restore_emergency(_mapping(self._latest.get("emergency")))
         except Exception as error:
             self._database_error = f"{type(error).__name__}: {error}"
         self._last_persisted_event_sequence = self._event_sequence
@@ -51,6 +53,26 @@ class PersistentRuntimeStore(RuntimeStore):
         latest = self.latest()
         if latest is not None and source != "sqlite":
             self._persist(latest)
+        return event
+
+    def record_event(
+        self,
+        event_type: str,
+        details: Mapping[str, Any] | None = None,
+        *,
+        timestamp: float | None = None,
+    ) -> dict[str, Any]:
+        event = super().record_event(event_type, details, timestamp=timestamp)
+        latest = self.latest()
+        if latest is not None:
+            self._persist(latest)
+            try:
+                self.repository.update_emergency_state(
+                    int(latest["publication_revision"]),
+                    self.emergency_snapshot(),
+                )
+            except Exception as error:
+                self._database_error = f"{type(error).__name__}: {error}"
         return event
 
     def events(self, limit: int = 100) -> list[dict[str, Any]]:
@@ -80,7 +102,7 @@ class PersistentRuntimeStore(RuntimeStore):
             "available": self._database_error is None,
             "error": self._database_error,
             "counts": counts,
-            "schema_version": "1",
+            "schema_version": "2",
         }
         return result
 
@@ -115,7 +137,7 @@ class _UnavailableRepository:
     def _raise(self, *_args, **_kwargs):
         raise RuntimeError(self.error)
 
-    persist = fetch_events = fetch_history = counts = last_publication_revision = last_event_sequence = _raise
+    persist = fetch_events = fetch_history = counts = last_publication_revision = last_event_sequence = update_emergency_state = _raise
 
     def close(self) -> None:
         return None
@@ -144,4 +166,17 @@ def _publication_baseline(row: Mapping[str, Any]) -> dict[str, Any]:
             "is_emergency": bool(row.get("is_emergency")),
             "components": {},
         },
+        "emergency": {
+            "active": bool(row.get("emergency_active")) or row.get("risk_level") == "DANGER",
+            "transition_id": row.get("danger_transition_id"),
+            "entered_at": row.get("danger_entered_at"),
+            "acknowledged": bool(row.get("alarm_acknowledged")),
+            "acknowledged_at": row.get("alarm_acknowledged_at"),
+            "buzzer_active": bool(row.get("buzzer_active")),
+            "latched_while_offline": bool(row.get("latched_while_offline")),
+        },
     }
+
+
+def _mapping(value: object) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}

@@ -1,0 +1,168 @@
+from __future__ import annotations
+
+import json
+import os
+from pathlib import Path
+import struct
+import tempfile
+import unittest
+from unittest import mock
+
+from gateway.protocol import (
+    PACKET_TELEMETRY_JSON,
+    PACKET_THERMAL_U16_BE,
+    PacketHeader,
+    TelemetryPayload,
+    ThermalFrame,
+)
+from storage.sensor_logger import SensorDataLogger, SensorStorageConfig
+
+
+def telemetry(sequence: int, co2: float = 800.0) -> TelemetryPayload:
+    return TelemetryPayload(
+        header=PacketHeader(PACKET_TELEMETRY_JSON, sequence, 100),
+        device_id="esp32-test",
+        uptime_ms=sequence * 1_000,
+        respiration_rate_bpm=16.0 + sequence,
+        heart_rate_bpm=70.0 + sequence,
+        co2_ppm=co2,
+        pir_motion=False,
+        valid={"respiration": True, "heart": True, "co2": True},
+    )
+
+
+def thermal(sequence: int = 1) -> ThermalFrame:
+    values = list(range(80 * 62))
+    return ThermalFrame(
+        header=PacketHeader(PACKET_THERMAL_U16_BE, sequence, 9_936),
+        width=80,
+        height=62,
+        frame_sequence=sequence,
+        uptime_ms=sequence * 100,
+        minimum_raw=0,
+        maximum_raw=len(values) - 1,
+        pixel_bytes=struct.pack(f"!{len(values)}H", *values),
+    )
+
+
+def config(root: Path, **changes) -> SensorStorageConfig:
+    values = {
+        "root": root,
+        "min_free_bytes": 0,
+        "max_total_bytes": 1_000_000_000,
+        "max_sensor_bytes": {
+            "mmwave": 1_000_000_000,
+            "co2": 1_000_000_000,
+            "thermal": 1_000_000_000,
+        },
+        "thermal_batch_frames": 2,
+        "thermal_flush_seconds": 0.05,
+        "cleanup_interval_seconds": 3600.0,
+    }
+    values.update(changes)
+    return SensorStorageConfig(**values)
+
+
+class SensorDataLoggerTests(unittest.TestCase):
+    def test_mmwave_and_co2_have_separate_files_and_co2_is_sixty_seconds(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            logger = SensorDataLogger(config(root))
+            logger.start()
+            logger.submit(telemetry(1, 700.0), received_at=100.0, monotonic_at=10.0)
+            logger.submit(telemetry(2, 900.0), received_at=159.9, monotonic_at=69.9)
+            logger.submit(telemetry(3, 950.0), received_at=160.0, monotonic_at=70.0)
+            logger.stop()
+
+            mmwave = [json.loads(line) for path in (root / "mmwave").glob("*.jsonl") for line in path.read_text().splitlines()]
+            co2 = [json.loads(line) for path in (root / "co2").glob("*.jsonl") for line in path.read_text().splitlines()]
+            self.assertEqual(len(mmwave), 3)
+            self.assertEqual([item["co2_ppm"] for item in co2], [700.0, 950.0])
+            self.assertNotIn("co2_ppm", mmwave[0])
+
+    def test_thermal_npz_preserves_raw_frames_metadata_and_ai_context(self) -> None:
+        import numpy as np
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            logger = SensorDataLogger(config(root))
+            logger.start()
+            logger.set_analysis_context(
+                {"ai": {"thermal": {"state": "HUMAN_NORMAL", "available": True}}},
+                {"risk_level": "NORMAL", "risk_score": 5.0, "timestamp": 100.0},
+            )
+            logger.submit(thermal(1), received_at=100.0, monotonic_at=10.0)
+            logger.submit(thermal(2), received_at=100.1, monotonic_at=10.1)
+            logger.stop()
+
+            paths = list((root / "thermal").glob("*.npz"))
+            self.assertEqual(len(paths), 1)
+            with np.load(paths[0], allow_pickle=False) as saved:
+                self.assertEqual(saved["frames"].shape, (2, 62, 80))
+                self.assertEqual(saved["frames"].dtype, np.dtype("uint16"))
+                self.assertEqual(int(saved["frames"][0, 61, 79]), 4_959)
+                self.assertEqual(saved["frame_sequences"].tolist(), [1, 2])
+                context = json.loads(str(saved["analysis_json"][0]))
+                self.assertEqual(context["ai"]["state"], "HUMAN_NORMAL")
+
+    def test_restart_keeps_existing_sensor_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            first = SensorDataLogger(config(root))
+            first.start()
+            first.submit(telemetry(1), received_at=100.0, monotonic_at=10.0)
+            first.stop()
+            existing = {path: path.read_bytes() for path in root.rglob("*.jsonl")}
+
+            second = SensorDataLogger(config(root))
+            second.start()
+            second.stop()
+            self.assertEqual({path: path.read_bytes() for path in root.rglob("*.jsonl")}, existing)
+
+    def test_per_sensor_fifo_deletes_oldest_first(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            logger = SensorDataLogger(config(
+                root,
+                max_sensor_bytes={"mmwave": 8, "co2": 100, "thermal": 100},
+            ))
+            logger.start()
+            paths = []
+            for index in range(3):
+                path = root / "mmwave" / f"20260814_00000{index}.jsonl"
+                path.write_bytes(b"1234")
+                os.utime(path, (100 + index, 100 + index))
+                paths.append(path)
+            logger.cleanup_now()
+            logger.stop()
+
+            self.assertFalse(paths[0].exists())
+            self.assertTrue(paths[1].exists())
+            self.assertTrue(paths[2].exists())
+
+    def test_minimum_free_space_policy_cleans_before_critical_full(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            logger = SensorDataLogger(config(root, min_free_bytes=100))
+            logger.start()
+            oldest = root / "thermal" / "20260814_000000_000000.npz"
+            newest = root / "thermal" / "20260814_000001_000000.npz"
+            oldest.write_bytes(b"old")
+            newest.write_bytes(b"new")
+            os.utime(oldest, (100, 100))
+            os.utime(newest, (101, 101))
+            free_values = [0, 0, 1_000]
+            with mock.patch(
+                "storage.sensor_logger.shutil.disk_usage",
+                side_effect=lambda _path: mock.Mock(free=free_values.pop(0)),
+            ):
+                logger.cleanup_now()
+            logger.stop()
+
+            self.assertFalse(oldest.exists())
+            self.assertFalse(newest.exists())
+            self.assertGreaterEqual(logger.diagnostics()["deleted"]["thermal"], 2)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -123,6 +123,40 @@ class SensorStateManagerTests(unittest.TestCase):
         self.assertEqual(sensors["co2"]["status"], "LIVE")
         self.assertEqual(sensors["pir"]["status"], "LIVE")
 
+    def test_co2_usable_value_updates_once_every_sixty_seconds(self) -> None:
+        manager = SensorStateManager(co2_update_interval_seconds=60.0)
+        manager.ingest(telemetry(1, co2=700.0), PEER, received_at=100.0, monotonic_at=10.0)
+        manager.ingest(telemetry(2, co2=900.0), PEER, received_at=159.9, monotonic_at=69.9)
+        before_due = manager.snapshot(now=159.9, monotonic_now=69.9)["sensors"]["co2"]
+
+        self.assertEqual(before_due["values"]["ppm"], 700.0)
+        self.assertEqual(before_due["sequence"], 1)
+        self.assertEqual(before_due["last_update"], 100.0)
+        self.assertEqual(before_due["last_received_at"], 159.9)
+        self.assertEqual(before_due["status"], "LIVE")
+
+        manager.ingest(telemetry(3, co2=950.0), PEER, received_at=160.0, monotonic_at=70.0)
+        due = manager.snapshot(now=160.0, monotonic_now=70.0)["sensors"]["co2"]
+        self.assertEqual(due["values"]["ppm"], 950.0)
+        self.assertEqual(due["sequence"], 3)
+        self.assertEqual(due["last_update"], 160.0)
+
+    def test_co2_invalid_status_does_not_replace_last_usable_value(self) -> None:
+        manager = SensorStateManager(co2_update_interval_seconds=60.0)
+        manager.ingest(telemetry(1, co2=700.0), PEER, received_at=100.0, monotonic_at=10.0)
+        manager.ingest(telemetry(2, co2=None), PEER, received_at=110.0, monotonic_at=20.0)
+        invalid = manager.snapshot(now=110.0, monotonic_now=20.0)["sensors"]["co2"]
+
+        self.assertEqual(invalid["status"], "INVALID")
+        self.assertEqual(invalid["values"]["ppm"], 700.0)
+        self.assertEqual(invalid["last_update"], 100.0)
+        self.assertEqual(invalid["last_received_at"], 110.0)
+
+        manager.ingest(telemetry(3, co2=750.0), PEER, received_at=111.0, monotonic_at=21.0)
+        recovered = manager.snapshot(now=111.0, monotonic_now=21.0)["sensors"]["co2"]
+        self.assertEqual(recovered["status"], "LIVE")
+        self.assertEqual(recovered["values"]["ppm"], 700.0)
+
     def test_disconnect_and_stale_are_separate_facts(self) -> None:
         manager = SensorStateManager()
         manager.ingest(telemetry(), PEER, received_at=100.0, monotonic_at=10.0)

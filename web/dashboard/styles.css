@@ -179,6 +179,110 @@ dd { margin: 5px 0 0; font-weight: 750; overflow-wrap: anywhere; }
 footer { width: min(1500px, calc(100% - clamp(28px, 7vw, 104px))); margin: 0 auto; padding: 18px 0 28px; display: flex; justify-content: space-between; gap: 16px; color: var(--muted); border-top: 1px solid var(--line); font-size: 10px; }
 body[data-level="DANGER"] .risk-hero { border-color: rgba(255,93,108,.5); }
 body[data-level="DANGER"] .brand-signal i { background: var(--red); animation: pulse 1s ease-in-out infinite; }
+
+/* ========================= 비상 대응 HMI ========================= */
+
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.offline-banner {
+  width: min(1500px, calc(100% - clamp(28px, 7vw, 104px)));
+  margin: 14px auto 0;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff1c7;
+  background: #3a2b0e;
+  border: 1px solid rgba(255, 200, 87, .55);
+  border-left: 5px solid var(--yellow);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.offline-banner strong { white-space: nowrap; color: var(--yellow); }
+
+.emergency-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(3, 6, 10, .88);
+  overflow-y: auto;
+}
+.emergency-overlay[hidden], .simulation-modal[hidden] { display: none; }
+.emergency-shell {
+  width: min(100%, 1040px);
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  padding: clamp(20px, 4vw, 42px);
+  color: var(--text);
+  background: linear-gradient(160deg, #35151c, #130e13 55%, #0d1923);
+  border: 2px solid rgba(255, 93, 108, .9);
+  box-shadow: 0 0 0 5px rgba(255, 93, 108, .12), 0 20px 80px rgba(0, 0, 0, .65);
+}
+.emergency-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; }
+.emergency-eyebrow { margin: 0 0 8px; color: #ffb5bc; font: 900 11px/1.2 monospace; letter-spacing: .14em; }
+.emergency-heading h2 { margin: 0; color: #fff7f8; font-size: clamp(30px, 6vw, 56px); line-height: 1; letter-spacing: -.06em; }
+.emergency-disclaimer { margin: 12px 0 0; color: #f4cdd1; font-size: 14px; }
+.emergency-pill { flex: none; padding: 12px 14px; color: #fff; background: var(--red); font: 900 13px/1.1 monospace; letter-spacing: .06em; }
+.emergency-summary { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr; gap: 10px; margin-top: 24px; }
+.emergency-summary > div { min-height: 108px; padding: 17px; background: rgba(8, 13, 20, .62); border: 1px solid rgba(255, 181, 188, .24); }
+.emergency-summary span, .emergency-summary small { display: block; color: #e1aeb4; font-size: 12px; }
+.emergency-summary strong { display: block; margin-top: 8px; color: #fff; font-size: clamp(24px, 4vw, 38px); line-height: 1; font-variant-numeric: tabular-nums; }
+.emergency-summary small { margin-top: 8px; color: #caa5aa; }
+.emergency-score-block strong small { display: inline; margin-left: 5px; color: #caa5aa; font-size: 13px; }
+.emergency-context-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 10px; margin-top: 10px; }
+.emergency-card { padding: 17px; background: rgba(8, 13, 20, .62); border: 1px solid rgba(255, 181, 188, .24); }
+.emergency-card h3 { margin: 0 0 13px; color: #ffe7e9; font-size: 16px; }
+.critical-values { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 0; }
+.critical-values > div { padding: 12px; background: rgba(255, 93, 108, .12); }
+.critical-values dt { color: #e1aeb4; font-size: 11px; }
+.critical-values dd { margin: 6px 0 0; color: #fff; font-size: 19px; font-variant-numeric: tabular-nums; }
+.emergency-reasons { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.emergency-reasons li { padding: 11px 12px 11px 29px; color: #fff0f1; background: rgba(255, 93, 108, .12); font-size: 13px; line-height: 1.4; position: relative; }
+.emergency-reasons li::before { content: "●"; position: absolute; left: 12px; color: var(--red); }
+.emergency-offline-note { margin: 12px 0 0; padding: 12px; color: #fff1c7; background: #3a2b0e; border: 1px solid rgba(255, 200, 87, .55); font-size: 12px; line-height: 1.45; }
+.emergency-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.emergency-button, .touch-button { min-height: 64px; padding: 13px 16px; color: #fff; border: 1px solid rgba(255, 255, 255, .24); font-size: 16px; font-weight: 850; line-height: 1.25; transition: transform .08s ease, filter .08s ease, opacity .08s ease; }
+.emergency-button:active, .touch-button:active { transform: translateY(2px) scale(.99); filter: brightness(1.22); }
+.emergency-button:disabled, .touch-button:disabled { cursor: wait; opacity: .48; filter: saturate(.4); }
+.emergency-button.report { background: #a11f2f; border-color: #ff7783; }
+.emergency-button.contact { background: #125a67; border-color: #5ce0ed; }
+.emergency-button.acknowledge { background: #4d3c14; border-color: #ffd875; }
+.emergency-button.voice { background: #26354a; border-color: #9fb8cf; }
+.emergency-button.voice[data-enabled="false"] { color: #c5d0d7; background: #25282d; border-color: #69747a; }
+.emergency-action-status { display: flex; flex-wrap: wrap; gap: 8px 20px; min-height: 28px; margin-top: 14px; color: #d4e0e5; font-size: 12px; line-height: 1.45; }
+.emergency-action-status[data-tone="critical"], .emergency-action-status[data-tone="error"] { color: #ffd4d8; }
+.emergency-action-status[data-tone="success"] { color: #a7f0c5; }
+.emergency-action-status[data-tone="warning"] { color: #ffe5a0; }
+
+.simulation-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(2, 5, 8, .8);
+}
+.simulation-card { width: min(100%, 540px); padding: 28px; color: var(--text); background: #101c27; border: 1px solid var(--cyan); box-shadow: 0 20px 60px rgba(0, 0, 0, .7); }
+.simulation-card h2 { margin: 0; font-size: 28px; }
+.simulation-card p:not(.emergency-eyebrow) { color: #c7d8df; line-height: 1.5; }
+.simulation-disclaimer { display: block; padding: 11px; color: #ffe4a0; background: #382a0d; border: 1px solid rgba(255, 200, 87, .5); font-size: 13px; }
+.simulation-countdown { min-height: 64px; display: grid; place-items: center; margin: 18px 0; color: var(--cyan); font-size: 31px; font-weight: 900; text-align: center; }
+.simulation-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.touch-button.primary { background: #125a67; border-color: #5ce0ed; }
+.touch-button.secondary { background: #26313a; border-color: #71838d; }
+
 @keyframes pulse { 50% { opacity: .28; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
@@ -202,4 +306,27 @@ body[data-level="DANGER"] .brand-signal i { background: var(--red); animation: p
   .thermal-layout { grid-template-columns: 1fr; }
   .heatmap-shell { min-height: 220px; }
   footer { width: calc(100% - 24px); flex-direction: column; }
+  .offline-banner { width: calc(100% - 24px); margin-top: 10px; align-items: flex-start; flex-direction: column; gap: 3px; }
+  .emergency-overlay { padding: 0; place-items: stretch; }
+  .emergency-shell { width: 100%; max-height: 100vh; min-height: 100vh; padding: 17px 13px 24px; border-width: 0 0 3px; }
+  .emergency-heading h2 { font-size: 34px; }
+  .emergency-disclaimer { font-size: 12px; }
+  .emergency-pill { max-width: 126px; padding: 9px; font-size: 10px; text-align: center; }
+  .emergency-summary { grid-template-columns: 1fr 1fr; }
+  .emergency-summary > div:last-child { grid-column: span 2; min-height: 82px; }
+  .emergency-summary strong { font-size: 27px; }
+  .emergency-context-grid { grid-template-columns: 1fr; }
+  .critical-values dd { font-size: 17px; }
+  .emergency-actions { grid-template-columns: 1fr; }
+  .emergency-button { min-height: 60px; }
+  .simulation-card { padding: 22px 17px; }
+}
+
+@media (max-height: 760px) and (min-width: 701px) {
+  .emergency-shell { padding: 20px 28px; }
+  .emergency-summary { margin-top: 14px; }
+  .emergency-summary > div { min-height: 82px; padding: 12px; }
+  .emergency-context-grid { margin-top: 8px; }
+  .emergency-card { padding: 12px; }
+  .emergency-button { min-height: 54px; }
 }

@@ -142,7 +142,7 @@ class SQLiteRepositoryTests(unittest.TestCase):
             connection.execute("INSERT INTO schema_meta VALUES ('schema_version', '999')")
             connection.commit()
             connection.close()
-            with self.assertRaisesRegex(RuntimeError, "expected=1, found=999"):
+            with self.assertRaisesRegex(RuntimeError, "expected=2, found=999"):
                 SQLiteRepository(path)
 
 
