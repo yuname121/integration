@@ -23,8 +23,10 @@ from gateway.protocol import (
     THERMAL_META,
     THERMAL_WIDTH,
 )
+from gateway.thermal_udp import encode_thermal_udp_frame
 from risk.engine import SafeNestRiskEngine
 from state.manager import SensorStateManager
+from storage.sensor_logger import SensorStorageConfig
 
 
 class ScriptedThermalModel:
@@ -89,7 +91,7 @@ def telemetry_packet(
     return _packet(PACKET_TELEMETRY_JSON, sequence, payload)
 
 
-def thermal_packet(
+def thermal_payload(
     sequence: int,
     *,
     minimum_raw: int = 1_000,
@@ -108,7 +110,7 @@ def thermal_packet(
         minimum_raw,
         maximum_raw,
     ) + pixel_bytes
-    return _packet(PACKET_THERMAL_U16_BE, sequence, payload)
+    return payload
 
 
 def _packet(packet_type: int, sequence: int, payload: bytes) -> bytes:
@@ -134,12 +136,16 @@ class EndToEndHarness:
         self.runtime = SafeNestRuntime(
             sensor_host="127.0.0.1",
             sensor_port=0,
+            thermal_udp_host="127.0.0.1",
+            thermal_udp_port=0,
             packet_deadline_seconds=2.0,
             evaluation_interval_seconds=60.0,
             manager=self.manager,
             ai_pipeline=self.pipeline,
             risk_engine=SafeNestRiskEngine(),
             store=self.store,
+            # Sensor file persistence has dedicated temporary-directory tests.
+            storage_config=SensorStorageConfig(root=".", enabled=False),
         )
         self._clients: list[socket.socket] = []
 
@@ -148,6 +154,8 @@ class EndToEndHarness:
         self.wait_until(
             lambda: self.runtime.server._listener is not None
             and self.runtime.server.port != 0
+            and self.runtime.thermal_udp_server._socket is not None
+            and self.runtime.thermal_udp_server.port != 0
         )
         return self
 
@@ -183,10 +191,21 @@ class EndToEndHarness:
             heart=heart,
             co2=co2,
             motion=motion,
-        ) + thermal_packet(sequence)
+        )
         step = fragment_size or len(data)
         for offset in range(0, len(data), step):
             client.sendall(data[offset : offset + step])
+        thermal_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            for datagram in encode_thermal_udp_frame(
+                thermal_payload(sequence), sequence
+            ):
+                thermal_socket.sendto(
+                    datagram,
+                    ("127.0.0.1", self.runtime.thermal_udp_server.port),
+                )
+        finally:
+            thermal_socket.close()
         self.wait_until(
             lambda: int(self.manager.snapshot()["revision"]) >= starting_revision + 2
         )
@@ -205,6 +224,12 @@ class EndToEndHarness:
 
     def wait_for_system(self, expected: str) -> None:
         self.wait_until(lambda: self.manager.snapshot()["system"] == expected)
+
+    def wait_for_sensor_status(self, sensor_id: str, expected: str) -> None:
+        self.wait_until(
+            lambda: self.manager.snapshot()["sensors"][sensor_id]["status"]
+            == expected
+        )
 
     @staticmethod
     def wait_until(condition: Callable[[], bool], timeout: float = 2.5) -> None:

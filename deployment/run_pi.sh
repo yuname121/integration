@@ -2,17 +2,23 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-INTEGRATION_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
-REPOSITORY_ROOT="$(cd -- "${INTEGRATION_ROOT}/.." && pwd)"
+REPOSITORY_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 VENV_PATH="${SAFENEST_VENV_PATH:-${REPOSITORY_ROOT}/.venv}"
+
+if [[ -f "${REPOSITORY_ROOT}/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "${REPOSITORY_ROOT}/.env"
+  set +a
+fi
 
 if [[ "${1:-}" == "--install" ]]; then
   shift
   python3 -m venv "${VENV_PATH}"
   "${VENV_PATH}/bin/python" -m pip install --upgrade pip
   "${VENV_PATH}/bin/python" -m pip install \
-    -r "${INTEGRATION_ROOT}/requirements-backend.txt" \
-    -r "${INTEGRATION_ROOT}/sources/ondevice_ai/requirements-pi.txt"
+    -r "${REPOSITORY_ROOT}/requirements-backend.txt" \
+    -r "${REPOSITORY_ROOT}/sources/ondevice_ai/requirements-pi.txt"
 fi
 
 if [[ ! -x "${VENV_PATH}/bin/python" ]]; then

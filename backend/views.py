@@ -14,6 +14,13 @@ ROUTE_CONTRACTS = {
     "GET /api/events": "bounded newest-first transition events",
     "GET /api/history": "newest-first persisted sensor and risk snapshots",
     "GET /api/state": "read-only compatibility view for the existing LCD server",
+    "GET /api/emergency/state": "current alarm latch and buzzer state",
+    "POST /api/emergency/119/simulation/start": "competition-only mock 119 countdown start",
+    "POST /api/emergency/119/simulation/complete": "competition-only mock 119 completion",
+    "POST /api/emergency/contact": "server-side configured manager SMS request",
+    "POST /api/emergency/acknowledge": "silence alarm without clearing risk",
+    "POST /api/emergency/voice": "log local voice guidance action",
+    "POST /api/client-connection": "log dashboard connection state transitions",
     "GET /health": "process liveness and runtime readiness",
     "WS /ws": "current status publication stream",
 }
@@ -28,6 +35,8 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
             "system": "OFFLINE",
             "system_health": "FAILED",
             "risk": None,
+            "emergency": _empty_emergency(),
+            "offline": True,
             "mmwave": None,
             "thermal": None,
             "co2": None,
@@ -36,6 +45,7 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
         }
     state = _mapping(publication.get("state"))
     risk = _mapping(publication.get("risk"))
+    emergency = _mapping(publication.get("emergency"))
     ai = _mapping(_mapping(publication.get("ai")).get("ai"))
     sensors = _mapping(state.get("sensors"))
     components = _mapping(risk.get("components"))
@@ -47,6 +57,8 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
         "system": state.get("system"),
         "system_health": risk.get("system_health"),
         "risk": copy.deepcopy(dict(risk)),
+        "emergency": copy.deepcopy(dict(emergency)) if emergency else _empty_emergency(),
+        "offline": state.get("system") != "ONLINE" or risk.get("system_health") == "FAILED",
         "ready": True,
     }
     for sensor_id in ("mmwave", "thermal", "co2", "pir"):
@@ -80,8 +92,8 @@ def legacy_state_document(
     status = status_document(publication)
     risk = status.get("risk") if isinstance(status.get("risk"), Mapping) else {}
     level = risk.get("risk_level")
-    emergency = bool(risk.get("is_emergency"))
-    if emergency:
+    emergency_active = bool(risk.get("is_emergency")) or bool(status.get("emergency", {}).get("active"))
+    if emergency_active:
         display_state = "emergency"
     elif level == "DANGER":
         display_state = "danger"
@@ -142,3 +154,21 @@ def health_document(
 
 def _mapping(value: object) -> Mapping[str, Any]:
     return value if isinstance(value, Mapping) else {}
+
+
+def _empty_emergency() -> dict[str, Any]:
+    return {
+        "active": False,
+        "transition_id": None,
+        "entered_at": None,
+        "acknowledged": False,
+        "acknowledged_at": None,
+        "buzzer_active": False,
+        "latched_while_offline": False,
+        "buzzer": {
+            "mode": "unconfigured",
+            "available": False,
+            "simulated": True,
+            "active": False,
+        },
+    }

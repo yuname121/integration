@@ -1,5 +1,16 @@
 # SafeNest 전달 패키지 및 프로그램 실행·종료 가이드
 
+## Thermal UDP 운영 추가사항 (2026-08-14)
+
+```text
+mmWave + CO2 + PIR -- SafeNest TCP v1 :9000 --> Raspberry Pi
+Thermal-44 --------- chunked UDP :5005 ------> Raspberry Pi
+```
+
+Raspberry Pi firewall를 사용하는 경우 TCP 9000과 함께 UDP 5005를 허용해야 한다. `backend/run_backend.py`는 기본적으로 `0.0.0.0:5005/udp`를 열며 `.env`의 `SAFENEST_THERMAL_UDP_*` 값으로 port, incomplete-frame timeout과 pending-frame 상한을 조정할 수 있다. ESP32 firmware의 `THERMAL_UDP_PORT`와 Pi port는 반드시 같아야 한다.
+
+UDP frame은 9개 datagram으로 나뉘며 일부 chunk가 없거나 CRC32/shape/min-max 검증에 실패하면 frame 전체를 폐기한다. `/health`의 `receiver.thermal_udp`에서 packet, 완료 frame, incomplete/timeout, duplicate, out-of-order, effective FPS와 평균 reassembly 시간을 확인한다.
+
 ## 1. 압축 폴더만 보내면 실행할 수 있는가?
 
 이 저장소 루트에는 SafeNest 통합을 위해 작성·선정한 소스 코드, TFLite 모델, ESP32 firmware 원본, Raspberry Pi 실행 스크립트, 웹 대시보드, SQLite schema, 자동 테스트와 문서가 모두 포함되어 있다.
@@ -157,6 +168,7 @@ Arduino IDE에서 다음을 확인한다.
 6. Raspberry Pi 통합 프로그램을 실행한다.
 
 ```bash
+cd ~
 cd ~/integration
 bash deployment/run_pi.sh
 ```
@@ -225,10 +237,18 @@ curl -fsS http://127.0.0.1:8000/api/status | python -m json.tool
 
 ## 10. 전달 전 체크리스트
 
-- standalone 저장소 루트에 `README.md`, `ai/`, `backend/`, `gateway/`, `sources/`, `tests/`, `web/`가 있는가?
+- 저장소 루트에 `README.md`, `ai/`, `backend/`, `gateway/`, `sources/`, `tests/`, `web/`가 있는가?
 - `PACKAGE_AND_OPERATION_GUIDE.md`와 `INTEGRATION_PHASE_SUMMARY.md`가 있는가?
 - `sources/ondevice_ai/models/`와 manifest 등록 primary/candidate artifact가 있는가?
 - `requirements-backend.txt`와 `requirements-pi.txt`가 있는가?
 - 실제 `secrets.h`, `.venv`, DB, SSH key가 포함되지 않았는가?
 - 받는 사람이 WROOM-32와 XIAO C6 제한을 이해했는가?
 - 실제 장비 HIL 미완료와 TEST 4/6 제약을 전달했는가?
+
+## 11. 긴급 대응 HMI와 환경변수
+
+DANGER 전환 시 터치 화면에 긴급 오버레이가 열리고, 서버의 alarm latch·buzzer·SQLite event log가 함께 갱신된다. 119 버튼은 경진대회 시연용 모의 카운트다운만 수행하며 실제 119에 연결되지 않는다. `경고 확인`은 buzzer만 끄고 Risk Engine의 DANGER를 해제하지 않는다. 센서가 offline이거나 WebSocket이 끊겨도 live `WARNING/NORMAL` publication이 오기 전까지 DANGER를 유지한다.
+
+담당자 SMS와 GPIO 설정은 [`docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md`](docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md)의 `.env` 표를 따른다. 실제 SMS 자격증명이 없을 때는 요청을 성공으로 처리하지 않고 `SMS_NOT_CONFIGURED`를 반환한다. 개발 PC에서는 `SAFENEST_GPIO_MODE=mock`을 사용하고, Raspberry Pi에서는 BCM buzzer 핀과 전원 회로를 실제 배선과 대조한다.
+
+화면에 사용할 한국어 음성 파일의 이름과 위치는 [`web/dashboard/audio/README.md`](web/dashboard/audio/README.md)에 있다. 음성 파일이 없거나 autoplay가 차단되어도 API와 터치 동작은 중단되지 않는다.

@@ -79,6 +79,15 @@ class Phase2SourceContracts(unittest.TestCase):
         self.assertIn("client.connect(RPI_HOST, RPI_PORT, 1500)", self.firmware)
         self.assertIn("vTaskDelay(pdMS_TO_TICKS(1000))", self.firmware)
 
+    def test_only_thermal_uses_chunked_udp(self) -> None:
+        self.assertIn("void telemetryTcpTask", self.firmware)
+        self.assertIn("sendTelemetry(client, telemetry)", self.firmware)
+        self.assertIn("void thermalUdpTask", self.firmware)
+        self.assertIn("sendThermalUdp(udp, thermalNetworkFrame)", self.firmware)
+        self.assertNotIn("sendThermal(client", self.firmware)
+        self.assertIn("THERMAL_UDP_DATAGRAM_SIZE = 1200", self.firmware)
+        self.assertIn("THERMAL_UDP_PORT = 5005", self.firmware)
+
     def test_secrets_are_externalized_in_selected_sender(self) -> None:
         self.assertIn('#include "secrets.h"', self.firmware)
         self.assertNotIn("EELab04 2G", self.firmware)

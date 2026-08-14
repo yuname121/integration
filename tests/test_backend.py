@@ -130,6 +130,28 @@ class RuntimeStoreTests(unittest.TestCase):
         self.assertEqual(legacy["room"], "A-01")
         self.assertIn("updated_at", legacy)
 
+    def test_danger_latch_is_stable_and_ack_does_not_clear_risk(self):
+        store = RuntimeStore()
+        store.publish(*documents(timestamp=100.0))
+        danger = store.publish(*documents(timestamp=101.0, risk_level="DANGER", emergency=True))
+        repeated = store.publish(*documents(timestamp=102.0, risk_level="DANGER", emergency=True))
+
+        self.assertTrue(danger["emergency"]["active"])
+        self.assertEqual(danger["emergency"]["transition_id"], repeated["emergency"]["transition_id"])
+        self.assertEqual(
+            [item["event_type"] for item in store.events(100)].count("DANGER_ENTERED"),
+            1,
+        )
+
+        acknowledged = store.acknowledge_alarm()
+        self.assertTrue(acknowledged["acknowledged"])
+        self.assertFalse(acknowledged["buzzer_active"])
+        self.assertTrue(store.latest()["emergency"]["active"])
+        self.assertEqual(store.latest()["risk"]["risk_level"], "DANGER")
+
+        cleared = store.publish(*documents(timestamp=103.0, risk_level="WARNING"))
+        self.assertFalse(cleared["emergency"]["active"])
+
     def test_concurrent_publish_and_read_are_safe(self):
         store = RuntimeStore()
         errors = []
@@ -174,6 +196,13 @@ class FastAPIContractTests(unittest.TestCase):
             "GET /api/events",
             "GET /api/history",
             "GET /api/state",
+            "GET /api/emergency/state",
+            "POST /api/emergency/119/simulation/start",
+            "POST /api/emergency/119/simulation/complete",
+            "POST /api/emergency/contact",
+            "POST /api/emergency/acknowledge",
+            "POST /api/emergency/voice",
+            "POST /api/client-connection",
             "GET /health",
             "WS /ws",
         })
@@ -185,7 +214,13 @@ class FastAPIContractTests(unittest.TestCase):
             return
         app = create_app(start_runtime=False)
         paths = {route.path for route in app.routes}
-        for path in ("/dashboard", "/dashboard/", "/api/status", "/api/sensors", "/api/events", "/api/history", "/api/state", "/health", "/ws"):
+        for path in (
+            "/dashboard", "/dashboard/", "/api/status", "/api/sensors", "/api/events",
+            "/api/history", "/api/state", "/api/emergency/state",
+            "/api/emergency/119/simulation/start", "/api/emergency/119/simulation/complete",
+            "/api/emergency/contact", "/api/emergency/acknowledge", "/api/emergency/voice",
+            "/api/client-connection", "/health", "/ws",
+        ):
             self.assertIn(path, paths)
 
 

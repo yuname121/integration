@@ -23,6 +23,7 @@ DEFAULT_STALE_SECONDS: Final = {
     "co2": 10.0,
     "pir": 10.0,
 }
+DEFAULT_CO2_UPDATE_INTERVAL_SECONDS: Final = 60.0
 
 
 @dataclass
@@ -50,7 +51,12 @@ class SensorStateManager:
     make a stale packet look new.
     """
 
-    def __init__(self, stale_seconds: Mapping[str, float] | None = None) -> None:
+    def __init__(
+        self,
+        stale_seconds: Mapping[str, float] | None = None,
+        *,
+        co2_update_interval_seconds: float = DEFAULT_CO2_UPDATE_INTERVAL_SECONDS,
+    ) -> None:
         configured = dict(DEFAULT_STALE_SECONDS)
         if stale_seconds is not None:
             unknown = set(stale_seconds) - set(SENSOR_IDS)
@@ -60,6 +66,11 @@ class SensorStateManager:
         for sensor_id, ttl in configured.items():
             if not math.isfinite(float(ttl)) or float(ttl) <= 0:
                 raise ValueError(f"{sensor_id} stale TTL must be positive and finite")
+        if (
+            not math.isfinite(float(co2_update_interval_seconds))
+            or float(co2_update_interval_seconds) <= 0
+        ):
+            raise ValueError("CO2 update interval must be positive and finite")
 
         self._lock = threading.RLock()
         self._records = {
@@ -67,6 +78,8 @@ class SensorStateManager:
             for sensor_id in SENSOR_IDS
         }
         self._latest_thermal_frame: ThermalFrame | None = None
+        self.co2_update_interval_seconds = float(co2_update_interval_seconds)
+        self._last_co2_value_monotonic: float | None = None
         self._revision = 0
 
     def ingest(
@@ -182,17 +195,7 @@ class SensorStateManager:
                 "heart_valid": packet.valid["heart"],
             },
         )
-        self._update(
-            "co2",
-            peer=peer,
-            sequence=packet.header.sequence,
-            uptime_ms=packet.uptime_ms,
-            wall=wall,
-            monotonic=monotonic,
-            valid=packet.valid["co2"],
-            error=None if packet.valid["co2"] else "CO2_VALUE_INVALID",
-            values={"ppm": packet.co2_ppm},
-        )
+        self._ingest_co2(packet, peer, wall, monotonic)
         self._update(
             "pir",
             peer=peer,
@@ -204,6 +207,39 @@ class SensorStateManager:
             error=None,
             values={"motion": packet.pir_motion},
         )
+
+    def _ingest_co2(
+        self,
+        packet: TelemetryPayload,
+        peer: str,
+        wall: float,
+        monotonic: float,
+    ) -> None:
+        """Track CO2 communication continuously, but accept a usable value once/minute."""
+
+        record = self._records["co2"]
+        record.connected = True
+        record.valid = packet.valid["co2"]
+        record.peer = peer
+        record.last_received_at = wall
+        record.last_received_monotonic = monotonic
+        record.disconnected_at = None
+        record.error = None if packet.valid["co2"] else "CO2_VALUE_INVALID"
+
+        if not packet.valid["co2"]:
+            return
+        due = (
+            self._last_co2_value_monotonic is None
+            or monotonic - self._last_co2_value_monotonic
+            >= self.co2_update_interval_seconds
+        )
+        if not due:
+            return
+        record.sequence = packet.header.sequence
+        record.source_uptime_ms = packet.uptime_ms
+        record.values = {"ppm": packet.co2_ppm}
+        record.last_valid_at = wall
+        self._last_co2_value_monotonic = monotonic
 
     def _ingest_thermal(
         self,
@@ -285,7 +321,13 @@ class SensorStateManager:
             "current": status == "LIVE",
             "ttl_seconds": record.ttl_seconds,
             "age_seconds": age,
-            "last_update": record.last_received_at,
+            # CO2 publishes a usable value once/minute, while reception health
+            # remains independently visible through last_received_at/status.
+            "last_update": (
+                record.last_valid_at
+                if record.sensor_id == "co2"
+                else record.last_received_at
+            ),
             "last_received_at": record.last_received_at,
             "last_valid_at": record.last_valid_at,
             "disconnected_at": record.disconnected_at,

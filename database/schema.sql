@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS schema_meta (
     value TEXT NOT NULL
 );
 
-INSERT OR IGNORE INTO schema_meta(key, value) VALUES ('schema_version', '1');
+INSERT OR IGNORE INTO schema_meta(key, value) VALUES ('schema_version', '2');
 
 CREATE TABLE IF NOT EXISTS sensor_snapshots (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,6 +36,13 @@ CREATE TABLE IF NOT EXISTS sensor_snapshots (
         OR risk_level IS NULL
     ),
     is_emergency INTEGER NOT NULL CHECK(is_emergency IN (0, 1)),
+    emergency_active INTEGER NOT NULL DEFAULT 0 CHECK(emergency_active IN (0, 1)),
+    danger_transition_id TEXT,
+    danger_entered_at REAL CHECK(danger_entered_at >= 0 OR danger_entered_at IS NULL),
+    alarm_acknowledged INTEGER NOT NULL DEFAULT 0 CHECK(alarm_acknowledged IN (0, 1)),
+    alarm_acknowledged_at REAL CHECK(alarm_acknowledged_at >= 0 OR alarm_acknowledged_at IS NULL),
+    buzzer_active INTEGER NOT NULL DEFAULT 0 CHECK(buzzer_active IN (0, 1)),
+    latched_while_offline INTEGER NOT NULL DEFAULT 0 CHECK(latched_while_offline IN (0, 1)),
     event_type TEXT NOT NULL DEFAULT 'SNAPSHOT',
     risk_reasons_json TEXT NOT NULL DEFAULT '[]',
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP

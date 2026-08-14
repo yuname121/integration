@@ -10,6 +10,12 @@ secrets.h
 *.db
 *.sqlite
 logs/
+data/mmwave/*
+data/co2/*
+data/thermal/*
+!data/mmwave/.gitkeep
+!data/co2/.gitkeep
+!data/thermal/.gitkeep
 .venv/
 venv/
 *.log

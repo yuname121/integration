@@ -8,17 +8,17 @@
  *   - Waveshare Thermal Camera HAT / MI48xx (I2C control + SPI data): 80 x 62
  *
  * Transport:
- *   - Wi-Fi TCP to a Raspberry Pi
- *   - JSON packets for low-rate scalar telemetry
- *   - Big-endian uint16 binary packets for thermal frames
+ *   - TCP for low-rate mmWave/CO2/PIR JSON telemetry
+ *   - Chunked UDP for big-endian uint16 Thermal frames
  *
  * The Arduino loop never calls delay(). Sensor scheduling uses millis().
- * TCP connection and potentially blocking writes run in a separate FreeRTOS task.
+ * TCP reconnect/writes and Thermal UDP writes run in separate FreeRTOS tasks.
  * If the network is slow, the one-slot thermal queue keeps only the newest frame.
  */
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include <WiFiUdp.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SensirionI2cScd4x.h>
@@ -29,6 +29,7 @@
 // Device identity. Wi-Fi and Raspberry Pi settings live in ignored secrets.h.
 // ----------------------------------------------------------------------------
 constexpr char DEVICE_ID[] = "esp32-01";
+constexpr uint16_t THERMAL_UDP_PORT = 5005;
 
 // -----------------------------------------------------------------------------
 // ESP32 Dev Module wiring (matches the existing standalone sensor tests).
@@ -90,18 +91,33 @@ constexpr size_t THERMAL_CAPTURE_WORDS =
 constexpr uint8_t THERMAL_FRAME_RATE_DIVIDER = 4;
 
 // -----------------------------------------------------------------------------
-// SafeNest TCP protocol v1.
+// SafeNest TCP protocol v1 for scalar telemetry.
 // Outer header (16 bytes, network byte order):
 //   magic[4]="SNST", version:u8, type:u8, flags:u16,
 //   packet_sequence:u32, payload_length:u32
 // Packet type 1 payload: UTF-8 JSON.
-// Packet type 2 payload: 16-byte thermal metadata followed by 4960 uint16 words.
+// Thermal UDP logical payload: 16-byte metadata followed by 4960 uint16 words.
 // -----------------------------------------------------------------------------
 constexpr uint8_t PROTOCOL_VERSION = 1;
 constexpr uint8_t PACKET_TELEMETRY_JSON = 1;
 constexpr uint8_t PACKET_THERMAL_U16_BE = 2;
 constexpr size_t PACKET_HEADER_SIZE = 16;
 constexpr size_t THERMAL_META_SIZE = 16;
+
+// SafeNest Thermal UDP v1. A 1200-byte datagram stays below the common
+// Ethernet/Wi-Fi MTU after IPv4 and UDP headers, avoiding IP fragmentation.
+// Header fields are network byte order and every chunk repeats the frame CRC32.
+constexpr char THERMAL_UDP_MAGIC[] = "SNTU";
+constexpr uint8_t THERMAL_UDP_VERSION = 1;
+constexpr size_t THERMAL_UDP_HEADER_SIZE = 32;
+constexpr size_t THERMAL_UDP_DATAGRAM_SIZE = 1200;
+constexpr size_t THERMAL_UDP_CHUNK_SIZE =
+    THERMAL_UDP_DATAGRAM_SIZE - THERMAL_UDP_HEADER_SIZE;
+constexpr size_t THERMAL_PAYLOAD_SIZE =
+    THERMAL_META_SIZE + THERMAL_PIXEL_COUNT * sizeof(uint16_t);
+constexpr uint16_t THERMAL_UDP_CHUNK_COUNT =
+    (THERMAL_PAYLOAD_SIZE + THERMAL_UDP_CHUNK_SIZE - 1) /
+    THERMAL_UDP_CHUNK_SIZE;
 
 struct TelemetrySnapshot {
   uint32_t sequence;
@@ -156,6 +172,9 @@ uint32_t lastTelemetryMs = 0;
 uint32_t lastHealthLogMs = 0;
 uint32_t telemetrySequence = 0;
 uint32_t thermalSequence = 0;
+uint32_t thermalUdpFramesSent = 0;
+uint32_t thermalUdpFramesFailed = 0;
+uint8_t thermalUdpDatagram[THERMAL_UDP_DATAGRAM_SIZE];
 
 // Wrap-safe periodic scheduling helper. Updating by period, rather than assigning
 // now, avoids gradual drift. A long overrun is collapsed to one execution.
@@ -465,15 +484,27 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
          writeAll(client, reinterpret_cast<const uint8_t *>(json), length);
 }
 
-bool sendThermal(WiFiClient &client, const ThermalTxFrame &frame) {
-  const uint32_t payloadLength =
-      THERMAL_META_SIZE + THERMAL_PIXEL_COUNT * sizeof(uint16_t);
-  uint8_t header[PACKET_HEADER_SIZE];
-  makePacketHeader(header, PACKET_THERMAL_U16_BE, frame.frameSequence,
-                   payloadLength);
-  if (!writeAll(client, header, sizeof(header))) return false;
+uint8_t thermalPayloadByte(const ThermalTxFrame &frame, const uint8_t *meta,
+                           size_t offset) {
+  if (offset < THERMAL_META_SIZE) return meta[offset];
+  const size_t pixelByte = offset - THERMAL_META_SIZE;
+  const uint16_t pixel = frame.pixels[pixelByte / 2];
+  return (pixelByte & 1) ? static_cast<uint8_t>(pixel)
+                         : static_cast<uint8_t>(pixel >> 8);
+}
 
-  // Thermal metadata: width, height, frame_seq, uptime_ms, min_raw, max_raw.
+uint32_t thermalFrameCrc32(const ThermalTxFrame &frame, const uint8_t *meta) {
+  uint32_t crc = 0xFFFFFFFF;
+  for (size_t offset = 0; offset < THERMAL_PAYLOAD_SIZE; ++offset) {
+    crc ^= thermalPayloadByte(frame, meta, offset);
+    for (uint8_t bit = 0; bit < 8; ++bit) {
+      crc = (crc >> 1) ^ (0xEDB88320U & (0U - (crc & 1U)));
+    }
+  }
+  return ~crc;
+}
+
+bool sendThermalUdp(WiFiUDP &udp, const ThermalTxFrame &frame) {
   uint8_t meta[THERMAL_META_SIZE];
   putU16(meta + 0, THERMAL_WIDTH);
   putU16(meta + 2, THERMAL_HEIGHT);
@@ -481,24 +512,41 @@ bool sendThermal(WiFiClient &client, const ThermalTxFrame &frame) {
   putU32(meta + 8, frame.uptimeMs);
   putU16(meta + 12, frame.minimumRaw);
   putU16(meta + 14, frame.maximumRaw);
-  if (!writeAll(client, meta, sizeof(meta))) return false;
+  const uint32_t crc32 = thermalFrameCrc32(frame, meta);
 
-  // Convert in small chunks instead of allocating a second 9.7 KiB byte array.
-  uint8_t chunk[512];
-  size_t pixelIndex = 0;
-  while (pixelIndex < THERMAL_PIXEL_COUNT) {
-    const size_t pixelsThisChunk =
-        min(sizeof(chunk) / 2, THERMAL_PIXEL_COUNT - pixelIndex);
-    for (size_t i = 0; i < pixelsThisChunk; ++i) {
-      putU16(chunk + i * 2, frame.pixels[pixelIndex + i]);
+  for (uint16_t chunkIndex = 0; chunkIndex < THERMAL_UDP_CHUNK_COUNT;
+       ++chunkIndex) {
+    const uint32_t offset = chunkIndex * THERMAL_UDP_CHUNK_SIZE;
+    const uint16_t length = static_cast<uint16_t>(
+        min(THERMAL_UDP_CHUNK_SIZE, THERMAL_PAYLOAD_SIZE - offset));
+    uint8_t *header = thermalUdpDatagram;
+    memcpy(header, THERMAL_UDP_MAGIC, 4);
+    header[4] = THERMAL_UDP_VERSION;
+    header[5] = PACKET_THERMAL_U16_BE;
+    putU16(header + 6, THERMAL_UDP_HEADER_SIZE);
+    putU32(header + 8, frame.frameSequence);
+    putU16(header + 12, chunkIndex);
+    putU16(header + 14, THERMAL_UDP_CHUNK_COUNT);
+    putU32(header + 16, THERMAL_PAYLOAD_SIZE);
+    putU32(header + 20, offset);
+    putU16(header + 24, length);
+    putU16(header + 26, 0);
+    putU32(header + 28, crc32);
+    for (uint16_t index = 0; index < length; ++index) {
+      thermalUdpDatagram[THERMAL_UDP_HEADER_SIZE + index] =
+          thermalPayloadByte(frame, meta, offset + index);
     }
-    if (!writeAll(client, chunk, pixelsThisChunk * 2)) return false;
-    pixelIndex += pixelsThisChunk;
+    if (!udp.beginPacket(RPI_HOST, THERMAL_UDP_PORT) ||
+        udp.write(thermalUdpDatagram, THERMAL_UDP_HEADER_SIZE + length) !=
+            THERMAL_UDP_HEADER_SIZE + length ||
+        udp.endPacket() != 1) {
+      return false;
+    }
   }
   return true;
 }
 
-void networkTask(void *parameter) {
+void telemetryTcpTask(void *parameter) {
   (void)parameter;
   WiFiClient client;
   client.setNoDelay(true);
@@ -529,13 +577,37 @@ void networkTask(void *parameter) {
       }
     }
 
-    if (xQueueReceive(thermalQueue, &thermalNetworkFrame, 0) == pdTRUE) {
-      if (!sendThermal(client, thermalNetworkFrame)) {
-        client.stop();
+    vTaskDelay(pdMS_TO_TICKS(2));
+  }
+}
+
+void thermalUdpTask(void *parameter) {
+  (void)parameter;
+  WiFiUDP udp;
+  bool udpStarted = false;
+  for (;;) {
+    if (WiFi.status() != WL_CONNECTED) {
+      if (udpStarted) {
+        udp.stop();
+        udpStarted = false;
+      }
+      vTaskDelay(pdMS_TO_TICKS(50));
+      continue;
+    }
+    if (!udpStarted) {
+      udpStarted = udp.begin(0);
+      if (!udpStarted) {
+        vTaskDelay(pdMS_TO_TICKS(250));
         continue;
       }
     }
-
+    if (xQueueReceive(thermalQueue, &thermalNetworkFrame, 0) == pdTRUE) {
+      if (sendThermalUdp(udp, thermalNetworkFrame)) {
+        ++thermalUdpFramesSent;
+      } else {
+        ++thermalUdpFramesFailed;
+      }
+    }
     vTaskDelay(pdMS_TO_TICKS(2));
   }
 }
@@ -544,10 +616,12 @@ void logHealth(uint32_t now) {
   if (!scheduleDue(now, lastHealthLogMs, HEALTH_LOG_PERIOD_MS)) return;
   Serial.printf(
       "[health] wifi=%s rpi=%s resp=%.1f heart=%.1f co2=%u pir=%d "
-      "thermal_frames=%lu free_heap=%u\n",
+      "thermal_frames=%lu udp_sent=%lu udp_failed=%lu free_heap=%u\n",
       WiFi.status() == WL_CONNECTED ? "up" : "down", RPI_HOST,
       respirationRate, heartRate, co2Ppm, pirMotion,
-      static_cast<unsigned long>(thermalSequence), ESP.getFreeHeap());
+      static_cast<unsigned long>(thermalSequence),
+      static_cast<unsigned long>(thermalUdpFramesSent),
+      static_cast<unsigned long>(thermalUdpFramesFailed), ESP.getFreeHeap());
 }
 
 void setup() {
@@ -587,8 +661,11 @@ void setup() {
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.printf("[wifi] connecting to %s asynchronously\n", WIFI_SSID);
 
-  // The networking task owns WiFiClient and all socket writes.
-  xTaskCreatePinnedToCore(networkTask, "network", 16384, nullptr, 1, nullptr, 0);
+  // TCP reconnect/write latency cannot delay the independent Thermal UDP task.
+  xTaskCreatePinnedToCore(telemetryTcpTask, "telemetry-tcp", 8192, nullptr, 1,
+                          nullptr, 0);
+  xTaskCreatePinnedToCore(thermalUdpTask, "thermal-udp", 8192, nullptr, 1,
+                          nullptr, 0);
 }
 
 void loop() {
