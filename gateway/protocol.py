@@ -410,8 +410,10 @@ def _optional_health(value: object) -> dict[str, int] | None:
         "tcp_send_failures",
         "thermal_udp_frames_sent",
         "thermal_udp_send_failures",
+        "co2_data_ready_query_failures",
+        "co2_read_failures",
+        "thermal_status_query_failures",
     ):
         if field in value:
             result[field] = _u32(value[field], f"health.{field}")
     return result
-

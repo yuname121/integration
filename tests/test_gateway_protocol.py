@@ -152,7 +152,13 @@ class ProtocolDecodeTests(unittest.TestCase):
             co2_measurement_event_valid=True,
             pir_event_id=3,
             pir_last_transition_monotonic_ms=11_500,
-            health={"thermal_queue_overwrites": 2, "tcp_send_failures": 1},
+            health={
+                "thermal_queue_overwrites": 2,
+                "tcp_send_failures": 1,
+                "co2_data_ready_query_failures": 3,
+                "co2_read_failures": 4,
+                "thermal_status_query_failures": 5,
+            },
         )
         packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 8, payload))
         self.assertEqual(packet.boot_id, "0123456789abcdef0123456789abcdef")
@@ -161,6 +167,9 @@ class ProtocolDecodeTests(unittest.TestCase):
         self.assertTrue(packet.co2_measurement_event_valid)
         self.assertEqual(packet.pir_event_id, 3)
         self.assertEqual(packet.health["thermal_queue_overwrites"], 2)
+        self.assertEqual(packet.health["co2_data_ready_query_failures"], 3)
+        self.assertEqual(packet.health["co2_read_failures"], 4)
+        self.assertEqual(packet.health["thermal_status_query_failures"], 5)
 
     def test_legacy_and_unknown_extra_fields_remain_compatible(self) -> None:
         payload = telemetry_payload(9, future_optional_field={"ignored": True})

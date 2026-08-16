@@ -142,6 +142,9 @@ struct TelemetrySnapshot {
   uint32_t tcpSendFailures;
   uint32_t thermalUdpFramesSent;
   uint32_t thermalUdpSendFailures;
+  uint32_t co2DataReadyQueryFailures;
+  uint32_t co2ReadFailures;
+  uint32_t thermalStatusQueryFailures;
 };
 
 struct ThermalTxFrame {
@@ -197,6 +200,9 @@ volatile uint32_t tcpConnectionFailures = 0;
 volatile uint32_t tcpSendFailures = 0;
 volatile uint32_t thermalUdpFramesSent = 0;
 volatile uint32_t thermalUdpFramesFailed = 0;
+volatile uint32_t co2DataReadyQueryFailures = 0;
+volatile uint32_t co2ReadFailures = 0;
+volatile uint32_t thermalStatusQueryFailures = 0;
 uint8_t thermalUdpDatagram[THERMAL_UDP_DATAGRAM_SIZE];
 
 // Wrap-safe periodic scheduling helper. Updating by period, rather than assigning
@@ -325,8 +331,11 @@ bool thermalDataReady(uint32_t now) {
   if (static_cast<uint32_t>(now - lastThermalStatusPollMs) < 25) return false;
   lastThermalStatusPollMs = now;
   uint8_t status = 0;
-  return thermalReadRegister(REG_STATUS, status) &&
-         (status & STATUS_DATA_READY) != 0;
+  if (!thermalReadRegister(REG_STATUS, status)) {
+    ++thermalStatusQueryFailures;
+    return false;
+  }
+  return (status & STATUS_DATA_READY) != 0;
 }
 
 void captureThermalIfReady(uint32_t now) {
@@ -391,20 +400,27 @@ void pollCo2(uint32_t now) {
   }
 
   bool ready = false;
-  if (scd4x.getDataReadyStatus(ready) != 0 || !ready) return;
+  if (scd4x.getDataReadyStatus(ready) != 0) {
+    ++co2DataReadyQueryFailures;
+    return;
+  }
+  if (!ready) return;
 
   uint16_t newCo2 = 0;
   float temperature = NAN;
   float humidity = NAN;
-  if (scd4x.readMeasurement(newCo2, temperature, humidity) == 0 &&
-      newCo2 != 0) {
-    const uint32_t measurementMonotonicMs = millis();
-    co2Ppm = newCo2;
-    lastCo2Ms = measurementMonotonicMs;
-    ++co2MeasurementEventId;
-    co2MeasurementMonotonicMs = measurementMonotonicMs;
-    co2MeasurementEventValid = true;
+  if (scd4x.readMeasurement(newCo2, temperature, humidity) != 0) {
+    ++co2ReadFailures;
+    return;
   }
+  if (newCo2 == 0) return;
+
+  const uint32_t measurementMonotonicMs = millis();
+  co2Ppm = newCo2;
+  lastCo2Ms = measurementMonotonicMs;
+  ++co2MeasurementEventId;
+  co2MeasurementMonotonicMs = measurementMonotonicMs;
+  co2MeasurementEventValid = true;
 }
 
 void pollMmWave(uint32_t now) {
@@ -447,6 +463,9 @@ void publishTelemetrySnapshot(uint32_t now) {
   snapshot.tcpSendFailures = tcpSendFailures;
   snapshot.thermalUdpFramesSent = thermalUdpFramesSent;
   snapshot.thermalUdpSendFailures = thermalUdpFramesFailed;
+  snapshot.co2DataReadyQueryFailures = co2DataReadyQueryFailures;
+  snapshot.co2ReadFailures = co2ReadFailures;
+  snapshot.thermalStatusQueryFailures = thermalStatusQueryFailures;
   xQueueOverwrite(telemetryQueue, &snapshot);
 }
 
@@ -525,7 +544,10 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
       "\"health\":{\"telemetry_queue_overwrites\":%lu,"
       "\"thermal_queue_overwrites\":%lu,\"tcp_connection_failures\":%lu,"
       "\"tcp_send_failures\":%lu,\"thermal_udp_frames_sent\":%lu,"
-      "\"thermal_udp_send_failures\":%lu}}",
+      "\"thermal_udp_send_failures\":%lu,"
+      "\"co2_data_ready_query_failures\":%lu,"
+      "\"co2_read_failures\":%lu,"
+      "\"thermal_status_query_failures\":%lu}}",
       DEVICE_ID, bootId, static_cast<unsigned long>(snapshot.sequence),
       static_cast<unsigned long>(snapshot.uptimeMs), respiration, heart, co2,
       static_cast<unsigned long>(snapshot.co2MeasurementEventId),
@@ -542,7 +564,10 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
       static_cast<unsigned long>(snapshot.tcpConnectionFailures),
       static_cast<unsigned long>(snapshot.tcpSendFailures),
       static_cast<unsigned long>(snapshot.thermalUdpFramesSent),
-      static_cast<unsigned long>(snapshot.thermalUdpSendFailures));
+      static_cast<unsigned long>(snapshot.thermalUdpSendFailures),
+      static_cast<unsigned long>(snapshot.co2DataReadyQueryFailures),
+      static_cast<unsigned long>(snapshot.co2ReadFailures),
+      static_cast<unsigned long>(snapshot.thermalStatusQueryFailures));
   if (length <= 0 || static_cast<size_t>(length) >= sizeof(json)) return false;
 
   uint8_t header[PACKET_HEADER_SIZE];
