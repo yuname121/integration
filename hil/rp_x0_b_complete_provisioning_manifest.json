@@ -1,0 +1,83 @@
+{
+  "classification": "RP_X0_B_COMPLETE_MODEL_PROVISIONING",
+  "not_a_production_model_manifest": true,
+  "production_selection_changed": false,
+  "authoritative_ai_source": {
+    "repo_root": "/Users/junwoo/Library/Mobile Documents/com~apple~CloudDocs/대학/2026/embed2",
+    "canonical_remote": "https://github.com/sheepmeat/test.git",
+    "head": "e6fcdf60928268d9968ace932899ed03a84042c3",
+    "branch": "codex/ai-vs-threshold-justification"
+  },
+  "integration_repo": {
+    "pi_root": "/home/sandi/integration",
+    "branch": "diagnostic/rp-x0-mmwave-telemetry-recording",
+    "head": "83e1d7b2a7bac71e83b9d39ae05540b7b89e9ccd"
+  },
+  "provision_timestamp_utc": "2026-08-16T12:55:00Z",
+  "historical_models_removed": false,
+  "checksum_mismatches": [],
+  "models": [
+    {
+      "sensor": "co2",
+      "phase": "C-B6",
+      "candidate_id": "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001",
+      "artifact_filename": "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite",
+      "artifact_sha256": "c5969b367f5b5e28c4d27f1bdd6220f7d02da92e99604e3f85c9f1291e98dd3b",
+      "source_path": "models/co2/candidates/c_b6/full_integer_int8.tflite",
+      "pi_destination": "/home/sandi/integration/sources/ondevice_ai/models/rp_x0_b_complete/co2/C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite",
+      "pi_sha256": "c5969b367f5b5e28c4d27f1bdd6220f7d02da92e99604e3f85c9f1291e98dd3b",
+      "input_shape": [1, 2],
+      "input_dtype": "int8",
+      "input_quantization": {"scale": 0.03921568766236305, "zero_point": 0},
+      "output_shape": [1, 1],
+      "output_dtype": "int8",
+      "output_quantization": {"scale": 0.00390625, "zero_point": -128},
+      "feature_order": ["CO2", "CO2_slope"],
+      "preprocessing_profile_id": "CO2_C_B6_TRAIN_ONLY_STANDARD_SCALER_001",
+      "selection_validation_status": "C_B6_PASS_WITH_LIMITATIONS",
+      "deployment_status": "PROVISIONED_NOT_PRODUCTION_SELECTED",
+      "load_invoke_smoke": "PASS"
+    },
+    {
+      "sensor": "thermal",
+      "phase": "T-B5",
+      "candidate_id": "FULL_INT8",
+      "architecture": "SMALL_CNN_BASELINE_V1",
+      "artifact_filename": "SMALL_CNN_BASELINE_V1_P1_full_int8.tflite",
+      "artifact_sha256": "fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be",
+      "source_path": "T-B4/artifacts/SMALL_CNN_BASELINE_V1_P1_full_int8.tflite",
+      "artifact_source_status": "EXTERNAL_SSD_ONLY",
+      "pi_destination": null,
+      "pi_sha256": null,
+      "input_shape": [1, 62, 80, 1],
+      "input_dtype": "int8",
+      "input_quantization": {"scale": 0.31791284680366516, "zero_point": -125},
+      "output_shape": [1, 3],
+      "output_dtype": "int8",
+      "output_quantization": {"scale": 0.00390625, "zero_point": -128},
+      "preprocessing_profile_id": "P1_TRAIN_FITTED_GLOBAL_ZSCORE",
+      "selection_validation_status": "OFFLINE_INT8_CANDIDATE_LOCKED_WITH_LIMITATIONS",
+      "deployment_status": "METADATA_PROVISIONED_BINARY_MISSING",
+      "load_invoke_smoke": "NOT_RUN"
+    },
+    {
+      "sensor": "mmwave",
+      "phase": "M-B12 / M-B6 STRICT_INT8",
+      "candidate_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
+      "runtime_model_id": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B6_STRICT_INT8",
+      "artifact_filename": "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "artifact_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "source_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "pi_destination": "/home/sandi/integration/sources/ondevice_ai/models/rp_x0_b_complete/mmwave/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+      "pi_sha256": "6dff6aaa72c79d76715d40cf7e32bb1e6cd9b2c2e3ac78eaf2fda737561430c5",
+      "input_shape": [1, 300, 1],
+      "input_dtype": "int8",
+      "input_quantization": {"scale": 0.041720833629369736, "zero_point": -3},
+      "preprocessing_profile_id": "M-B1_D0_B1_Z1",
+      "execution_preprocessing_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
+      "selection_validation_status": "REAL_DATA_OFFLINE_CANDIDATE",
+      "deployment_status": "PROVISIONED_LIVE_ACTIVATION_BLOCKED",
+      "load_invoke_smoke": "PASS_SYNTHETIC_ONLY"
+    }
+  ]
+}

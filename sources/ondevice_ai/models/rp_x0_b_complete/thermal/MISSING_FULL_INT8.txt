@@ -1,0 +1,1 @@
+THERMAL_B_ARTIFACT_UNAVAILABLE: SMALL_CNN_BASELINE_V1_P1_full_int8.tflite is EXTERNAL_SSD_ONLY and was not present on this Mac. Expected SHA-256 fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be size 318280. Do not substitute thermal_fall_int8_v0.1.0.tflite.

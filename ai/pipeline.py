@@ -8,6 +8,15 @@ import time
 from typing import Mapping
 
 from ai.result import AIResult
+from ai.rp_x0_b_runtime import (
+    CB6Runtime,
+    MMWaveBRuntime,
+    TB5Runtime,
+    b_prediction,
+    b_unavailable,
+    parse_physical_co2,
+    rp_x0_b_runtime_enabled,
+)
 from ai.runtime import LazyModel
 from gateway.protocol import ThermalFrame
 from state.manager import SensorStateManager
@@ -20,6 +29,7 @@ class OnDeviceAIPipeline:
         models: Mapping[str, object] | None = None,
         *,
         clock=time.time,
+        b_runtime: bool | None = None,
     ) -> None:
         self.manager = manager
         supplied = dict(models or {})
@@ -30,6 +40,10 @@ class OnDeviceAIPipeline:
         self._clock = clock
         self._co2_history: deque[tuple[float, float]] = deque(maxlen=30)
         self._last_co2_sequence: int | None = None
+        self.b_runtime = rp_x0_b_runtime_enabled(b_runtime)
+        self._b_co2 = CB6Runtime() if self.b_runtime else None
+        self._b_thermal = TB5Runtime() if self.b_runtime else None
+        self._b_mmwave = MMWaveBRuntime() if self.b_runtime else None
 
     def evaluate(
         self,
@@ -48,15 +62,20 @@ class OnDeviceAIPipeline:
             "pir": self._pir(sensors["pir"], timestamp),
         }
         model_results = [results[name] for name in ("thermal", "mmwave", "co2")]
-        return {
+        document = {
             "timestamp": timestamp,
             "state_revision": current.get("revision"),
             "ai": {name: result.to_dict() for name, result in results.items()},
             "all_models_available": all(result.available for result in model_results),
             "degraded": any(not result.available for result in model_results),
         }
+        if self.b_runtime:
+            document["rp_x0_b_runtime"] = True
+        return document
 
     def _thermal(self, sensor: dict[str, object], frame: ThermalFrame | None, now: float) -> AIResult:
+        if self.b_runtime:
+            return self._thermal_b(sensor, frame, now)
         unavailable = self._sensor_unavailable("thermal", sensor, now)
         if unavailable:
             return unavailable
@@ -91,7 +110,23 @@ class OnDeviceAIPipeline:
         except Exception as error:
             return self._model_error("thermal", now, error, metadata)
 
+    def _thermal_b(self, sensor: dict[str, object], frame: ThermalFrame | None, now: float) -> AIResult:
+        metadata = dict(self._b_thermal.provenance())
+        unavailable = self._sensor_unavailable("thermal", sensor, now)
+        if unavailable:
+            metadata["sensor_error"] = unavailable.error or "SENSOR_NO_DATA"
+        if frame is not None:
+            metadata["live_uint16_frame_present"] = True
+            metadata["physical_conversion_applied"] = False
+        return b_unavailable("thermal", now, "THERMAL_B_ARTIFACT_UNAVAILABLE", metadata)
+
     def _mmwave(self, sensor: dict[str, object], now: float) -> AIResult:
+        if self.b_runtime:
+            metadata = dict(self._b_mmwave.provenance())
+            values = sensor.get("values", {})
+            if isinstance(values, dict) and values.get("respiration_phase_window") is not None:
+                metadata["live_phase_window_ignored"] = True
+            return b_unavailable("mmwave", now, "MMWAVE_B_LIVE_GATE_CLOSED", metadata)
         unavailable = self._sensor_unavailable("mmwave", sensor, now)
         if unavailable:
             return unavailable
@@ -128,6 +163,8 @@ class OnDeviceAIPipeline:
             return self._model_error("mmwave", now, error)
 
     def _co2(self, sensor: dict[str, object], now: float) -> AIResult:
+        if self.b_runtime:
+            return self._co2_b(sensor, now)
         unavailable = self._sensor_unavailable("co2", sensor, now)
         if unavailable:
             return unavailable
@@ -160,6 +197,55 @@ class OnDeviceAIPipeline:
             )
         except Exception as error:
             return self._model_error("co2", now, error)
+
+    def _co2_b(self, sensor: dict[str, object], now: float) -> AIResult:
+        metadata = dict(self._b_co2.provenance())
+        unavailable = self._sensor_unavailable("co2", sensor, now)
+        if unavailable:
+            return b_unavailable("co2", now, unavailable.error or "SENSOR_NO_DATA", metadata)
+        event = parse_physical_co2(sensor)
+        if event is None:
+            return b_unavailable("co2", now, "PHYSICAL_EVENT_IDENTITY_MISSING", metadata)
+        decision = self._b_co2.observe(event)
+        metadata.update(
+            {
+                "slope_status": decision.status,
+                "history_len": decision.history_len,
+                "humidity_passed": False,
+                "feature_vector": decision.feature_vector,
+                "co2_slope_ppm_per_min": decision.slope,
+            }
+        )
+        if decision.status != "AVAILABLE" or decision.feature_vector is None:
+            error = {
+                "WARMUP": "FEATURE_UNAVAILABLE_WARMUP",
+                "GAP_RESTART": "FEATURE_UNAVAILABLE_GAP_RESTART",
+                "DUPLICATE_TRANSPORT": "PHYSICAL_EVENT_DUPLICATE",
+                "NON_MONOTONIC": "FEATURE_UNAVAILABLE_NON_MONOTONIC_TIMESTAMP",
+            }.get(decision.status, decision.status)
+            return b_unavailable("co2", now, error, metadata)
+        try:
+            prediction = self._b_co2.infer(decision.feature_vector)
+        except Exception as error:
+            return self._model_error("co2", now, error, metadata)
+        metadata.update(
+            {
+                "occupied_probability": prediction["occupied_probability"],
+                "probabilities": prediction["probabilities"],
+                "quantized_input": prediction["quantized_input"],
+            }
+        )
+        return b_prediction(
+            "co2",
+            now,
+            prediction["class_name"],
+            score=1.0 if prediction["class_name"] == "OCCUPIED" else 0.0,
+            confidence=float(prediction["confidence"]),
+            latency_ms=float(prediction["latency_ms"]),
+            model_id=prediction["model_id"],
+            model_version=prediction["model_version"],
+            metadata=metadata,
+        )
 
     @staticmethod
     def _pir(sensor: dict[str, object], now: float) -> AIResult:

@@ -1,0 +1,24 @@
+{
+  "classification": "RP_X0_B_RUNTIME_PREPARATION",
+  "not_a_production_model_manifest": true,
+  "selection_env": "SAFENEST_RP_X0_B_RUNTIME",
+  "historical_default": "unchanged unless SAFENEST_RP_X0_B_RUNTIME is 1/true/yes/on",
+  "sensors": {
+    "co2": {
+      "mode": "C_B6",
+      "live_gate": "OPEN_FOR_WIRING",
+      "artifact": "sources/ondevice_ai/models/rp_x0_b_complete/co2/C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite"
+    },
+    "thermal": {
+      "mode": "T_B5",
+      "live_gate": "CLOSED_ARTIFACT_MISSING",
+      "artifact": null
+    },
+    "mmwave": {
+      "mode": "M_B6_STRICT_INT8_SYNTHETIC_ONLY",
+      "live_gate": "CLOSED",
+      "live_gate_reason": "PENDING_REAL_PHASE_EVIDENCE",
+      "artifact": "sources/ondevice_ai/models/rp_x0_b_complete/mmwave/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite"
+    }
+  }
+}
