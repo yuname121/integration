@@ -1,8 +1,8 @@
 # SafeNest Raspberry Pi AI Runtime Enablement Roadmap
 
-**Document date:** 2026-08-16  
-**Document ID:** `RP-AI-ENABLEMENT-ROADMAP-01`  
-**Roadmap status:** `APPROVED_FOR_RP-A1_ONLY`  
+**Document date:** 2026-08-16
+**Document ID:** `RP-AI-ENABLEMENT-ROADMAP-01`
+**Roadmap status:** `APPROVED_FOR_RP-A1_ONLY`
 **Status meaning:** RP-A0 audit/design is the documentation baseline. The next authorized implementation, after this document is on `main`, is **RP-A1 only** (Capture schema, session/event identity, synthetic fixtures, Capture path/gitignore). Later RP-B/C/D phases, B-complete model activation, and RP-A1 code itself are **not** authorized by this document.
 
 This roadmap describes how the Raspberry Pi integration runtime must be improved so that the team B-complete offline AI candidates can eventually be used correctly with real sensor evidence. It does not implement Capture, change ESP32 firmware, retrain models, change frozen preprocessing, change class maps, change risk thresholds, or change dashboard behavior.
@@ -115,8 +115,8 @@ The prompt’s integration SHA `0cab3af…` is the team `feature/ondevice-ai-b-c
 
 ### 3.3 B-complete AI baseline reviewed
 
-Team PR: [jinsu1011/safenest-embedded-competition#20](https://github.com/jinsu1011/safenest-embedded-competition/pull/20)  
-Title: `feat(ondevice-ai): sync B-complete offline candidate baseline`  
+Team PR: [jinsu1011/safenest-embedded-competition#20](https://github.com/jinsu1011/safenest-embedded-competition/pull/20)
+Title: `feat(ondevice-ai): sync B-complete offline candidate baseline`
 State: **MERGED** `OWNER_REPORTED`
 
 | Record | SHA / pointer | Evidence |
@@ -128,7 +128,7 @@ State: **MERGED** `OWNER_REPORTED`
 | Merge commit reviewed | `6c3faea3126cff0d17565e534d019d344edc6d1a` | `OWNER_REPORTED` |
 | Machine-readable pointer | `ondevice_ai/docs/integration/20260816_b_complete_active_offline_candidates.json` | `DOCUMENTED_ONLY` |
 
-**Meaning of B-complete:** frozen offline candidate + reproducibility/deployment contract, sufficient for team integration planning.  
+**Meaning of B-complete:** frozen offline candidate + reproducibility/deployment contract, sufficient for team integration planning.
 **Not meaning:** real-device validation, Pi production deployment, final multisensor validation, or safety certification. `OWNER_REPORTED`
 
 ### 3.4 Responsibility boundary
@@ -951,25 +951,25 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** Integration checkout on a known SHA.
 
-**In scope:** Source audit, persistence table, AI default identification, Capture/state/SQLite separation.  
+**In scope:** Source audit, persistence table, AI default identification, Capture/state/SQLite separation.
 **Out of scope:** Code changes, ESP changes, model activation.
 
-**Current code affected:** None (read-only).  
+**Current code affected:** None (read-only).
 **Expected implementation:** This roadmap Markdown.
 
-**Inputs:** Integration tree; PR #20 contracts.  
+**Inputs:** Integration tree; PR #20 contracts.
 **Artifacts:** This Markdown.
 
 **Tests / validators:** Static documentation review only.
 
-**Acceptance criteria:** End-to-end flow, storage table, v0.1.0 defaults, C-B6/T-B5/mmWave contracts, and four-layer storage split are recorded with evidence tags.  
+**Acceptance criteria:** End-to-end flow, storage table, v0.1.0 defaults, C-B6/T-B5/mmWave contracts, and four-layer storage split are recorded with evidence tags.
 **Blocking conditions:** None remaining for documentation; field-encoding freeze waits for RP-A1 review.
 
-**Owner role:** Pi runtime owner.  
+**Owner role:** Pi runtime owner.
 **Required reviewer:** Team integration reviewer.
 
-**Evidence produced:** `CODE_VERIFIED` audit.  
-**Next-phase authorization:** RP-A1 after reviewer acceptance.  
+**Evidence produced:** `CODE_VERIFIED` audit.
+**Next-phase authorization:** RP-A1 after reviewer acceptance.
 **Dependency class:** `PI_IMPLEMENTABLE_NOW` (docs already produced).
 
 ---
@@ -982,26 +982,26 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A0 accepted.
 
-**In scope:** JSON schemas, fixtures, `.gitignore` for `captures/`, checksum rules.  
+**In scope:** JSON schemas, fixtures, `.gitignore` for `captures/`, checksum rules.
 **Out of scope:** Live writer on the receive path; ESP firmware; models.
 
-**Current code affected:** `docs/`, future `capture/` schema modules, `.gitignore`.  
+**Current code affected:** `docs/`, future `capture/` schema modules, `.gitignore`.
 **Expected implementation:** Schema + synthetic fixtures only.
 
-**Inputs:** This roadmap’s Capture v1 section and current `storage/sensor_logger.py` behavior.  
+**Inputs:** This roadmap’s Capture v1 section and current `storage/sensor_logger.py` behavior.
 **Artifacts:** Schema files, example `manifest.json`, synthetic event lines, NPZ fixture.
 
-**Tests:** Schema validation; path audit (no absolute paths); Git-ignore test.  
+**Tests:** Schema validation; path audit (no absolute paths); Git-ignore test.
 **Validators:** Capture schema validator.
 
-**Acceptance criteria:** A synthetic session validates; real payloads are not in Git.  
+**Acceptance criteria:** A synthetic session validates; real payloads are not in Git.
 **Blocking conditions:** Unresolved Thermal metadata encoding or CO₂ identity policy (identity may remain explicitly unavailable).
 
-**Owner:** Pi runtime owner.  
+**Owner:** Pi runtime owner.
 **Reviewer:** Team integration reviewer; AI owner for later replay fields.
 
-**Evidence:** `TEST_VERIFIED` synthetic.  
-**Next:** RP-A2.  
+**Evidence:** `TEST_VERIFIED` synthetic.
+**Next:** RP-A2.
 **Dependency:** `PI_IMPLEMENTABLE_NOW`; CO₂ exact uniqueness remains `ESP_CONTRACT_DEPENDENCY` but must not block schema with an explicit unavailable field.
 
 ---
@@ -1014,19 +1014,19 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A1 schemas.
 
-**In scope:** Writer, health on `/health`, rotation, fsync/rename for archives, unclean-session detection.  
+**In scope:** Writer, health on `/health`, rotation, fsync/rename for archives, unclean-session detection.
 **Out of scope:** Sensor-specific semantics beyond generic events; model activation.
 
 **Current code affected:** `backend/runtime.py` hook points; `storage/sensor_logger.py` (refactor toward Capture); `backend/app.py` health.
 
 **Expected implementation:** New Capture writer; keep current logger until cutover tests pass, then retire hourly independent files.
 
-**Tests:** append-only, rotation, disk-full, queue overflow, crash without close marker, dual health vs SQLite.  
+**Tests:** append-only, rotation, disk-full, queue overflow, crash without close marker, dual health vs SQLite.
 **Acceptance:** `capture_failed` cannot coexist with a healthy Capture claim; receive path never blocks on disk.
 
-**Owner:** Pi runtime owner.  
-**Reviewer:** Team integration reviewer.  
-**Next:** RP-A3.  
+**Owner:** Pi runtime owner.
+**Reviewer:** Team integration reviewer.
+**Next:** RP-A3.
 **Dependency:** `PI_IMPLEMENTABLE_NOW`.
 
 ---
@@ -1039,7 +1039,7 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A2 writer healthy.
 
-**In scope:** CO₂ events without 60 s downsample; PIR first-state + transitions; explicit invalid events.  
+**In scope:** CO₂ events without 60 s downsample; PIR first-state + transitions; explicit invalid events.
 **Out of scope:** C-B6 inference; inventing measurement IDs; ESP changes.
 
 **Current code affected:** `backend/runtime.py` submit path; logger CO₂ gate must not apply to Capture; PIR currently omitted.
@@ -1048,9 +1048,9 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Acceptance:** A 1 Hz telemetry minute produces Capture evidence richer than one 60 s logger row; PIR edges are replayable.
 
-**Owner:** Pi runtime owner / CO₂ owner for identity review.  
-**Reviewer:** CO₂ owner; team integration reviewer.  
-**Next:** RP-A4.  
+**Owner:** Pi runtime owner / CO₂ owner for identity review.
+**Reviewer:** CO₂ owner; team integration reviewer.
+**Next:** RP-A4.
 **Dependency:** `PI_IMPLEMENTABLE_NOW` for transport observations; exact physical uniqueness `ESP_CONTRACT_DEPENDENCY`.
 
 ---
@@ -1063,7 +1063,7 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A2.
 
-**In scope:** NPZ archives, payload references, CRC/SHA, monotonic time.  
+**In scope:** NPZ archives, payload references, CRC/SHA, monotonic time.
 **Out of scope:** °C conversion, T-B5 inference, putting pixels in SQLite.
 
 **Current code affected:** `gateway/thermal_udp.py` metrics→events; `storage/sensor_logger.py` NPZ path.
@@ -1072,9 +1072,9 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Acceptance:** Replay reads identical pixels; `/health` loss counters have matching Capture events.
 
-**Owner:** Pi runtime owner / Thermal owner.  
-**Reviewer:** Thermal owner.  
-**Next:** RP-A5.  
+**Owner:** Pi runtime owner / Thermal owner.
+**Reviewer:** Thermal owner.
+**Next:** RP-A5.
 **Dependency:** `PI_IMPLEMENTABLE_NOW`.
 
 ---
@@ -1087,16 +1087,16 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A3 and RP-A4 producing synthetic and (when hardware exists) real sessions.
 
-**In scope:** Reader, ordering, checksum, PIR forward-fill, CO₂ identity-unavailable honesty.  
+**In scope:** Reader, ordering, checksum, PIR forward-fill, CO₂ identity-unavailable honesty.
 **Out of scope:** Training admission; mmWave phase synthesis.
 
 **Tests:** fixture replay; corrupt archive quarantine; unclean session visible.
 
 **Acceptance:** Replay can answer source/transport/stale questions for CO₂, PIR, Thermal pixels.
 
-**Owner:** Pi runtime owner.  
-**Reviewer:** Team integration reviewer.  
-**Next:** RP-B0.  
+**Owner:** Pi runtime owner.
+**Reviewer:** Team integration reviewer.
+**Next:** RP-B0.
 **Dependency:** `PI_IMPLEMENTABLE_NOW`.
 
 ---
@@ -1109,16 +1109,16 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A5; team decision on T-B5 binary distribution; B-complete files available to integration.
 
-**In scope:** Candidate pointer, SHA-256 preflight, missing-artifact behavior, preprocessing-module identity, INT8 tensor contracts.  
+**In scope:** Candidate pointer, SHA-256 preflight, missing-artifact behavior, preprocessing-module identity, INT8 tensor contracts.
 **Out of scope:** Live default switch before tests; retraining; ESP.
 
 **Current code affected:** `ai/runtime.py`, `hil/preflight.py`, `deployment/verify_bundle.py`, `sources/ondevice_ai/` snapshot sync (copy, not edit of frozen contracts).
 
 **Acceptance:** Preflight reports v0.1.0 vs B-complete identities separately; missing T-B5 is `MODEL_UNAVAILABLE`, not a crash into a random file.
 
-**Owner:** AI owner + Pi runtime owner.  
-**Reviewer:** Team integration reviewer; AI owner.  
-**Next:** RP-B1 (CO₂ can activate if C-B6 is present even if Thermal binary is still missing).  
+**Owner:** AI owner + Pi runtime owner.
+**Reviewer:** Team integration reviewer; AI owner.
+**Next:** RP-B1 (CO₂ can activate if C-B6 is present even if Thermal binary is still missing).
 **Dependency:** `AI_BASELINE_DEPENDENCY`, `MODEL_ARTIFACT_DEPENDENCY`, `OWNER_DECISION_REQUIRED`.
 
 ---
@@ -1131,7 +1131,7 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A3, RP-B0 C-B6 artifact present; Capture running.
 
-**In scope:** 150 s buffer, 90 s gap reset, scaler, `[1,2]` INT8, threshold 0.43, provenance.  
+**In scope:** 150 s buffer, 90 s gap reset, scaler, `[1,2]` INT8, threshold 0.43, provenance.
 **Out of scope:** Changing 1000/2500 ppm rules; humidity as input; fabricating measurement IDs.
 
 **Current code affected:** `ai/pipeline.py` `_co2`; `ai/runtime.py`; do not reuse `CO2Interpreter.predict(slope, humidity, ppm)` unchanged.
@@ -1140,9 +1140,9 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Acceptance:** `CO2_RUNTIME_READY` criteria in §31; occupancy never silently drives alarm.
 
-**Owner:** CO₂ owner + Pi runtime owner.  
-**Reviewer:** AI owner; risk owner.  
-**Next:** RP-B2.  
+**Owner:** CO₂ owner + Pi runtime owner.
+**Reviewer:** AI owner; risk owner.
+**Next:** RP-B2.
 **Dependency:** `PI_IMPLEMENTABLE_NOW` given artifact; exact device-domain `HARDWARE_VALIDATION_DEPENDENCY` later.
 
 ---
@@ -1155,16 +1155,16 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A4, RP-B0 T-B5 binary on Pi with SHA `fa9730c2…`; AI-frozen preprocessing function; Thermal-44 unit/orientation either verified or explicitly deferred with `MODEL_UNAVAILABLE` rather than a guessed °C formula.
 
-**In scope:** Canonical frame → frozen prep → INT8 `[1,62,80,1]`; class map preserved; posture-proxy labeling.  
+**In scope:** Canonical frame → frozen prep → INT8 `[1,62,80,1]`; class map preserved; posture-proxy labeling.
 **Out of scope:** Rewriting `HUMAN_FALL` to `FALL_EVENT`; using `thermal_max_c`; unlimited RAM frames.
 
 **Tests:** fixture INT8 invoke; missing binary; wrong SHA; preprocessing equivalence vs offline fixtures if available.
 
 **Acceptance:** `THERMAL_RUNTIME_READY` if and only if unit conversion is approved **or** the runtime honestly stays `MODEL_UNAVAILABLE` while Capture continues.
 
-**Owner:** Thermal owner + Pi runtime owner.  
-**Reviewer:** AI owner.  
-**Next:** RP-B3 blocked; RP-B4 can proceed.  
+**Owner:** Thermal owner + Pi runtime owner.
+**Reviewer:** AI owner.
+**Next:** RP-B3 blocked; RP-B4 can proceed.
 **Dependency:** `MODEL_ARTIFACT_DEPENDENCY`, `HARDWARE_VALIDATION_DEPENDENCY` for Thermal-44 units, `OWNER_DECISION_REQUIRED` for preprocessing graph.
 
 ---
@@ -1177,13 +1177,13 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** Written MR60 contract: field semantics, cadence, gap, presence/quality, compatibility with 10 Hz/300/`BPF_ZSCORE`; RP-A2 Capture generic path.
 
-**In scope:** Phase samples, timing, rolling window, frozen BPF+Z-score, SHA `6dff6aaa…`.  
+**In scope:** Phase samples, timing, rolling window, frozen BPF+Z-score, SHA `6dff6aaa…`.
 **Out of scope:** Enabling v0.1.0; calling APNEA clinical; emergency from unverified APNEA.
 
 **Acceptance:** `MMWAVE_RUNTIME_READY` only with device-contract evidence, not with scalar rpm.
 
-**Owner:** mmWave owner + Pi runtime owner.  
-**Reviewer:** AI owner; team integration reviewer.  
+**Owner:** mmWave owner + Pi runtime owner.
+**Reviewer:** AI owner; team integration reviewer.
 **Dependency:** `MMWAVE_DEVICE_CONTRACT_DEPENDENCY` — **blocked now**.
 
 ---
@@ -1194,13 +1194,13 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A5; at least CO₂ or Thermal inference path.
 
-**In scope:** `inference/` JSONL; SQLite linkage fields; replay comparison of stored vs recomputed outputs.  
+**In scope:** `inference/` JSONL; SQLite linkage fields; replay comparison of stored vs recomputed outputs.
 **Out of scope:** Dashboard redesign.
 
 **Acceptance:** `AI_PROVENANCE_READY` and `REPLAY_READY` for activated sensors.
 
-**Owner:** Pi runtime owner.  
-**Reviewer:** Team integration reviewer.  
+**Owner:** Pi runtime owner.
+**Reviewer:** Team integration reviewer.
 **Dependency:** `PI_IMPLEMENTABLE_NOW`.
 
 ---
@@ -1213,13 +1213,13 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-B1 and/or RP-B2 producing context; V4 weights/thresholds unchanged unless a separate policy PR exists (not this roadmap).
 
-**In scope:** Explicit metadata, reasons, fail-closed when AI unavailable, review of Thermal emergency override semantics.  
+**In scope:** Explicit metadata, reasons, fail-closed when AI unavailable, review of Thermal emergency override semantics.
 **Out of scope:** Silent threshold edits; dashboard UX redesign.
 
 **Tests:** missing sensor, stale, AI unavailable, invalid input, emergency override still requires documented conditions.
 
-**Owner:** Risk owner.  
-**Reviewer:** Team integration reviewer; Thermal/CO₂ owners for semantics.  
+**Owner:** Risk owner.
+**Reviewer:** Team integration reviewer; Thermal/CO₂ owners for semantics.
 **Dependency:** `OWNER_DECISION_REQUIRED` for whether occupancy context affects fusion; `PI_IMPLEMENTABLE_NOW` for plumbing.
 
 ---
@@ -1230,11 +1230,11 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** RP-A2, RP-C0 plumbing.
 
-**In scope:** Tests extending `tests/test_ai_pipeline.py`, logger/Capture failures, risk unavailable paths.  
+**In scope:** Tests extending `tests/test_ai_pipeline.py`, logger/Capture failures, risk unavailable paths.
 **Out of scope:** Hardware soak.
 
-**Owner:** Pi runtime owner.  
-**Reviewer:** Team integration reviewer.  
+**Owner:** Pi runtime owner.
+**Reviewer:** Team integration reviewer.
 **Dependency:** `PI_IMPLEMENTABLE_NOW`.
 
 ---
@@ -1245,11 +1245,11 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** Capture + at least one activated model or an explicit model-unavailable long-run.
 
-**In scope:** Instrumentation and a written evidence report.  
+**In scope:** Instrumentation and a written evidence report.
 **Out of scope:** Claiming pass from this document.
 
-**Owner:** Pi runtime owner.  
-**Reviewer:** Team integration reviewer.  
+**Owner:** Pi runtime owner.
+**Reviewer:** Team integration reviewer.
 **Dependency:** `HARDWARE_VALIDATION_DEPENDENCY`.
 
 ---
@@ -1260,11 +1260,11 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Preconditions:** `PI_CAPTURE_READY`; relevant `*_RUNTIME_READY`; replay of the same sessions.
 
-**In scope:** Orchestration, evidence packing, fail-closed reporting.  
+**In scope:** Orchestration, evidence packing, fail-closed reporting.
 **Out of scope:** Declaring production safety; dataset admission by default.
 
-**Owner:** Sensor owners + Pi runtime owner.  
-**Reviewer:** AI owner; team integration reviewer.  
+**Owner:** Sensor owners + Pi runtime owner.
+**Reviewer:** AI owner; team integration reviewer.
 **Dependency:** `HARDWARE_VALIDATION_DEPENDENCY`, `MMWAVE_DEVICE_CONTRACT_DEPENDENCY` for MR60.
 
 ---
@@ -1277,7 +1277,7 @@ RP-A0 is satisfied as a documentation gate by this document. Implementation star
 
 **Acceptance:** `FINAL_RUNTIME_REPRODUCIBLE` — not merely “models run without crashing.”
 
-**Owner:** Team integration reviewer.  
+**Owner:** Team integration reviewer.
 **Dependency:** `OWNER_DECISION_REQUIRED` for what “final” means in the competition setting; remaining hardware gates stay explicit.
 
 ---
@@ -1450,7 +1450,7 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 
 Use only known cadences. Unknown rates stay symbolic.
 
-ESP scalar telemetry = **1.0 Hz** `CODE_VERIFIED`.  
+ESP scalar telemetry = **1.0 Hz** `CODE_VERIFIED`.
 Thermal requested ≈ **6.25 FPS** `CODE_VERIFIED` as firmware request, not as measured Pi FPS.
 
 | Stream | Formula | 1-hour order of magnitude |
