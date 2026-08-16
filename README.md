@@ -5,6 +5,7 @@
 전체 단계의 작업 내용과 결과는 [`INTEGRATION_PHASE_SUMMARY.md`](INTEGRATION_PHASE_SUMMARY.md)에서 한 번에 확인할 수 있다.
 압축 전달, 최초 설치, 평상시 실행·종료 순서는 [`PACKAGE_AND_OPERATION_GUIDE.md`](PACKAGE_AND_OPERATION_GUIDE.md)를 따른다.
 최신 AI 변경 감사와 반영 결정은 [`docs/ON_DEVICE_UPDATE_AUDIT.md`](docs/ON_DEVICE_UPDATE_AUDIT.md)에 정리했다.
+현재 ESP↔Pi HIL observability corrective와 인계 사항은 [`docs/UPDATE_0816.md`](docs/UPDATE_0816.md)에 정리했다.
 긴급 대응 HMI, DANGER 래치, 119 모의 신고, 서버 측 SMS, GPIO/mock buzzer와 오프라인 시연 순서는 [`docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md`](docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md)를 따른다.
 
 현재 완료 단계:
@@ -53,6 +54,8 @@ Raspberry Pi의 실제 TFLite 실행과 ESP32 하드웨어 검증은 정적·단
 ## 현재 센서 계약 경계
 
 - scalar telemetry는 backward-compatible `safenest.telemetry.v1`이며 `boot_id`, CO₂ 측정 이벤트, PIR 전환 이벤트와 health counter를 선택 필드로 보존한다. 새 canonical firmware는 이 확장 필드를 항상 송신하고 legacy sender의 필드 부재도 Pi가 의도적으로 허용한다.
+- ESP health의 canonical Pi 경로는 `state.device_health`와 `/api/status`·`/api/sensors`의 top-level `device_health`다. 기존 소비자를 위해 `state.sensors.mmwave.values.health`에는 같은 snapshot의 compatibility alias를 제공하며, 두 mutable state를 따로 유지하지 않는다. CO₂ 취득 실패와 Thermal status query 실패도 이 health counter로 구분한다.
 - CO₂ 실제 측정은 SCD4x periodic mode의 약 5초 cadence이고 telemetry publication은 약 1초 cadence다. 동일 `(device_id, boot_id, co2_measurement_event_id)` 재전송은 새 물리 측정이 아니다.
+- 기존 logger의 이벤트 dedup은 프로세스 수명 동안만 유지한다(`LEGACY_LOGGER_PROCESS_LIFETIME_DEDUP_ONLY`). 프로세스 재시작을 넘는 exact-once 보장은 이번 corrective 범위가 아니다.
 - 현재 CO₂ offline candidate의 AI 입력 요구는 `CO2 + CO2_slope`다. 온도·습도는 요구 입력이 아니다.
 - mmWave runtime은 vendor-derived `resp_rate_bpm`/`heart_rate_bpm` scalar만 유지한다. 연속 phase/waveform 및 300-sample B-model 입력 작업 상태는 `PENDING_MMWAVE_DEVICE_CONTRACT_VALIDATION`이다.

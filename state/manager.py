@@ -80,6 +80,7 @@ class SensorStateManager:
             for sensor_id in SENSOR_IDS
         }
         self._latest_thermal_frame: ThermalFrame | None = None
+        self._device_health: dict[str, int] | None = None
         self.co2_update_interval_seconds = float(co2_update_interval_seconds)
         self._last_co2_value_monotonic: float | None = None
         self._last_co2_event_key: tuple[str, str, int] | None = None
@@ -164,6 +165,7 @@ class SensorStateManager:
                 "timestamp": wall,
                 "revision": self._revision,
                 "system": system,
+                "device_health": copy.deepcopy(self._device_health),
                 "sensors": sensors,
             }
 
@@ -180,6 +182,7 @@ class SensorStateManager:
         wall: float,
         monotonic: float,
     ) -> None:
+        self._device_health = copy.deepcopy(packet.health)
         mmwave_valid = packet.valid["respiration"] or packet.valid["heart"]
         self._update(
             "mmwave",
@@ -197,7 +200,6 @@ class SensorStateManager:
                 "heart_rate_bpm": packet.heart_rate_bpm,
                 "respiration_valid": packet.valid["respiration"],
                 "heart_valid": packet.valid["heart"],
-                "health": copy.deepcopy(packet.health),
             },
             device_id=packet.device_id,
             boot_id=packet.boot_id,
@@ -350,8 +352,7 @@ class SensorStateManager:
         if valid:
             record.last_valid_at = wall
 
-    @staticmethod
-    def _snapshot_record(record: _SensorRecord, monotonic_now: float) -> dict[str, object]:
+    def _snapshot_record(self, record: _SensorRecord, monotonic_now: float) -> dict[str, object]:
         if record.last_received_monotonic is None:
             age = None
             stale = False
@@ -367,6 +368,10 @@ class SensorStateManager:
                 status = "INVALID"
             else:
                 status = "LIVE"
+        values = copy.deepcopy(record.values)
+        if record.sensor_id == "mmwave":
+            # Compatibility alias; device_health is the single canonical source.
+            values["health"] = copy.deepcopy(self._device_health)
         return {
             "sensor_id": record.sensor_id,
             "status": status,
@@ -393,7 +398,7 @@ class SensorStateManager:
             "source_uptime_ms": record.source_uptime_ms,
             "last_received_monotonic": record.last_received_monotonic,
             "error": record.error,
-            "values": copy.deepcopy(record.values),
+            "values": values,
         }
 
 

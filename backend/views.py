@@ -37,6 +37,7 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
             "risk": None,
             "emergency": _empty_emergency(),
             "offline": True,
+            "device_health": None,
             "mmwave": None,
             "thermal": None,
             "co2": None,
@@ -56,6 +57,7 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
         "publication_revision": publication.get("publication_revision"),
         "system": state.get("system"),
         "system_health": risk.get("system_health"),
+        "device_health": copy.deepcopy(state.get("device_health")),
         "risk": copy.deepcopy(dict(risk)),
         "emergency": copy.deepcopy(dict(emergency)) if emergency else _empty_emergency(),
         "offline": state.get("system") != "ONLINE" or risk.get("system_health") == "FAILED",
@@ -77,6 +79,7 @@ def sensors_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
         "timestamp": status["timestamp"],
         "revision": status["revision"],
         "system": status["system"],
+        "device_health": copy.deepcopy(status["device_health"]),
         "sensors": {
             sensor_id: status[sensor_id]
             for sensor_id in ("mmwave", "thermal", "co2", "pir")

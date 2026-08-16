@@ -47,6 +47,17 @@ TCP는 패킷 경계를 보존하지 않으므로 Raspberry Pi는 `recv_exact()`
     "respiration": true,
     "heart": true,
     "co2": true
+  },
+  "health": {
+    "telemetry_queue_overwrites": 0,
+    "thermal_queue_overwrites": 0,
+    "tcp_connection_failures": 0,
+    "tcp_send_failures": 0,
+    "thermal_udp_frames_sent": 42,
+    "thermal_udp_send_failures": 0,
+    "co2_data_ready_query_failures": 0,
+    "co2_read_failures": 0,
+    "thermal_status_query_failures": 0
   }
 }
 ```
@@ -78,7 +89,17 @@ logical payload 9,936바이트는 1,168바이트 이하 payload를 가진 9개 U
 - `pir_event_id`: PIR 상태 전환 때만 증가
 - ESP `uptime_ms`와 event time은 source monotonic domain, Pi 수신 wall/monotonic time은 receiver domain이며 clock synchronization을 가정하지 않음
 
-`health`는 scalar/thermal queue overwrite, TCP connect/send failure, Thermal UDP frame send success/failure 누적값을 담는다. Queue overwrite는 소비 task가 dequeue한 sequence gap으로 계산하므로 실제로 건너뛴 one-slot queue item만 센다. Thermal camera API가 독립 acquisition error나 camera-native CRC를 제공하지 않는 현재 경로에서는 그런 값을 꾸며내지 않는다. SafeNest logical-frame CRC32와 Pi reassembly failure는 별도 metric이다.
+`health`는 scalar/thermal queue overwrite, TCP connect/send failure, Thermal UDP frame send success/failure와
+센서 취득 경로에서 실제로 관찰된 실패의 누적값을 담는다. `co2_data_ready_query_failures`는 SCD4x
+`getDataReadyStatus` API 오류만 세며 정상적인 `not-ready` 응답은 실패가 아니다. `co2_read_failures`는
+`readMeasurement` 오류만 세고, 성공했지만 유효한 CO₂ 값이 없는 경우에는 새 measurement event를 만들지
+않는다. `thermal_status_query_failures`는 READY 핀 fallback에서 실제 I2C status query가 실패한 경우만
+센다. Queue overwrite는 소비 task가 dequeue한 sequence gap으로 계산하므로 실제로 건너뛴 one-slot queue
+item만 센다.
+
+현재 MI48xx/SPI 경로는 독립적인 acquisition result나 camera-native CRC를 제공하지 않는다
+(`THERMAL_ACQUISITION_ERROR_DETAIL_UNAVAILABLE`). 따라서 그런 값을 꾸며내지 않는다. SafeNest logical-frame
+CRC32와 Pi reassembly failure는 별도 metric이다.
 
 ## HTTP API
 

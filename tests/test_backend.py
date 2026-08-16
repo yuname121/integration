@@ -22,11 +22,12 @@ SENSOR_IDS = ("mmwave", "thermal", "co2", "pir")
 
 
 def documents(timestamp=100.0, risk_level="NORMAL", health="HEALTHY", emergency=False,
-              sensor_status="LIVE"):
+              sensor_status="LIVE", device_health=None):
     state = {
         "timestamp": timestamp,
         "revision": int(timestamp),
         "system": "ONLINE" if sensor_status == "LIVE" else "DEGRADED",
+        "device_health": device_health,
         "sensors": {
             name: {
                 "sensor_id": name,
@@ -80,6 +81,15 @@ class RuntimeStoreTests(unittest.TestCase):
         sensors = sensors_document(publication)
         self.assertEqual(set(sensors["sensors"]), set(SENSOR_IDS))
         json.dumps(status, allow_nan=False)
+
+    def test_status_and_sensors_expose_device_health(self):
+        publication = RuntimeStore().publish(
+            *documents(device_health={"co2_read_failures": 2})
+        )
+        status = status_document(publication)
+        sensors = sensors_document(publication)
+        self.assertEqual(status["device_health"], {"co2_read_failures": 2})
+        self.assertEqual(sensors["device_health"], {"co2_read_failures": 2})
 
     def test_transition_events_are_deterministic_and_newest_first(self):
         store = RuntimeStore()

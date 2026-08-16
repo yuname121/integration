@@ -31,6 +31,7 @@ def telemetry(
     co2_event_valid: bool | None = None,
     pir_event_id: int | None = None,
     pir_transition_ms: int | None = None,
+    health: dict[str, int] | None = None,
 ) -> TelemetryPayload:
     valid = {
         "respiration": respiration is not None,
@@ -52,6 +53,7 @@ def telemetry(
         co2_measurement_event_valid=co2_event_valid,
         pir_event_id=pir_event_id,
         pir_last_transition_monotonic_ms=pir_transition_ms,
+        health=health,
     )
 
 
@@ -90,6 +92,20 @@ class SensorStateManagerTests(unittest.TestCase):
         self.assertEqual(state["sensors"]["co2"]["values"]["ppm"], 800.0)
         self.assertTrue(state["sensors"]["pir"]["values"]["motion"])
         self.assertEqual(state["sensors"]["thermal"]["status"], "NO_DATA")
+
+    def test_device_health_has_canonical_root_and_legacy_mmwave_alias(self) -> None:
+        health = {
+            "co2_read_failures": 3,
+            "thermal_status_query_failures": 4,
+        }
+        manager = SensorStateManager()
+        manager.ingest(telemetry(health=health), PEER, received_at=100.0, monotonic_at=10.0)
+
+        state = manager.snapshot(now=100.0, monotonic_now=10.0)
+        self.assertEqual(state["device_health"], health)
+        self.assertEqual(state["sensors"]["mmwave"]["values"]["health"], health)
+        self.assertNotIn("health", state["sensors"]["co2"]["values"])
+        self.assertNotIn("health", state["sensors"]["pir"]["values"])
 
     def test_missing_presence_is_not_invented(self) -> None:
         manager = SensorStateManager()
