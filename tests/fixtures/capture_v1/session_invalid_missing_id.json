@@ -1,0 +1,10 @@
+{
+  "capture_schema_version": "safenest.capture.v1",
+  "session_start_wall_time": 1776291012.0,
+  "session_start_monotonic_time": 12.5,
+  "software_provenance": "safenest-integration",
+  "integration_git_sha": "26945beee0a10012fa41e28f1bed89d082b405b6",
+  "device_ids": ["esp32-lab-01"],
+  "session_status": "open",
+  "runtime_capture_root": "captures"
+}

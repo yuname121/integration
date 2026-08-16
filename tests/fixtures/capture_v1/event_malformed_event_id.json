@@ -1,0 +1,26 @@
+{
+  "capture_schema_version": "safenest.capture.v1",
+  "session_id": "sncap-20260816T093012Z-a1b2c3d4e5f6",
+  "capture_event_id": "not-a-uuid",
+  "event_kind": "observation",
+  "sensor_type": "co2",
+  "device_id": "esp32-lab-01",
+  "boot_id": null,
+  "boot_id_unavailable_reason": "DEVICE_BOOT_ID_NOT_IN_TELEMETRY_V1",
+  "packet_sequence": 12,
+  "device_uptime_ms": 45000,
+  "source_measurement_event_id": null,
+  "source_measurement_monotonic_ms": null,
+  "source_timing_unavailable_reason": "SOURCE_TIMING_UNAVAILABLE",
+  "pi_receive_wall_time": 1776291013.25,
+  "pi_receive_monotonic_time": 13.75,
+  "parse_valid": true,
+  "sensor_valid": true,
+  "stale": false,
+  "error_code": null,
+  "error_reason": null,
+  "payload": {
+    "co2_ppm": 812.0,
+    "measurement_identity_unavailable": true
+  }
+}
