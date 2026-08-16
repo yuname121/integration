@@ -23,14 +23,11 @@
 #include <SPI.h>
 #include <SensirionI2cScd4x.h>
 #include "Seeed_Arduino_mmWave.h"
+#include "secrets.h"
 
 // -----------------------------------------------------------------------------
-// User configuration: change these three values before uploading.
+// Device identity. Wi-Fi and Raspberry Pi settings live in ignored secrets.h.
 // ----------------------------------------------------------------------------
-constexpr char WIFI_SSID[] = "EELab04 2G";
-constexpr char WIFI_PASSWORD[] = "openlab206";
-constexpr char RPI_HOST[] = "192.168.1.44";  // Raspberry Pi IPv4 address
-constexpr uint16_t RPI_PORT = 9000;
 constexpr char DEVICE_ID[] = "esp32-01";
 
 // -----------------------------------------------------------------------------
@@ -51,7 +48,10 @@ constexpr int PIN_THERMAL_RESET = 25;
 
 constexpr uint32_t USB_BAUD = 115200;
 constexpr uint32_t MMWAVE_BAUD = 115200;
-constexpr uint32_t THERMAL_SPI_HZ = 8000000;
+// Breadboard/jumper wiring is much more reliable at 1 MHz. One 80x62 frame
+// takes about 81 ms at this rate, which still fits inside the 160 ms period
+// requested by THERMAL_FRAME_RATE_DIVIDER=8.
+constexpr uint32_t THERMAL_SPI_HZ = 1000000;
 
 // Runtime schedules. SCD4x periodic mode creates a new sample about every 5 s.
 constexpr uint32_t PIR_PERIOD_MS = 20;
@@ -60,6 +60,8 @@ constexpr uint32_t TELEMETRY_PERIOD_MS = 1000;
 constexpr uint32_t HEALTH_LOG_PERIOD_MS = 10000;
 constexpr uint32_t MMWAVE_STALE_MS = 5000;
 constexpr uint32_t CO2_STALE_MS = 15000;
+constexpr uint32_t THERMAL_STALE_MS = 3000;
+constexpr uint32_t THERMAL_RECOVERY_PERIOD_MS = 5000;
 
 // -----------------------------------------------------------------------------
 // Thermal-camera constants (MI48xx + MI0801/MI0802, 80 x 62).
@@ -88,9 +90,10 @@ constexpr size_t THERMAL_HEADER_WORDS = THERMAL_WIDTH;
 constexpr size_t THERMAL_CAPTURE_WORDS =
     THERMAL_HEADER_WORDS + THERMAL_PIXEL_COUNT;
 
-// Set divisor 4: for a 25 FPS sensor this requests about 6.25 FPS.
-// Lowering this value raises bandwidth and ESP32 CPU/SPI load.
-constexpr uint8_t THERMAL_FRAME_RATE_DIVIDER = 4;
+// At the jumper-wire-safe 1 MHz SPI clock, request about 3.125 FPS from a
+// 25 FPS sensor. This leaves enough margin to finish the full 10 KiB frame
+// before the camera produces the next one and prevents READOUT_TOO_SLOW stalls.
+constexpr uint8_t THERMAL_FRAME_RATE_DIVIDER = 8;
 
 // -----------------------------------------------------------------------------
 // SafeNest TCP protocol v1.
@@ -116,6 +119,9 @@ struct TelemetrySnapshot {
   bool respirationValid;
   bool heartValid;
   bool co2Valid;
+  uint32_t co2MeasurementEventId;
+  uint32_t co2MeasurementMonotonicMs;
+  bool co2MeasurementEventValid;
 };
 
 struct ThermalTxFrame {
@@ -151,8 +157,17 @@ bool pirMotion = false;
 uint32_t lastRespirationMs = 0;
 uint32_t lastHeartMs = 0;
 uint32_t lastCo2Ms = 0;
+// These identify the accepted SCD40 read event, not the surrounding telemetry
+// packet. They remain unchanged when a cached CO2 value is retransmitted.
+uint32_t co2MeasurementEventId = 0;
+uint32_t co2MeasurementMonotonicMs = 0;
+bool co2MeasurementEventValid = false;
 uint32_t lastThermalMs = 0;
 uint32_t lastThermalStatusPollMs = 0;
+uint32_t thermalStartedMs = 0;
+uint32_t lastThermalRecoveryMs = 0;
+uint32_t thermalCrcErrors = 0;
+uint32_t thermalRangeErrors = 0;
 uint32_t lastPirPollMs = 0;
 uint32_t lastCo2PollMs = 0;
 uint32_t lastTelemetryMs = 0;
@@ -205,6 +220,9 @@ bool thermalReadRegister(uint8_t reg, uint8_t &value) {
 }
 
 void initializeThermalCamera() {
+  thermalStarted = false;
+  thermalAddress = 0;
+
   if (i2cPresent(THERMAL_ADDRESS_A)) {
     thermalAddress = THERMAL_ADDRESS_A;
   } else if (i2cPresent(THERMAL_ADDRESS_B)) {
@@ -264,9 +282,30 @@ void initializeThermalCamera() {
   }
 
   thermalStarted = true;
+  thermalStartedMs = millis();
   Serial.printf("[thermal] ready: addr=0x%02X type=%u fw=%u.%u.%u\n",
                 thermalAddress, sensorType, (fw1 >> 4) & 0x0F,
                 fw1 & 0x0F, fw2);
+}
+
+// MI48 frame CRC: CRC-16/CCITT-FALSE, polynomial 0x1021, initial 0xFFFF.
+// The vendor Python driver calculates it over the native uint16 pixel buffer,
+// therefore each received word is fed low byte first and then high byte.
+uint16_t thermalFrameCrc(const uint16_t *pixels, size_t count) {
+  uint16_t crc = 0xFFFF;
+  for (size_t i = 0; i < count; ++i) {
+    const uint8_t bytes[2] = {
+        static_cast<uint8_t>(pixels[i] & 0xFF),
+        static_cast<uint8_t>(pixels[i] >> 8)};
+    for (uint8_t value : bytes) {
+      crc ^= static_cast<uint16_t>(value) << 8;
+      for (uint8_t bit = 0; bit < 8; ++bit) {
+        crc = (crc & 0x8000) ? static_cast<uint16_t>((crc << 1) ^ 0x1021)
+                             : static_cast<uint16_t>(crc << 1);
+      }
+    }
+  }
+  return crc;
 }
 
 bool thermalDataReady(uint32_t now) {
@@ -301,7 +340,6 @@ void captureThermalIfReady(uint32_t now) {
   thermalSpi.endTransaction();
 
   ThermalTxFrame &frame = thermalProducerFrame;
-  frame.frameSequence = ++thermalSequence;
   frame.uptimeMs = millis();
   frame.minimumRaw = UINT16_MAX;
   frame.maximumRaw = 0;
@@ -313,9 +351,54 @@ void captureThermalIfReady(uint32_t now) {
     if (raw > frame.maximumRaw) frame.maximumRaw = raw;
   }
 
+  const uint16_t expectedCrc = thermalCapture[7];
+  const uint16_t actualCrc = thermalFrameCrc(
+      thermalCapture + THERMAL_HEADER_WORDS, THERMAL_PIXEL_COUNT);
+  if (actualCrc != expectedCrc) {
+    ++thermalCrcErrors;
+    if (thermalCrcErrors <= 3 || thermalCrcErrors % 25 == 0) {
+      Serial.printf("[thermal] dropped CRC frame: header=0x%04X calc=0x%04X errors=%lu\n",
+                    expectedCrc, actualCrc,
+                    static_cast<unsigned long>(thermalCrcErrors));
+    }
+    return;
+  }
+
+  if (thermalCapture[5] != frame.maximumRaw ||
+      thermalCapture[6] != frame.minimumRaw) {
+    ++thermalRangeErrors;
+    if (thermalRangeErrors <= 3 || thermalRangeErrors % 25 == 0) {
+      Serial.printf("[thermal] dropped header-range frame: header=%u..%u calc=%u..%u errors=%lu\n",
+                    thermalCapture[6], thermalCapture[5], frame.minimumRaw,
+                    frame.maximumRaw,
+                    static_cast<unsigned long>(thermalRangeErrors));
+    }
+    return;
+  }
+
+  frame.frameSequence = ++thermalSequence;
   lastThermalMs = frame.uptimeMs;
   // Queue length is one, so this replaces an unsent old frame under congestion.
   xQueueOverwrite(thermalQueue, &frame);
+}
+
+void recoverThermalIfStale(uint32_t now) {
+  const uint32_t reference = lastThermalMs != 0 ? lastThermalMs : thermalStartedMs;
+  if (reference != 0 && static_cast<uint32_t>(now - reference) < THERMAL_STALE_MS) {
+    return;
+  }
+  if (static_cast<uint32_t>(now - lastThermalRecoveryMs) <
+      THERMAL_RECOVERY_PERIOD_MS) {
+    return;
+  }
+
+  lastThermalRecoveryMs = now;
+  Serial.println("[thermal] no valid frame for 3 s; restarting camera");
+  if (thermalStarted) {
+    thermalWriteRegister(REG_FRAME_MODE, 0x00);
+    setupWait(30);
+  }
+  initializeThermalCamera();
 }
 
 void initializeCo2() {
@@ -349,8 +432,12 @@ void pollCo2(uint32_t now) {
   float humidity = NAN;
   if (scd4x.readMeasurement(newCo2, temperature, humidity) == 0 &&
       newCo2 != 0) {
+    const uint32_t measurementMonotonicMs = millis();
     co2Ppm = newCo2;
-    lastCo2Ms = millis();
+    lastCo2Ms = measurementMonotonicMs;
+    ++co2MeasurementEventId;
+    co2MeasurementMonotonicMs = measurementMonotonicMs;
+    co2MeasurementEventValid = true;
   }
 }
 
@@ -383,6 +470,9 @@ void publishTelemetrySnapshot(uint32_t now) {
   snapshot.respirationValid = isFresh(lastRespirationMs, now, MMWAVE_STALE_MS);
   snapshot.heartValid = isFresh(lastHeartMs, now, MMWAVE_STALE_MS);
   snapshot.co2Valid = isFresh(lastCo2Ms, now, CO2_STALE_MS);
+  snapshot.co2MeasurementEventId = co2MeasurementEventId;
+  snapshot.co2MeasurementMonotonicMs = co2MeasurementMonotonicMs;
+  snapshot.co2MeasurementEventValid = co2MeasurementEventValid;
   xQueueOverwrite(telemetryQueue, &snapshot);
 }
 
@@ -446,15 +536,21 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
     strlcpy(co2, "null", sizeof(co2));
   }
 
-  char json[512];
+  char json[768];
   const int length = snprintf(
       json, sizeof(json),
       "{\"schema\":\"safenest.telemetry.v1\",\"device_id\":\"%s\","
       "\"seq\":%lu,\"uptime_ms\":%lu,\"resp_rate_bpm\":%s,"
-      "\"heart_rate_bpm\":%s,\"co2_ppm\":%s,\"pir_motion\":%s,"
+      "\"heart_rate_bpm\":%s,\"co2_ppm\":%s,"
+      "\"co2_measurement_event_id\":%lu,"
+      "\"co2_measurement_monotonic_ms\":%lu,"
+      "\"co2_measurement_event_valid\":%s,\"pir_motion\":%s,"
       "\"valid\":{\"respiration\":%s,\"heart\":%s,\"co2\":%s}}",
       DEVICE_ID, static_cast<unsigned long>(snapshot.sequence),
       static_cast<unsigned long>(snapshot.uptimeMs), respiration, heart, co2,
+      static_cast<unsigned long>(snapshot.co2MeasurementEventId),
+      static_cast<unsigned long>(snapshot.co2MeasurementMonotonicMs),
+      snapshot.co2MeasurementEventValid ? "true" : "false",
       snapshot.pirMotion ? "true" : "false",
       snapshot.respirationValid ? "true" : "false",
       snapshot.heartValid ? "true" : "false",
@@ -547,10 +643,12 @@ void logHealth(uint32_t now) {
   if (!scheduleDue(now, lastHealthLogMs, HEALTH_LOG_PERIOD_MS)) return;
   Serial.printf(
       "[health] wifi=%s rpi=%s resp=%.1f heart=%.1f co2=%u pir=%d "
-      "thermal_frames=%lu free_heap=%u\n",
+      "thermal_frames=%lu crc_errors=%lu range_errors=%lu free_heap=%u\n",
       WiFi.status() == WL_CONNECTED ? "up" : "down", RPI_HOST,
       respirationRate, heartRate, co2Ppm, pirMotion,
-      static_cast<unsigned long>(thermalSequence), ESP.getFreeHeap());
+      static_cast<unsigned long>(thermalSequence),
+      static_cast<unsigned long>(thermalCrcErrors),
+      static_cast<unsigned long>(thermalRangeErrors), ESP.getFreeHeap());
 }
 
 void setup() {
@@ -600,6 +698,7 @@ void loop() {
   pollMmWave(now);
   pollCo2(now);
   captureThermalIfReady(now);
+  recoverThermalIfStale(now);
 
   if (scheduleDue(now, lastPirPollMs, PIR_PERIOD_MS)) {
     pirMotion = digitalRead(PIN_PIR) == HIGH;
