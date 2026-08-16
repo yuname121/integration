@@ -35,6 +35,7 @@ ESP32 TCP :9000
 - `timestamp`
 - `revision`, `publication_revision`
 - `system`, `system_health`
+- `device_health` — ESP32 장치·transport·센서 취득 관측성 누적값
 - `risk`
 - `mmwave`, `thermal`, `co2`, `pir`
 
@@ -42,7 +43,7 @@ ESP32 TCP :9000
 
 ### `GET /api/sensors`
 
-네 센서의 state/AI/risk overlay만 반환한다. stale 상태와 마지막 값은 구분되어 유지된다.
+top-level `device_health`와 네 센서의 state/AI/risk overlay를 반환한다. stale 상태와 마지막 값은 구분되어 유지된다.
 
 ### `GET /api/events?limit=100`
 

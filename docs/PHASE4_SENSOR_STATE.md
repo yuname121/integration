@@ -59,6 +59,16 @@ freshness 계산에는 monotonic clock을 사용하고 외부 schema에는 Unix 
 Thermal `pixel_bytes`는 상태 JSON에 넣지 않는다. `latest_thermal_frame()`을 통해 AI/heatmap consumer에만
 전달하여 API와 DB에 매 frame 9,920 bytes가 복제되는 것을 막는다.
 
+## Device health
+
+ESP32 scalar telemetry의 queue, transport, CO₂ 취득, Thermal status query 누적값은 센서별 값이 아니라
+장치 런타임 health다. 따라서 canonical 위치는 state snapshot의 top-level `device_health`이며, legacy
+소비자 호환을 위해 `sensors.mmwave.values.health`에는 같은 snapshot의 복사본을 제공한다. 이 alias는
+별도의 mutable state가 아니며, legacy sender가 health를 보내지 않으면 값은 `null` 또는 부재로 남을 수 있다.
+
+`/api/status`와 `/api/sensors`도 top-level `device_health`를 노출한다. Health counter는 AI/risk 입력이나
+센서 presence 판정이 아니다.
+
 ## Raspberry Pi 실행
 
 ```bash
@@ -77,4 +87,3 @@ stdout에는 1초마다 JSON snapshot이 출력되고 통신 오류는 stderr로
 
 AI provider는 `status == LIVE`인 값만 현재 입력으로 사용한다. `INVALID`, `STALE`, `DISCONNECTED`,
 `NO_DATA` 값은 모델에 넣지 않고 명시적인 unavailable `InferenceResult`로 변환해야 한다.
-
