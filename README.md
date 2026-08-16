@@ -36,6 +36,8 @@
 - `e2e/`: 실제 TCP framing부터 SQLite/API view까지 연결하는 결정적 테스트 하네스
 - `hil/`: 실제 장비 API 표본 수집, 10개 acceptance 판정, JSON 증거 보고서
 - `deployment/run_pi.sh`: Pi 의존성 설치·preflight·통합 backend 실행 진입점
+- `storage/capture_v1/`: Capture v1 schema, session/event identity, and validator (RP-A1; no runtime writer)
+- `docs/CAPTURE_V1_RP_A1.md`: Capture v1 RP-A1 contract
 - `docs/`: 단계별 판단 근거와 실행 방법
 - `tests/`: 프로토콜, 상태, AI 경계 자동 테스트
 
