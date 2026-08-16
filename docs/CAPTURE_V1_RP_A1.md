@@ -1,7 +1,7 @@
 # SafeNest Capture v1 — RP-A1 Contract
 
-**Status:** Implemented on `feature/rp-a1-capture-foundation`.  
-**Roadmap authorization:** `APPROVED_FOR_RP-A1_ONLY`.  
+**Status:** Implemented on `feature/rp-a1-capture-foundation`.
+**Roadmap authorization:** `APPROVED_FOR_RP-A1_ONLY`.
 **RP-A2:** Unauthorized until this contract is reviewed and merged into `junwoo/rpi-ai-runtime`.
 
 RP-A1 defines the storage language for future Raspberry Pi Capture. It does not write real sensor sessions.
