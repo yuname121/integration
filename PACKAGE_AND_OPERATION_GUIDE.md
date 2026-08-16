@@ -71,13 +71,14 @@ http://RPI_IP:8080/thermal
 http://RPI_IP:3000
 ```
 
-새 통합 시스템은 Raspberry Pi에서 Python process 하나가 TCP 9000, HTTP 8000, SQLite와 대시보드를 함께 담당한다.
+새 통합 시스템은 Raspberry Pi에서 Python process 하나가 TCP 9000, UDP 5005, HTTP 8000, SQLite와 대시보드를 함께 담당한다.
 
 ```text
-ESP32 → TCP 9000 → SafeNest Runtime
-                     ├─ FastAPI / WebSocket :8000
-                     ├─ SQLite data/safenest.db
-                     └─ Dashboard /dashboard
+ESP32 scalar → TCP 9000 ─┐
+ESP32 Thermal → UDP 5005 ├→ SafeNest Runtime
+                         ├─ FastAPI / WebSocket :8000
+                         ├─ SQLite data/safenest.db
+                         └─ Dashboard /dashboard
 ```
 
 ## 4. 받는 사람의 최초 설치 순서
@@ -128,7 +129,7 @@ bash deployment/run_pi.sh --install
 
 ## 5. ESP32 최초 준비
 
-동결 원본에 비밀번호 파일을 추가하지 말고 Arduino sketch 작업 복사본을 만든다.
+canonical flash source에 비밀번호 파일을 추가하지 말고 Arduino sketch 작업 복사본을 만든다. `sources/ondevice_ai/integrated_node/esp32_sensor_node.ino`는 동결 참고 사본이므로 플래시하지 않는다.
 
 [Windows 노트북 PowerShell에서 실행]
 
@@ -149,6 +150,8 @@ constexpr char RPI_HOST[] = "Raspberry_Pi_IP";
 constexpr uint16_t RPI_PORT = 9000;
 ```
 
+sketch에 선언된 `THERMAL_UDP_PORT = 5005`와 Pi UDP listener 설정이 같은지도 확인한다. 이 상수는 `secrets.h`에 다시 선언하지 않는다.
+
 Arduino IDE에서 다음을 확인한다.
 
 1. Board: `ESP32 Dev Module`
@@ -157,6 +160,10 @@ Arduino IDE에서 다음을 확인한다.
 4. 센서 배선과 전압 확인
 5. firmware upload
 6. Serial Monitor 115200 baud에서 Wi-Fi와 TCP 연결 확인
+
+canonical firmware는 boot 때 한 번 생성한 `boot_id`를 재연결 중 유지한다. telemetry `seq`는 약 1초 publication마다, `co2_measurement_event_id`는 성공한 새 SCD4x read마다, `pir_event_id`는 실제 digital state transition마다 증가한다. Thermal `frame_sequence`는 획득한 frame마다 증가하고 `chunk_index`는 한 frame의 0부터 8까지를 식별한다. 서로 다른 sequence를 대체 사용하지 않는다.
+
+Pi는 source의 `uptime_ms`와 sensor event monotonic time을 그대로 보존하고, 별도로 receive wall-clock 및 receive monotonic time을 기록한다. ESP와 Pi 사이 wall-clock 동기화는 가정하지 않는다.
 
 ## 6. 매번 프로그램 실행 순서
 

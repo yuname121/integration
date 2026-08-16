@@ -92,9 +92,9 @@
 
 ✅ shape, dtype, quantization, class map 모두 동일하다.
 
-- Input semantic: `co2_slope, humidity, co2_ppm`
+- 기존 운영 primary input semantic: `co2_slope, humidity, co2_ppm`. 이번 snapshot의 B-complete offline candidate 계약은 `CO2 + CO2_slope`이며 별도 device-domain 검증 전 자동 승격하지 않는다.
 - Output: `VACANT/OCCUPIED`
-- ⚠️ 현재 ESP32 TCP telemetry는 humidity를 보내지 않아 AI 입력은 계속 unavailable이며 CO₂ rule fallback을 사용한다.
+- ⚠️ 현재 runtime adapter는 기존 3-feature primary를 계속 선택하므로 humidity 부재 시 그 legacy primary inference는 unavailable이고 CO₂ rule fallback을 사용한다. B-complete candidate 자체에는 humidity가 필요하지 않지만 아직 runtime 승격 대상이 아니다.
 
 ### mmWave
 
@@ -135,7 +135,7 @@
 1. **mmWave v0.1 release block**: 기존 loader는 manifest release 상태를 확인하지 않았다.
 2. **candidate selection 불명확**: offline lock candidate는 별도 runtime manifest 없이는 최신 interpreter가 참조하지 않는다.
 3. **phase preprocessing opt-in**: BPF+Z-score runtime manifest와 legacy z-score 경로가 병존한다.
-4. **missing live inputs**: TCP v1에는 mmWave phase window/presence와 CO₂ humidity가 없다.
+4. **missing live inputs**: TCP v1에는 mmWave phase window/presence가 없다. CO₂에는 B-complete candidate의 slope history를 만들 실제 measurement-event provenance가 필요하며 humidity는 해당 candidate 입력이 아니다.
 5. **validator rename**: `validate_v4_config`가 `validate_active_config`로 바뀌었지만 integration runtime은 이를 호출하지 않는다.
 
 ## 11. 영향받는 파일

@@ -5,6 +5,7 @@
 | 용도 | 프로토콜 | 기본 포트 | 방향 |
 |---|---|---:|---|
 | 센서 데이터 | TCP | 9000 | ESP32 → Raspberry Pi |
+| Thermal frame | UDP | 5005 | ESP32 → Raspberry Pi |
 | LCD/API | HTTP | 8080 | LCD·노트북 → Raspberry Pi |
 
 ## TCP 패킷 헤더
@@ -30,12 +31,18 @@ TCP는 패킷 경계를 보존하지 않으므로 Raspberry Pi는 `recv_exact()`
 {
   "schema": "safenest.telemetry.v1",
   "device_id": "esp32-01",
+  "boot_id": "0123456789abcdef0123456789abcdef",
   "seq": 42,
   "uptime_ms": 12345,
   "resp_rate_bpm": 16.25,
   "heart_rate_bpm": 72.5,
   "co2_ppm": 820,
+  "co2_measurement_event_id": 42,
+  "co2_measurement_monotonic_ms": 12000,
+  "co2_measurement_event_valid": true,
   "pir_motion": true,
+  "pir_event_id": 3,
+  "pir_last_transition_monotonic_ms": 11500,
   "valid": {
     "respiration": true,
     "heart": true,
@@ -44,9 +51,9 @@ TCP는 패킷 경계를 보존하지 않으므로 Raspberry Pi는 `recv_exact()`
 }
 ```
 
-유효하지 않거나 아직 측정되지 않은 수치 값은 `null`로 보냅니다. `valid` 플래그와 값을 함께 확인해야 합니다.
+유효하지 않거나 아직 측정되지 않은 수치 값은 `null`로 보냅니다. `valid` 플래그와 값을 함께 확인해야 합니다. 기존 v1 sender의 확장 필드 부재는 허용하지만, 새 sender의 `boot_id + co2_measurement_event_id`가 실제 측정의 reboot-safe identity입니다. 같은 event ID가 약 1초마다 재전송되어도 약 5초 cadence의 새 SCD4x 측정으로 중복 계산하지 않습니다.
 
-## Type 2: 열화상 frame
+## Thermal UDP v1 logical frame
 
 payload는 16바이트 metadata 다음에 80 × 62개의 `uint16` 픽셀이 이어집니다.
 
@@ -60,7 +67,18 @@ payload는 16바이트 metadata 다음에 80 × 62개의 `uint16` 픽셀이 이�
 | 14 | 2 | maximum_raw |
 | 16 | 9,920 | 픽셀 4,960개, 각 `uint16` big-endian |
 
-현재 Raspberry Pi 서버는 전체 payload를 안전하게 읽은 뒤 프레임 수만 증가시킵니다. 열화상 보정·시각화는 이 공유본의 범위가 아닙니다.
+logical payload 9,936바이트는 1,168바이트 이하 payload를 가진 9개 UDP datagram으로 나뉩니다. 각 32바이트 UDP header는 `SNTU`, version 1, frame sequence, chunk index/count, logical size/offset/length와 logical-frame CRC32를 포함합니다. Pi는 순서와 무관하게 bounded reassembly한 뒤 CRC32, shape, payload length와 min/max를 모두 검증합니다. Thermal은 TCP로 보내지 않습니다.
+
+## Sequence와 시간 의미
+
+- TCP telemetry `seq`: scalar publication 때 증가
+- `co2_measurement_event_id`: 새 SCD4x 측정 성공 때만 증가
+- Thermal `frame_sequence`: frame 획득 때 증가
+- Thermal `chunk_index`: 동일 frame 안의 chunk 위치이며 sequence가 아님
+- `pir_event_id`: PIR 상태 전환 때만 증가
+- ESP `uptime_ms`와 event time은 source monotonic domain, Pi 수신 wall/monotonic time은 receiver domain이며 clock synchronization을 가정하지 않음
+
+`health`는 scalar/thermal queue overwrite, TCP connect/send failure, Thermal UDP frame send success/failure 누적값을 담는다. Queue overwrite는 소비 task가 dequeue한 sequence gap으로 계산하므로 실제로 건너뛴 one-slot queue item만 센다. Thermal camera API가 독립 acquisition error나 camera-native CRC를 제공하지 않는 현재 경로에서는 그런 값을 꾸며내지 않는다. SafeNest logical-frame CRC32와 Pi reassembly failure는 별도 metric이다.
 
 ## HTTP API
 

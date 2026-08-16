@@ -7,7 +7,7 @@
 - `gateway/thermal_udp.py`가 CRC32, timeout, 순서 무관 reassembly와 bounded pending-frame 정책을 적용한 후 기존 `gateway/protocol.py::decode_thermal()`로 전달한다.
 - `devices/thermal/thermal_sensor_test/`의 과거 단일 oversized UDP datagram은 참고 자료일 뿐 운영 packet contract로 사용하지 않는다.
 
-이 파일은 standalone 저장소 루트 기준의 원본·통합 경계를 기록한다. `sources/ondevice_ai/`는 동결된 upstream snapshot이며, 실제 운영 모델 승격은 별도 검증과 승인 없이는 수행하지 않는다.
+이 파일은 standalone 저장소 루트 기준의 원본·통합 경계를 기록한다. `sources/ondevice_ai/`는 동결된 upstream snapshot이며, 실제 운영 모델 승격은 별도 검증과 승인 없이는 수행하지 않는다. `sources/` 동결 원칙의 명시적 예외는 `sources/display-test2/esp32_sensor_node/` 하나이며, 배포 문서와 테스트가 함께 관리하는 canonical flash source다.
 
 기계 판독 가능한 출처와 배포 결정은 루트의 `LATEST_SOURCE_PROVENANCE.json`에도 기록했다.
 
@@ -15,7 +15,7 @@
 
 | 원본 경로 | 통합 용도 | 판단 |
 |---|---|---|
-| `display-test2/esp32_sensor_node/esp32_sensor_node.ino` | 통합 센서 sender | PHASE 3 통신 기준 |
+| `sources/display-test2/esp32_sensor_node/esp32_sensor_node.ino` | 통합 센서 sender | `ACTIVE_FLASH_SOURCE`, 유지보수 예외 |
 | `display-test2/docs/COMMUNICATION_PROTOCOL.md` | SafeNest TCP v1 명세 | 채택 |
 | `display-test2/raspberry_pi_lcd/server.py` | 기존 TCP receiver | parser 분리의 기준 |
 | `devices/mmwave/firmware/` | MR60 UART/JSONL firmware | 검증 참고 원본 |
@@ -24,7 +24,7 @@
 | `devices/thermal/thermal_sensor_test/` | XIAO C6/UDP 시험 참고 | 운영 UDP 사용 안 함 |
 | `ondevice_ai/inference/thermal_interpreter.py` | Thermal 3-class 추론 | PHASE 5 지연 로드 |
 | `ondevice_ai/inference/mmwave_interpreter.py` | 300-sample 호흡 이상 추론 | 입력 확보 시에만 실행 |
-| `ondevice_ai/inference/co2_interpreter.py` | CO₂ 점유 추론 | 습도·변화율 확보 시에만 실행 |
+| `ondevice_ai/inference/co2_interpreter.py` | CO₂ 점유 추론 | 현재 candidate 입력은 `CO2 + CO2_slope`; device-domain history 확보 후 별도 승격 |
 | `ondevice_ai/models/model_manifest.json` | 모델 shape/dtype/hash 계약 | 채택 |
 | `ondevice_ai/models/**` | primary 3개, CO₂/mmWave offline candidate와 experiment evidence | 재학습 없이 포함, manifest selection만 runtime 사용 |
 | `ondevice_ai/models/**/*metadata*.json` | 정규화 통계 | 채택 |
@@ -46,3 +46,14 @@
 이름만 존재하고 실제 하드웨어 값을 읽지 않는 `co2_adapter.py`, `pir_adapter.py`, `thermal44_driver.py`, `mmwave_adapter.py` 계열은 동결 번들에서 제외했다.
 
 PHASE 9에서는 기존 정적 UI가 `/api/state`에 테스트 상태를 POST하고 고정 예시 수치를 표시하는 시나리오 제어 화면임을 확인했다. 새 `web/dashboard/`는 이 값을 재사용하지 않고 통합 백엔드의 실제 read-only API만 소비한다.
+
+## 운영 분류
+
+| 구성요소 | 경로 | 분류 |
+|---|---|---|
+| ESP32 flash source | `sources/display-test2/esp32_sensor_node/` | `ACTIVE_FLASH_SOURCE` |
+| AI 통합 ESP32 사본 | `sources/ondevice_ai/integrated_node/esp32_sensor_node.ino` | `FROZEN_UPSTREAM_SNAPSHOT` |
+| Pi scalar receiver | `gateway/receiver.py`, `gateway/protocol.py` | `ACTIVE_RUNTIME` |
+| Pi Thermal receiver | `gateway/thermal_udp.py` | `ACTIVE_RUNTIME` |
+| Pi state | `state/manager.py` | `ACTIVE_RUNTIME` |
+| Pi entry point | `deployment/run_pi.sh` → `backend/run_backend.py` | `ACTIVE_RUNTIME` |

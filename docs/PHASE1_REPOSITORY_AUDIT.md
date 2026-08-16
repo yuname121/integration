@@ -27,7 +27,7 @@
 |---|---|---|---|---|
 | mmWave MR60 | UART로 호흡·심박 수집 | TCP telemetry JSON | 300 sample AI 계약, 호흡 rule fallback | TCP v1에 phase window와 presence 없음 |
 | Thermal-44 | 80×62 U16 frame | TCP v1 type 2 | 3-class TFLite | 구형 9-byte receiver 및 UDP 시험 코드와 충돌 |
-| SCD40 | I²C periodic measurement | TCP telemetry JSON | CO₂ rule 및 slope/AI 계약 | humidity가 telemetry에 없어 CO₂ AI 입력 불완전 |
+| SCD40 | I²C periodic measurement | TCP telemetry JSON | CO₂ rule 및 slope/AI 계약 | legacy primary는 humidity 부재로 미충족; B-complete candidate는 `CO2 + CO2_slope` history가 필요 |
 | PIR HC-SR501 | GPIO boolean | TCP telemetry JSON | presence 확인 후 no-motion rule | 단독 presence 센서로 사용하면 안 됨 |
 
 ## 통신 감사
@@ -55,7 +55,7 @@
 - receiver와 Flask/LCD가 결합된 중복 실행 구조
 - ESP32 `writeAll()` 3초 timeout에 따른 Thermal 연결 종료 가능성
 - mmWave presence와 300 sample phase window가 통합 telemetry에 없음
-- SCD40 humidity가 통합 telemetry에 없어 CO₂ AI 입력 계약 미충족
+- 운영 legacy CO₂ primary는 humidity가 없어 입력 계약 미충족이다. B-complete candidate에는 humidity가 필요하지 않으며 실제 측정 이벤트 기반 `CO2_slope` history가 아직 필요하다.
 - 기존 frontend는 실제 관제가 아니라 수동 scenario POST와 고정 예시 값 중심
 - SQLite schema/repository가 main에 없어 신규 통합 계층 필요
 
