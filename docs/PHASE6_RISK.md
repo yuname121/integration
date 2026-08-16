@@ -39,7 +39,7 @@ CO₂ 모델은 점유 분류 모델이므로 환경 위험 score를 직접 대�
 - score: `clip((ppm - 500) / 2000, 0, 1)`
 - 연속 sample로 계산한 상승률이 15 ppm/min 이상이면 `FAST_CO2_RISE`
 
-습도가 없어서 AI가 unavailable이어도 ppm rule은 계속 동작하며 시스템은 `DEGRADED`로 표시된다.
+현재 선택된 legacy primary는 습도가 없으면 unavailable이지만 ppm rule은 계속 동작하며 시스템은 `DEGRADED`로 표시된다. B-complete candidate 입력은 `CO2 + CO2_slope`이고 humidity를 요구하지 않지만, 이 corrective pass에서 모델을 승격하거나 Risk 정책을 바꾸지 않는다.
 
 ### PIR
 

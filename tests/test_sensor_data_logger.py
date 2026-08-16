@@ -18,7 +18,13 @@ from gateway.protocol import (
 from storage.sensor_logger import SensorDataLogger, SensorStorageConfig
 
 
-def telemetry(sequence: int, co2: float = 800.0) -> TelemetryPayload:
+def telemetry(
+    sequence: int,
+    co2: float = 800.0,
+    *,
+    boot_id: str | None = None,
+    event_id: int | None = None,
+) -> TelemetryPayload:
     return TelemetryPayload(
         header=PacketHeader(PACKET_TELEMETRY_JSON, sequence, 100),
         device_id="esp32-test",
@@ -28,6 +34,10 @@ def telemetry(sequence: int, co2: float = 800.0) -> TelemetryPayload:
         co2_ppm=co2,
         pir_motion=False,
         valid={"respiration": True, "heart": True, "co2": True},
+        boot_id=boot_id,
+        co2_measurement_event_id=event_id,
+        co2_measurement_monotonic_ms=event_id * 5_000 if event_id is not None else None,
+        co2_measurement_event_valid=event_id is not None or None,
     )
 
 
@@ -78,6 +88,7 @@ class SensorDataLoggerTests(unittest.TestCase):
             co2 = [json.loads(line) for path in (root / "co2").glob("*.jsonl") for line in path.read_text().splitlines()]
             self.assertEqual(len(mmwave), 3)
             self.assertEqual([item["co2_ppm"] for item in co2], [700.0, 950.0])
+            self.assertEqual([item["receive_monotonic"] for item in co2], [10.0, 70.0])
             self.assertNotIn("co2_ppm", mmwave[0])
 
     def test_thermal_npz_preserves_raw_frames_metadata_and_ai_context(self) -> None:
@@ -102,8 +113,24 @@ class SensorDataLoggerTests(unittest.TestCase):
                 self.assertEqual(saved["frames"].dtype, np.dtype("uint16"))
                 self.assertEqual(int(saved["frames"][0, 61, 79]), 4_959)
                 self.assertEqual(saved["frame_sequences"].tolist(), [1, 2])
+                self.assertEqual(saved["receive_monotonic"].tolist(), [10.0, 10.1])
                 context = json.loads(str(saved["analysis_json"][0]))
                 self.assertEqual(context["ai"]["state"], "HUMAN_NORMAL")
+
+    def test_co2_logger_deduplicates_by_boot_and_measurement_event(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            logger = SensorDataLogger(config(root))
+            logger.start()
+            logger.submit(telemetry(1, 700.0, boot_id="boot-a", event_id=42), received_at=100.0, monotonic_at=10.0)
+            logger.submit(telemetry(2, 700.0, boot_id="boot-a", event_id=42), received_at=101.0, monotonic_at=11.0)
+            logger.submit(telemetry(3, 705.0, boot_id="boot-a", event_id=43), received_at=102.0, monotonic_at=12.0)
+            logger.submit(telemetry(1, 710.0, boot_id="boot-b", event_id=42), received_at=103.0, monotonic_at=13.0)
+            logger.stop()
+
+            rows = [json.loads(line) for path in (root / "co2").glob("*.jsonl") for line in path.read_text().splitlines()]
+            self.assertEqual([(row["boot_id"], row["co2_measurement_event_id"]) for row in rows], [("boot-a", 42), ("boot-a", 43), ("boot-b", 42)])
+            self.assertEqual(rows[0]["co2_measurement_monotonic_ms"], 210_000)
 
     def test_restart_keeps_existing_sensor_files(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

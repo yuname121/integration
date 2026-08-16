@@ -35,6 +35,8 @@ class _SensorRecord:
     peer: str | None = None
     sequence: int | None = None
     source_uptime_ms: int | None = None
+    device_id: str | None = None
+    boot_id: str | None = None
     last_received_at: float | None = None
     last_received_monotonic: float | None = None
     last_valid_at: float | None = None
@@ -80,6 +82,8 @@ class SensorStateManager:
         self._latest_thermal_frame: ThermalFrame | None = None
         self.co2_update_interval_seconds = float(co2_update_interval_seconds)
         self._last_co2_value_monotonic: float | None = None
+        self._last_co2_event_key: tuple[str, str, int] | None = None
+        self._co2_measurement_event_count = 0
         self._revision = 0
 
     def ingest(
@@ -193,7 +197,10 @@ class SensorStateManager:
                 "heart_rate_bpm": packet.heart_rate_bpm,
                 "respiration_valid": packet.valid["respiration"],
                 "heart_valid": packet.valid["heart"],
+                "health": copy.deepcopy(packet.health),
             },
+            device_id=packet.device_id,
+            boot_id=packet.boot_id,
         )
         self._ingest_co2(packet, peer, wall, monotonic)
         self._update(
@@ -206,6 +213,15 @@ class SensorStateManager:
             valid=True,
             error=None,
             values={"motion": packet.pir_motion},
+            device_id=packet.device_id,
+            boot_id=packet.boot_id,
+        )
+        pir_record = self._records["pir"]
+        pir_record.values.update(
+            {
+                "event_id": packet.pir_event_id,
+                "last_transition_monotonic_ms": packet.pir_last_transition_monotonic_ms,
+            }
         )
 
     def _ingest_co2(
@@ -215,16 +231,51 @@ class SensorStateManager:
         wall: float,
         monotonic: float,
     ) -> None:
-        """Track CO2 communication continuously, but accept a usable value once/minute."""
+        """Separate packet reception, physical events, and throttled presentation."""
 
         record = self._records["co2"]
         record.connected = True
         record.valid = packet.valid["co2"]
         record.peer = peer
+        record.device_id = packet.device_id
+        record.boot_id = packet.boot_id
         record.last_received_at = wall
         record.last_received_monotonic = monotonic
         record.disconnected_at = None
         record.error = None if packet.valid["co2"] else "CO2_VALUE_INVALID"
+
+        event_key = None
+        if (
+            packet.co2_measurement_event_valid is True
+            and packet.boot_id is not None
+            and packet.co2_measurement_event_id is not None
+        ):
+            event_key = (
+                packet.device_id,
+                packet.boot_id,
+                packet.co2_measurement_event_id,
+            )
+        if event_key is not None and event_key != self._last_co2_event_key:
+            self._last_co2_event_key = event_key
+            self._co2_measurement_event_count += 1
+            record.values.update(
+                {
+                    "latest_measurement_ppm": packet.co2_ppm,
+                    "measurement_event_id": packet.co2_measurement_event_id,
+                    "measurement_monotonic_ms": packet.co2_measurement_monotonic_ms,
+                    "measurement_event_valid": True,
+                    "measurement_event_count": self._co2_measurement_event_count,
+                }
+            )
+        elif not record.values:
+            record.values = {
+                "ppm": None,
+                "latest_measurement_ppm": None,
+                "measurement_event_id": packet.co2_measurement_event_id,
+                "measurement_monotonic_ms": packet.co2_measurement_monotonic_ms,
+                "measurement_event_valid": packet.co2_measurement_event_valid,
+                "measurement_event_count": self._co2_measurement_event_count,
+            }
 
         if not packet.valid["co2"]:
             return
@@ -237,7 +288,7 @@ class SensorStateManager:
             return
         record.sequence = packet.header.sequence
         record.source_uptime_ms = packet.uptime_ms
-        record.values = {"ppm": packet.co2_ppm}
+        record.values["ppm"] = packet.co2_ppm
         record.last_valid_at = wall
         self._last_co2_value_monotonic = monotonic
 
@@ -280,6 +331,8 @@ class SensorStateManager:
         valid: bool,
         error: str | None,
         values: dict[str, object],
+        device_id: str | None = None,
+        boot_id: str | None = None,
     ) -> None:
         record = self._records[sensor_id]
         record.connected = True
@@ -287,6 +340,8 @@ class SensorStateManager:
         record.peer = peer
         record.sequence = sequence
         record.source_uptime_ms = uptime_ms
+        record.device_id = device_id
+        record.boot_id = boot_id
         record.last_received_at = wall
         record.last_received_monotonic = monotonic
         record.disconnected_at = None
@@ -333,7 +388,10 @@ class SensorStateManager:
             "disconnected_at": record.disconnected_at,
             "peer": record.peer,
             "sequence": record.sequence,
+            "device_id": record.device_id,
+            "boot_id": record.boot_id,
             "source_uptime_ms": record.source_uptime_ms,
+            "last_received_monotonic": record.last_received_monotonic,
             "error": record.error,
             "values": copy.deepcopy(record.values),
         }

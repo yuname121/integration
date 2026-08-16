@@ -143,6 +143,51 @@ class ProtocolDecodeTests(unittest.TestCase):
         with self.assertRaisesRegex(ProtocolError, "valid.respiration"):
             decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 2, payload))
 
+    def test_extended_telemetry_preserves_boot_events_and_health(self) -> None:
+        payload = telemetry_payload(
+            8,
+            boot_id="0123456789abcdef0123456789abcdef",
+            co2_measurement_event_id=42,
+            co2_measurement_monotonic_ms=12_000,
+            co2_measurement_event_valid=True,
+            pir_event_id=3,
+            pir_last_transition_monotonic_ms=11_500,
+            health={"thermal_queue_overwrites": 2, "tcp_send_failures": 1},
+        )
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 8, payload))
+        self.assertEqual(packet.boot_id, "0123456789abcdef0123456789abcdef")
+        self.assertEqual(packet.co2_measurement_event_id, 42)
+        self.assertEqual(packet.co2_measurement_monotonic_ms, 12_000)
+        self.assertTrue(packet.co2_measurement_event_valid)
+        self.assertEqual(packet.pir_event_id, 3)
+        self.assertEqual(packet.health["thermal_queue_overwrites"], 2)
+
+    def test_legacy_and_unknown_extra_fields_remain_compatible(self) -> None:
+        payload = telemetry_payload(9, future_optional_field={"ignored": True})
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 9, payload))
+        self.assertIsNone(packet.boot_id)
+        self.assertIsNone(packet.co2_measurement_event_id)
+
+    def test_event_provenance_rejects_bad_types_ranges_and_mismatch(self) -> None:
+        cases = (
+            ({"co2_measurement_event_id": -1, "co2_measurement_monotonic_ms": 1, "co2_measurement_event_valid": True, "boot_id": "boot-a"}, "uint32"),
+            ({"co2_measurement_event_id": 1.5, "co2_measurement_monotonic_ms": 1, "co2_measurement_event_valid": True, "boot_id": "boot-a"}, "integer"),
+            ({"co2_measurement_event_id": 1, "co2_measurement_monotonic_ms": 0x1_0000_0000, "co2_measurement_event_valid": True, "boot_id": "boot-a"}, "uint32"),
+            ({"co2_measurement_event_id": 1, "co2_measurement_monotonic_ms": 1, "co2_measurement_event_valid": "true", "boot_id": "boot-a"}, "boolean"),
+            ({"co2_measurement_event_id": 1, "co2_measurement_monotonic_ms": 1, "co2_measurement_event_valid": True}, "boot_id"),
+            ({"co2_measurement_event_id": 0, "co2_measurement_monotonic_ms": 0, "co2_measurement_event_valid": True, "boot_id": "boot-a"}, "non-zero"),
+            ({"co2_measurement_event_id": 0, "co2_measurement_event_valid": False}, "appear together"),
+        )
+        for index, (updates, message) in enumerate(cases, start=20):
+            with self.subTest(updates=updates), self.assertRaisesRegex(ProtocolError, message):
+                payload = telemetry_payload(index, **updates)
+                decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, index, payload))
+
+    def test_wrong_schema_is_rejected_intentionally(self) -> None:
+        payload = telemetry_payload(10, schema="safenest.telemetry.v2")
+        with self.assertRaisesRegex(ProtocolError, "unsupported telemetry schema"):
+            decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 10, payload))
+
     def test_thermal_metadata_min_max_must_match_pixels(self) -> None:
         payload = bytearray(thermal_payload(5))
         payload[12:16] = struct.pack("!HH", 999, 2_000)

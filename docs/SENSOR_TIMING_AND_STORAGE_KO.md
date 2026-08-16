@@ -13,7 +13,7 @@
 기본 위치는 기존 SQLite 위치와 같은 저장소 루트의 `data/` 아래다.
 
 - `data/mmwave/YYYYMMDD_HH_mmwave.jsonl`: 수신 timestamp, device/sequence/uptime, 호흡수, 심박수, 각 validity. 현재 protocol에 raw respiration phase/window가 없으므로 존재하는 최소 가공 scalar만 저장한다.
-- `data/co2/YYYYMMDD_HH_co2.jsonl`: 60초마다 채택한 유효 timestamp, device/sequence/uptime, CO2 ppm. ESP32가 온도·습도를 읽지만 현재 TCP v1 payload에는 전송하지 않으므로 저장하지 않는다.
+- `data/co2/YYYYMMDD_HH_co2.jsonl`: 확장 sender에서는 `(device_id, boot_id, co2_measurement_event_id)`로 중복 제거한 실제 SCD4x measurement event, source measurement monotonic time, Pi receive time과 CO2 ppm을 저장한다. legacy sender는 event provenance가 없으므로 기존 60초 fallback을 유지한다. 온도·습도는 B-complete candidate 입력이 아니므로 전송·저장하지 않는다.
 - `data/thermal/YYYYMMDD_HHMMSS_microseconds_first-last.npz`: 여러 raw uint16 80×62 frame, 수신 timestamp, frame sequence, source uptime, raw min/max, 해당 시점의 최신 Thermal AI 및 risk context JSON. `allow_pickle=False`로 재생할 수 있고 원시 pixel 수치를 손실 없이 보존한다.
 
 수신 callback은 bounded memory queue에 `put_nowait()`만 수행한다. JSONL/NPZ write, compression 및 cleanup은 `safenest-sensor-data-writer` thread가 담당한다. 디스크가 느려 queue가 가득 차면 실시간 통신을 막지 않고 새 logging item을 drop하며 diagnostics의 `dropped`에 기록한다.

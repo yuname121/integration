@@ -2,6 +2,9 @@
   "schema_version": "1.0",
   "generated_at": "2026-08-13",
   "integration_package": "integration",
+  "reviewed_integration_origin_main": "df75640c5a196dea869423770c3938bb90839b83",
+  "canonical_flash_source": "sources/display-test2/esp32_sensor_node/esp32_sensor_node.ino",
+  "canonical_pi_runtime": "deployment/run_pi.sh -> backend/run_backend.py",
   "previous_integration_base": "6baf38d8df936b694a1ff2e9b5e5fb2af2bfe50f",
   "latest_origin_main": "fa8cf13",
   "latest_component_source": "77b1695ac66fd595bd037e4574d1626b8917654c",
@@ -12,6 +15,10 @@
     "copied_without_source_edits": true
   },
   "integration_policy": {
+    "sources_display_test2_esp32_sensor_node": "maintained_active_flash_source_exception",
+    "sources_ondevice_ai": "frozen_upstream_snapshot",
+    "scalar_schema_change": "backward_compatible_safenest_telemetry_v1_extension",
+    "mmwave_phase_status": "PENDING_MMWAVE_DEVICE_CONTRACT_VALIDATION",
     "mmwave_primary_v0_1_0": "blocked_by_manifest_class_collapse",
     "mmwave_offline_candidate_lock_v1": "included_for_provenance_not_promoted",
     "co2_c_b5_candidate": "included_for_provenance_not_promoted",

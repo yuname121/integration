@@ -8,7 +8,8 @@
 |---|---|---|---|---|
 | Thermal | `thermal_fall_int8` 0.1.0 | `(1,62,80,1)` int8, 프레임별 min-max | 80×62 U16 BE 프레임 | 실행 가능 |
 | mmWave | `mmwave_resp_int8` 0.1.0 | 10 Hz `resp_phase` 300개 | 호흡수·심박수 scalar만 수신 | `INPUT_UNAVAILABLE` |
-| CO₂ | `co2_occupancy_int8` 0.1.0 | `[CO2_slope, Humidity, CO2]` | ppm만 수신 | `INPUT_UNAVAILABLE` |
+| CO₂ legacy runtime primary | `co2_occupancy_int8` 0.1.0 | `[CO2_slope, Humidity, CO2]` | ppm만 수신 | `INPUT_UNAVAILABLE`, rule fallback 유지 |
+| CO₂ B-complete offline candidate | 별도 검증/승격 대기 | `[CO2, CO2_slope]` | measurement event provenance 수신 | humidity 불필요, history/Capture는 후속 범위 |
 | PIR | 모델 없음 | boolean motion | motion 수신 | rule 결과 |
 
 mmWave와 CO₂ 입력을 임의 생성하지 않는다. 이후 ESP32 packet schema가 필요한 필드를 실제로 보내면 현재 파이프라인이 window와 feature를 검증한 뒤 모델을 호출할 수 있다.
@@ -51,7 +52,7 @@ python ./gateway/run_ai_gateway.py --host 0.0.0.0 --port 9000
 - Thermal U16 frame shape와 결과 매핑
 - stale/no-data 입력에서 모델 미호출
 - mmWave 300-sample 계약과 fallback provenance
-- CO₂ 습도·history 계약
+- legacy primary의 습도 계약과 B-complete candidate의 실제 measurement-event history 계약을 구분
 - 모델 예외 격리와 PIR rule 지속
 - NaN 차단과 strict JSON 직렬화
 

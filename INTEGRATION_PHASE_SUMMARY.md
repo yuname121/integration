@@ -1,6 +1,6 @@
 # SafeNest 전체 시스템 통합 단계 요약
 
-이 문서는 standalone 저장소 루트에 모인 PHASE 1~10 및 HIL 준비 산출물의 통합 목차다. 기존 GitHub `main` 원본은 `sources/`에 동결했고, 수정·추가한 통합 코드는 나머지 폴더에 분리했다.
+이 문서는 standalone 저장소 루트에 모인 PHASE 1~10 및 HIL 준비 산출물의 통합 목차다. 기존 GitHub `main` 원본은 `sources/`에 동결했다. 유일한 명시적 유지보수 예외인 `sources/display-test2/esp32_sensor_node/`는 canonical flash source이며, `sources/ondevice_ai/`는 계속 동결한다.
 
 ## 단계별 결과
 
@@ -40,9 +40,8 @@ integration/
 ## 최종 실행 흐름
 
 ```text
-mmWave / Thermal / SCD40 / PIR
-→ ESP-WROOM-32 (현재 통합 firmware 기준, XIAO C6 포팅 필요)
-→ SafeNest TCP v1
+mmWave / SCD40 / PIR → ESP-WROOM-32 → SafeNest TCP v1 :9000 ─┐
+Thermal-44           → ESP-WROOM-32 → Thermal UDP v1 :5005 ──┤
 → Raspberry Pi receiver
 → Sensor State Manager
 → On-device AI + Rule
@@ -71,3 +70,4 @@ bash deployment/run_pi.sh --install
 1. 비정상 호흡 5 rpm과 CO₂ 700 ppm 조건의 locked V4 결과는 29.75점 `NORMAL`이다. 요구사항의 WARNING/DANGER와 충돌하므로 공식 정책 결정이 필요하다.
 2. 현재 SafeNest TCP v1에는 검증된 mmWave presence가 없다. MR60 presence source가 확정되면 ESP32 sender와 Pi decoder를 같은 protocol revision으로 함께 확장해야 한다.
 3. Thermal 온도 calibration 계약이 없으므로 현재 UI와 DB는 raw 범위만 표시하고 °C를 생성하지 않는다.
+4. mmWave 연속 respiration phase/waveform 및 300-sample B-model 입력은 `PENDING_MMWAVE_DEVICE_CONTRACT_VALIDATION`이며 현재 scalar rate telemetry가 이를 충족한다고 간주하지 않는다.
