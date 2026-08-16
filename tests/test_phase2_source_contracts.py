@@ -28,6 +28,20 @@ MMWAVE_FW = (
 
 
 class Phase2SourceContracts(unittest.TestCase):
+    def test_active_sender_exposes_reboot_safe_sensor_provenance(self) -> None:
+        source = (ROOT / "sources/display-test2/esp32_sensor_node/esp32_sensor_node.ino").read_text(encoding="utf-8")
+        for token in (
+            "boot_id",
+            "co2_measurement_event_id",
+            "co2_measurement_monotonic_ms",
+            "co2_measurement_event_valid",
+            "pir_event_id",
+            "pir_last_transition_monotonic_ms",
+        ):
+            self.assertIn(token, source)
+        self.assertIn("++co2MeasurementEventId", source)
+        self.assertIn("++pirEventId", source)
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.firmware = INTEGRATED_FW.read_text(encoding="utf-8")

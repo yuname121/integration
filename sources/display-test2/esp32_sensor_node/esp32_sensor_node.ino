@@ -17,6 +17,7 @@
  */
 
 #include <Arduino.h>
+#include <esp_system.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include <Wire.h>
@@ -29,6 +30,7 @@
 // Device identity. Wi-Fi and Raspberry Pi settings live in ignored secrets.h.
 // ----------------------------------------------------------------------------
 constexpr char DEVICE_ID[] = "esp32-01";
+char bootId[33] = {};
 constexpr uint16_t THERMAL_UDP_PORT = 5005;
 
 // -----------------------------------------------------------------------------
@@ -129,6 +131,17 @@ struct TelemetrySnapshot {
   bool respirationValid;
   bool heartValid;
   bool co2Valid;
+  uint32_t co2MeasurementEventId;
+  uint32_t co2MeasurementMonotonicMs;
+  bool co2MeasurementEventValid;
+  uint32_t pirEventId;
+  uint32_t pirLastTransitionMonotonicMs;
+  uint32_t telemetryQueueOverwrites;
+  uint32_t thermalQueueOverwrites;
+  uint32_t tcpConnectionFailures;
+  uint32_t tcpSendFailures;
+  uint32_t thermalUdpFramesSent;
+  uint32_t thermalUdpSendFailures;
 };
 
 struct ThermalTxFrame {
@@ -160,10 +173,14 @@ float respirationRate = NAN;
 float heartRate = NAN;
 uint16_t co2Ppm = 0;
 bool pirMotion = false;
+bool pirInitialized = false;
 
 uint32_t lastRespirationMs = 0;
 uint32_t lastHeartMs = 0;
 uint32_t lastCo2Ms = 0;
+uint32_t co2MeasurementEventId = 0;
+uint32_t co2MeasurementMonotonicMs = 0;
+bool co2MeasurementEventValid = false;
 uint32_t lastThermalMs = 0;
 uint32_t lastThermalStatusPollMs = 0;
 uint32_t lastPirPollMs = 0;
@@ -172,8 +189,14 @@ uint32_t lastTelemetryMs = 0;
 uint32_t lastHealthLogMs = 0;
 uint32_t telemetrySequence = 0;
 uint32_t thermalSequence = 0;
-uint32_t thermalUdpFramesSent = 0;
-uint32_t thermalUdpFramesFailed = 0;
+uint32_t pirEventId = 0;
+uint32_t pirLastTransitionMonotonicMs = 0;
+volatile uint32_t telemetryQueueOverwrites = 0;
+volatile uint32_t thermalQueueOverwrites = 0;
+volatile uint32_t tcpConnectionFailures = 0;
+volatile uint32_t tcpSendFailures = 0;
+volatile uint32_t thermalUdpFramesSent = 0;
+volatile uint32_t thermalUdpFramesFailed = 0;
 uint8_t thermalUdpDatagram[THERMAL_UDP_DATAGRAM_SIZE];
 
 // Wrap-safe periodic scheduling helper. Updating by period, rather than assigning
@@ -187,6 +210,16 @@ bool scheduleDue(uint32_t now, uint32_t &lastRun, uint32_t period) {
 
 bool isFresh(uint32_t timestamp, uint32_t now, uint32_t timeout) {
   return timestamp != 0 && static_cast<uint32_t>(now - timestamp) < timeout;
+}
+
+void initializeBootId() {
+  uint32_t words[4];
+  for (uint8_t index = 0; index < 4; ++index) words[index] = esp_random();
+  snprintf(bootId, sizeof(bootId), "%08lx%08lx%08lx%08lx",
+           static_cast<unsigned long>(words[0]),
+           static_cast<unsigned long>(words[1]),
+           static_cast<unsigned long>(words[2]),
+           static_cast<unsigned long>(words[3]));
 }
 
 // Blocking waits are used only during one-time hardware initialization. The
@@ -365,8 +398,12 @@ void pollCo2(uint32_t now) {
   float humidity = NAN;
   if (scd4x.readMeasurement(newCo2, temperature, humidity) == 0 &&
       newCo2 != 0) {
+    const uint32_t measurementMonotonicMs = millis();
     co2Ppm = newCo2;
-    lastCo2Ms = millis();
+    lastCo2Ms = measurementMonotonicMs;
+    ++co2MeasurementEventId;
+    co2MeasurementMonotonicMs = measurementMonotonicMs;
+    co2MeasurementEventValid = true;
   }
 }
 
@@ -399,6 +436,17 @@ void publishTelemetrySnapshot(uint32_t now) {
   snapshot.respirationValid = isFresh(lastRespirationMs, now, MMWAVE_STALE_MS);
   snapshot.heartValid = isFresh(lastHeartMs, now, MMWAVE_STALE_MS);
   snapshot.co2Valid = isFresh(lastCo2Ms, now, CO2_STALE_MS);
+  snapshot.co2MeasurementEventId = co2MeasurementEventId;
+  snapshot.co2MeasurementMonotonicMs = co2MeasurementMonotonicMs;
+  snapshot.co2MeasurementEventValid = co2MeasurementEventValid;
+  snapshot.pirEventId = pirEventId;
+  snapshot.pirLastTransitionMonotonicMs = pirLastTransitionMonotonicMs;
+  snapshot.telemetryQueueOverwrites = telemetryQueueOverwrites;
+  snapshot.thermalQueueOverwrites = thermalQueueOverwrites;
+  snapshot.tcpConnectionFailures = tcpConnectionFailures;
+  snapshot.tcpSendFailures = tcpSendFailures;
+  snapshot.thermalUdpFramesSent = thermalUdpFramesSent;
+  snapshot.thermalUdpSendFailures = thermalUdpFramesFailed;
   xQueueOverwrite(telemetryQueue, &snapshot);
 }
 
@@ -462,19 +510,39 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
     strlcpy(co2, "null", sizeof(co2));
   }
 
-  char json[512];
+  char json[768];
   const int length = snprintf(
       json, sizeof(json),
       "{\"schema\":\"safenest.telemetry.v1\",\"device_id\":\"%s\","
+      "\"boot_id\":\"%s\","
       "\"seq\":%lu,\"uptime_ms\":%lu,\"resp_rate_bpm\":%s,"
-      "\"heart_rate_bpm\":%s,\"co2_ppm\":%s,\"pir_motion\":%s,"
-      "\"valid\":{\"respiration\":%s,\"heart\":%s,\"co2\":%s}}",
-      DEVICE_ID, static_cast<unsigned long>(snapshot.sequence),
+      "\"heart_rate_bpm\":%s,\"co2_ppm\":%s,"
+      "\"co2_measurement_event_id\":%lu,"
+      "\"co2_measurement_monotonic_ms\":%lu,"
+      "\"co2_measurement_event_valid\":%s,\"pir_motion\":%s,"
+      "\"pir_event_id\":%lu,\"pir_last_transition_monotonic_ms\":%lu,"
+      "\"valid\":{\"respiration\":%s,\"heart\":%s,\"co2\":%s},"
+      "\"health\":{\"telemetry_queue_overwrites\":%lu,"
+      "\"thermal_queue_overwrites\":%lu,\"tcp_connection_failures\":%lu,"
+      "\"tcp_send_failures\":%lu,\"thermal_udp_frames_sent\":%lu,"
+      "\"thermal_udp_send_failures\":%lu}}",
+      DEVICE_ID, bootId, static_cast<unsigned long>(snapshot.sequence),
       static_cast<unsigned long>(snapshot.uptimeMs), respiration, heart, co2,
+      static_cast<unsigned long>(snapshot.co2MeasurementEventId),
+      static_cast<unsigned long>(snapshot.co2MeasurementMonotonicMs),
+      snapshot.co2MeasurementEventValid ? "true" : "false",
       snapshot.pirMotion ? "true" : "false",
+      static_cast<unsigned long>(snapshot.pirEventId),
+      static_cast<unsigned long>(snapshot.pirLastTransitionMonotonicMs),
       snapshot.respirationValid ? "true" : "false",
       snapshot.heartValid ? "true" : "false",
-      snapshot.co2Valid ? "true" : "false");
+      snapshot.co2Valid ? "true" : "false",
+      static_cast<unsigned long>(snapshot.telemetryQueueOverwrites),
+      static_cast<unsigned long>(snapshot.thermalQueueOverwrites),
+      static_cast<unsigned long>(snapshot.tcpConnectionFailures),
+      static_cast<unsigned long>(snapshot.tcpSendFailures),
+      static_cast<unsigned long>(snapshot.thermalUdpFramesSent),
+      static_cast<unsigned long>(snapshot.thermalUdpSendFailures));
   if (length <= 0 || static_cast<size_t>(length) >= sizeof(json)) return false;
 
   uint8_t header[PACKET_HEADER_SIZE];
@@ -551,6 +619,7 @@ void telemetryTcpTask(void *parameter) {
   WiFiClient client;
   client.setNoDelay(true);
   TelemetrySnapshot telemetry{};
+  uint32_t lastDequeuedSequence = 0;
 
   for (;;) {
     if (WiFi.status() != WL_CONNECTED) {
@@ -562,6 +631,7 @@ void telemetryTcpTask(void *parameter) {
     if (!client.connected()) {
       Serial.printf("[network] connecting to %s:%u\n", RPI_HOST, RPI_PORT);
       if (!client.connect(RPI_HOST, RPI_PORT, 1500)) {
+        ++tcpConnectionFailures;
         vTaskDelay(pdMS_TO_TICKS(1000));
         continue;
       }
@@ -571,7 +641,10 @@ void telemetryTcpTask(void *parameter) {
 
     // Scalar telemetry has priority and is small.
     if (xQueueReceive(telemetryQueue, &telemetry, 0) == pdTRUE) {
+      telemetryQueueOverwrites += telemetry.sequence - lastDequeuedSequence - 1;
+      lastDequeuedSequence = telemetry.sequence;
       if (!sendTelemetry(client, telemetry)) {
+        ++tcpSendFailures;
         client.stop();
         continue;
       }
@@ -585,6 +658,7 @@ void thermalUdpTask(void *parameter) {
   (void)parameter;
   WiFiUDP udp;
   bool udpStarted = false;
+  uint32_t lastDequeuedSequence = 0;
   for (;;) {
     if (WiFi.status() != WL_CONNECTED) {
       if (udpStarted) {
@@ -602,6 +676,9 @@ void thermalUdpTask(void *parameter) {
       }
     }
     if (xQueueReceive(thermalQueue, &thermalNetworkFrame, 0) == pdTRUE) {
+      thermalQueueOverwrites +=
+          thermalNetworkFrame.frameSequence - lastDequeuedSequence - 1;
+      lastDequeuedSequence = thermalNetworkFrame.frameSequence;
       if (sendThermalUdp(udp, thermalNetworkFrame)) {
         ++thermalUdpFramesSent;
       } else {
@@ -628,6 +705,8 @@ void setup() {
   Serial.begin(USB_BAUD);
   setupWait(500);
   Serial.println("\nSafeNest ESP32 sensor node starting");
+  initializeBootId();
+  Serial.printf("[identity] device=%s boot=%s\n", DEVICE_ID, bootId);
 
   pinMode(PIN_PIR, INPUT);
   pinMode(PIN_THERMAL_CS, OUTPUT);
@@ -676,7 +755,15 @@ void loop() {
   captureThermalIfReady(now);
 
   if (scheduleDue(now, lastPirPollMs, PIR_PERIOD_MS)) {
-    pirMotion = digitalRead(PIN_PIR) == HIGH;
+    const bool observedMotion = digitalRead(PIN_PIR) == HIGH;
+    if (!pirInitialized) {
+      pirMotion = observedMotion;
+      pirInitialized = true;
+    } else if (observedMotion != pirMotion) {
+      pirMotion = observedMotion;
+      ++pirEventId;
+      pirLastTransitionMonotonicMs = now;
+    }
   }
 
   publishTelemetrySnapshot(now);

@@ -64,6 +64,13 @@ class TelemetryPayload:
     co2_ppm: float | None
     pir_motion: bool
     valid: dict[str, bool]
+    boot_id: str | None = None
+    co2_measurement_event_id: int | None = None
+    co2_measurement_monotonic_ms: int | None = None
+    co2_measurement_event_valid: bool | None = None
+    pir_event_id: int | None = None
+    pir_last_transition_monotonic_ms: int | None = None
+    health: dict[str, int] | None = None
 
 
 @dataclass(frozen=True)
@@ -184,6 +191,7 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
             f"header/json sequence mismatch: {header.sequence} != {json_sequence}"
         )
     uptime_ms = _u32(decoded.get("uptime_ms"), "uptime_ms")
+    boot_id = _optional_identifier(decoded.get("boot_id"), "boot_id")
 
     valid_raw = decoded.get("valid")
     if not isinstance(valid_raw, dict):
@@ -210,6 +218,21 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
     if not isinstance(pir_motion, bool):
         raise ProtocolError("pir_motion must be boolean")
 
+    co2_event_id, co2_event_ms, co2_event_valid = _optional_event_provenance(
+        decoded,
+        id_field="co2_measurement_event_id",
+        time_field="co2_measurement_monotonic_ms",
+        valid_field="co2_measurement_event_valid",
+        boot_id=boot_id,
+    )
+    pir_event_id, pir_transition_ms = _optional_transition_provenance(
+        decoded,
+        id_field="pir_event_id",
+        time_field="pir_last_transition_monotonic_ms",
+        boot_id=boot_id,
+    )
+    health = _optional_health(decoded.get("health"))
+
     return TelemetryPayload(
         header=header,
         device_id=device_id,
@@ -219,6 +242,13 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
         co2_ppm=co2,
         pir_motion=pir_motion,
         valid=valid,
+        boot_id=boot_id,
+        co2_measurement_event_id=co2_event_id,
+        co2_measurement_monotonic_ms=co2_event_ms,
+        co2_measurement_event_valid=co2_event_valid,
+        pir_event_id=pir_event_id,
+        pir_last_transition_monotonic_ms=pir_transition_ms,
+        health=health,
     )
 
 
@@ -305,4 +335,83 @@ def _optional_finite(value: object, field: str) -> float | None:
     if not math.isfinite(converted):
         raise ProtocolError(f"{field} must be finite")
     return converted
+
+
+def _optional_identifier(value: object, field: str) -> str | None:
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value or len(value) > 64:
+        raise ProtocolError(f"{field} must be a non-empty string up to 64 characters")
+    if any(not (character.isalnum() or character in "-_.:") for character in value):
+        raise ProtocolError(f"{field} contains unsupported characters")
+    return value
+
+
+def _optional_event_provenance(
+    document: dict[str, object],
+    *,
+    id_field: str,
+    time_field: str,
+    valid_field: str,
+    boot_id: str | None,
+) -> tuple[int | None, int | None, bool | None]:
+    present = tuple(field in document for field in (id_field, time_field, valid_field))
+    if not any(present):
+        return None, None, None
+    if not all(present):
+        raise ProtocolError(f"{id_field}, {time_field}, and {valid_field} must appear together")
+    event_id = _u32(document[id_field], id_field)
+    event_ms = _u32(document[time_field], time_field)
+    event_valid = document[valid_field]
+    if not isinstance(event_valid, bool):
+        raise ProtocolError(f"{valid_field} must be boolean")
+    if event_valid:
+        if event_id == 0:
+            raise ProtocolError(f"{id_field} must be non-zero when {valid_field} is true")
+        if boot_id is None:
+            raise ProtocolError(f"boot_id is required when {valid_field} is true")
+    elif event_id != 0 or event_ms != 0:
+        raise ProtocolError(f"invalid {id_field}/{time_field} must both be zero")
+    return event_id, event_ms, event_valid
+
+
+def _optional_transition_provenance(
+    document: dict[str, object],
+    *,
+    id_field: str,
+    time_field: str,
+    boot_id: str | None,
+) -> tuple[int | None, int | None]:
+    present = (id_field in document, time_field in document)
+    if not any(present):
+        return None, None
+    if not all(present):
+        raise ProtocolError(f"{id_field} and {time_field} must appear together")
+    event_id = _u32(document[id_field], id_field)
+    event_ms = _u32(document[time_field], time_field)
+    if event_id == 0:
+        if event_ms != 0:
+            raise ProtocolError(f"{time_field} must be zero before the first transition")
+    elif boot_id is None:
+        raise ProtocolError(f"boot_id is required when {id_field} is non-zero")
+    return event_id, event_ms
+
+
+def _optional_health(value: object) -> dict[str, int] | None:
+    if value is None:
+        return None
+    if not isinstance(value, dict):
+        raise ProtocolError("health must be an object")
+    result: dict[str, int] = {}
+    for field in (
+        "telemetry_queue_overwrites",
+        "thermal_queue_overwrites",
+        "tcp_connection_failures",
+        "tcp_send_failures",
+        "thermal_udp_frames_sent",
+        "thermal_udp_send_failures",
+    ):
+        if field in value:
+            result[field] = _u32(value[field], f"health.{field}")
+    return result
 

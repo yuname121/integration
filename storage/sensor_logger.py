@@ -91,6 +91,7 @@ class _LogItem:
     received_at: float
     payload: Any
     analysis: Mapping[str, Any] | None = None
+    received_monotonic: float | None = None
 
 
 class SensorDataLogger:
@@ -112,6 +113,7 @@ class SensorDataLogger:
         self._thread: threading.Thread | None = None
         self._running = False
         self._last_co2_monotonic: float | None = None
+        self._last_co2_event_key: tuple[str, str, int] | None = None
         self._analysis: dict[str, Any] | None = None
         self._scalar_files: dict[str, tuple[str, Any, Path]] = {}
         self._last_cleanup = 0.0
@@ -167,22 +169,43 @@ class SensorDataLogger:
         wall = self._wall_clock() if received_at is None else float(received_at)
         monotonic = self._monotonic_clock() if monotonic_at is None else float(monotonic_at)
         if isinstance(packet, ThermalFrame):
-            self._enqueue(_LogItem("thermal", wall, packet, self._analysis_snapshot()))
+            self._enqueue(
+                _LogItem(
+                    "thermal",
+                    wall,
+                    packet,
+                    self._analysis_snapshot(),
+                    received_monotonic=monotonic,
+                )
+            )
             return
         if not isinstance(packet, TelemetryPayload):
             return
-        self._enqueue(_LogItem("mmwave", wall, packet))
+        self._enqueue(_LogItem("mmwave", wall, packet, received_monotonic=monotonic))
         if not packet.valid.get("co2"):
             return
         with self._state_lock:
+            event_key = None
+            if (
+                packet.co2_measurement_event_valid is True
+                and packet.boot_id is not None
+                and packet.co2_measurement_event_id is not None
+            ):
+                event_key = (packet.device_id, packet.boot_id, packet.co2_measurement_event_id)
             due = (
-                self._last_co2_monotonic is None
+                event_key != self._last_co2_event_key
+                if event_key is not None
+                else self._last_co2_monotonic is None
                 or monotonic - self._last_co2_monotonic >= self.config.co2_interval_seconds
             )
             if not due:
                 return
-            if self._enqueue(_LogItem("co2", wall, packet)):
+            if self._enqueue(
+                _LogItem("co2", wall, packet, received_monotonic=monotonic)
+            ):
                 self._last_co2_monotonic = monotonic
+                if event_key is not None:
+                    self._last_co2_event_key = event_key
 
     def set_analysis_context(
         self,
@@ -286,6 +309,7 @@ class SensorDataLogger:
         if item.sensor == "mmwave":
             document = {
                 "timestamp": item.received_at,
+                "receive_monotonic": item.received_monotonic,
                 "device_id": packet.device_id,
                 "sequence": packet.header.sequence,
                 "source_uptime_ms": packet.uptime_ms,
@@ -297,10 +321,15 @@ class SensorDataLogger:
         else:
             document = {
                 "timestamp": item.received_at,
+                "receive_monotonic": item.received_monotonic,
                 "device_id": packet.device_id,
+                "boot_id": packet.boot_id,
                 "sequence": packet.header.sequence,
                 "source_uptime_ms": packet.uptime_ms,
                 "co2_ppm": packet.co2_ppm,
+                "co2_measurement_event_id": packet.co2_measurement_event_id,
+                "co2_measurement_monotonic_ms": packet.co2_measurement_monotonic_ms,
+                "co2_measurement_event_valid": packet.co2_measurement_event_valid,
             }
         with self._io_lock:
             _, handle, _ = self._scalar_handle(item.sensor, item.received_at)
@@ -356,6 +385,7 @@ class SensorDataLogger:
                         stream,
                         frames=np.stack(frames),
                         timestamps=np.asarray([item.received_at for item in items], dtype=np.float64),
+                        receive_monotonic=np.asarray([item.received_monotonic for item in items], dtype=np.float64),
                         frame_sequences=np.asarray([item.payload.frame_sequence for item in items], dtype=np.uint32),
                         source_uptime_ms=np.asarray([item.payload.uptime_ms for item in items], dtype=np.uint32),
                         minimum_raw=np.asarray([item.payload.minimum_raw for item in items], dtype=np.uint16),

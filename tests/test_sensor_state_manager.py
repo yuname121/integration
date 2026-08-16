@@ -25,6 +25,12 @@ def telemetry(
     heart: float | None = 72.0,
     co2: float | None = 800.0,
     motion: bool = False,
+    boot_id: str | None = None,
+    co2_event_id: int | None = None,
+    co2_event_ms: int | None = None,
+    co2_event_valid: bool | None = None,
+    pir_event_id: int | None = None,
+    pir_transition_ms: int | None = None,
 ) -> TelemetryPayload:
     valid = {
         "respiration": respiration is not None,
@@ -40,6 +46,12 @@ def telemetry(
         co2_ppm=co2,
         pir_motion=motion,
         valid=valid,
+        boot_id=boot_id,
+        co2_measurement_event_id=co2_event_id,
+        co2_measurement_monotonic_ms=co2_event_ms,
+        co2_measurement_event_valid=co2_event_valid,
+        pir_event_id=pir_event_id,
+        pir_last_transition_monotonic_ms=pir_transition_ms,
     )
 
 
@@ -156,6 +168,56 @@ class SensorStateManagerTests(unittest.TestCase):
         recovered = manager.snapshot(now=111.0, monotonic_now=21.0)["sensors"]["co2"]
         self.assertEqual(recovered["status"], "LIVE")
         self.assertEqual(recovered["values"]["ppm"], 700.0)
+
+    def test_repeated_co2_publications_are_one_physical_event(self) -> None:
+        manager = SensorStateManager(co2_update_interval_seconds=60.0)
+        for sequence, received in ((1, 10.0), (2, 11.0), (3, 12.0)):
+            manager.ingest(
+                telemetry(
+                    sequence,
+                    co2=700.0,
+                    boot_id="boot-a",
+                    co2_event_id=42,
+                    co2_event_ms=5_000,
+                    co2_event_valid=True,
+                ),
+                PEER,
+                received_at=100.0 + received,
+                monotonic_at=received,
+            )
+        values = manager.snapshot(now=112.0, monotonic_now=12.0)["sensors"]["co2"]["values"]
+        self.assertEqual(values["measurement_event_count"], 1)
+        self.assertEqual(values["measurement_event_id"], 42)
+        self.assertEqual(values["measurement_monotonic_ms"], 5_000)
+
+        manager.ingest(
+            telemetry(4, co2=705.0, boot_id="boot-a", co2_event_id=43, co2_event_ms=10_000, co2_event_valid=True),
+            PEER,
+            received_at=115.0,
+            monotonic_at=15.0,
+        )
+        values = manager.snapshot(now=115.0, monotonic_now=15.0)["sensors"]["co2"]["values"]
+        self.assertEqual(values["measurement_event_count"], 2)
+        self.assertEqual(values["latest_measurement_ppm"], 705.0)
+        self.assertEqual(values["ppm"], 700.0)
+
+    def test_boot_id_separates_reused_co2_event_ids(self) -> None:
+        manager = SensorStateManager()
+        manager.ingest(telemetry(1, boot_id="boot-a", co2_event_id=42, co2_event_ms=5_000, co2_event_valid=True), PEER, received_at=100.0, monotonic_at=10.0)
+        manager.ingest(telemetry(1, boot_id="boot-b", co2_event_id=42, co2_event_ms=5_000, co2_event_valid=True), PEER, received_at=101.0, monotonic_at=11.0)
+        co2 = manager.snapshot(now=101.0, monotonic_now=11.0)["sensors"]["co2"]
+        self.assertEqual(co2["boot_id"], "boot-b")
+        self.assertEqual(co2["values"]["measurement_event_count"], 2)
+
+    def test_pir_state_and_transition_provenance_are_distinct(self) -> None:
+        manager = SensorStateManager()
+        cases = ((False, 0, 0), (True, 1, 20_000), (True, 1, 20_000), (False, 2, 30_000))
+        for sequence, (motion, event_id, event_ms) in enumerate(cases, start=1):
+            manager.ingest(telemetry(sequence, motion=motion, boot_id="boot-a", pir_event_id=event_id, pir_transition_ms=event_ms), PEER, received_at=100.0 + sequence, monotonic_at=10.0 + sequence)
+        values = manager.snapshot(now=104.0, monotonic_now=14.0)["sensors"]["pir"]["values"]
+        self.assertFalse(values["motion"])
+        self.assertEqual(values["event_id"], 2)
+        self.assertEqual(values["last_transition_monotonic_ms"], 30_000)
 
     def test_disconnect_and_stale_are_separate_facts(self) -> None:
         manager = SensorStateManager()
