@@ -1,0 +1,16 @@
+{
+  "capture_schema_version": "safenest.capture.v1",
+  "capture_schema_family": "SAFENEST_CAPTURE_V1",
+  "unknown_field_policy": "reject",
+  "runtime_capture_root": "captures",
+  "independent_of": [
+    "safenest.telemetry.v1",
+    "sqlite_operational_schema",
+    "ai_input_contract"
+  ],
+  "sensor_types": ["co2", "thermal", "pir", "mmwave", "runtime"],
+  "mmwave_phase_payload_status": "PENDING_MMWAVE_DEVICE_CONTRACT_VALIDATION",
+  "thermal_payload_container": "npz_uint16_lossless",
+  "thermal_payload_writer_status": "NOT_IMPLEMENTED_RP_A1",
+  "notes": "Python validator in storage.capture_v1 is authoritative for types. This catalog is the machine-readable field map."
+}

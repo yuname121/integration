@@ -13,6 +13,8 @@ logs/
 data/mmwave/*
 data/co2/*
 data/thermal/*
+# Runtime Capture v1 output (RP-A1). Synthetic fixtures stay under tests/fixtures/.
+captures/
 !data/mmwave/.gitkeep
 !data/co2/.gitkeep
 !data/thermal/.gitkeep
