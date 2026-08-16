@@ -2,6 +2,7 @@
 
 **Document date:** 2026-08-16
 **Document ID:** `RP-AI-ENABLEMENT-ROADMAP-01`
+**한국어 요약본:** [`20260816_SafeNest_Raspberry_Pi_AI_Runtime_Enablement_Roadmap_01_KO.md`](20260816_SafeNest_Raspberry_Pi_AI_Runtime_Enablement_Roadmap_01_KO.md)
 **Roadmap status:** `APPROVED_FOR_RP-A1_ONLY`
 **Status meaning:** RP-A0 audit/design is the documentation baseline. The next authorized implementation, after this document is on `main`, is **RP-A1 only** (Capture schema, session/event identity, synthetic fixtures, Capture path/gitignore). Later RP-B/C/D phases, B-complete model activation, and RP-A1 code itself are **not** authorized by this document.
 
