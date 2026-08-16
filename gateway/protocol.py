@@ -71,6 +71,9 @@ class TelemetryPayload:
     pir_event_id: int | None = None
     pir_last_transition_monotonic_ms: int | None = None
     health: dict[str, int] | None = None
+    # RP_X0_DIAGNOSTIC_RECORDING only. Present JSON keys only; never synthesized.
+    # Nested mmwave.seq is stored here; transport seq remains header.sequence.
+    mmwave: dict[str, object] | None = None
 
 
 @dataclass(frozen=True)
@@ -232,6 +235,7 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
         boot_id=boot_id,
     )
     health = _optional_health(decoded.get("health"))
+    mmwave = _optional_mmwave_diagnostic(decoded)
 
     return TelemetryPayload(
         header=header,
@@ -249,6 +253,7 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
         pir_event_id=pir_event_id,
         pir_last_transition_monotonic_ms=pir_transition_ms,
         health=health,
+        mmwave=mmwave,
     )
 
 
@@ -395,6 +400,95 @@ def _optional_transition_provenance(
     elif boot_id is None:
         raise ProtocolError(f"boot_id is required when {id_field} is non-zero")
     return event_id, event_ms
+
+
+_MMWAVE_DIAGNOSTIC_KEYS: Final = (
+    "breath_phase",
+    "breath_rate_raw",
+    "phase_age_ms",
+    "ts_monotonic_ms",
+    "distance",
+    "presence",
+    "movement",
+    "lock",
+    "lock_state",
+    "error",
+    "error_state",
+    "firmware_version",
+    "config_hash",
+    "schema_version",
+)
+_MMWAVE_NESTED_ONLY_KEYS: Final = ("seq",)
+_MISSING: Final = object()
+
+
+def _optional_mmwave_diagnostic(document: dict[str, object]) -> dict[str, object] | None:
+    collected: dict[str, object] = {}
+    nested = document.get("mmwave", _MISSING)
+    if nested is not _MISSING:
+        if not isinstance(nested, dict):
+            raise ProtocolError("mmwave must be an object")
+        collected.update(
+            _parse_mmwave_fields(nested, allow_seq=True, prefix="mmwave")
+        )
+    top_level = _parse_mmwave_fields(document, allow_seq=False, prefix="")
+    for key, value in top_level.items():
+        collected.setdefault(key, value)
+    return collected or None
+
+
+def _parse_mmwave_fields(
+    document: dict[str, object],
+    *,
+    allow_seq: bool,
+    prefix: str,
+) -> dict[str, object]:
+    parsed: dict[str, object] = {}
+    keys = _MMWAVE_DIAGNOSTIC_KEYS + (_MMWAVE_NESTED_ONLY_KEYS if allow_seq else ())
+    for key in keys:
+        if key not in document:
+            continue
+        field = f"{prefix}.{key}" if prefix else key
+        parsed[key] = _parse_mmwave_value(document[key], key, field)
+    return parsed
+
+
+def _parse_mmwave_value(value: object, key: str, field: str) -> object:
+    if value is None:
+        return None
+    if key in {"breath_phase", "breath_rate_raw", "distance"}:
+        return _optional_finite(value, field)
+    if key in {"phase_age_ms", "ts_monotonic_ms", "seq"}:
+        return _u32(value, field)
+    if key == "presence":
+        if not isinstance(value, bool):
+            raise ProtocolError(f"{field} must be boolean or null")
+        return value
+    if key == "movement":
+        if isinstance(value, bool):
+            return value
+        return _optional_finite(value, field)
+    if key in {"lock", "lock_state"}:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            return value
+        raise ProtocolError(f"{field} must be boolean, string, or null")
+    if key in {"error", "error_state"}:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            return value
+        raise ProtocolError(f"{field} must be boolean, string, or null")
+    if key in {"firmware_version", "config_hash"}:
+        if not isinstance(value, str):
+            raise ProtocolError(f"{field} must be a string or null")
+        return value
+    if key == "schema_version":
+        if isinstance(value, bool) or not isinstance(value, (str, int)):
+            raise ProtocolError(f"{field} must be a string, integer, or null")
+        return value
+    raise ProtocolError(f"unsupported mmwave field: {field}")
 
 
 def _optional_health(value: object) -> dict[str, int] | None:

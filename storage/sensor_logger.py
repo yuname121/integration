@@ -317,7 +317,20 @@ class SensorDataLogger:
                 "heart_rate_bpm": packet.heart_rate_bpm,
                 "respiration_valid": packet.valid["respiration"],
                 "heart_valid": packet.valid["heart"],
+                "pir_motion": packet.pir_motion,
             }
+            if packet.boot_id is not None:
+                document["boot_id"] = packet.boot_id
+            if packet.pir_event_id is not None:
+                document["pir_event_id"] = packet.pir_event_id
+                document["pir_last_transition_monotonic_ms"] = (
+                    packet.pir_last_transition_monotonic_ms
+                )
+            if packet.mmwave:
+                # RP_X0_DIAGNOSTIC_RECORDING: raw owner fields, no phase preprocessing.
+                document["mmwave"] = json.loads(
+                    json.dumps(packet.mmwave, allow_nan=False, separators=(",", ":"))
+                )
         else:
             document = {
                 "timestamp": item.received_at,

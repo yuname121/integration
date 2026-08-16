@@ -167,6 +167,72 @@ class ProtocolDecodeTests(unittest.TestCase):
         packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 9, payload))
         self.assertIsNone(packet.boot_id)
         self.assertIsNone(packet.co2_measurement_event_id)
+        self.assertIsNone(packet.mmwave)
+
+    def test_optional_mmwave_phase_fields_are_preserved_without_renaming(self) -> None:
+        payload = telemetry_payload(
+            11,
+            breath_phase=-0.375,
+            breath_rate_raw=14.25,
+            phase_age_ms=80,
+            ts_monotonic_ms=12_345,
+            distance=1.5,
+            presence=True,
+            movement=False,
+            lock_state=True,
+            error_state=None,
+            firmware_version="mr60-owner-1",
+            config_hash="abc123",
+            schema_version="mmwave.telemetry.owner-1",
+        )
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 11, payload))
+        self.assertEqual(packet.header.sequence, 11)
+        self.assertEqual(packet.respiration_rate_bpm, 16.2)
+        self.assertEqual(
+            packet.mmwave,
+            {
+                "breath_phase": -0.375,
+                "breath_rate_raw": 14.25,
+                "phase_age_ms": 80,
+                "ts_monotonic_ms": 12_345,
+                "distance": 1.5,
+                "presence": True,
+                "movement": False,
+                "lock_state": True,
+                "error_state": None,
+                "firmware_version": "mr60-owner-1",
+                "config_hash": "abc123",
+                "schema_version": "mmwave.telemetry.owner-1",
+            },
+        )
+
+    def test_nested_mmwave_seq_is_not_collapsed_into_transport_seq(self) -> None:
+        payload = telemetry_payload(
+            12,
+            mmwave={
+                "seq": 9001,
+                "breath_phase": 0.0,
+                "ts_monotonic_ms": 50,
+                "schema_version": 3,
+            },
+        )
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 12, payload))
+        self.assertEqual(packet.header.sequence, 12)
+        self.assertEqual(packet.mmwave["seq"], 9001)
+        self.assertEqual(packet.mmwave["breath_phase"], 0.0)
+        self.assertEqual(packet.mmwave["schema_version"], 3)
+
+    def test_absent_mmwave_fields_are_omitted_and_null_is_kept(self) -> None:
+        payload = telemetry_payload(13, breath_phase=None, firmware_version=None)
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 13, payload))
+        self.assertEqual(packet.mmwave, {"breath_phase": None, "firmware_version": None})
+        self.assertNotIn("phase_age_ms", packet.mmwave)
+        self.assertNotIn("config_hash", packet.mmwave)
+
+    def test_invalid_mmwave_phase_field_is_rejected(self) -> None:
+        payload = telemetry_payload(14, breath_phase="not-a-number")
+        with self.assertRaisesRegex(ProtocolError, "breath_phase"):
+            decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 14, payload))
 
     def test_event_provenance_rejects_bad_types_ranges_and_mismatch(self) -> None:
         cases = (
