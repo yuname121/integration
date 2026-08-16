@@ -5,6 +5,7 @@
 전체 단계의 작업 내용과 결과는 [`INTEGRATION_PHASE_SUMMARY.md`](INTEGRATION_PHASE_SUMMARY.md)에서 한 번에 확인할 수 있다.
 압축 전달, 최초 설치, 평상시 실행·종료 순서는 [`PACKAGE_AND_OPERATION_GUIDE.md`](PACKAGE_AND_OPERATION_GUIDE.md)를 따른다.
 최신 AI 변경 감사와 반영 결정은 [`docs/ON_DEVICE_UPDATE_AUDIT.md`](docs/ON_DEVICE_UPDATE_AUDIT.md)에 정리했다.
+현재 ESP↔Pi HIL observability corrective와 인계 사항은 [`docs/UPDATE_0816.md`](docs/UPDATE_0816.md)에 정리했다.
 긴급 대응 HMI, DANGER 래치, 119 모의 신고, 서버 측 SMS, GPIO/mock buzzer와 오프라인 시연 순서는 [`docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md`](docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md)를 따른다.
 
 현재 완료 단계:
