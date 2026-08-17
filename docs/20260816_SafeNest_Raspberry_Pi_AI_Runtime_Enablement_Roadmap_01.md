@@ -6,7 +6,7 @@
 **Roadmap status:** `RP-A1_IMPLEMENTED_UNDER_INDEPENDENT_REVIEW / RP-X0_FIELD_STATE_CORRECTIVE`
 **Status meaning:** RP-A0 audit/design is the documentation baseline. RP-A1 is implemented and under independent review, but RP-X0 does **not** authorize its merge. Later RP-A2+/RP-B/RP-C/RP-D phases and B-complete production activation remain unauthorized by this document.
 
-This roadmap describes how the Raspberry Pi integration runtime must be improved so that the team B-complete offline AI candidates can eventually be used correctly with real sensor evidence. It does not implement Capture, change ESP32 firmware, retrain models, change frozen preprocessing, change class maps, change risk thresholds, or change dashboard behavior.
+This roadmap describes how the Raspberry Pi integration runtime must be improved so that the team B-complete offline AI candidates can eventually be used correctly with real sensor evidence. It does not implement Capture, change ESP32 firmware, retrain models, change frozen preprocessing, change class maps, change risk thresholds, or change dashboard risk-decision, alarm, or operational behavior.
 
 Evidence tags used below:
 
@@ -327,7 +327,7 @@ SNAPSHOT_ROLE
 Canonical snapshot path:
 
 ```text
-/Users/junwoo/Library/Mobile Documents/com~apple~CloudDocs/대학/safenest-pi-integration-snapshot
+/Users/junwoo/Library/Mobile Documents/com~apple~CloudDocs/대학/2026/safenest-pi-integration-snapshot
 ```
 
 The approximately 682 MB `FIELD_FREEZE_SNAPSHOT` contains about 395 MB of
@@ -509,6 +509,9 @@ labels below are offline ordering tags, **not** normal RP phases:
 | O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Later, when Pi is available |
 | O7 | Integrate a newly approved MR60-native model and perform a targeted mmWave smoke | Only after full AI handoff |
 | O8 | Forward-port verified integration results to the team repository | Later |
+
+O4 does not change UI risk-decision, alarm, or operational policy. It is limited
+to making sensor/AI availability and blocked-status presentation consistent.
 
 Stage 7 restore remains deferred while the Pi is occupied. Stage 9 is reduced
 to `MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: backend/health, TCP `:9000`, UDP
