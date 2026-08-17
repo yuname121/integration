@@ -1,0 +1,359 @@
+{
+  "document_id": "RP-X0-O2-5-THERMAL-FLOAT-INT8-COMPAT-01",
+  "stacked_on_o2_commit": "925330c1c54eb0f5762ae56b6ff6f6a81897aad5",
+  "o2_pr": "https://github.com/yuname121/integration/pull/14",
+  "equivalence_contract": "EQUIVALENCE_MEASURED_NO_PREEXISTING_ABSOLUTE_ACCEPTANCE_THRESHOLD",
+  "lineage": {
+    "architecture": "SMALL_CNN_BASELINE_V1",
+    "same_architecture": true,
+    "p1_profile": "P1_TRAIN_FITTED_GLOBAL_ZSCORE",
+    "same_p1_contract": true,
+    "same_weights_before_quantization": true,
+    "float_role": "TFLITE_FP32 true unquantized reference from T-B4 conversion chain",
+    "int8_role": "FULL_INT8 selected T-B5 candidate",
+    "authority": "sheepmeat/test T-B4/T-B5",
+    "float_sha256": "fbe891520f07e0534b1a7074dc819d8ed44bca58b27e35c78916c3ddae73a779",
+    "int8_sha256": "fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be",
+    "class_map_restriction": "HUMAN_FALL is a LYING-derived posture compatibility proxy. It is NOT a verified temporal FALL_EVENT."
+  },
+  "quantization_range": {
+    "q_minus_125_represented_celsius": 22.769290618485442,
+    "q_minus_128_represented_celsius": 20.033537069976386,
+    "low_clip_threshold_celsius_rint": 19.577578145224876,
+    "note": "q=-128 represented Celsius is not the clipping boundary."
+  },
+  "frames": [
+    {
+      "role": "early_field_capture",
+      "filename": "20260817_065524_939278_0000007852-0000007864.npz",
+      "sha256": "09dc0e3b70beb357951dc7ea1fc4057babaada9c46e9ae673bdc59769af5b2d6",
+      "frame_index": 0,
+      "celsius": {
+        "min": 3.75,
+        "median": 23.850006103515625,
+        "max": 39.45001220703125
+      },
+      "int8": {
+        "low_saturation_fraction": 0.13024193548387097,
+        "high_saturation_fraction": 0.0,
+        "unique_value_count": 22,
+        "int8_min": -128,
+        "int8_max": -107,
+        "raw_output": [
+          -128,
+          -128,
+          127
+        ],
+        "dequantized_output": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.714
+      },
+      "float": {
+        "probabilities": [
+          0.0,
+          5.60718071582207e-24,
+          1.0
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 1.212,
+        "finite": true
+      },
+      "comparison": {
+        "top1_agree": true,
+        "ranking_agree": true,
+        "float_class_index": 2,
+        "int8_class_index": 2,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_FALL",
+        "float_margin": 1.0,
+        "int8_margin": 0.99609375,
+        "probability_l1": 0.00390625,
+        "probability_mae": 0.0013020833333333333,
+        "probability_max_abs": 0.00390625,
+        "float_ranking": [
+          2,
+          1,
+          0
+        ],
+        "int8_ranking": [
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "role": "middle_field_capture",
+      "filename": "20260817_082122_819638_0000006423-0000006434.npz",
+      "sha256": "dde0240f086f2a59da24b73237fde4fcfd5369935cd1b1453aa48f8e8fb2e009",
+      "frame_index": 0,
+      "celsius": {
+        "min": -61.84999084472656,
+        "median": 16.149993896484375,
+        "max": 41.75
+      },
+      "int8": {
+        "low_saturation_fraction": 0.6967741935483871,
+        "high_saturation_fraction": 0.0,
+        "unique_value_count": 25,
+        "int8_min": -128,
+        "int8_max": -104,
+        "raw_output": [
+          -128,
+          125,
+          -125
+        ],
+        "dequantized_output": [
+          0.0,
+          0.98828125,
+          0.01171875
+        ],
+        "class_name": "HUMAN_NORMAL",
+        "latency_ms": 0.112
+      },
+      "float": {
+        "probabilities": [
+          0.0,
+          4.709079046643649e-22,
+          1.0
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.235,
+        "finite": true
+      },
+      "comparison": {
+        "top1_agree": false,
+        "ranking_agree": false,
+        "float_class_index": 2,
+        "int8_class_index": 1,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_margin": 1.0,
+        "int8_margin": 0.9765625,
+        "probability_l1": 1.9765625,
+        "probability_mae": 0.6588541666666666,
+        "probability_max_abs": 0.98828125,
+        "float_ranking": [
+          2,
+          1,
+          0
+        ],
+        "int8_ranking": [
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "role": "late_field_capture",
+      "filename": "20260817_093125_194406_0000030438-0000030438.npz",
+      "sha256": "c378a964a315c55ee1b8d3093f8fa52f4387ac5428e6bb2311cb4cd86f8b02cb",
+      "frame_index": 0,
+      "celsius": {
+        "min": -55.84999084472656,
+        "median": 15.050018310546875,
+        "max": 43.649993896484375
+      },
+      "int8": {
+        "low_saturation_fraction": 0.7844758064516129,
+        "high_saturation_fraction": 0.0,
+        "unique_value_count": 25,
+        "int8_min": -128,
+        "int8_max": -102,
+        "raw_output": [
+          -128,
+          127,
+          -128
+        ],
+        "dequantized_output": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "class_name": "HUMAN_NORMAL",
+        "latency_ms": 0.111
+      },
+      "float": {
+        "probabilities": [
+          0.0,
+          1.0,
+          4.540013567200032e-34
+        ],
+        "class_name": "HUMAN_NORMAL",
+        "latency_ms": 0.234,
+        "finite": true
+      },
+      "comparison": {
+        "top1_agree": true,
+        "ranking_agree": true,
+        "float_class_index": 1,
+        "int8_class_index": 1,
+        "float_class": "HUMAN_NORMAL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_margin": 1.0,
+        "int8_margin": 0.99609375,
+        "probability_l1": 0.00390625,
+        "probability_mae": 0.0013020833333333333,
+        "probability_max_abs": 0.00390625,
+        "float_ranking": [
+          1,
+          2,
+          0
+        ],
+        "int8_ranking": [
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "role": "low_temperature_looking_frame",
+      "filename": "20260817_081844_396547_0000005431-0000005442.npz",
+      "sha256": "77ef9787155b434c7c8836ce6fba80de83843d75869803b1722e8ca6ff71c46e",
+      "frame_index": 2,
+      "celsius": {
+        "min": -64.64999389648438,
+        "median": 23.149993896484375,
+        "max": 47.550018310546875
+      },
+      "int8": {
+        "low_saturation_fraction": 0.23971774193548387,
+        "high_saturation_fraction": 0.0,
+        "unique_value_count": 31,
+        "int8_min": -128,
+        "int8_max": -98,
+        "raw_output": [
+          -128,
+          -128,
+          127
+        ],
+        "dequantized_output": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.11
+      },
+      "float": {
+        "probabilities": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.232,
+        "finite": true
+      },
+      "comparison": {
+        "top1_agree": true,
+        "ranking_agree": true,
+        "float_class_index": 2,
+        "int8_class_index": 2,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_FALL",
+        "float_margin": 1.0,
+        "int8_margin": 0.99609375,
+        "probability_l1": 0.00390625,
+        "probability_mae": 0.0013020833333333333,
+        "probability_max_abs": 0.00390625,
+        "float_ranking": [
+          2,
+          1,
+          0
+        ],
+        "int8_ranking": [
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "role": "high_temperature_looking_frame",
+      "filename": "20260817_084720_900175_0000015484-0000015496.npz",
+      "sha256": "0dd2e560172b4234e6bccafc5aa079c0ac906068e09faa2d664c843057169300",
+      "frame_index": 5,
+      "celsius": {
+        "min": -64.54998779296875,
+        "median": 22.25,
+        "max": 70.35000610351562
+      },
+      "int8": {
+        "low_saturation_fraction": 0.2923387096774194,
+        "high_saturation_fraction": 0.0,
+        "unique_value_count": 44,
+        "int8_min": -128,
+        "int8_max": -73,
+        "raw_output": [
+          -128,
+          -128,
+          127
+        ],
+        "dequantized_output": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.11
+      },
+      "float": {
+        "probabilities": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.231,
+        "finite": true
+      },
+      "comparison": {
+        "top1_agree": true,
+        "ranking_agree": true,
+        "float_class_index": 2,
+        "int8_class_index": 2,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_FALL",
+        "float_margin": 1.0,
+        "int8_margin": 0.99609375,
+        "probability_l1": 0.00390625,
+        "probability_mae": 0.0013020833333333333,
+        "probability_max_abs": 0.00390625,
+        "float_ranking": [
+          2,
+          1,
+          0
+        ],
+        "int8_ranking": [
+          2,
+          1,
+          0
+        ]
+      }
+    }
+  ],
+  "aggregate": {
+    "frame_count": 5,
+    "top1_agree_count": 4,
+    "ranking_agree_count": 4,
+    "probability_mae_min": 0.0013020833333333333,
+    "probability_mae_max": 0.6588541666666666,
+    "low_saturation_min": 0.13024193548387097,
+    "low_saturation_max": 0.7844758064516129,
+    "high_saturation_max": 0.0
+  },
+  "saturation_relationship": "INSUFFICIENT_EVIDENCE",
+  "classification": "DEVICE_DOMAIN_GAP_LIKELY",
+  "o3_adapter_implementation": false,
+  "production_thermal_activation": false,
+  "snapshot_modified": false,
+  "models_modified": false,
+  "gate": "PASS_WITH_LIMITATIONS"
+}
