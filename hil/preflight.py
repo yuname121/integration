@@ -236,11 +236,14 @@ def _artifact_selection_checks(root: Path) -> list[dict[str, object]]:
             {"path": thermal_path, "forbidden_hits": forbidden},
         ),
         _check(
-            "mmwave_primary_deployment_blocked",
-            mmwave.get("deployment_allowed") is False,
+            "mmwave_active_m_n9_runtime_compatible",
+            mmwave.get("model_id") == "MMWAVE_M_N9_FULL_INT8_V1"
+            and mmwave.get("runtime_adapter_compatible") is True
+            and mmwave.get("HISTORICAL_B_NOT_ACTIVE") is True,
             {
-                "deployment_allowed": mmwave.get("deployment_allowed"),
-                "block_reason": mmwave.get("block_reason"),
+                "model_id": mmwave.get("model_id"),
+                "runtime_adapter_compatible": mmwave.get("runtime_adapter_compatible"),
+                "historical_b_not_active": mmwave.get("HISTORICAL_B_NOT_ACTIVE"),
             },
         ),
         _check(

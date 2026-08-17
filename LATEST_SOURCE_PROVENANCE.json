@@ -10,7 +10,7 @@
   "latest_component_source": "77b1695ac66fd595bd037e4574d1626b8917654c",
   "ondevice_ai_snapshot": {
     "source": "origin/main:ondevice_ai",
-    "tracked_file_count": 1074,
+      "tracked_file_count": 1075,
     "intermediate_release_changes": 489,
     "copied_without_source_edits": false,
     "file_count_excludes": ["models/rp_x0_b_complete"]

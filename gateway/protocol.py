@@ -71,6 +71,13 @@ class TelemetryPayload:
     pir_event_id: int | None = None
     pir_last_transition_monotonic_ms: int | None = None
     health: dict[str, int] | None = None
+    # Optional M-N4/M-N9 evidence.  These are additive to TCP v1: legacy
+    # packets remain decodable, but cannot be treated as canonical AI input.
+    breath_phase: float | None = None
+    ts_monotonic_ms: float | None = None
+    phase_age_ms: float | None = None
+    human_detected_raw: bool | None = None
+    session_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -232,6 +239,13 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
         boot_id=boot_id,
     )
     health = _optional_health(decoded.get("health"))
+    breath_phase = _optional_finite(decoded.get("breath_phase"), "breath_phase")
+    ts_monotonic_ms = _optional_finite(decoded.get("ts_monotonic_ms"), "ts_monotonic_ms")
+    phase_age_ms = _optional_finite(decoded.get("phase_age_ms"), "phase_age_ms")
+    human_detected_raw = decoded.get("human_detected_raw")
+    if human_detected_raw is not None and not isinstance(human_detected_raw, bool):
+        raise ProtocolError("human_detected_raw must be boolean when present")
+    session_id = _optional_identifier(decoded.get("session_id"), "session_id")
 
     return TelemetryPayload(
         header=header,
@@ -249,6 +263,11 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
         pir_event_id=pir_event_id,
         pir_last_transition_monotonic_ms=pir_transition_ms,
         health=health,
+        breath_phase=breath_phase,
+        ts_monotonic_ms=ts_monotonic_ms,
+        phase_age_ms=phase_age_ms,
+        human_detected_raw=human_detected_raw,
+        session_id=session_id,
     )
 
 

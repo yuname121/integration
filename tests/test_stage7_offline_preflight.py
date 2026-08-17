@@ -48,7 +48,7 @@ class Stage7OfflinePreflightTests(unittest.TestCase):
     def test_artifact_selection_does_not_silently_activate_tb5_or_old_b(self) -> None:
         names = {item["name"]: item for item in self.document["checks"]}
         self.assertTrue(names["thermal_production_path_is_historical_v0_1_0"]["passed"])
-        self.assertTrue(names["mmwave_primary_deployment_blocked"]["passed"])
+        self.assertTrue(names["mmwave_active_m_n9_runtime_compatible"]["passed"])
         self.assertTrue(names["model_thermal_sha256"]["passed"])
         self.assertTrue(names["model_mmwave_sha256"]["passed"])
 

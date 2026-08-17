@@ -103,28 +103,22 @@ class AIPipelineTests(unittest.TestCase):
         self.assertEqual(output["error"], "SENSOR_STALE")
         self.assertEqual(thermal.calls, [])
 
-    def test_mmwave_requires_real_300_sample_phase_window(self):
+    def test_mmwave_requires_canonical_freshness_evidence(self):
         mmwave = FakeModel(prediction("NORMAL", [0.9, 0.08, 0.02]))
         pipeline = OnDeviceAIPipeline(self.manager, {"mmwave": mmwave})
         missing = pipeline.evaluate(snapshot())["ai"]["mmwave"]
-        self.assertEqual(missing["error"], "INPUT_UNAVAILABLE")
+        self.assertEqual(missing["error"], "CANONICAL_FRESHNESS_METADATA_MISSING")
         self.assertEqual(mmwave.calls, [])
-
-        ready = snapshot(mmwave=sensor(values={"respiration_phase_window": [0.1] * 300}))
-        result = pipeline.evaluate(ready)["ai"]["mmwave"]
-        self.assertTrue(result["available"])
-        self.assertEqual(len(mmwave.calls[0][0]), 300)
 
     def test_mmwave_heuristic_fallback_is_not_reported_as_ai(self):
         pred = prediction(
             "APNEA", [0.02, 0.03, 0.95], fallback_used=True, fallback_reason="NO_TFLITE"
         )
         pipeline = OnDeviceAIPipeline(self.manager, {"mmwave": FakeModel(pred)})
-        ready = snapshot(mmwave=sensor(values={"respiration_phase_window": [0.1] * 300}))
+        ready = snapshot(mmwave=sensor(values={}))
         result = pipeline.evaluate(ready)["ai"]["mmwave"]
         self.assertFalse(result["available"])
-        self.assertEqual(result["error"], "MODEL_RUNTIME_UNAVAILABLE")
-        self.assertEqual(result["metadata"]["heuristic_state"], "APNEA")
+        self.assertEqual(result["error"], "CANONICAL_FRESHNESS_METADATA_MISSING")
 
     def test_co2_requires_humidity_and_history(self):
         co2 = FakeModel(prediction("OCCUPIED", [0.1, 0.9]))
@@ -169,6 +163,7 @@ class AIPipelineTests(unittest.TestCase):
         active = manifest["models"]["mmwave"]
         self.assertEqual(active["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
         self.assertEqual(active["runtime_role"], "ACTIVE_M_N9")
+        self.assertTrue(active["runtime_adapter_compatible"])
         self.assertEqual(active["deployment_scope"], "MAC_INTEGRATION_CANDIDATE")
         self.assertEqual(active["hardware_validation"], "NOT_PERFORMED")
         self.assertFalse(active["DEVICE_VALIDATED"])
@@ -191,13 +186,13 @@ class AIPipelineTests(unittest.TestCase):
         frozen = [
             path
             for path in snapshot.rglob("*")
-            if path.is_file() and overlay not in path.parents and path != overlay
+            if path.is_file() and path.suffix != ".pyc" and overlay not in path.parents and path != overlay
         ]
         overlay_files = [path for path in overlay.rglob("*") if path.is_file()] if overlay.exists() else []
         self.assertEqual(provenance["latest_origin_main"], "fa8cf13")
         self.assertEqual(provenance["latest_component_source"], "77b1695ac66fd595bd037e4574d1626b8917654c")
-        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1074)
-        self.assertEqual(len(frozen), 1074)
+        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1075)
+        self.assertEqual(len(frozen), 1075)
         self.assertEqual(provenance["locked_b_stage_overlay"]["file_count"], len(overlay_files))
         self.assertEqual(len(overlay_files), 19)
         self.assertEqual(provenance["mmwave_m_n9_import"]["artifact_id"], "MMWAVE_M_N9_FULL_INT8_V1")

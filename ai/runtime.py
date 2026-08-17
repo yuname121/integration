@@ -22,7 +22,7 @@ class LazyModel:
 
     _ADAPTERS = {
         "thermal": ("thermal_interpreter.py", "ThermalInterpreter"),
-        "mmwave": ("mmwave_interpreter.py", "MMWaveInterpreter"),
+        "mmwave": ("mmwave_m_n9_interpreter.py", "MN9Interpreter"),
         "co2": ("co2_interpreter.py", "CO2Interpreter"),
     }
 
