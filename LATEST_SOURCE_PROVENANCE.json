@@ -12,7 +12,15 @@
     "source": "origin/main:ondevice_ai",
     "tracked_file_count": 1069,
     "intermediate_release_changes": 489,
-    "copied_without_source_edits": true
+    "copied_without_source_edits": true,
+    "file_count_excludes": ["models/rp_x0_b_complete"]
+  },
+  "locked_b_stage_overlay": {
+    "source": "https://github.com/sheepmeat/test.git",
+    "layout": "sources/ondevice_ai/models/rp_x0_b_complete",
+    "not_part_of_frozen_ondevice_ai_snapshot": true,
+    "production_model_manifest_unchanged": true,
+    "file_count": 19
   },
   "integration_policy": {
     "sources_display_test2_esp32_sensor_node": "maintained_active_flash_source_exception",
