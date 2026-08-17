@@ -1,0 +1,29 @@
+{
+  "classification": "RP_X0_PI_FIELD_CAPTURE_SNAPSHOT",
+  "copied_at_kst": "2026-08-17",
+  "pi_host": "sandi@172.20.10.3",
+  "pi_path": "/home/sandi/integration",
+  "pi_branch": "diagnostic/rp-x0-b-runtime-wiring",
+  "pi_sha": "1ffbc7d39792e68edc552fbe08359732b0dcbefd",
+  "tracked_jsonl": [
+    {"path": "data/mmwave/20260816_13_mmwave.jsonl", "bytes": 676647, "sha256": "8a24fb0a4f09f3d7d9df2212969235332c90d0f978adccc79cd148b719713e6e"},
+    {"path": "data/mmwave/20260816_14_mmwave.jsonl", "bytes": 375404, "sha256": "63b9231d216ca2f1c3f82b34a8350f4a7d05d96b70e2f6fe3f2714c552baef5a"},
+    {"path": "data/mmwave/20260816_15_mmwave.jsonl", "bytes": 118359, "sha256": "4559f2b7a7d3735d9f276d38bd0a8b4021213063adfcbe61ef039e9735828b61"},
+    {"path": "data/mmwave/20260817_06_mmwave.jsonl", "bytes": 68114, "sha256": "b9dd06d501d37f0480c0e5a8404d20d0e112f6763e7717f8dce37a5a5ee84c09"},
+    {"path": "data/mmwave/20260817_07_mmwave.jsonl", "bytes": 4858233, "sha256": "e496b1c4c8a249248f3e453f25ac54cb31cc52c2829d30e805b345909ce9a3dc"},
+    {"path": "data/mmwave/20260817_08_mmwave.jsonl", "bytes": 10153795, "sha256": "0d31bfa7a7e86e3fa03a0421534c96a338e52499c90003314ee71266c0a40b75"},
+    {"path": "data/mmwave/20260817_09_mmwave.jsonl", "bytes": 3593145, "sha256": "5f6774bbd5f0b9442fa52921148ccc263376a40b0544132456e13c7671727567"},
+    {"path": "data/co2/20260816_13_co2.jsonl", "bytes": 9380, "sha256": "7441bd71f52ada892834a18483539a9683808b1fc14a0b782e7921871c79157f"},
+    {"path": "data/co2/20260817_06_co2.jsonl", "bytes": 1343, "sha256": "c7229f101c322656ed89f78aac316904fdc974bfe31981dfedbee184d1cbb25a"},
+    {"path": "data/co2/20260817_07_co2.jsonl", "bytes": 75747, "sha256": "5327b634ada75e4543cda6bfd976afe9c6e42d88792e3d10ebb9e9909081aa2b"},
+    {"path": "data/co2/20260817_08_co2.jsonl", "bytes": 147456, "sha256": "9ed706632682cfd1260ada6a2b871bb8f0a8998c4cc576aa934b5ec28dbabc04"},
+    {"path": "data/co2/20260817_09_co2.jsonl", "bytes": 49865, "sha256": "479c35dca9283d4e2efc0a07edd695dd0d5ac1ab5663f7d2bdc3292a2c9f3970"}
+  ],
+  "not_tracked": {
+    "thermal_npz_count": 1979,
+    "thermal_bytes_on_pi": 140000000,
+    "thermal_path": "data/thermal",
+    "reason": "raw MI48 npz; gitignore retained; uint16 to P1 unverified"
+  },
+  "stage8_source": "data/mmwave/20260817_08_mmwave.jsonl"
+}
