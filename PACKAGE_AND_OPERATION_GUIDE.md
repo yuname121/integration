@@ -116,7 +116,7 @@ bash deployment/run_pi.sh --install
 
 이 명령은 다음을 순서대로 수행한다.
 
-1. `~/.venv` 생성
+1. `<repository>/.venv` 생성 (`SAFENEST_VENV_PATH`로 재정의 가능. `~/.venv`가 기본값이 아니다)
 2. backend 및 Pi AI 의존성 설치
 3. 필수 파일과 Python runtime 확인
 4. manifest에 등록된 primary 3개와 보존된 후보 artifact의 SHA-256 확인
@@ -253,7 +253,31 @@ curl -fsS http://127.0.0.1:8000/api/status | python -m json.tool
 - 받는 사람이 WROOM-32와 XIAO C6 제한을 이해했는가?
 - 실제 장비 HIL 미완료와 TEST 4/6 제약을 전달했는가?
 
-## 11. 긴급 대응 HMI와 환경변수
+## 11. Stage 7 Mac-offline preflight and future Pi execution
+
+Mac에서 배포 구조만 확인할 때는 Pi를 기다리지 않는다.
+
+```bash
+python3 -m hil.preflight --offline-preflight
+```
+
+이 명령이 PASS여도 Pi 배포, ARM, process/port, 실센서 검증을 의미하지 않는다. `pi_checks`와 `sensor_checks`는 `NOT_RUN`이다.
+
+이후 실제 Pi 실행만 남는다. 아래는 Stage 7의 hardware boundary이며 Stage 9 live-sensor smoke가 아니다.
+
+1. 검토된 integration commit을 checkout한다.
+2. Raspberry Pi에서 지원 Python(3.10+)과 `bash deployment/run_pi.sh --install`을 사용한다.
+3. `.env.example`을 참고해 필요한 env/config를 적용한다. 개발자 Mac 절대경로를 넣지 않는다.
+4. production `model_manifest.json`이 바뀌지 않았는지 확인한다. T-B5 자동 선택과 옛 mmWave B 활성화를 하지 않는다.
+5. `bash deployment/run_pi.sh`로 runtime을 시작한다.
+6. process가 살아 있는지 확인한다.
+7. 기대 포트: HTTP `:8000`, TCP `:9000`, UDP `:5005`.
+8. `curl -fsS http://127.0.0.1:8000/health` 와 `/api/status`로 backend health를 확인한다.
+9. LCD `http://<pi-ip>:8000/display` 와 Web `http://<pi-ip>:8000/dashboard` 도달을 확인한다.
+
+Live sensor 증가/ESP 연결/실측 smoke는 Stage 9 tooling 이후의 hardware 작업이다.
+
+## 12. 긴급 대응 HMI와 환경변수
 
 DANGER 전환 시 터치 화면에 긴급 오버레이가 열리고, 서버의 alarm latch·buzzer·SQLite event log가 함께 갱신된다. 119 버튼은 경진대회 시연용 모의 카운트다운만 수행하며 실제 119에 연결되지 않는다. `경고 확인`은 buzzer만 끄고 Risk Engine의 DANGER를 해제하지 않는다. 센서가 offline이거나 WebSocket이 끊겨도 live `WARNING/NORMAL` publication이 오기 전까지 DANGER를 유지한다.
 

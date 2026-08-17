@@ -18,6 +18,8 @@ REQUIRED_FILES = (
     "requirements-backend.txt",
     "backend/run_backend.py",
     "backend/app.py",
+    "backend/runtime_status.py",
+    "backend/views.py",
     "gateway/protocol.py",
     "gateway/receiver.py",
     "state/manager.py",
