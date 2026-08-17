@@ -294,7 +294,8 @@ PASS_WITH_LIMITATIONS
 
 Immediate non-disruptive next work:
 O3 runtime-status cleanup IMPLEMENTED / MERGED (integration PR #17)
-O4 LCD/Web availability-status alignment remains OPEN / MAC_OFFLINE_READY
+O4 LCD/Web availability-status alignment IMPLEMENTED / MERGED_PENDING_REVIEW
+Mac-offline LCD/Web semantic alignment complete; physical Pi LCD remains PI_REQUIRED
 
 mmWave offline phase audit:
 PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
@@ -522,8 +523,9 @@ unavailable AI paths can be `READY_WITH_LIMITATIONS`; one unavailable model
 must not take down the other sensors. The stale snapshot runtime-selection
 metadata is forensic evidence only. The implementation is non-persistent and
 does not select models, invoke new inference paths, or alter risk behavior.
-LCD/Web status alignment remains O4 work; it must not change risk-decision,
-alarm, or operational policy.
+O4 LCD/Web availability-status alignment presents this contract without
+changing risk-decision, alarm, or operational policy. Physical Pi LCD
+verification remains `PI_REQUIRED`.
 
 The PR #17 Thermal API blocked reason remains
 `INT8_QUANTIZATION_REVIEW_REQUIRED`, matching O2.6. The physical conversion
@@ -568,7 +570,7 @@ labels below are offline ordering tags, **not** normal RP phases:
 | O1 | Thermal raw `uint16` physical-domain contract investigation | Complete for the named O2 snapshot replay; historical evidence remains scoped |
 | O2 | Thermal snapshot NPZ replay through verified conversion, P1, and T-B5 | Complete with limitations; O2.5/O2.6 require INT8 quantization review, not T-C validation |
 | O3 | Integration runtime adapter / model-status cleanup | `IMPLEMENTED / MERGED` in integration PR #17; backend/API status projection only, with T-B5 adapter activation out of scope |
-| O4 | Partial-availability runtime semantics and LCD/Web status alignment | `OPEN / MAC_OFFLINE_READY`; backend/API contract is merged, while LCD/Web availability alignment remains without policy changes |
+| O4 | Partial-availability runtime semantics and LCD/Web status alignment | `IMPLEMENTED / MERGED_PENDING_REVIEW`; Mac-offline LCD/Web presentation consumes PR #17. Physical Pi LCD / live-sensor UI remains `PI_REQUIRED` |
 | O5 | MR60-native mmWave redevelopment in `sheepmeat/test` | Parallel AI-authority track |
 | O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Tooling/checklist preparation is `MAC_OFFLINE_READY`; deployment and live smoke remain `PI_REQUIRED` / `SENSOR_AND_PI_REQUIRED` as applicable |
 | O7 | Integrate a newly approved MR60-native model and perform a targeted mmWave smoke | Only after full AI handoff |
@@ -1586,7 +1588,7 @@ RP-X0 is an out-of-band diagnostic track, not a substitute numbering system for
 normal RP-A/RP-B phases. Its current order is fixed in Section 0.6:
 
 1. Preserve snapshot evidence and retain the completed O1/O2 Thermal contract/replay results without repeating them by default.
-2. Keep PR #17 backend/API runtime status cleanup merged; perform only O4 LCD/Web availability-status alignment that is separately justified.
+2. Keep PR #17 backend/API runtime status cleanup merged; O4 LCD/Web availability-status alignment is implemented pending review and must not change risk policy.
 3. In parallel, await MR60-native redevelopment by AI authority.
 4. Continue Stage 7 offline-preparable integration work on Mac; defer only Pi deployment/execution.
 5. Prepare Stage 9 tooling on Mac; run its minimal live smoke only in the required hardware topology.
@@ -2163,8 +2165,8 @@ RP-A1 current state:    IMPLEMENTED / UNDER INDEPENDENT REVIEW
 ```
 
 Recommended next action: preserve the snapshot read-only and continue only
-`MAC_OFFLINE_READY` integration work (including O4 availability-status
-alignment and Stage 7/9 tooling) on active integration source. Defer actual Pi
+`MAC_OFFLINE_READY` integration work (Stage 7/9 tooling preparation) on active
+integration source. Defer actual Pi
 deployment, ARM/process checks, and live smoke to their smallest hardware
 boundary; merge authorization for RP-A1 and every normal-roadmap implementation
 authorization remain separate decisions.

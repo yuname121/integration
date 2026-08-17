@@ -139,6 +139,8 @@ class RuntimeStoreTests(unittest.TestCase):
         self.assertEqual(legacy["state"], "emergency")
         self.assertEqual(legacy["room"], "A-01")
         self.assertIn("updated_at", legacy)
+        self.assertEqual(legacy["runtime_status"]["status"], "READY_WITH_LIMITATIONS")
+        self.assertEqual(legacy["sensors"]["thermal"]["runtime_status"]["ai_status"], "BLOCKED")
 
     def test_danger_latch_is_stable_and_ack_does_not_clear_risk(self):
         store = RuntimeStore()

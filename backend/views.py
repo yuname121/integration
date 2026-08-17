@@ -124,6 +124,9 @@ def legacy_state_document(
         "updated_at": int(float(status["timestamp"])),
         "sensors": sensors_document(publication)["sensors"],
         "risk": copy.deepcopy(dict(risk)),
+        # LCD consumes GET /api/state. Reuse the existing PR #17 projection
+        # instead of a second health endpoint or frontend recalculation.
+        "runtime_status": copy.deepcopy(status["runtime_status"]),
     }
 
 
