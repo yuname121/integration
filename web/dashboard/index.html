@@ -37,6 +37,7 @@
         <div class="eyebrow-row">
           <p class="eyebrow" id="overviewTitle">CURRENT RISK</p>
           <span class="health-badge" id="healthBadge" data-health="FAILED">FAILED</span>
+          <span class="runtime-badge" id="runtimeBadge" data-runtime="UNKNOWN">UNKNOWN</span>
         </div>
         <div class="risk-layout">
           <div>
@@ -80,7 +81,8 @@
           </div>
           <dl class="sensor-details">
             <div><dt>재실</dt><dd id="presenceValue">미제공</dd></div>
-            <div><dt>AI</dt><dd id="mmwaveAi">INPUT UNAVAILABLE</dd></div>
+            <div><dt>Sensor</dt><dd id="mmwaveSensor">—</dd></div>
+            <div><dt>AI</dt><dd id="mmwaveAi">—</dd></div>
             <div><dt>Risk component</dt><dd id="mmwaveRisk">—</dd></div>
           </dl>
         </article>
@@ -93,6 +95,8 @@
               <span class="heatmap-note" id="heatmapNote">FRAME UNAVAILABLE</span>
             </div>
             <dl class="thermal-facts">
+              <div><dt>Sensor</dt><dd id="thermalSensor">—</dd></div>
+              <div><dt>AI</dt><dd id="thermalAiStatus">—</dd></div>
               <div><dt>AI 분류</dt><dd id="thermalAi">—</dd></div>
               <div><dt>Human 확률</dt><dd id="humanProbability">—</dd></div>
               <div><dt>Raw 범위</dt><dd id="thermalRawRange">—</dd></div>
@@ -108,6 +112,8 @@
           <div class="range-track" aria-hidden="true"><i id="co2Track"></i><b class="mark mark-warn"></b><b class="mark mark-danger"></b></div>
           <div class="range-labels"><span>500</span><span>주의 1,000</span><span>위험 2,500</span></div>
           <dl class="sensor-details">
+            <div><dt>Sensor</dt><dd id="co2Sensor">—</dd></div>
+            <div><dt>AI</dt><dd id="co2Ai">—</dd></div>
             <div><dt>환경 상태</dt><dd id="co2State">—</dd></div>
             <div><dt>Risk component</dt><dd id="co2Risk">—</dd></div>
           </dl>
@@ -119,6 +125,8 @@
             <span aria-hidden="true"></span><strong id="motionValue">확인 불가</strong>
           </div>
           <dl class="sensor-details">
+            <div><dt>Sensor</dt><dd id="pirSensor">—</dd></div>
+            <div><dt>AI</dt><dd id="pirAi">—</dd></div>
             <div><dt>Rule 상태</dt><dd id="pirRule">—</dd></div>
             <div><dt>무움직임</dt><dd id="noMotionTime">—</dd></div>
             <div><dt>Risk component</dt><dd id="pirRisk">—</dd></div>

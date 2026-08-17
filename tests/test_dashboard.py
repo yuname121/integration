@@ -48,6 +48,7 @@ class DashboardStaticTests(unittest.TestCase):
             "co2Card", "pirCard", "thermalCanvas", "trendCanvas", "eventList",
             "emergencyOverlay", "report119Button", "contactManagerButton",
             "acknowledgeButton", "voiceToggleButton", "simulationModal",
+            "runtimeBadge", "thermalSensor", "thermalAiStatus", "co2Ai", "pirAi",
         ):
             with self.subTest(element_id=element_id):
                 self.assertIn(f'id="{element_id}"', self.html)

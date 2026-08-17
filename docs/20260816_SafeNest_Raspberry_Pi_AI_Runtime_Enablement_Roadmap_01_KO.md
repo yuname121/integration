@@ -19,8 +19,9 @@
 > Mac 개발이 멈추지 않고 Pi가 있어도 필요한 센서가 없으면 새 센서 증거는
 > 만들 수 없다.
 > 스냅샷은 `READ_ONLY_FIELD_EVIDENCE`이며 개발 체크아웃이 아니다.
-> PR #17은 backend/API runtime-status 정리를 병합했지만 LCD/Web 정렬은
-> 아직 O4 `MAC_OFFLINE_READY` 작업이며, 위험 정책은 바꾸지 않는다.
+> PR #17 runtime-status 계약은 병합되어 있고, O4 Mac-offline LCD/Web
+> 정렬은 `IMPLEMENTED / MERGED_PENDING_REVIEW`다. 물리 LCD/실센서 UI는
+> `PI_REQUIRED`이며, 위험 정책은 바꾸지 않는다.
 
 **지금 승인된 것:** RP-A0 감사/설계는 문서 기준으로 끝난 상태다. `main`에 이 문서가 들어간 뒤 다음에 구현해도 되는 단계는 **RP-A1만**이다 (Capture 스키마, 세션/이벤트 식별, 합성 fixture, `captures/` gitignore). RP-A1 코드 자체, B-complete 모델 활성화, 이후 RP-B/C/D는 이 문서로 승인되지 않는다.
 

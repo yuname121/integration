@@ -56,7 +56,7 @@ button, input { font: inherit; }
 .brand-signal i:nth-child(3) { height: 17px; }
 .header-status { gap: 16px; }
 .header-status time { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; }
-.connection-badge, .health-badge, .status-chip, .storage-badge {
+.connection-badge, .health-badge, .status-chip, .storage-badge, .runtime-badge {
   display: inline-flex;
   align-items: center;
   width: fit-content;
@@ -83,6 +83,12 @@ main { width: min(1500px, calc(100% - clamp(28px, 7vw, 104px))); margin: 0 auto;
 .health-badge[data-health="HEALTHY"] { color: var(--green); border-color: rgba(85,214,139,.4); }
 .health-badge[data-health="DEGRADED"] { color: var(--yellow); border-color: rgba(255,200,87,.4); }
 .health-badge[data-health="FAILED"] { color: var(--red); border-color: rgba(255,93,108,.4); }
+.runtime-badge { margin-left: 8px; padding: 6px 9px; color: var(--unknown); }
+.runtime-badge[data-runtime="READY"] { color: var(--green); border-color: rgba(85,214,139,.4); }
+.runtime-badge[data-runtime="READY_WITH_LIMITATIONS"] { color: var(--yellow); border-color: rgba(255,200,87,.4); }
+.runtime-badge[data-runtime="DEGRADED"] { color: var(--yellow); border-color: rgba(255,200,87,.4); }
+.runtime-badge[data-runtime="NOT_READY"] { color: var(--red); border-color: rgba(255,93,108,.4); }
+.runtime-badge[data-runtime="UNKNOWN"] { color: var(--unknown); }
 .risk-layout { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; margin-top: 24px; position: relative; }
 .risk-kicker { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
 .risk-layout h1 { margin: 0; color: var(--unknown); font-size: clamp(48px, 8vw, 92px); line-height: .95; letter-spacing: -.065em; }
@@ -138,6 +144,16 @@ dd { margin: 5px 0 0; font-weight: 750; overflow-wrap: anywhere; }
 .sensor-details { display: grid; gap: 8px; margin: 18px 0 0; }
 .sensor-details > div { display: flex; justify-content: space-between; gap: 12px; padding-top: 8px; border-top: 1px solid rgba(49,80,99,.55); }
 .sensor-details dd { margin: 0; max-width: 64%; color: #d0dfe5; font-size: 12px; text-align: right; }
+.sensor-details dd[data-sensor-status="AVAILABLE"],
+.sensor-details dd[data-ai-status="ACTIVE"],
+.sensor-details dd[data-ai-status="NOT_APPLICABLE"] { color: var(--green); }
+.sensor-details dd[data-sensor-status="STALE"],
+.sensor-details dd[data-ai-status="BLOCKED"],
+.sensor-details dd[data-ai-status="MODEL_PENDING"] { color: var(--yellow); }
+.sensor-details dd[data-sensor-status="UNAVAILABLE"],
+.sensor-details dd[data-sensor-status="INVALID"],
+.sensor-details dd[data-ai-status="UNAVAILABLE"] { color: var(--red); }
+.sensor-details dd[data-ai-status="UNKNOWN"] { color: var(--unknown); }
 .primary-metric { display: flex; align-items: baseline; gap: 8px; margin-top: 26px; }
 .primary-metric strong { font-size: 54px; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
 .primary-metric span { color: var(--muted); }
@@ -154,6 +170,16 @@ dd { margin: 5px 0 0; font-weight: 750; overflow-wrap: anywhere; }
 .thermal-facts { margin: 0; display: grid; align-content: start; }
 .thermal-facts > div { padding: 11px 0; border-bottom: 1px solid var(--line); }
 .thermal-facts dd { font-size: 13px; }
+.thermal-facts dd[data-sensor-status="AVAILABLE"],
+.thermal-facts dd[data-ai-status="ACTIVE"],
+.thermal-facts dd[data-ai-status="NOT_APPLICABLE"] { color: var(--green); }
+.thermal-facts dd[data-sensor-status="STALE"],
+.thermal-facts dd[data-ai-status="BLOCKED"],
+.thermal-facts dd[data-ai-status="MODEL_PENDING"] { color: var(--yellow); }
+.thermal-facts dd[data-sensor-status="UNAVAILABLE"],
+.thermal-facts dd[data-sensor-status="INVALID"],
+.thermal-facts dd[data-ai-status="UNAVAILABLE"] { color: var(--red); }
+.thermal-facts dd[data-ai-status="UNKNOWN"] { color: var(--unknown); }
 .motion-visual { min-height: 106px; display: grid; place-items: center; align-content: center; gap: 10px; background: var(--surface-2); }
 .motion-visual span { width: 32px; height: 32px; border: 1px solid var(--line-strong); border-radius: 50%; position: relative; }
 .motion-visual span::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: var(--unknown); }

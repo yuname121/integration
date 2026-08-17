@@ -96,17 +96,47 @@ button, input { font: inherit; }
   font-weight: 850;
   white-space: nowrap;
 }
-.sensor-status[data-status="live"] {
-  color: #12623a;
-  background: #eaf7ef;
-  border-color: #b9dec8;
-}
-.sensor-status[data-status="stale"],
-.sensor-status[data-status="error"] {
-  color: #a33a32;
-  background: #fff0ef;
-  border-color: #efc4c0;
-}
+    .sensor-status[data-status="live"] {
+      color: #12623a;
+      background: #eaf7ef;
+      border-color: #b9dec8;
+    }
+    .sensor-status[data-status="limited"] {
+      color: #835900;
+      background: #fff6dc;
+      border-color: #e5cf8d;
+    }
+    .sensor-status[data-status="stale"] {
+      color: #835900;
+      background: #fff6dc;
+      border-color: #e5cf8d;
+    }
+    .sensor-status[data-status="error"] {
+      color: #a33a32;
+      background: #fff0ef;
+      border-color: #efc4c0;
+    }
+    .availability {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(6px, 1.2vw, 10px);
+      margin-top: clamp(8px, 1.6vh, 12px);
+    }
+    .availability-item {
+      min-width: 0;
+      padding: 5px 7px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+      font-size: clamp(10px, 1.7vh, 13px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .availability-item span { color: var(--muted); margin-right: 4px; }
 .main-state {
   flex: 1 1 auto;
   min-height: 0;
@@ -205,6 +235,7 @@ button, input { font: inherit; }
   .topbar { min-height: 40px; }
   .topbar-meta { gap: 5px; }
   .sensor-status { padding: 3px 6px; }
+  .availability { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .state-title { font-size: clamp(42px, 13vh, 72px); }
   .state-subtitle { font-size: clamp(16px, 4vh, 24px); }
   .metric { padding: 7px 8px; border-radius: 9px; }

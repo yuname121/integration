@@ -103,6 +103,54 @@ function setStatus(id, status) {
 function valueAt(sensor, key) { return sensor?.state?.values?.[key]; }
 function aiAt(sensor) { return sensor?.ai || {}; }
 function componentAt(sensor) { return sensor?.risk_component || {}; }
+function runtimeAt(sensor) { return sensor?.runtime_status || {}; }
+
+const RUNTIME_STATUS_LABELS = {
+  READY: "Ready",
+  READY_WITH_LIMITATIONS: "Limited",
+  DEGRADED: "Degraded",
+  NOT_READY: "Not ready",
+};
+const SENSOR_STATUS_LABELS = {
+  AVAILABLE: "Available",
+  STALE: "Stale",
+  UNAVAILABLE: "Unavailable",
+  INVALID: "Invalid",
+};
+const AI_STATUS_LABELS = {
+  ACTIVE: "Active",
+  BLOCKED: "Blocked",
+  MODEL_PENDING: "Pending",
+  NOT_APPLICABLE: "N/A",
+  UNAVAILABLE: "Unavailable",
+  NOT_EVALUATED: "Unknown",
+};
+
+function labelRuntimeStatus(status) {
+  return RUNTIME_STATUS_LABELS[status] || "Unknown";
+}
+
+function labelSensorStatus(status) {
+  return SENSOR_STATUS_LABELS[status] || "Unknown";
+}
+
+function labelAiStatus(status, blockedReason) {
+  if (status === "ACTIVE") return AI_STATUS_LABELS.ACTIVE;
+  if (status === "BLOCKED" && blockedReason === "INT8_QUANTIZATION_REVIEW_REQUIRED") {
+    return "Validation pending";
+  }
+  if (Object.prototype.hasOwnProperty.call(AI_STATUS_LABELS, status)) {
+    return AI_STATUS_LABELS[status];
+  }
+  return "Unknown";
+}
+
+function setCapability(id, value, datasetKey, datasetValue) {
+  const element = $(id);
+  if (!element) return;
+  element.textContent = value ?? "—";
+  if (datasetKey) element.dataset[datasetKey] = datasetValue || "UNKNOWN";
+}
 
 function riskComponentText(sensor) {
   const component = componentAt(sensor);
@@ -143,6 +191,8 @@ function renderOverview(payload) {
   const health = payload.system_health || "FAILED";
   setText("healthBadge", health);
   $("healthBadge").dataset.health = health;
+  const runtimeStatus = payload.runtime_status?.status;
+  setCapability("runtimeBadge", labelRuntimeStatus(runtimeStatus), "runtime", runtimeStatus || "UNKNOWN");
   renderReasons(risk.reasons || []);
 }
 
@@ -180,13 +230,18 @@ function renderSensors(payload) {
     : typeof fusedPresence === "boolean" && fusedSource !== "UNCONFIRMED"
       ? `${fusedPresence ? "감지" : "미감지"} · ${fusedSource}`
       : "미제공");
-  setText("mmwaveAi", aiAt(mmwave).available ? aiAt(mmwave).state : (aiAt(mmwave).error || "INPUT UNAVAILABLE"));
+  const mmwaveRuntime = runtimeAt(mmwave);
+  setCapability("mmwaveSensor", labelSensorStatus(mmwaveRuntime.sensor_status), "sensorStatus", mmwaveRuntime.sensor_status);
+  setCapability("mmwaveAi", labelAiStatus(mmwaveRuntime.ai_status, mmwaveRuntime.blocked_reason), "aiStatus", mmwaveRuntime.ai_status);
   setText("mmwaveRisk", riskComponentText(mmwave));
 
   const thermal = payload.thermal || {};
   const thermalAi = aiAt(thermal);
+  const thermalRuntime = runtimeAt(thermal);
   setStatus("thermalStatus", thermal.state?.status);
-  setText("thermalAi", thermalAi.available ? thermalAi.state : (thermalAi.error || "UNAVAILABLE"));
+  setCapability("thermalSensor", labelSensorStatus(thermalRuntime.sensor_status), "sensorStatus", thermalRuntime.sensor_status);
+  setCapability("thermalAiStatus", labelAiStatus(thermalRuntime.ai_status, thermalRuntime.blocked_reason), "aiStatus", thermalRuntime.ai_status);
+  setText("thermalAi", thermalRuntime.ai_status === "ACTIVE" && thermalAi.available ? thermalAi.state : "—");
   const probabilities = thermalAi.metadata?.probabilities;
   const human = Array.isArray(probabilities) && probabilities.length === 3 ? probabilities[1] + probabilities[2] : null;
   setText("humanProbability", percent(human));
@@ -198,8 +253,11 @@ function renderSensors(payload) {
 
   const co2 = payload.co2 || {};
   const ppm = valueAt(co2, "ppm");
+  const co2Runtime = runtimeAt(co2);
   setStatus("co2Status", co2.state?.status);
   setText("co2Value", number(ppm, 0));
+  setCapability("co2Sensor", labelSensorStatus(co2Runtime.sensor_status), "sensorStatus", co2Runtime.sensor_status);
+  setCapability("co2Ai", labelAiStatus(co2Runtime.ai_status, co2Runtime.blocked_reason), "aiStatus", co2Runtime.ai_status);
   const co2Component = componentAt(co2);
   setText("co2State", co2Component.state || "—");
   setText("co2Risk", riskComponentText(co2));
@@ -210,9 +268,12 @@ function renderSensors(payload) {
   const pir = payload.pir || {};
   const motion = valueAt(pir, "motion");
   const pirComponent = componentAt(pir);
+  const pirRuntime = runtimeAt(pir);
   setStatus("pirStatus", pir.state?.status);
   $("motionVisual").dataset.motion = typeof motion === "boolean" ? String(motion) : "unknown";
   setText("motionValue", typeof motion === "boolean" ? (motion ? "움직임 감지" : "움직임 없음") : "확인 불가");
+  setCapability("pirSensor", labelSensorStatus(pirRuntime.sensor_status), "sensorStatus", pirRuntime.sensor_status);
+  setCapability("pirAi", labelAiStatus(pirRuntime.ai_status, pirRuntime.blocked_reason), "aiStatus", pirRuntime.ai_status);
   setText("pirRule", pirComponent.state || aiAt(pir).state || "—");
   const noMotion = pirComponent.metadata?.no_motion_seconds;
   setText("noMotionTime", typeof noMotion === "number" ? `${noMotion.toFixed(1)}초` : "—");

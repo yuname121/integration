@@ -34,6 +34,7 @@
           <strong class="room-name" id="roomName">밀폐공간 A-01</strong>
         </div>
       </header>
+      <div class="availability" id="availability" aria-label="runtime availability"></div>
       <div class="main-state"><div>
         <div class="status-pill" id="statusPill">정상 · 미재실</div>
         <h1 class="state-title" id="stateTitle">정상</h1>
@@ -82,6 +83,7 @@
     const lcd = document.getElementById("lcd");
     const roomName = document.getElementById("roomName");
     const sensorStatus = document.getElementById("sensorStatus");
+    const availability = document.getElementById("availability");
     const statusPill = document.getElementById("statusPill");
     const stateTitle = document.getElementById("stateTitle");
     const stateSubtitle = document.getElementById("stateSubtitle");
@@ -89,6 +91,42 @@
     const comment = document.getElementById("comment");
     const connection = document.getElementById("connection");
     let failed = false;
+
+    const LCD_SENSOR_SHORT = {
+      AVAILABLE: "OK",
+      STALE: "STALE",
+      UNAVAILABLE: "OFF",
+      INVALID: "BAD"
+    };
+    const LCD_AI_SHORT = {
+      ACTIVE: "ON",
+      BLOCKED: "HOLD",
+      MODEL_PENDING: "HOLD",
+      NOT_APPLICABLE: "N/A",
+      UNAVAILABLE: "OFF",
+      NOT_EVALUATED: "?"
+    };
+    const LCD_RUNTIME_LABELS = {
+      READY: "운영 가능",
+      READY_WITH_LIMITATIONS: "제한 운영",
+      DEGRADED: "성능 저하",
+      NOT_READY: "운영 불가"
+    };
+
+    function lcdSensorShort(status) {
+      return LCD_SENSOR_SHORT[status] || "?";
+    }
+
+    function lcdAiShort(status) {
+      if (status === "ACTIVE") return LCD_AI_SHORT.ACTIVE;
+      return LCD_AI_SHORT[status] || "?";
+    }
+
+    function runtimeDocument(payload) {
+      return payload?.runtime_status && typeof payload.runtime_status === "object"
+        ? payload.runtime_status
+        : {};
+    }
 
     function legacySensorState(sensor, values, valid) {
       const statusMap = {
@@ -164,9 +202,8 @@
     function unavailableValue(sensor, valid) {
       const currentState = sensorState(sensor);
       if (currentState.status === "NO_DATA" || !currentState.status) return "수신 대기";
-      if (currentState.status === "STALE" || currentState.status === "DISCONNECTED") {
-        return "연결 끊김";
-      }
+      if (currentState.status === "DISCONNECTED") return "연결 끊김";
+      if (currentState.status === "STALE") return "지연";
       if (currentState.status === "INVALID" || valid !== true) return "측정 중";
       return "측정 중";
     }
@@ -216,7 +253,19 @@
       ];
     }
 
-    function renderSensorStatus(sensors) {
+    function renderSensorStatus(payload, sensors) {
+      const runtimeStatus = runtimeDocument(payload).status;
+      if (runtimeStatus) {
+        const datasetStatus = {
+          READY: "live",
+          READY_WITH_LIMITATIONS: "limited",
+          DEGRADED: "stale",
+          NOT_READY: "error"
+        }[runtimeStatus] || "waiting";
+        sensorStatus.dataset.status = datasetStatus;
+        sensorStatus.textContent = LCD_RUNTIME_LABELS[runtimeStatus] || "상태 미확인";
+        return;
+      }
       const normalizedSensors = normalizeSensors(sensors);
       const statuses = Object.values(normalizedSensors)
         .map((sensor) => sensorState(sensor).status)
@@ -224,19 +273,61 @@
       let status = "waiting";
       if (statuses.length && statuses.every((item) => item === "LIVE")) {
         status = "live";
-      } else if (statuses.some((item) => item === "STALE" || item === "DISCONNECTED")) {
+      } else if (statuses.some((item) => item === "STALE")) {
         status = "stale";
+      } else if (statuses.some((item) => item === "DISCONNECTED")) {
+        status = "error";
       } else if (statuses.some((item) => item === "INVALID")) {
         status = "error";
       }
       const labels = {
         live: "센서 실시간",
-        stale: "센서 연결 끊김",
+        stale: "센서 지연",
         error: "센서 수신기 오류",
         waiting: "센서 연결 대기"
       };
       sensorStatus.dataset.status = status;
       sensorStatus.textContent = labels[status];
+    }
+
+    function renderAvailability(payload) {
+      const runtime = runtimeDocument(payload);
+      if (!runtime.status) {
+        availability.replaceChildren();
+        return;
+      }
+      const sensors = runtime.sensors || {};
+      const rows = [
+        ["CO2", sensors.co2],
+        ["THM", sensors.thermal],
+        ["PIR", sensors.pir],
+      ];
+      const nodes = rows.map(([code, entry]) => {
+        const item = document.createElement("div");
+        item.className = "availability-item";
+        const name = document.createElement("span");
+        name.textContent = code;
+        const value = document.createElement("strong");
+        const sensor = lcdSensorShort(entry?.sensor_status);
+        const ai = lcdAiShort(entry?.ai_status);
+        value.textContent = `S:${sensor} AI:${ai}`;
+        item.append(name, value);
+        return item;
+      });
+      const system = document.createElement("div");
+      system.className = "availability-item";
+      const systemName = document.createElement("span");
+      systemName.textContent = "SYS";
+      const systemValue = document.createElement("strong");
+      const globalStatus = runtime.status;
+      systemValue.textContent = {
+        READY: "READY",
+        READY_WITH_LIMITATIONS: "LIMITED",
+        DEGRADED: "DEGRADED",
+        NOT_READY: "NOT READY"
+      }[globalStatus] || "?";
+      system.append(systemName, systemValue);
+      availability.replaceChildren(...nodes, system);
     }
 
     function render(payload = {}) {
@@ -250,7 +341,8 @@
       stateSubtitle.textContent = scenario.subtitle;
       comment.textContent = scenario.comment;
       const sensors = normalizeSensors(safePayload.sensors);
-      renderSensorStatus(sensors);
+      renderSensorStatus(safePayload, sensors);
+      renderAvailability(safePayload);
       metrics.replaceChildren(...sensorMetrics(sensors).map(([label, value]) => {
         const item = document.createElement("div");
         item.className = "metric";
