@@ -82,7 +82,7 @@ CHANGE_OF_DEVELOPMENT_AUTHORITY
 The fixed responsibility split is:
 
 ```text
-RP-X0_ACTIVE_DEVELOPMENT_AUTHORITY
+RP_X0_ACTIVE_DEVELOPMENT_AUTHORITY
 = yuname121/integration
 
 AI_ARTIFACT_AUTHORITY
@@ -192,11 +192,12 @@ CO2 is the only B-stage model with real RP-X0 sensor input observed at LiteRT.
 
 Real mmWave fields included `breath_phase`, `phase_age_ms`,
 `ts_monotonic_ms`, and nested mmWave sequence. They varied across samples and
-must not be reinterpreted as a BPM-derived fake waveform. The live gate remains
-closed for `PENDING_REAL_PHASE_EVIDENCE_REVIEW` until fresh effective cadence,
-source timing, `phase_age_ms`, stale/missing behavior, 30-second continuity,
-300-sample feasibility, nominal 10 Hz compatibility, and `BPF_ZSCORE`
-applicability are reviewed.
+must not be reinterpreted as a BPM-derived fake waveform. Stage 8/8.5 later
+reviewed cadence/window evidence and source semantics; the resulting
+`MMWAVE_SIGNAL_CONTRACT = MISMATCH` supersedes the prior pending phase-review
+state. The historical B live gate remains
+closed because vendor `breathPhase` is not the frozen complex-range-bin phase
+signal, not because more resampling is pending.
 
 For Thermal:
 
@@ -216,10 +217,10 @@ remains a `LYING`-derived posture proxy, not a verified temporal fall event.
 | Stage | Status | Required outcome |
 |---|---|---|
 | 7 — Integration RP-X0 Runtime Continuation / Restore | `DEFERRED_UNTIL_PI_AVAILABLE` | When no teammate owns the Pi backend/ports, restore/continue frozen `integration@1ffbc7d`; verify all three locked B artifacts are visible, T-B5 is `artifact_present`, C-B6 remains intact, mmWave live B stays closed, and no production manifest changes. |
-| 8 — mmWave Real-Phase Offline Cadence / Window Audit | `IMMEDIATE / NON-DISRUPTIVE` | Read-only `MMWAVE_PHASE_OFFLINE_CADENCE_AND_WINDOW_AUDIT` using `data/mmwave/20260817_08_mmwave.jsonl`; segment device/boot sessions and review phase variability, Pi receive and ESP source cadence, `phase_age_ms`, nested sequence continuity, stale/repeated behavior, 30 s windows, 300-sample elapsed-time distribution, nominal 10 Hz, and `BPF_ZSCORE` feasibility. Produce `KEEP_CLOSED_...` or `ELIGIBLE_FOR_LIVE_GATE_REVIEW`; never open the live gate automatically. |
-| 9 — Integration Runtime Real-Sensor Regression | `AFTER_STAGE_7` | On the restored integration runtime, confirm CO2 physical provenance, mmWave phase persistence, Thermal UDP persistence, PIR, drops/errors, and current ESP/network topology. A new 30-minute soak is only required if evidence or topology changes justify it. |
-| 10 — Thermal Physical-Domain Contract | `OPEN / DEFERRED` | Establish MI48 `uint16` raw → Celsius → `P1_TRAIN_FITTED_GLOBAL_ZSCORE` → INT8 T-B5. Do not invent the conversion. |
-| 11 — Further Live-B Gate Reviews | `EVIDENCE_ONLY` | Review mmWave and any other live-B gate only from sufficient evidence. `MMWAVE_B_LIVE_GATE` remains closed until explicitly authorized. |
+| 8 — mmWave Real-Phase Offline Cadence / Window Audit | `PASS_WITH_LIMITATIONS` | Completed on `20260817_08_mmwave.jsonl`; Stage 8.5 found `MMWAVE_SIGNAL_CONTRACT = MISMATCH`. Keep the historical B gate closed and move MR60-native model work to the AI authority track. |
+| 9 — Minimal Post-Deployment Live Smoke | `AFTER_STAGE_7 / REDUCED` | Check backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition. Do not repeat a 30-minute soak without a regression reason. |
+| 10 — Thermal Physical-Domain Contract | `OPEN / IMMEDIATE_OFFLINE_PRIORITY` | Establish MI48 `uint16` raw → Celsius → `P1_TRAIN_FITTED_GLOBAL_ZSCORE` → INT8 T-B5 from source evidence. Do not invent the conversion. |
+| 11 — Further Live-B Gate Reviews | `EVIDENCE_ONLY` | Review any future mmWave path only after MR60-native model handoff and sufficient targeted evidence. The historical `MMWAVE_B_LIVE_GATE` remains closed; no authorization can make its mismatched signal contract valid. |
 | 12 — Repository / Team Handoff | `LATER / AFTER_VERIFIED_INTEGRATION_EVIDENCE` | Keep integration PR #8, embed2 locked-binary policy work, RP-X0 diagnostic docs/tools, and a forward-port of verified integration changes into the team tree as distinct artifacts. |
 
 ### 0.7 Required current-status summary
@@ -246,7 +247,7 @@ Thermal READY
 
 Real B inference:
 CO2 OBSERVED
-mmWave BLOCKED BY LIVE GATE
+mmWave MODEL_PENDING — MR60_NATIVE_RETRAINING
 Thermal BLOCKED BY PHYSICAL-DOMAIN CONTRACT
 
 Real sensor persistence:
@@ -259,7 +260,10 @@ Thermal OBSERVED
 PASS_WITH_LIMITATIONS
 
 Immediate non-disruptive next work:
-mmWave offline phase cadence/window audit
+Thermal raw uint16 physical-domain contract and snapshot replay
+
+mmWave offline phase audit:
+PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
 
 Integration runtime restore:
 DEFERRED UNTIL PI IS AVAILABLE
@@ -267,6 +271,295 @@ DEFERRED UNTIL PI IS AVAILABLE
 Repository consolidation:
 LATER
 ```
+
+---
+
+### 0.8 2026-08-17 RP-X0 Offline Development / Snapshot Evidence Revision
+
+This corrective preserves the completed RP-X0 field result while moving all
+remaining work into a safe Mac-offline workflow. It does not authorize runtime,
+firmware, model, Capture, or deployment changes.
+
+#### 0.8.1 Three distinct roles
+
+```text
+Pi field snapshot
+= frozen evidence / replay source
+= READ_ONLY
+
+yuname121/integration
+= active Raspberry Pi integration development authority
+
+Raspberry Pi
+= later deployment / minimal live-smoke target
+```
+
+The canonical development flow is:
+
+```text
+Pi field evidence
+  → frozen Mac snapshot
+  → read-only offline replay / analysis
+  → active development in safenest-integration
+  → Git-reviewed integration commit
+  → later Pi deployment
+  → short real-sensor smoke only
+```
+
+`yuname121/integration` is authoritative for Pi receivers/runtime, backend, AI
+runtime adapters, offline replay utilities, runtime status/model selection,
+LCD/Web integration, sensor-persistence integration, and later Pi deployment.
+`sheepmeat/test` remains authoritative for datasets, preprocessing, training,
+model selection/artifacts, quantization, AI lineage, and device-native mmWave
+retraining. `jinsu1011/safenest-embedded-competition` remains a later
+forward-port target for verified integration work, not a current authority.
+
+#### 0.8.2 Pi snapshot preservation policy
+
+```text
+RP_X0_FIELD_EVIDENCE_SNAPSHOT
+= safenest-pi-integration-snapshot
+
+SNAPSHOT_ROLE
+= READ_ONLY_FIELD_EVIDENCE
+```
+
+Canonical snapshot path:
+
+```text
+/Users/junwoo/Library/Mobile Documents/com~apple~CloudDocs/대학/safenest-pi-integration-snapshot
+```
+
+The approximately 682 MB `FIELD_FREEZE_SNAPSHOT` contains about 395 MB of
+Pi `.venv`, 160 MB of data, and 108 MB of `sources`. It preserves the exact
+field state, real measurements, offline replay/forensic inputs, and reference
+for dirty Pi-only changes. It is **not** a new canonical repository, a branch
+to continue from, a replacement for `safenest-integration`, or a source to
+push directly to GitHub.
+
+Snapshot Git identity is `diagnostic/rp-x0-b-runtime-wiring` at `1ffbc7d`,
+dated 2026-08-16 22:21 KST, with remote
+`https://github.com/yuname121/integration.git`. Its field-local dirty state
+includes LCD/display changes, staged T-B5 files, removal of
+`MISSING_FULL_INT8.txt`, a real-collection watch script, and stale runtime
+selection metadata. Do not normalize, reset, clean, commit, or otherwise
+modify the snapshot during roadmap work.
+
+```text
+SNAPSHOT_CODE = FORENSIC_REFERENCE
+ACTIVE_INTEGRATION_CODE = DEVELOPMENT_SOURCE_OF_TRUTH
+```
+
+The Pi snapshot `.venv` is an aarch64 Raspberry Pi environment and must not be
+executed on the Mac. Mac offline analysis uses a separate Mac-native Python
+environment and reads snapshot data only.
+
+#### 0.8.3 Firmware and evidence provenance
+
+```text
+RUNTIME_EVIDENCE_IS_SCOPED_TO_ACTUAL_RUNTIME_AND_FIRMWARE_PROVENANCE
+```
+
+The ESP `.ino` frozen in the snapshot shows approximately
+`TELEMETRY_PERIOD_MS = 1000` and does not expose nested `breath_phase`, while
+newer field JSONL identifies firmware `safenest-esp32-sensor-node/1.2.0`,
+schema `1.2`, and nested mmWave `breath_phase`, `breath_rate_raw`,
+`phase_age_ms`, `ts_monotonic_ms`, and `seq`. Do not infer the live ESP
+firmware implementation solely from source frozen in the Pi snapshot.
+
+This extends, rather than replaces,
+`REAL_HARDWARE_EVIDENCE_IS_RUNTIME_AND_TOPOLOGY_SCOPED`: every observation
+must retain its actual runtime, firmware, ESP boot, and collection-window
+provenance. JSONL/NPZ is real field evidence; SQLite is operational summary
+state (`sensor_snapshots`, `risk_events`) and is not Capture v1.
+
+#### 0.8.4 Frozen evidence inventory
+
+| Stream | Frozen evidence | Roadmap use / limitation |
+|---|---|---|
+| mmWave | 7 JSONL files, about 19 MB / 44,975 records. Phase-domain evidence is only `20260817_08_mmwave.jsonl` and `20260817_09_mmwave.jsonl`. The Stage 8 source `20260817_08_mmwave.jsonl` SHA-256 is `0d31bfa7a7e86e3fa03a0421534c96a338e52499c90003314ee71266c0a40b75`. | `MMWAVE_OFFLINE_PHASE_EVIDENCE = 20260817_08 + 20260817_09 only`; earlier files are BPM/PIR telemetry, not phase-domain input. |
+| CO2 | About 5 JSONL files / 949 records with `co2_measurement_event_id`, `co2_measurement_monotonic_ms`, `co2_measurement_event_valid`, `device_id`, and `boot_id`. | Real C-B6 LiteRT invocation is already established; retain the frozen `[CO2, CO2_slope]` contract and regression protection rather than repeat broad validation. |
+| Thermal | 1,979 NPZ files / about 139 MB from approximately 15:55–18:31 KST; `uint16` `(N, 62, 80)` frames with timing, sequence, source uptime, min/max raw, and analysis metadata. | `RAW_UINT16_TO_CELSIUS_CONVERSION = NOT_YET_VERIFIED`; raw frames must not be fed to P1 as though they were proven Celsius. |
+| SQLite | `data/safenest.db`, including operational snapshots/events. | Operational state/summary only; do not redefine it as Capture v1. |
+
+#### 0.8.5 Completed mmWave evidence stages and strategic transition
+
+```text
+RP_X0_STAGE_8
+= PASS_WITH_LIMITATIONS
+
+RP_X0_STAGE_8_5
+= PASS_WITH_LIMITATIONS
+```
+
+Stage 8 observed real numeric `breath_phase` variation, no material stale
+republication, Pi JSON receive median about 100 ms, phase-update timestamp
+median about 120 ms, and 300 real samples in a median about 32.6 s. The
+resampling hypothesis is superseded by Stage 8.5 source semantics:
+
+```text
+Frozen B training signal
+= Zenodo range FFT → complex range-bin → angle → unwrap → radians → BPF_ZSCORE
+
+Real MR60 runtime signal
+= MR60 UART 0x0A13 → vendor breathPhase float32 → ESP → Pi
+
+MMWAVE_SIGNAL_CONTRACT
+= MISMATCH
+```
+
+No SafeNest-side hidden scaling or documented deterministic conversion from
+vendor `breathPhase` to unwrapped complex range-bin radians was found. Normal
+UART exposes processed vendor phase; practical documented raw ADC/IQ/range-FFT
+access is unavailable. Possible RF-ADC SPI access lacks an enable protocol,
+framing, ADC format, channel order, and open vendor algorithm, so it is not a
+current Pi-development dependency. A vendor inquiry may be a separate future
+option.
+
+The historical locked artifact
+`M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120` remains valid
+offline evidence, but is:
+
+```text
+VALID_OFFLINE_B_ARTIFACT
+NOT_LIVE_MR60_COMPATIBLE
+
+MMWAVE_B_LIVE_GATE
+= CLOSED
+
+MODEL_PENDING_MR60_NATIVE_RETRAINING
+```
+
+Do not resample vendor phase to fit the old model, apply empirical amplitude
+factors, per-window normalization, or open the old live gate. MR60-native
+dataset, preprocessing, retraining/model selection, quantization, and lineage
+belong to `sheepmeat/test`; integration receives a newly approved artifact and
+complete contract only after that work is handed off.
+
+#### 0.8.6 Sensor availability and runtime-status semantics
+
+mmWave remains an available sensor and telemetry source for presence, distance,
+movement, respiration/heart rate, `breath_phase`, `phase_age_ms`, and timing
+provenance. Only its AI inference is disabled:
+
+```text
+mmWave sensor_status = AVAILABLE
+mmWave telemetry_status = AVAILABLE
+mmWave ai_status = MODEL_PENDING
+mmWave blocked_reason = MR60_NATIVE_MODEL_PENDING
+
+Thermal sensor_status = AVAILABLE
+Thermal artifact_status = PRESENT
+Thermal ai_status = BLOCKED
+Thermal blocked_reason = PHYSICAL_CONVERSION_UNVERIFIED
+
+CO2 sensor_status = AVAILABLE
+CO2 artifact_status = PRESENT
+CO2 ai_status = ACTIVE
+
+PIR sensor_status = AVAILABLE
+PIR ai_status = NOT_APPLICABLE
+```
+
+Future integration status metadata must independently represent sensor
+connectivity, data freshness, artifact availability, input-contract validity,
+AI availability/output, and blocked reason. A runtime with intentionally
+unavailable AI paths can be `READY_WITH_LIMITATIONS`; one unavailable model
+must not take down the other sensors. The stale snapshot runtime-selection
+metadata is forensic evidence only. Schedule its equivalent active-integration
+cleanup using states such as `ARTIFACT_PRESENT`, `INPUT_CONTRACT_VALIDATED`,
+`LIVE_ELIGIBLE`, `LIVE_BLOCKED`, and `MODEL_PENDING`; do not edit the snapshot.
+
+Production `model_manifest.json` remains on historical v0.1.0 defaults. No
+silent model switch, T-B5 production replacement, or mmWave B activation is
+authorized by this document.
+
+#### 0.8.7 Offline priority and later Pi deployment
+
+The immediate Pi-side AI gap is Thermal. Its known path is MI48/Thermal
+source → UDP → Pi → `uint16` 62×80 → NPZ persistence; T-B5 is available with
+SHA `fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be`.
+The remaining boundary is physical `uint16` → Celsius/physical temperature.
+`2506 → 25.06 C` may look plausible but is not verified without producer or
+sensor-contract evidence.
+
+While sensors are unavailable, work only in active `safenest-integration` and
+keep evidence external to integration Git:
+
+```text
+snapshot real JSONL/NPZ/SQLite (read-only)
+  → Mac-native replay / analysis
+  → integration parser, adapter, backend, tests
+  → reviewed integration commit / PR
+  → later Pi deployment
+```
+
+Offline replay tooling must conceptually accept an external evidence path;
+code lives in integration while real evidence remains outside integration Git.
+Only small deterministic fixtures may later be added when justified. The `O*`
+labels below are offline ordering tags, **not** normal RP phases:
+
+| Order | Work | Status / boundary |
+|---|---|---|
+| O1 | Thermal raw `uint16` physical-domain contract investigation | Immediate offline priority |
+| O2 | Thermal snapshot NPZ replay through a **verified** conversion, P1, and T-B5 | After O1; pipeline compatibility only, not T-C performance validation |
+| O3 | Integration runtime adapter / model-status cleanup | Active integration tree only |
+| O4 | Partial-availability runtime semantics and LCD/Web status alignment | Keep sensor and AI status distinct |
+| O5 | MR60-native mmWave redevelopment in `sheepmeat/test` | Parallel AI-authority track |
+| O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Later, when Pi is available |
+| O7 | Integrate a newly approved MR60-native model and perform a targeted mmWave smoke | Only after full AI handoff |
+| O8 | Forward-port verified integration results to the team repository | Later |
+
+Stage 7 restore remains deferred while the Pi is occupied. Stage 9 is reduced
+to `MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: backend/health, TCP `:9000`, UDP
+`:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, CO2 AI
+active, Thermal AI only when approved, mmWave `MODEL_PENDING`, and no new
+unexpected logger-drop condition. Do not repeat a 30-minute soak by default;
+escalate only for a concrete regression/anomaly.
+
+```text
+ALREADY_PROVEN
+!=
+RETEST_BY_DEFAULT
+```
+
+No-retest-by-default includes Pi LiteRT installation, C-B6 synthetic/real
+invocation, T-B5 basic synthetic load/invoke, old mmWave synthetic invocation,
+synthetic soak, the concurrent field soak, basic persistence, and Pi resource
+benchmarking. This does not waive a targeted regression test when a change
+provides a reason.
+
+#### 0.8.8 Explicit boundaries and handoff
+
+Until separately authorized, defer new live ESP tests, long field soaks, live
+Thermal T-B5 invocation, Pi-only timing tests, wiring/firmware changes, and
+mmWave live AI invocation. Do not start Capture v1/RP-A2.
+
+Before a future MR60-native integration path is designed, the AI handoff must
+provide artifact identity/SHA, input signal and shape, sample/timestamp/window
+contract, preprocessing/normalization, class mapping, quantization, and
+threshold/output interpretation. Do not guess the future model shape.
+
+Keep the snapshot until replay work is complete, relevant evidence has
+checksums/identities, and the new integration runtime is successfully deployed.
+The team forward-port order is integration development → offline replay
+validation → later Pi minimal smoke → verified integration result → selected
+forward-port → targeted team-tree regression.
+
+| Work item | Current status |
+|---|---|
+| RP-X0 Stage 8 / 8.5 | `PASS_WITH_LIMITATIONS` |
+| Existing mmWave B live | `BLOCKED — SIGNAL_CONTRACT_MISMATCH` |
+| MR60-native retraining | `MOVED_TO_AI_AUTHORITY_TRACK` |
+| CO2 C-B6 real Pi path | `PROVEN / MAINTAIN` |
+| Thermal T-B5 artifact | `PRESENT` |
+| Thermal physical conversion | `BLOCKING_GAP` |
+| Mac offline replay | `AUTHORIZED` |
+| Snapshot | `READ_ONLY_FIELD_EVIDENCE` |
+| Integration repository | `ACTIVE_DEVELOPMENT` |
+| Pi restore | `DEFERRED_UNTIL_PI_AVAILABLE` |
+| Broad repeated soak | `NOT_REQUIRED_BY_DEFAULT` |
+| Team forward-port | `LATER` |
 
 ---
 
@@ -280,7 +573,7 @@ That is not yet an AI-evidence runtime. The B-complete candidates need unique ph
 - stores a useful but incomplete operational recorder, not a Capture/evidence contract; `CODE_VERIFIED`
 - still loads historical `v0.1.0` models from `model_manifest.json` / `models.yaml`; `CODE_VERIFIED` / `OWNER_REPORTED`
 - cannot reconstruct the frozen CO₂ slope contract or the Thermal T-B5 physical-frame contract; `CODE_VERIFIED`
-- has historical 2026-08-16 code-audit limits, while RP-X0 later observed and persisted real `breath_phase`; its 300-sample BPF+Z-score live model nevertheless remains blocked by `PENDING_REAL_PHASE_EVIDENCE_REVIEW`. `OBSERVED` / `BLOCKED_DEPENDENCY`
+- has RP-X0-observed and persisted real `breath_phase`, but Stage 8/8.5 establishes that vendor MR60 `breathPhase` mismatches the frozen B model's complex-range-bin phase signal. Telemetry remains available while AI is `MODEL_PENDING_MR60_NATIVE_RETRAINING`; the historical B live gate remains closed. `OBSERVED` / `BLOCKED_DEPENDENCY`
 
 The governing transformation is:
 
@@ -508,14 +801,22 @@ ESP uses a one-slot Thermal queue and overwrites an unsent older frame when the 
 
 ### 5.3 mmWave device contract
 
-A separate mmWave owner is validating MR60 `breath_phase`, cadence, and semantic compatibility with the frozen 10 Hz / 30 s / 300-sample BPF+Z-score input. Until that gate passes:
+RP-X0 Stage 8/8.5 completed the MR60 `breath_phase` cadence/window and source-
+semantics investigation. The frozen 10 Hz / 30 s / 300-sample BPF+Z-score model
+expects unwrapped complex range-bin phase; live MR60 provides vendor
+`breathPhase` over UART. No documented deterministic conversion exists.
 
 ```text
-mmWave real phase integration = HOLD / DEPENDENCY
-PENDING_MMWAVE_DEVICE_CONTRACT_VALIDATION
+MMWAVE_SIGNAL_CONTRACT = MISMATCH
+MMWAVE_B_LIVE_GATE = CLOSED
+mmWave AI = MODEL_PENDING_MR60_NATIVE_RETRAINING
 ```
 
-Pi may design the future interface. Pi must not synthesize phase from respiration/heart scalars. `OWNER_REPORTED` / `BLOCKED_DEPENDENCY`
+Pi must not synthesize phase from respiration/heart scalars, resample the
+vendor signal to force the old model, apply empirical amplitude factors, or
+per-window-normalize it for compatibility. MR60-native retraining belongs to
+the AI authority track; Pi integration waits for a newly approved model
+contract. `OBSERVED` / `BLOCKED_DEPENDENCY`
 
 ---
 
@@ -525,7 +826,7 @@ Required sensor table:
 
 | Sensor | Pi receives | Memory only | Persisted | Irreversibly lost | AI input reconstructable? |
 |---|---|---|---|---|---|
-| mmWave | 2026-08-16 audit: scalar respiration/heart only. RP-X0 reference later observed nested `breath_phase`, `phase_age_ms`, source monotonic time, and sequence. `CODE_VERIFIED` / `OBSERVED` | Latest scalar state; no validated 300-sample live window | RP-X0 diagnostic JSONL persisted observed phase; observations from another running backend require their own attribution | Current topology may still have gaps/stale/repeated samples; no approved live window | Offline cadence audit is immediate; live B remains blocked. `BLOCKED_DEPENDENCY` |
+| mmWave | 2026-08-16 audit: scalar respiration/heart only. RP-X0 reference later observed nested vendor `breath_phase`, `phase_age_ms`, source monotonic time, and sequence. `CODE_VERIFIED` / `OBSERVED` | Latest scalar state; telemetry remains operational | Stage 8/8.5 diagnostic JSONL review completed; other-runtime observations retain their own attribution | Historical B input and vendor phase have a confirmed signal-contract mismatch | Preserve telemetry/status and wait for MR60-native model handoff; historical live B remains blocked. `BLOCKED_DEPENDENCY` |
 | CO₂ | 2026-08-16 audit: cached `co2_ppm` + validity. RP-X0 reference later observed `boot_id`, measurement event ID, and source monotonic time. `CODE_VERIFIED` / `OBSERVED` | Receive timing and runtime buffers | RP-X0 diagnostic path verified JSONL plus physical-provenance history; this is not Capture v1 | Other-runtime identity/timing must be recorded separately; Capture semantics remain incomplete | C-B6 observed only in RP-X0 reference runtime; no safety or ground-truth validation. |
 | Thermal | Chunked UDP → validated 80×62 `uint16` BE full frame | Pending chunks, loss metrics, latest frame, Pi monotonic receive time | Complete queued frames in NPZ if written and retained; SQLite max raw / AI summary | Incomplete/timeout/CRC frames, frame gaps, CRC/monotonic metadata, logger-queue drops, ESP overwrite drops | Saved pixels are lossless. Session lineage and dropped-frame chronology are **not**. T-B5 physical conversion is **not** reconstructible from raw without a Thermal-44 unit contract. `BLOCKED_HARDWARE` |
 | PIR | Boolean in every scalar packet `CODE_VERIFIED` | Latest boolean; Risk no-motion start | Periodic SQLite snapshot only. Logger has **no PIR file**. | Transition timing, packet identity, repeated samples | Periodic summary only. Exact transition replay **no**. |
@@ -574,7 +875,7 @@ Reviewed from PR #20 merge `6c3faea…` and `20260816_b_complete_active_offline_
 | Class map | `0=NORMAL`, `1=RAPID_OR_ABNORMAL`, `2=APNEA` |
 | APNEA meaning | Voluntary breath-hold **proxy**, not clinical apnea |
 | Runtime default | Historical `mmwave_resp_int8_v0.1.0.tflite` still default; v0.1.0 is `deployment_allowed=false` (class collapse) |
-| Device domain | **NOT COMPLETE**. Pi must not implement live phase input yet. |
+| Device domain | `SIGNAL_CONTRACT_MISMATCH`: valid offline evidence, but **not live MR60 compatible**. Pi waits for an AI-authority MR60-native replacement contract. |
 
 Historical v0.1.0 uses z-score-only (`mean=0.00609198`, `std=2.50138`) and a different quantization. Pointing `models.yaml` at the candidate file without the BPF contract is incorrect. `CODE_VERIFIED` / `DOCUMENTED_ONLY`
 
@@ -645,9 +946,9 @@ No PIR AI model exists in current source or B-complete. PIR remains supporting e
 
 | Component | Current Pi behavior | B-complete requirement | Gap | Required Pi change | External dependency |
 |---|---|---|---|---|---|
-| CO₂ | 60 s promoted ppm; humidity-gated v0.1.0 `[1,3]`; slope from 30-sample deque | Unique SCD40 events; 150 s endpoint slope; `[CO2, CO2_slope]`; INT8 `[1,2]` logistic; threshold 0.43 | Physical identity missing; wrong features/shape/output; wrong slope; snapshot lacks C-B6 | Capture unique events; runtime buffer; canonical C-B6 adapter; fail closed on warmup/gap | ESP measurement identity; AI snapshot/artifact sync; SCD40 Phase C |
+| CO₂ | 60 s promoted ppm; humidity-gated v0.1.0 `[1,3]`; slope from 30-sample deque | RP-X0 observed physical identity, 150 s endpoint slope, `[CO2, CO2_slope]`, and C-B6 LiteRT output | Historical runtime features/shape/output differ; Capture v1 remains separate; old integration AI snapshot lacks C-B6 | Preserve the frozen C-B6 contract and add regression/status protection only | AI snapshot/artifact sync; Capture/Phase C only when separately authorized |
 | Thermal | UDP reassembly; latest frame; per-frame min-max v0.1.0 `[1,62,80,1]` zp `-128` | Full raw frame Capture; Thermal-44→canonical geometry/unit; P1/T-B5 INT8 zp `-125`; posture proxy only | T-B5 artifact is now available, but preprocessing/unit contract and sessionized evidence remain absent | Full-frame Capture; canonical converter once unit exists; verify artifact discovery in the restored integration runtime; no `FALL_EVENT` rewrite | Thermal-44 unit/orientation; AI preprocessing freeze |
-| mmWave | RP-X0 integration reference observed persisted phase; no 300-sample live window is approved | 10 Hz phase, 300 samples, BPF_ZSCORE, INT8 `[1,300,1]` zp `-3` | Cadence, continuity, age, and source timing remain unvalidated; live gate closed | Immediate read-only offline cadence/window audit, then only a gated design after device-contract review | MR60 phase contract |
+| mmWave | RP-X0 integration reference observed persisted vendor phase and Stage 8/8.5 completed | Historical B expects 10 Hz complex-range-bin phase, 300 samples, `BPF_ZSCORE`, INT8 `[1,300,1]` zp `-3` | Live vendor `breathPhase` signal contract mismatches the frozen B input; gate closed | Keep telemetry/status available; await MR60-native model handoff from AI authority | MR60-native dataset/model/preprocessing/quantization contract |
 | PIR | Latest bool; no raw file; risk no-motion rule | Transition/event evidence; supporting risk context | Transitions lost | Capture first-state + transitions | None for Capture; presence source still incomplete |
 | Model loading | `LazyModel` → `model_manifest.json` v0.1.0; mmWave blocked | Resolve B-complete from active-candidate pointer; SHA-256; interpreter compatibility | Defaults are historical; RP-X0 artifact availability is not production selection or deployment activation | Dedicated activation phase; checksum; missing-artifact fail closed | Approved locked-binary policy; integration artifact discovery; later team forward-port |
 | Preprocessing | Interpreter-internal v0.1.0; experimental mmWave BPF unused by default | One canonical frozen implementation for runtime and replay | Duplication risk A/B/C | Shared preprocessing module/contract | AI owner freeze of Pi-callable functions |
@@ -925,7 +1226,7 @@ Until the gate:
 - Do not resample heart/respiration into phase.
 - Do not enable v0.1.0 (class collapse) or the B-complete candidate as a live default.
 
-This is RP-B3, blocked by `MMWAVE_DEVICE_CONTRACT_DEPENDENCY`.
+This is a future RP-B3 path, blocked by `MR60_NATIVE_MODEL_HANDOFF_DEPENDENCY`.
 
 After the gate, the rolling buffer is 300 samples at the verified cadence, with gap handling from the frozen contract (historical V4 text mentioned 0.5 s; the B-complete contract must be re-read at unblocking time and not assumed here). `DOCUMENTED_ONLY` / `BLOCKED_DEPENDENCY`
 
@@ -955,7 +1256,7 @@ Historical defaults still in force:
 |---|---|---|
 | Thermal | `thermal_fall_int8_v0.1.0.tflite` SHA `5b56da8d…` | T-B5 SHA `fa9730c2…` is available/provisioned and SHA-verified for RP-X0 diagnostics; production selection and Thermal-44 compatibility remain blocked |
 | CO₂ | `co2_occupancy_int8_v0.1.0.tflite` SHA `3a8c86c4…` | C-B6 SHA `c5969b36…` provisioned for RP-X0; observed live output is not a production selection or safety validation |
-| mmWave | `mmwave_resp_int8_v0.1.0.tflite` blocked | M-B3 INT8 SHA `6dff6aaa…` provisioned; live B gate remains closed pending the offline phase review |
+| mmWave | `mmwave_resp_int8_v0.1.0.tflite` blocked | M-B3 INT8 SHA `6dff6aaa…` remains historical/offline evidence; `NOT_LIVE_MR60_COMPATIBLE`, live gate closed, MR60-native model pending |
 
 `CODE_VERIFIED` / `DOCUMENTED_ONLY`
 
@@ -1021,7 +1322,7 @@ Before invoke, validate shape, dtype, feature order, physical unit, validity, te
 | History warming | `INPUT_WARMUP` |
 | Freshness TTL exceeded | `INPUT_STALE` |
 | Artifact missing/hash/interpreter | `MODEL_UNAVAILABLE` |
-| mmWave phase gate closed | `INPUT_UNAVAILABLE` / blocked |
+| mmWave historical B signal-contract mismatch | `MODEL_PENDING` / `MR60_NATIVE_MODEL_PENDING` (telemetry remains available) |
 
 Invalid input must not become a normal-class prediction.
 
@@ -1211,12 +1512,12 @@ later normal-roadmap implementation remain unauthorized.
 RP-X0 is an out-of-band diagnostic track, not a substitute numbering system for
 normal RP-A/RP-B phases. Its current order is fixed in Section 0.6:
 
-1. Immediate read-only mmWave phase cadence and window audit (Stage 8).
-2. Integration runtime restore when the Pi is available (Stage 7).
-3. Integration real-sensor regression (Stage 9).
-4. Thermal physical-domain contract (Stage 10).
-5. Evidence-only live-B gate review (Stage 11).
-6. Later repository/team handoff (Stage 12).
+1. Preserve snapshot evidence and perform the Thermal physical-domain contract/replay work offline.
+2. Integration runtime/status cleanup and partial-availability UI semantics.
+3. In parallel, await MR60-native redevelopment by AI authority.
+4. Integration runtime restore when the Pi is available (Stage 7).
+5. Minimal post-deployment live smoke (Stage 9).
+6. Later MR60-native model handoff and repository/team forward-port.
 
 No RP-X0 stage authorizes RP-A2, model production selection, a mmWave live-gate
 opening, or a Thermal live fall claim. Normal RP-A1 remains independently under
@@ -1452,22 +1753,33 @@ RP-X0.
 
 ---
 
-### RP-B3 — mmWave Integration after Device-Contract Gate
+### RP-B3 — mmWave Integration after MR60-Native Model Handoff
 
-**Objective:** Only after MR60 phase contract verification, add phase Capture, 300-sample window, BPF_ZSCORE, and INT8 candidate inference as context.
+**Objective:** After the AI authority supplies an approved MR60-native model,
+add only that exact signal/timestamp/window/preprocessing/INT8 contract as
+context.
 
-**Why:** RP-X0 observed a real phase stream, but no reviewed cadence/window contract has approved live use. Synthesis remains forbidden.
+**Why:** RP-X0 Stage 8/8.5 establishes that the historical B artifact uses a
+different signal domain from live vendor `breathPhase`. Synthesis, resampling,
+empirical amplitude scaling, and per-window normalization to force the old
+model are forbidden.
 
-**Preconditions:** Written MR60 contract: field semantics, cadence, gap, presence/quality, compatibility with 10 Hz/300/`BPF_ZSCORE`; RP-A2 Capture generic path.
+**Preconditions:** An AI-authority handoff containing artifact identity/SHA,
+input signal and shape, sample/timestamp/window contract, preprocessing and
+normalization, class mapping, quantization, and threshold/output semantics;
+plus separately authorized normal-roadmap prerequisites where applicable.
 
-**In scope:** Phase samples, timing, rolling window, frozen BPF+Z-score, SHA `6dff6aaa…`.
-**Out of scope:** Enabling v0.1.0; calling APNEA clinical; emergency from unverified APNEA.
+**In scope:** Future MR60-native samples/timing and the approved replacement
+adapter only.
+**Out of scope:** Activating M-B3 live, enabling v0.1.0, calling APNEA clinical,
+or emergency decisions from unverified outputs.
 
-**Acceptance:** `MMWAVE_RUNTIME_READY` only with device-contract evidence, not with scalar rpm.
+**Acceptance:** `MMWAVE_RUNTIME_READY` only with the approved MR60-native
+contract and targeted evidence; current status remains `MODEL_PENDING`.
 
-**Owner:** mmWave owner + Pi runtime owner.
+**Owner:** mmWave AI owner + Pi runtime owner.
 **Reviewer:** AI owner; team integration reviewer.
-**Dependency:** `MMWAVE_DEVICE_CONTRACT_DEPENDENCY` — **blocked now**.
+**Dependency:** `MR60_NATIVE_MODEL_HANDOFF_DEPENDENCY` — **blocked now**.
 
 ---
 
@@ -1548,7 +1860,7 @@ RP-X0.
 
 **Owner:** Sensor owners + Pi runtime owner.
 **Reviewer:** AI owner; team integration reviewer.
-**Dependency:** `HARDWARE_VALIDATION_DEPENDENCY`, `MMWAVE_DEVICE_CONTRACT_DEPENDENCY` for MR60.
+**Dependency:** `HARDWARE_VALIDATION_DEPENDENCY`, `MR60_NATIVE_MODEL_HANDOFF_DEPENDENCY` for future mmWave AI.
 
 ---
 
@@ -1579,14 +1891,14 @@ RP-X0.
 | T-B5 INT8 on Pi | Artifact available/provisioned and isolated load/invoke observed | Restored integration runtime must discover it at startup; Thermal input remains incompatible | RP-X0 Stage 9 / RP-B2 | AI / Thermal / Pi runtime |
 | Thermal-44 °C / orientation | No | Device-domain contract | RP-B2 / D0 | Thermal owner |
 | C-B6 slope exact replay | Partial | ESP measurement ID/time | RP-B1 / D0 | ESP / CO₂ |
-| mmWave phase Capture/inference | Offline diagnostic audit can run now; live inference no | MR60 cadence/window contract and runtime-specific field evidence | RP-X0 Stage 8 / RP-B3 | mmWave owner |
+| mmWave phase Capture/inference | Stage 8/8.5 complete; telemetry/status may remain available, live inference no | MR60-native AI artifact and complete replacement contract | Future AI handoff / RP-B3 | mmWave AI owner |
 | Occupancy→risk fusion change | Plumbing yes | Policy decision | RP-C0 | Risk owner |
 | V4 threshold/weight change | Not in this roadmap | Policy PR | deferred | Risk owner |
 | Pi long-run metrics | No | Hardware | RP-C2 | Pi runtime |
 | Phase C device-domain | No | Hardware + Capture/replay | RP-D0 | Sensor owners |
 | Dashboard changes | No | Out of scope | — | Dashboard owner |
 
-Classification key used in phases: `PI_IMPLEMENTABLE_NOW`, `ESP_CONTRACT_DEPENDENCY`, `AI_BASELINE_DEPENDENCY`, `MMWAVE_DEVICE_CONTRACT_DEPENDENCY`, `MODEL_ARTIFACT_DEPENDENCY`, `HARDWARE_VALIDATION_DEPENDENCY`, `OWNER_DECISION_REQUIRED`.
+Classification key used in phases: `PI_IMPLEMENTABLE_NOW`, `ESP_CONTRACT_DEPENDENCY`, `AI_BASELINE_DEPENDENCY`, `MR60_NATIVE_MODEL_HANDOFF_DEPENDENCY`, `MODEL_ARTIFACT_DEPENDENCY`, `HARDWARE_VALIDATION_DEPENDENCY`, `OWNER_DECISION_REQUIRED`.
 
 ---
 
@@ -1636,7 +1948,7 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 | R5 | CO₂ physical identity is observed in the RP-X0 reference runtime, but not yet reconciled as a Capture v1 contract | P0 | `OBSERVED` / `BLOCKED_DEPENDENCY` |
 | R6 | Current CO₂ AI requires humidity and `[1,3]` softmax; C-B6 is `[1,2]` logistic without humidity | P0 | `CODE_VERIFIED` / `DOCUMENTED_ONLY` |
 | R7 | Current Thermal AI is per-frame min-max v0.1.0; T-B5 is Celsius + P1 z-score + different quant | P0 | `CODE_VERIFIED` / `DOCUMENTED_ONLY` |
-| R8 | mmWave B-complete input remains blocked; phase is observed in RP-X0 JSONL but cadence/window semantics are unreviewed | P0 | `OBSERVED` / `BLOCKED_DEPENDENCY` |
+| R8 | Historical mmWave B input is blocked by a confirmed live-vendor-to-training-signal contract mismatch; MR60-native model is pending | P0 | `OBSERVED` / `BLOCKED_DEPENDENCY` |
 | R9 | Thermal-44 raw unit/orientation unverified; SDT Kelvin formula must not be assumed | P1 | `DOCUMENTED_ONLY` T-A1/T-A2; `BLOCKED_HARDWARE` |
 | R10 | Preprocessing duplication risk across offline, Pi `ai/pipeline.py`, and future replay | P1 | `INFERRED` from three existing Thermal/CO₂ paths |
 | R11 | Stale-vs-current: CO₂ usable value can lag 60 s while packets still refresh communication | P1 | `CODE_VERIFIED` — correct for health, dangerous if treated as 1 Hz samples |
@@ -1663,7 +1975,7 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 | `PI_CAPTURE_READY` | Session manifest, append-only events, Thermal NPZ, close/unclean detection, visible Capture health, Git has no real payloads, PIR transitions + CO₂ observations stored, mmWave phase not fabricated |
 | `CO2_RUNTIME_READY` | Unique-or-honestly-unidentified events; 150 s endpoint slope; 90 s gap reset; C-B6 SHA `c5969b36…`; `[1,2]` INT8; threshold 0.43; no humidity; no inference on invalid/warmup; occupancy is context only |
 | `THERMAL_RUNTIME_READY` | Full-frame Capture round-trip; approved unit/orientation **or** explicit `MODEL_UNAVAILABLE`; T-B5 SHA `fa9730c2…` verified; frozen prep shared with replay; `HUMAN_FALL` labeled as posture proxy |
-| `MMWAVE_RUNTIME_READY` | Written MR60 phase contract; cadence/gap evidence; 300-sample reconstruction; BPF_ZSCORE; SHA `6dff6aaa…`; no scalar-to-phase synthesis |
+| `MMWAVE_RUNTIME_READY` | Approved MR60-native artifact/SHA; explicit live input signal, timestamp/window, preprocessing/normalization, class/quantization/output contract; targeted evidence; no historical-B signal coercion |
 | `AI_PROVENANCE_READY` | Per-inference IDs, model SHA, prep profile, source references, stored separately from SQLite blobs |
 | `REPLAY_READY` | Capture validator + same prep + same artifact reproduces stored outputs or explains differences |
 | `RISK_CONTEXT_READY` | AI class, ppm/rpm thresholds, health, and risk state are distinct in API/SQLite; fail-closed paths tested |
@@ -1677,7 +1989,7 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 
 - Stage 7 integration runtime continuation/restore when the Pi becomes available; team forward-port follows verified integration work
 - CO₂ identity/Capture contract beyond RP-X0 reference observation
-- MR60 `breath_phase` cadence/window real-device contract (mmWave owner); live gate remains closed
+- MR60-native dataset/model/preprocessing/quantization contract from AI authority; historical B gate remains closed
 - Thermal-44 physical unit, endianness beyond the current BE wire, and orientation
 - Thermal T-B5 process discovery in the restored integration runtime and Thermal-44 physical-domain compatibility
 - Switching runtime defaults away from v0.1.0
@@ -1696,7 +2008,7 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 |---|---|---|---|---|---|---|
 | CO₂ | 2026 audit: scalar ppm/valid/seq/uptime; RP-X0 later observed boot and measurement provenance | `[CO2, CO2_slope]` INT8 `[1,2]` | Endpoint slope from 150 s source history | Unique events (or honest transport observations) | ~150 s + gap margin | RP-X0 C-B6 observed; Capture identity contract remains blocked |
 | Thermal | UDP 80×62 `uint16` BE full frame | Canonical `(62,80)` physical/prep → INT8 `[1,62,80,1]` | Unit conversion and P1/T-B5 prep after contract | JSONL metadata + NPZ frames | Latest frame only | Transport: observed. T-B5 artifact: ready. Unit/deployment contract: blocked |
-| mmWave | RP-X0 observed `breath_phase`; any other runtime observation must be attributed separately | 300-sample phase INT8 `[1,300,1]` BPF_ZSCORE | Window/gap/BPF only after contract | Diagnostic JSONL observed; Capture after gate | No approved live window | Immediate offline audit; live B blocked |
+| mmWave | RP-X0 observed vendor `breath_phase`; any other runtime observation must be attributed separately | Future MR60-native input contract; historical B used 300-sample `BPF_ZSCORE` complex phase | Historical artifact and live vendor signal mismatch | Diagnostic JSONL preserved externally; Capture remains separately gated | Telemetry latest state; no historical-B AI window | `MODEL_PENDING_MR60_NATIVE_RETRAINING`; live B blocked |
 | PIR | 1 Hz boolean | None | No-motion elapsed for risk | Transitions | Latest + timer | State ready; Capture missing |
 
 ## Appendix B. Storage Responsibility Matrix
@@ -1736,9 +2048,9 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 Use only known cadences. Unknown rates stay symbolic.
 
 The 2026-08-16 source-audit scalar cadence was **1.0 Hz** `CODE_VERIFIED`.
-RP-X0 later observed an approximately 10 Hz diagnostic stream, but that field
-result is runtime/topology scoped and must not be used as a generic storage
-assumption before the Stage 8 audit and, later, Stage 7 integration restoration.
+RP-X0 later observed an approximately 10 Hz diagnostic stream; Stage 8/8.5
+reviewed that evidence, but it remains runtime/firmware/topology scoped and
+does not make vendor phase a generic historical-B model input.
 Thermal requested ≈ **6.25 FPS** `CODE_VERIFIED` as firmware request, not as measured Pi FPS.
 
 | Stream | Formula | 1-hour order of magnitude |
@@ -1774,7 +2086,8 @@ Historical RP-X0 scoped field evidence: YES (recorded; not re-executed here)
 RP-A1 current state:    IMPLEMENTED / UNDER INDEPENDENT REVIEW
 ```
 
-Recommended next action: perform the immediate, read-only
-`MMWAVE_PHASE_OFFLINE_CADENCE_AND_WINDOW_AUDIT`. Restore the integration RP-X0
-runtime only after the Pi is available; merge authorization for RP-A1 and every
-normal-roadmap implementation authorization remain separate decisions.
+Recommended next action: preserve the snapshot read-only and investigate the
+Thermal raw-`uint16` physical-domain contract with Mac-native offline replay.
+Restore the integration RP-X0 runtime only after the Pi is available; merge
+authorization for RP-A1 and every normal-roadmap implementation authorization
+remain separate decisions.
