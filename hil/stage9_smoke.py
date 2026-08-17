@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = "safenest.stage9.smoke.v1"
 DEFAULT_WINDOW_SECONDS = 20.0
 DEFAULT_HTTP_PORT = 8000
+LOCAL_HTTP_HOSTS = {"127.0.0.1", "localhost", "::1", "0.0.0.0"}
 PROBE_NAMES = (
     "backend_health",
     "tcp_9000",
@@ -180,6 +181,28 @@ def live_document(
                 "http_port": http_port,
             },
         )
+    if not is_local_http_host(host):
+        probes = {
+            name: {
+                "name": name,
+                "status": "NOT_RUN",
+                "observed": host,
+                "expected": "127.0.0.1/localhost",
+                "reason": "LIVE ss probing is local; remote --host would mix socket and HTTP provenance",
+            }
+            for name in PROBE_NAMES
+        }
+        return assemble_report(
+            mode="LIVE",
+            result="FAIL",
+            probes=probes,
+            extra={
+                "live_unsupported_remote_host": True,
+                "host": host,
+                "http_port": http_port,
+                "window_seconds": window_seconds,
+            },
+        )
 
     getter = http_get or (lambda path: fetch_json(f"http://{host}:{http_port}{path}"))
     sockets = collect_sockets or collect_ss_listen
@@ -253,6 +276,10 @@ def assemble_report(
 
 def exit_code(document: Mapping[str, Any]) -> int:
     return 0 if document.get("result") in {"PASS", "PASS_WITH_LIMITATIONS", "NOT_RUN"} else 1
+
+
+def is_local_http_host(host: str) -> bool:
+    return str(host or "").strip().lower().split("%", 1)[0] in LOCAL_HTTP_HOSTS
 
 
 def fetch_json(url: str, timeout: float = 2.0) -> tuple[dict[str, Any] | None, str | None]:

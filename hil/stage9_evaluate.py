@@ -27,11 +27,13 @@ REQUIRED_PROBES = (
 )
 LIMITATION_PROBES = ("esp_connection", "logger_drops")
 PROGRESS_KEYS = {
-    "co2": ("values.measurement_event_count", "values.measurement_event_id", "last_received_at"),
     "thermal": ("values.frame_sequence", "sequence", "last_received_at"),
     "mmwave": ("sequence", "last_received_at"),
     "pir": ("sequence", "last_received_at", "values.event_id"),
 }
+TCP_SESSION_SENSORS = ("co2", "mmwave", "pir")
+CO2_COUNT_KEY = "values.measurement_event_count"
+CO2_EVENT_ID_KEY = "values.measurement_event_id"
 
 
 def evaluate_observation(
@@ -104,50 +106,68 @@ def evaluate_udp_5005(observation: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def evaluate_esp_connection(observation: Mapping[str, Any]) -> dict[str, Any]:
-    health_after = observation.get("health_after")
-    if observation.get("health_error_after") and not isinstance(health_after, Mapping):
+    status_error = observation.get("status_error_after")
+    status_doc = observation.get("status_after")
+    if status_error and not isinstance(status_doc, Mapping):
         return _probe(
             "esp_connection",
             "NOT_OBSERVABLE",
-            observation.get("health_error_after"),
+            status_error,
             "CONNECTED",
-            "ESP connection was not observed because /health was unreachable",
+            "ESP current-session connectivity was not observed",
         )
-    health = _mapping(health_after) or _mapping(observation.get("health_before"))
-    receiver = _mapping(health.get("receiver"))
-    if "connections" not in receiver or "disconnects" not in receiver:
-        return _probe(
-            "esp_connection",
-            "NOT_OBSERVABLE",
-            {"receiver_keys": sorted(receiver)},
-            "connections > disconnects",
-            "ESP connection counters are not exposed",
-        )
-    connections = receiver.get("connections")
-    disconnects = receiver.get("disconnects")
-    if not _number(connections) or not _number(disconnects):
-        return _probe(
-            "esp_connection",
-            "NOT_OBSERVABLE",
-            {"connections": connections, "disconnects": disconnects},
-            "connections > disconnects",
-            "ESP connection counters are not numeric",
-        )
-    connected = int(connections) > int(disconnects)
-    status_doc = _mapping(observation.get("status_after")) or _mapping(observation.get("status_before"))
+    status_doc = _mapping(status_doc) or _mapping(observation.get("status_before"))
     sensor_connectivity = {
         sensor_id: _sensor_runtime(status_doc, sensor_id).get("sensor_connectivity")
-        for sensor_id in ("co2", "mmwave", "pir")
+        for sensor_id in TCP_SESSION_SENSORS
     }
+    health = _mapping(observation.get("health_after")) or _mapping(observation.get("health_before"))
+    receiver = _mapping(health.get("receiver"))
+    connections = receiver.get("connections")
+    disconnects = receiver.get("disconnects")
+    protocol_errors = receiver.get("protocol_errors")
     observed = {
-        "state": "CONNECTED" if connected else "DISCONNECTED",
-        "connections": int(connections),
-        "disconnects": int(disconnects),
         "sensor_connectivity": sensor_connectivity,
+        "receiver": {
+            "connections": connections,
+            "disconnects": disconnects,
+            "protocol_errors": protocol_errors,
+        },
     }
-    if connected:
-        return _probe("esp_connection", "PASS", observed, "CONNECTED", "ESP TCP session is open")
-    return _probe("esp_connection", "FAIL", observed, "CONNECTED", "ESP disconnected")
+    known = [value for value in sensor_connectivity.values() if value in {"CONNECTED", "DISCONNECTED"}]
+    if not known:
+        return _probe(
+            "esp_connection",
+            "NOT_OBSERVABLE",
+            observed,
+            "TCP sensor connectivity CONNECTED",
+            "current ESP session connectivity is not exposed",
+        )
+    connected = any(value == "CONNECTED" for value in known)
+    observed["state"] = "CONNECTED" if connected else "DISCONNECTED"
+    if not connected:
+        return _probe(
+            "esp_connection",
+            "FAIL",
+            observed,
+            "CONNECTED",
+            "ESP TCP session is not currently connected",
+        )
+    if _number(connections) and int(connections) < 1:
+        return _probe(
+            "esp_connection",
+            "NOT_OBSERVABLE",
+            observed,
+            "CONNECTED",
+            "TCP sensor connectivity is CONNECTED but receiver session counters are inconsistent",
+        )
+    return _probe(
+        "esp_connection",
+        "PASS",
+        observed,
+        "CONNECTED",
+        "current TCP sensor connectivity indicates an active ESP session",
+    )
 
 
 def evaluate_sensor_progress(observation: Mapping[str, Any], sensor_id: str) -> dict[str, Any]:
@@ -163,6 +183,8 @@ def evaluate_sensor_progress(observation: Mapping[str, Any], sensor_id: str) -> 
             f"{sensor_id} identity advanced",
             f"{sensor_id} status was not observed",
         )
+    if sensor_id == "co2":
+        return _evaluate_co2_progress(before, after, name)
     advanced, observed = _identity_advanced(before, after, PROGRESS_KEYS[sensor_id])
     expected = f"{sensor_id} identity/timestamp/sequence advanced; value change is not required"
     if sensor_id == "pir":
@@ -170,11 +192,80 @@ def evaluate_sensor_progress(observation: Mapping[str, Any], sensor_id: str) -> 
         observed["sensor_value_status"] = value_status
         observed["no_motion_accepted"] = value_status in {"MOTION", "NO_MOTION"}
     if advanced:
-        reason = f"{sensor_id} progress observed"
-        if sensor_id == "co2":
-            reason = "CO2 progress observed without requiring ppm change"
-        return _probe(name, "PASS", observed, expected, reason)
+        return _probe(name, "PASS", observed, expected, f"{sensor_id} progress observed")
     return _probe(name, "FAIL", observed, expected, f"{sensor_id} stream stalled")
+
+
+def _evaluate_co2_progress(
+    before: Mapping[str, Any],
+    after: Mapping[str, Any],
+    name: str,
+) -> dict[str, Any]:
+    observed = {
+        "identities": {
+            CO2_COUNT_KEY: {
+                "before": _nested(before, CO2_COUNT_KEY),
+                "after": _nested(after, CO2_COUNT_KEY),
+            },
+            CO2_EVENT_ID_KEY: {
+                "before": _nested(before, CO2_EVENT_ID_KEY),
+                "after": _nested(after, CO2_EVENT_ID_KEY),
+            },
+            "last_received_at": {
+                "before": _nested(before, "last_received_at"),
+                "after": _nested(after, "last_received_at"),
+            },
+        },
+        "physical_identity_before": _co2_physical_identity(before),
+        "physical_identity_after": _co2_physical_identity(after),
+        "ppm_before": _nested(before, "values.ppm"),
+        "ppm_after": _nested(after, "values.ppm"),
+        "transport_only_last_received_at_ignored": True,
+    }
+    expected = "physical CO2 measurement identity advanced; ppm change is not required"
+    count_before = _nested(before, CO2_COUNT_KEY)
+    count_after = _nested(after, CO2_COUNT_KEY)
+    if _number(count_before) and _number(count_after):
+        if int(count_after) > int(count_before):
+            return _probe(
+                name,
+                "PASS",
+                observed,
+                expected,
+                "CO2 progress observed from measurement_event_count without requiring ppm change",
+            )
+        return _probe(
+            name,
+            "FAIL",
+            observed,
+            expected,
+            "CO2 physical progression not observed; last_received_at republication is not sufficient",
+        )
+    identity_before = _co2_physical_identity(before)
+    identity_after = _co2_physical_identity(after)
+    if identity_before is not None and identity_after is not None:
+        if identity_after != identity_before:
+            return _probe(
+                name,
+                "PASS",
+                observed,
+                expected,
+                "CO2 progress observed from physical measurement identity without requiring ppm change",
+            )
+        return _probe(
+            name,
+            "FAIL",
+            observed,
+            expected,
+            "CO2 physical progression not observed; last_received_at republication is not sufficient",
+        )
+    return _probe(
+        name,
+        "NOT_OBSERVABLE",
+        observed,
+        expected,
+        "physical CO2 measurement identity is unavailable; transport timestamp is not used as a substitute",
+    )
 
 
 def evaluate_runtime_status(observation: Mapping[str, Any]) -> dict[str, Any]:
@@ -301,6 +392,13 @@ def _evaluate_listener(observation: Mapping[str, Any], protocol: str, port: int,
     )
 
 
+def _co2_physical_identity(sensor: Mapping[str, Any]) -> tuple[object, ...] | None:
+    event_id = _nested(sensor, CO2_EVENT_ID_KEY)
+    if not _number(event_id):
+        return None
+    return (sensor.get("device_id"), sensor.get("boot_id"), int(event_id))
+
+
 def _identity_advanced(
     before: Mapping[str, Any],
     after: Mapping[str, Any],
@@ -343,7 +441,7 @@ def _sensor_runtime(status_doc: object, sensor_id: str) -> dict[str, Any]:
     direct = _mapping(_mapping(document.get(sensor_id)).get("runtime_status"))
     if direct:
         return dict(direct)
-    return dict(_mapping(_mapping(document.get("runtime_status")).get("sensors")).get(sensor_id))
+    return _mapping(_mapping(_mapping(document.get("runtime_status")).get("sensors")).get(sensor_id))
 
 
 def _nested(value: object, path: str) -> Any:

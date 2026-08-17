@@ -7,7 +7,7 @@ import json
 import unittest
 
 from backend.views import status_document
-from hil.stage9_evaluate import evaluate_observation, evaluate_sensor_progress
+from hil.stage9_evaluate import evaluate_esp_connection, evaluate_observation, evaluate_sensor_progress
 from hil.stage9_smoke import fixture_document, live_document, main, plan_document
 from hil.stage9_sockets import parse_listen_ports
 from tests.test_runtime_status import ai_result
@@ -33,7 +33,7 @@ def sensor_state(
     return {
         "sensor_id": sensor_id,
         "status": status,
-        "connected": True,
+        "connected": status != "DISCONNECTED",
         "stale": False,
         "valid": True,
         "current": True,
@@ -52,6 +52,7 @@ def status_snapshot(
     co2_ppm: float = 700.0,
     motion: bool = False,
     thermal_frame: int | None = None,
+    tcp_status: str = "LIVE",
 ) -> dict[str, object]:
     frame = sequence if thermal_frame is None else thermal_frame
     publication = {
@@ -65,6 +66,7 @@ def status_snapshot(
                     "co2",
                     sequence=sequence,
                     last_received_at=last_received_at,
+                    status=tcp_status,
                     values={
                         "ppm": co2_ppm,
                         "latest_measurement_ppm": co2_ppm,
@@ -83,12 +85,14 @@ def status_snapshot(
                     "mmwave",
                     sequence=sequence,
                     last_received_at=last_received_at,
+                    status=tcp_status,
                     values={"respiration_rate_bpm": 15.0, "presence_available": False},
                 ),
                 "pir": sensor_state(
                     "pir",
                     sequence=sequence,
                     last_received_at=last_received_at,
+                    status=tcp_status,
                     values={"motion": motion, "event_id": 1},
                 ),
             },
@@ -239,6 +243,87 @@ class Stage9SmokeToolingTests(unittest.TestCase):
             probe["observed"]["identities"]["values.measurement_event_count"]["after"],
             probe["observed"]["identities"]["values.measurement_event_count"]["before"],
         )
+
+    def test_co2_same_physical_event_newer_last_received_at_does_not_pass(self) -> None:
+        payload = observation(
+            before_seq=4,
+            after_seq=8,
+            co2_event_before=52,
+            co2_event_after=52,
+        )
+        payload["status_before"] = status_snapshot(
+            sequence=4, last_received_at=100.0, co2_event=52, co2_ppm=812.0
+        )
+        payload["status_after"] = status_snapshot(
+            sequence=8, last_received_at=120.0, co2_event=52, co2_ppm=812.0
+        )
+        probe = evaluate_sensor_progress(payload, "co2")
+        self.assertNotEqual(probe["status"], "PASS")
+        self.assertEqual(probe["status"], "FAIL")
+        self.assertEqual(probe["observed"]["identities"]["values.measurement_event_count"]["before"], 52)
+        self.assertEqual(probe["observed"]["identities"]["values.measurement_event_count"]["after"], 52)
+        self.assertEqual(probe["observed"]["identities"]["last_received_at"]["after"], 120.0)
+
+    def test_co2_missing_measurement_identity_is_not_observable(self) -> None:
+        before = status_snapshot(sequence=4, last_received_at=100.0, co2_event=7, co2_ppm=812.0)
+        after = status_snapshot(sequence=8, last_received_at=120.0, co2_event=7, co2_ppm=900.0)
+        for document in (before, after):
+            values = document["co2"]["state"]["values"]
+            values.pop("measurement_event_id", None)
+            values.pop("measurement_event_count", None)
+        probe = evaluate_sensor_progress(
+            observation(status_before=before, status_after=after),
+            "co2",
+        )
+        self.assertEqual(probe["status"], "NOT_OBSERVABLE")
+        evaluated = evaluate_observation(
+            observation(status_before=before, status_after=after),
+            mode="OFFLINE_FIXTURE",
+        )
+        self.assertEqual(evaluated["probes"]["co2_progress"]["status"], "NOT_OBSERVABLE")
+        self.assertEqual(evaluated["result"], "PASS_WITH_LIMITATIONS")
+
+    def test_esp_stale_counters_do_not_pass_when_tcp_sensors_disconnected(self) -> None:
+        payload = observation(
+            health_after=health_document(connections=1, disconnects=0),
+            status_after=status_snapshot(
+                sequence=8,
+                last_received_at=8.0,
+                co2_event=2,
+                tcp_status="DISCONNECTED",
+            ),
+        )
+        payload["health_after"]["receiver"]["protocol_errors"] = 1
+        probe = evaluate_esp_connection(payload)
+        self.assertNotEqual(probe["status"], "PASS")
+        self.assertEqual(probe["status"], "FAIL")
+        self.assertEqual(probe["observed"]["state"], "DISCONNECTED")
+
+    def test_esp_current_tcp_connectivity_passes_with_consistent_receiver(self) -> None:
+        probe = evaluate_esp_connection(observation())
+        self.assertEqual(probe["status"], "PASS")
+        self.assertEqual(probe["observed"]["state"], "CONNECTED")
+        self.assertEqual(probe["observed"]["sensor_connectivity"]["co2"], "CONNECTED")
+
+    def test_esp_missing_connectivity_is_not_observable(self) -> None:
+        probe = evaluate_esp_connection(observation(status_after={"schema": "empty"}))
+        self.assertEqual(probe["status"], "NOT_OBSERVABLE")
+        self.assertNotEqual(probe["status"], "PASS")
+
+    def test_live_remote_host_is_rejected_to_keep_socket_http_provenance(self) -> None:
+        slept = []
+        report = live_document(
+            host="192.168.1.20",
+            http_port=8000,
+            window_seconds=20,
+            sleep=slept.append,
+            platform_name="linux",
+        )
+        self.assertEqual(slept, [])
+        self.assertEqual(report["mode"], "LIVE")
+        self.assertEqual(report["result"], "FAIL")
+        self.assertTrue(report["live_unsupported_remote_host"])
+        self.assertEqual(report["stage_9_live_smoke"], "FAIL")
 
     def test_h_stalled_sensor_fails(self) -> None:
         evaluated = evaluate_observation(

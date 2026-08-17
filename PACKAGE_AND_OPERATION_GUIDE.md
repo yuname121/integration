@@ -303,14 +303,15 @@ python3 -m hil.stage9_smoke --evaluate-fixture tests/fixtures/stage9/pass.json
 python3 -m hil.stage9_smoke --live
 ```
 
-`--live`는 Linux/Pi listener 관측(`ss`)이 필요하다. Mac에서 `--live`를 실행하면 실패로 거절한다. 기본 관측 창은 20초이며 운영 smoke 시간일 뿐 모델/샘플링 계약이 아니다. 30분 soak는 기본이 아니다.
+`--live`는 Linux/Pi에서 로컬 `ss`와 localhost HTTP만 결합한다. `--host`가 loopback이 아니면 거절한다. Mac에서 `--live`를 실행하면 실패로 거절한다. 기본 관측 창은 20초이며 운영 smoke 시간일 뿐 모델/샘플링 계약이 아니다. 30분 soak는 기본이 아니다.
 
 검사하는 것:
 
 - HTTP `:8000` `/health`, `/api/status`
 - TCP `:9000`, UDP `:5005` listener
-- ESP TCP session (`/health` receiver connections vs disconnects)
-- CO2/Thermal/mmWave/PIR identity 진행 (값 변화가 아님; PIR `NO_MOTION` 허용)
+- ESP TCP session (`/api/status` TCP 센서 connectivity; receiver counters는 보조)
+- CO2 물리 측정 identity 진행 (`measurement_event_count`; `last_received_at`만으로는 PASS하지 않음)
+- Thermal/mmWave/PIR identity 진행 (값 변화가 아님; PIR `NO_MOTION` 허용)
 - runtime-status (Thermal AI `BLOCKED`, PIR AI `NOT_APPLICABLE`, mmWave `MODEL_PENDING`)
 - logger drop **증가분** (`/health` `receiver.sensor_logging.dropped`)
 
