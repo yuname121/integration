@@ -99,6 +99,13 @@ def create_app(
     app.state.safenest_emergency = selected_emergency
 
     dashboard_dir = Path(__file__).resolve().parent.parent / "web" / "dashboard"
+    lcd_dir = (
+        Path(__file__).resolve().parent.parent
+        / "sources"
+        / "display-test2"
+        / "raspberry_pi_lcd"
+        / "static"
+    )
     app.mount(
         "/dashboard/assets",
         StaticFiles(directory=str(dashboard_dir)),
@@ -109,6 +116,15 @@ def create_app(
     @app.get("/dashboard/", include_in_schema=False)
     def dashboard() -> Any:
         return FileResponse(dashboard_dir / "index.html")
+
+    @app.get("/display", include_in_schema=False)
+    @app.get("/display/", include_in_schema=False)
+    def lcd_display() -> Any:
+        return FileResponse(lcd_dir / "display.html")
+
+    @app.get("/common.css", include_in_schema=False)
+    def lcd_common_css() -> Any:
+        return FileResponse(lcd_dir / "common.css", media_type="text/css")
 
     @app.get("/")
     def root() -> dict[str, object]:

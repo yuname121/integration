@@ -187,6 +187,7 @@ bash deployment/run_pi.sh
 
 ```text
 통합 웹 대시보드: http://RPI_IP:8000/dashboard
+통합 LCD 화면:     http://RPI_IP:8000/display
 상태 API:         http://RPI_IP:8000/api/status
 시스템 진단:      http://RPI_IP:8000/health
 API 문서:         http://RPI_IP:8000/docs

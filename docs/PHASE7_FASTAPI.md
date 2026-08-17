@@ -28,6 +28,12 @@ ESP32 TCP :9000
 
 ## API 계약
 
+### `GET /display`
+
+통합 backend가 LCD용 `display.html`과 `common.css`를 같은 origin으로 제공한다. LCD 브라우저는
+별도 센서 receiver를 실행하지 않고 `GET /api/state`를 사용하므로, backend의 TCP 9000 listener와
+센서 상태를 공유한다. Raspberry Pi LCD 주소는 `http://<raspberry-pi-ip>:8000/display`다.
+
 ### `GET /api/status`
 
 최소 필드:
