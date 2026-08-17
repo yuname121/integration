@@ -17,7 +17,7 @@ PRODUCTION_MANIFEST = ONDEVICE / "models" / "model_manifest.json"
 PROVISIONING_MANIFEST = ROOT / "hil" / "rp_x0_b_complete_provisioning_manifest.json"
 INVENTORY = B_COMPLETE / "artifact_inventory.json"
 
-PRODUCTION_MANIFEST_SHA256 = "7186159ffdaee624652791690bbd7990f69ca6822c8ad99a69b471ac1776c1c8"
+PRODUCTION_MANIFEST_SHA256 = "9526244cd913d792338beab06ea80f98786b281f116b4e720320b535d06080b9"
 
 CO2_ARTIFACT = B_COMPLETE / "co2" / "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite"
 THERMAL_ARTIFACT = B_COMPLETE / "thermal" / "SMALL_CNN_BASELINE_V1_P1_full_int8.tflite"
@@ -93,6 +93,7 @@ class LockedBStageArtifactTests(unittest.TestCase):
         self.assertEqual(active["input"]["shape"], [1, 240, 1])
         self.assertEqual(active["hardware_validation"], "NOT_PERFORMED")
         self.assertFalse(active["DEVICE_VALIDATED"])
+        self.assertTrue(active["runtime_adapter_compatible"])
         historical = manifest["models"]["mmwave_v0_1_0"]
         self.assertEqual(historical["runtime_role"], "HISTORICAL_V0_1_0")
         self.assertEqual(historical["path"], "models/mmwave/mmwave_resp_int8_v0.1.0.tflite")
@@ -251,11 +252,11 @@ class LockedBStageArtifactTests(unittest.TestCase):
         frozen = [
             path
             for path in snapshot.rglob("*")
-            if path.is_file() and overlay not in path.parents and path != overlay
+            if path.is_file() and path.suffix != ".pyc" and overlay not in path.parents and path != overlay
         ]
         overlay_files = [path for path in overlay.rglob("*") if path.is_file()]
-        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1074)
-        self.assertEqual(len(frozen), 1074)
+        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1075)
+        self.assertEqual(len(frozen), 1075)
         self.assertEqual(provenance["locked_b_stage_overlay"]["file_count"], 19)
         self.assertEqual(len(overlay_files), 19)
 

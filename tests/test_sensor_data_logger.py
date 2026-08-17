@@ -24,6 +24,11 @@ def telemetry(
     *,
     boot_id: str | None = None,
     event_id: int | None = None,
+    breath_phase: float | None = None,
+    ts_monotonic_ms: float | None = None,
+    phase_age_ms: float | None = None,
+    human_detected_raw: bool | None = None,
+    session_id: str | None = None,
 ) -> TelemetryPayload:
     return TelemetryPayload(
         header=PacketHeader(PACKET_TELEMETRY_JSON, sequence, 100),
@@ -38,6 +43,11 @@ def telemetry(
         co2_measurement_event_id=event_id,
         co2_measurement_monotonic_ms=event_id * 5_000 if event_id is not None else None,
         co2_measurement_event_valid=event_id is not None or None,
+        breath_phase=breath_phase,
+        ts_monotonic_ms=ts_monotonic_ms,
+        phase_age_ms=phase_age_ms,
+        human_detected_raw=human_detected_raw,
+        session_id=session_id,
     )
 
 
@@ -90,6 +100,25 @@ class SensorDataLoggerTests(unittest.TestCase):
             self.assertEqual([item["co2_ppm"] for item in co2], [700.0, 950.0])
             self.assertEqual([item["receive_monotonic"] for item in co2], [10.0, 70.0])
             self.assertNotIn("co2_ppm", mmwave[0])
+
+    def test_mmwave_log_retains_m_n4_freshness_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            logger = SensorDataLogger(config(root))
+            logger.start()
+            logger.submit(
+                telemetry(1, boot_id="boot-a", breath_phase=1.25, ts_monotonic_ms=12_500,
+                          phase_age_ms=4.0, human_detected_raw=True, session_id="session-a"),
+                received_at=100.0, monotonic_at=10.0,
+            )
+            logger.stop()
+            saved = json.loads(next((root / "mmwave").glob("*.jsonl")).read_text().strip())
+            self.assertEqual(saved["breath_phase"], 1.25)
+            self.assertEqual(saved["ts_monotonic_ms"], 12_500)
+            self.assertEqual(saved["phase_age_ms"], 4.0)
+            self.assertTrue(saved["human_detected_raw"])
+            self.assertEqual(saved["boot_id"], "boot-a")
+            self.assertEqual(saved["session_id"], "session-a")
 
     def test_thermal_npz_preserves_raw_frames_metadata_and_ai_context(self) -> None:
         import numpy as np

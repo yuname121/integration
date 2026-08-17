@@ -194,8 +194,15 @@ class SensorStateManager:
             valid=mmwave_valid,
             error=None if mmwave_valid else "MMWAVE_VALUES_INVALID",
             values={
-                "presence": None,
-                "presence_available": False,
+                # MR60's already-normalized boolean is authoritative when it
+                # arrives.  No numeric occupancy threshold is invented here.
+                "presence": packet.human_detected_raw,
+                "presence_available": isinstance(packet.human_detected_raw, bool),
+                "human_detected_raw": packet.human_detected_raw,
+                "breath_phase": packet.breath_phase,
+                "ts_monotonic_ms": packet.ts_monotonic_ms,
+                "phase_age_ms": packet.phase_age_ms,
+                "session_id": packet.session_id,
                 "respiration_rate_bpm": packet.respiration_rate_bpm,
                 "heart_rate_bpm": packet.heart_rate_bpm,
                 "respiration_valid": packet.valid["respiration"],
