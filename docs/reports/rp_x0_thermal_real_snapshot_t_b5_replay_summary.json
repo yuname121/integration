@@ -1,0 +1,782 @@
+{
+  "document_id": "RP-X0-O2-THERMAL-REAL-SNAPSHOT-TB5-01",
+  "classification": "PIPELINE_COMPATIBILITY_ONLY",
+  "physical_conversion": {
+    "formula": "physical_C = raw_uint16 / 10.0 - 273.15",
+    "source": "RP-X0 O1 MI48 SPI 0.1 K contract"
+  },
+  "p1": {
+    "profile_id": "P1_TRAIN_FITTED_GLOBAL_ZSCORE",
+    "mean": 22.769290618485442,
+    "std": 2.8684523405441222,
+    "epsilon_in_lock_unused": 1e-06,
+    "reproduced_exactly": true
+  },
+  "t_b5": {
+    "artifact": "SMALL_CNN_BASELINE_V1_P1_full_int8.tflite",
+    "sha256": "fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be",
+    "input_shape": [
+      1,
+      62,
+      80,
+      1
+    ],
+    "output_shape": [
+      1,
+      3
+    ],
+    "input_scale": 0.31791284680366516,
+    "input_zero_point": -125,
+    "output_scale": 0.00390625,
+    "output_zero_point": -128,
+    "load_success": true
+  },
+  "int8_representable_celsius": {
+    "celsius_at_int8_minus_128": 20.033537069976386,
+    "celsius_at_int8_zero_point": 22.769290618485442,
+    "celsius_at_int8_127": 252.57258869324608
+  },
+  "snapshot": {
+    "used_read_only": true,
+    "modified": false,
+    "pi_venv_executed": false,
+    "npz_count_listed": 1979
+  },
+  "metadata_extremes": {
+    "npz_file_count": 1979,
+    "readable_npz_file_count": 1964,
+    "unreadable_npz_file_count": 15,
+    "unreadable_npz_files": [
+      {
+        "filename": "20260817_084856_282702_0000016034-0000016046.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084858_331567_0000016047-0000016059.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084900_394530_0000016060-0000016072.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084902_480264_0000016073-0000016085.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084904_534436_0000016086-0000016098.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084906_584287_0000016099-0000016111.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084908_644186_0000016112-0000016124.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084910_677181_0000016125-0000016137.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084912_727958_0000016138-0000016149.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084914_664182_0000016150-0000016157.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084917_361049_0000016158-0000016166.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084918_726067_0000016167-0000016179.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084920_819870_0000016180-0000016192.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084922_865196_0000016193-0000016205.npz",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084924_923522_0000016206-0000016210.npz",
+        "error": "EOFError"
+      }
+    ],
+    "frame_count_in_metadata": 23788,
+    "metadata_raw_min": 2085,
+    "metadata_raw_max": 3435,
+    "files_with_any_frame_min_raw_lt_2300": 1450,
+    "frames_with_min_raw_lt_2300": 7446,
+    "fraction_frames_min_raw_lt_2300": 0.31301496552883806,
+    "celsius_for_raw_2300": -43.14999999999998
+  },
+  "selected_frames": [
+    {
+      "role": "early_field_capture",
+      "filename": "20260817_065524_939278_0000007852-0000007864.npz",
+      "sha256": "09dc0e3b70beb357951dc7ea1fc4057babaada9c46e9ae673bdc59769af5b2d6",
+      "frame_index": 0,
+      "frame_sequence": 7852,
+      "timestamp": 1786949724.9392784,
+      "batch_shape": [
+        13,
+        62,
+        80
+      ],
+      "npz_contract": {
+        "dtype": "uint16",
+        "shape": [
+          62,
+          80
+        ],
+        "unchanged": true
+      },
+      "celsius_stats": {
+        "min": 3.75,
+        "p1": 12.768001098632814,
+        "p5": 17.050018310546875,
+        "median": 23.850006103515625,
+        "p95": 31.050018310546875,
+        "p99": 33.83200500488278,
+        "max": 39.45001220703125,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_stats": {
+        "min": -6.630506057101732,
+        "p1": -3.4866500581130326,
+        "p5": -1.9938530011810018,
+        "median": 0.376759087036175,
+        "p95": 2.8868277067105272,
+        "p99": 3.8566840487573986,
+        "max": 5.815234003637519,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_nan_inf": false,
+      "int8": {
+        "int8_min": -128,
+        "int8_max": -107,
+        "unique_value_count": 22,
+        "low_saturation_count": 646,
+        "high_saturation_count": 0,
+        "low_saturation_fraction": 0.13024193548387097,
+        "high_saturation_fraction": 0.0,
+        "any_saturation_fraction": 0.13024193548387097
+      },
+      "extreme_pixels": {
+        "investigation_thresholds_celsius": {
+          "lt": -40.0,
+          "gt": 80.0
+        },
+        "low_count": 0,
+        "high_count": 0,
+        "raw_zero_count": 0,
+        "raw_uint16_max_count": 0,
+        "low_location_count_truncated": false,
+        "low_locations_sample": []
+      },
+      "invoke": {
+        "raw_output": [
+          -128,
+          -128,
+          127
+        ],
+        "dequantized_output": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "class_index": 2,
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.809,
+        "output_shape": [
+          1,
+          3
+        ]
+      },
+      "spatial_repeat": {
+        "extreme_low_present": false,
+        "repeat_in_other_frames": null
+      }
+    },
+    {
+      "role": "middle_field_capture",
+      "filename": "20260817_082122_819638_0000006423-0000006434.npz",
+      "sha256": "dde0240f086f2a59da24b73237fde4fcfd5369935cd1b1453aa48f8e8fb2e009",
+      "frame_index": 0,
+      "frame_sequence": 6423,
+      "timestamp": 1786954882.819638,
+      "batch_shape": [
+        12,
+        62,
+        80
+      ],
+      "npz_contract": {
+        "dtype": "uint16",
+        "shape": [
+          62,
+          80
+        ],
+        "unchanged": true
+      },
+      "celsius_stats": {
+        "min": -61.84999084472656,
+        "p1": -10.149993896484375,
+        "p5": 2.350006103515625,
+        "median": 16.149993896484375,
+        "p95": 29.149993896484375,
+        "p99": 34.850006103515625,
+        "max": 41.75,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_stats": {
+        "min": -29.499978182367293,
+        "p1": -11.476322632128968,
+        "p5": -7.118572000082959,
+        "median": -2.3076195579200176,
+        "p95": 2.224441099407831,
+        "p99": 4.211579643236663,
+        "max": 6.617055864318133,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_nan_inf": false,
+      "int8": {
+        "int8_min": -128,
+        "int8_max": -104,
+        "unique_value_count": 25,
+        "low_saturation_count": 3456,
+        "high_saturation_count": 0,
+        "low_saturation_fraction": 0.6967741935483871,
+        "high_saturation_fraction": 0.0,
+        "any_saturation_fraction": 0.6967741935483871
+      },
+      "extreme_pixels": {
+        "investigation_thresholds_celsius": {
+          "lt": -40.0,
+          "gt": 80.0
+        },
+        "low_count": 8,
+        "high_count": 0,
+        "raw_zero_count": 0,
+        "raw_uint16_max_count": 0,
+        "low_location_count_truncated": false,
+        "low_locations_sample": [
+          {
+            "row": 41,
+            "col": 16,
+            "raw": 2285,
+            "celsius": -44.649993896484375
+          },
+          {
+            "row": 41,
+            "col": 17,
+            "raw": 2113,
+            "celsius": -61.84999084472656
+          },
+          {
+            "row": 41,
+            "col": 18,
+            "raw": 2285,
+            "celsius": -44.649993896484375
+          },
+          {
+            "row": 41,
+            "col": 19,
+            "raw": 2211,
+            "celsius": -52.04998779296875
+          },
+          {
+            "row": 41,
+            "col": 20,
+            "raw": 2252,
+            "celsius": -47.94999694824219
+          },
+          {
+            "row": 41,
+            "col": 21,
+            "raw": 2225,
+            "celsius": -50.649993896484375
+          },
+          {
+            "row": 41,
+            "col": 22,
+            "raw": 2218,
+            "celsius": -51.34999084472656
+          },
+          {
+            "row": 41,
+            "col": 23,
+            "raw": 2319,
+            "celsius": -41.25
+          }
+        ]
+      },
+      "invoke": {
+        "raw_output": [
+          -128,
+          125,
+          -125
+        ],
+        "dequantized_output": [
+          0.0,
+          0.98828125,
+          0.01171875
+        ],
+        "class_index": 1,
+        "class_name": "HUMAN_NORMAL",
+        "latency_ms": 0.121,
+        "output_shape": [
+          1,
+          3
+        ]
+      },
+      "spatial_repeat": {
+        "extreme_low_present": true,
+        "selected_low_count": 8,
+        "fixed_spatial_locations_in_npz": false
+      }
+    },
+    {
+      "role": "late_field_capture",
+      "filename": "20260817_093125_194406_0000030438-0000030438.npz",
+      "sha256": "c378a964a315c55ee1b8d3093f8fa52f4387ac5428e6bb2311cb4cd86f8b02cb",
+      "frame_index": 0,
+      "frame_sequence": 30438,
+      "timestamp": 1786959085.1944058,
+      "batch_shape": [
+        1,
+        62,
+        80
+      ],
+      "npz_contract": {
+        "dtype": "uint16",
+        "shape": [
+          62,
+          80
+        ],
+        "unchanged": true
+      },
+      "celsius_stats": {
+        "min": -55.84999084472656,
+        "p1": 0.45001220703125,
+        "p5": 6.550018310546875,
+        "median": 15.050018310546875,
+        "p95": 26.550018310546875,
+        "p99": 31.550018310546875,
+        "max": 43.649993896484375,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_stats": {
+        "min": -27.40825787898521,
+        "p1": -7.780947968346027,
+        "p5": -5.654363532099649,
+        "median": -2.691093102308363,
+        "p95": 1.3180374791739644,
+        "p99": 3.0611377319923676,
+        "max": 7.2794318325812,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_nan_inf": false,
+      "int8": {
+        "int8_min": -128,
+        "int8_max": -102,
+        "unique_value_count": 25,
+        "low_saturation_count": 3891,
+        "high_saturation_count": 0,
+        "low_saturation_fraction": 0.7844758064516129,
+        "high_saturation_fraction": 0.0,
+        "any_saturation_fraction": 0.7844758064516129
+      },
+      "extreme_pixels": {
+        "investigation_thresholds_celsius": {
+          "lt": -40.0,
+          "gt": 80.0
+        },
+        "low_count": 5,
+        "high_count": 0,
+        "raw_zero_count": 0,
+        "raw_uint16_max_count": 0,
+        "low_location_count_truncated": false,
+        "low_locations_sample": [
+          {
+            "row": 43,
+            "col": 3,
+            "raw": 2260,
+            "celsius": -47.149993896484375
+          },
+          {
+            "row": 43,
+            "col": 4,
+            "raw": 2294,
+            "celsius": -43.75
+          },
+          {
+            "row": 43,
+            "col": 5,
+            "raw": 2173,
+            "celsius": -55.84999084472656
+          },
+          {
+            "row": 43,
+            "col": 6,
+            "raw": 2301,
+            "celsius": -43.04998779296875
+          },
+          {
+            "row": 52,
+            "col": 28,
+            "raw": 2328,
+            "celsius": -40.34999084472656
+          }
+        ]
+      },
+      "invoke": {
+        "raw_output": [
+          -128,
+          127,
+          -128
+        ],
+        "dequantized_output": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "class_index": 1,
+        "class_name": "HUMAN_NORMAL",
+        "latency_ms": 0.112,
+        "output_shape": [
+          1,
+          3
+        ]
+      },
+      "spatial_repeat": {
+        "extreme_low_present": true,
+        "selected_low_count": 5,
+        "fixed_spatial_locations_in_npz": false
+      }
+    },
+    {
+      "role": "low_temperature_looking_frame",
+      "filename": "20260817_081844_396547_0000005431-0000005442.npz",
+      "sha256": "77ef9787155b434c7c8836ce6fba80de83843d75869803b1722e8ca6ff71c46e",
+      "frame_index": 2,
+      "frame_sequence": 5433,
+      "timestamp": 1786954724.9343512,
+      "batch_shape": [
+        12,
+        62,
+        80
+      ],
+      "npz_contract": {
+        "dtype": "uint16",
+        "shape": [
+          62,
+          80
+        ],
+        "unchanged": true
+      },
+      "celsius_stats": {
+        "min": -64.64999389648438,
+        "p1": 1.850006103515625,
+        "p5": 11.75,
+        "median": 23.149993896484375,
+        "p95": 36.050018310546875,
+        "p99": 42.649993896484375,
+        "max": 47.550018310546875,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_stats": {
+        "min": -30.476115387849564,
+        "p1": -7.2928820253648,
+        "p5": -3.841545652592287,
+        "median": 0.1327207960257469,
+        "p95": 4.62992795952893,
+        "p99": 6.9308117820175195,
+        "max": 8.639058541011257,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_nan_inf": false,
+      "int8": {
+        "int8_min": -128,
+        "int8_max": -98,
+        "unique_value_count": 31,
+        "low_saturation_count": 1189,
+        "high_saturation_count": 0,
+        "low_saturation_fraction": 0.23971774193548387,
+        "high_saturation_fraction": 0.0,
+        "any_saturation_fraction": 0.23971774193548387
+      },
+      "extreme_pixels": {
+        "investigation_thresholds_celsius": {
+          "lt": -40.0,
+          "gt": 80.0
+        },
+        "low_count": 11,
+        "high_count": 0,
+        "raw_zero_count": 0,
+        "raw_uint16_max_count": 0,
+        "low_location_count_truncated": false,
+        "low_locations_sample": [
+          {
+            "row": 18,
+            "col": 55,
+            "raw": 2294,
+            "celsius": -43.75
+          },
+          {
+            "row": 26,
+            "col": 0,
+            "raw": 2207,
+            "celsius": -52.44999694824219
+          },
+          {
+            "row": 26,
+            "col": 2,
+            "raw": 2095,
+            "celsius": -63.649993896484375
+          },
+          {
+            "row": 26,
+            "col": 3,
+            "raw": 2085,
+            "celsius": -64.64999389648438
+          },
+          {
+            "row": 26,
+            "col": 4,
+            "raw": 2141,
+            "celsius": -59.04998779296875
+          },
+          {
+            "row": 26,
+            "col": 5,
+            "raw": 2085,
+            "celsius": -64.64999389648438
+          },
+          {
+            "row": 26,
+            "col": 6,
+            "raw": 2132,
+            "celsius": -59.94999694824219
+          },
+          {
+            "row": 26,
+            "col": 7,
+            "raw": 2151,
+            "celsius": -58.04998779296875
+          }
+        ]
+      },
+      "invoke": {
+        "raw_output": [
+          -128,
+          -128,
+          127
+        ],
+        "dequantized_output": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "class_index": 2,
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.111,
+        "output_shape": [
+          1,
+          3
+        ]
+      },
+      "spatial_repeat": {
+        "extreme_low_present": true,
+        "selected_low_count": 11,
+        "fixed_spatial_locations_in_npz": false
+      }
+    },
+    {
+      "role": "high_temperature_looking_frame",
+      "filename": "20260817_084720_900175_0000015484-0000015496.npz",
+      "sha256": "0dd2e560172b4234e6bccafc5aa079c0ac906068e09faa2d664c843057169300",
+      "frame_index": 5,
+      "frame_sequence": 15489,
+      "timestamp": 1786956441.6571488,
+      "batch_shape": [
+        13,
+        62,
+        80
+      ],
+      "npz_contract": {
+        "dtype": "uint16",
+        "shape": [
+          62,
+          80
+        ],
+        "unchanged": true
+      },
+      "celsius_stats": {
+        "min": -64.54998779296875,
+        "p1": -14.473001098632812,
+        "p5": 6.6399948120117225,
+        "median": 22.25,
+        "p95": 40.050018310546875,
+        "p99": 46.69099639892577,
+        "max": 70.35000610351562,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_stats": {
+        "min": -30.441251254985268,
+        "p1": -12.98340962152911,
+        "p5": -5.622995919609431,
+        "median": -0.18103512167363986,
+        "p95": 6.024408161783653,
+        "p99": 8.339586278746598,
+        "max": 16.587591438247326,
+        "finite_count": 4960,
+        "nonfinite_count": 0
+      },
+      "p1_nan_inf": false,
+      "int8": {
+        "int8_min": -128,
+        "int8_max": -73,
+        "unique_value_count": 44,
+        "low_saturation_count": 1450,
+        "high_saturation_count": 0,
+        "low_saturation_fraction": 0.2923387096774194,
+        "high_saturation_fraction": 0.0,
+        "any_saturation_fraction": 0.2923387096774194
+      },
+      "extreme_pixels": {
+        "investigation_thresholds_celsius": {
+          "lt": -40.0,
+          "gt": 80.0
+        },
+        "low_count": 11,
+        "high_count": 0,
+        "raw_zero_count": 0,
+        "raw_uint16_max_count": 0,
+        "low_location_count_truncated": false,
+        "low_locations_sample": [
+          {
+            "row": 35,
+            "col": 16,
+            "raw": 2117,
+            "celsius": -61.44999694824219
+          },
+          {
+            "row": 35,
+            "col": 17,
+            "raw": 2101,
+            "celsius": -63.04998779296875
+          },
+          {
+            "row": 35,
+            "col": 18,
+            "raw": 2089,
+            "celsius": -64.25
+          },
+          {
+            "row": 49,
+            "col": 15,
+            "raw": 2086,
+            "celsius": -64.54998779296875
+          },
+          {
+            "row": 49,
+            "col": 16,
+            "raw": 2086,
+            "celsius": -64.54998779296875
+          },
+          {
+            "row": 49,
+            "col": 17,
+            "raw": 2086,
+            "celsius": -64.54998779296875
+          },
+          {
+            "row": 49,
+            "col": 18,
+            "raw": 2086,
+            "celsius": -64.54998779296875
+          },
+          {
+            "row": 49,
+            "col": 19,
+            "raw": 2086,
+            "celsius": -64.54998779296875
+          }
+        ]
+      },
+      "invoke": {
+        "raw_output": [
+          -128,
+          -128,
+          127
+        ],
+        "dequantized_output": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "class_index": 2,
+        "class_name": "HUMAN_FALL",
+        "latency_ms": 0.113,
+        "output_shape": [
+          1,
+          3
+        ]
+      },
+      "spatial_repeat": {
+        "extreme_low_present": true,
+        "selected_low_count": 11,
+        "fixed_spatial_locations_in_npz": false
+      }
+    }
+  ],
+  "aggregate": {
+    "low_saturation_fraction_min": 0.13024193548387097,
+    "low_saturation_fraction_max": 0.7844758064516129,
+    "high_saturation_fraction_min": 0.0,
+    "high_saturation_fraction_max": 0.0,
+    "interpreted_classes": [
+      "HUMAN_FALL",
+      "HUMAN_NORMAL",
+      "HUMAN_NORMAL",
+      "HUMAN_FALL",
+      "HUMAN_FALL"
+    ],
+    "independent_ground_truth": false
+  },
+  "extreme_pixel_classification": "SENSOR_OUTLIER_UNRESOLVED",
+  "runtime_adapter_recommendation": "THERMAL_RUNTIME_ADAPTER_ELIGIBLE_WITH_LIMITATIONS",
+  "gate": "PASS_WITH_LIMITATIONS",
+  "orientation": {
+    "native_raster": "VERIFIED",
+    "field_vs_training": "UNVERIFIED",
+    "transform_applied": "none"
+  },
+  "not_validated": [
+    "independent_ground_truth",
+    "accuracy_f1",
+    "t_c_device_domain",
+    "temporal_fall_detection",
+    "production_activation",
+    "live_pi_test",
+    "rp_a2"
+  ],
+  "production_manifest_changed": false,
+  "models_modified": false,
+  "real_data_committed": false
+}
