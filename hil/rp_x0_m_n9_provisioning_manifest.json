@@ -1,0 +1,116 @@
+{
+  "classification": "INTEGRATION_M_N9_MMWAVE_ARTIFACT_SYNC",
+  "not_a_production_model_manifest": true,
+  "HISTORICAL_B_NOT_ACTIVE": true,
+  "DEVICE_VALIDATED": "NO",
+  "PI_SMOKE": "NOT_PERFORMED",
+  "PRESENCE_GATE_REQUIRED": "YES",
+  "live_device_validation_claimed": false,
+  "team_repo_touched": false,
+  "authoritative_ai_source": {
+    "canonical_remote": "https://github.com/sheepmeat/test.git",
+    "inspected_origin_main": "390f3be3d75987a79a0e0438ba8a9d5e9e19dc97",
+    "required_sha": "390f3be3d75987a79a0e0438ba8a9d5e9e19dc97"
+  },
+  "integration_repo": {
+    "canonical_remote": "https://github.com/yuname121/integration.git",
+    "base": "origin/main",
+    "base_commit": "07701974674132f7e974210612c6a7611266be70",
+    "branch": "chore/sync-mmwave-m-n9-int8"
+  },
+  "imported_files": [
+    {
+      "source_git_path": "models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite",
+      "destination": "sources/ondevice_ai/models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite",
+      "artifact_sha256": "3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4",
+      "artifact_size_bytes": 11816
+    },
+    {
+      "source_git_path": "config/mmwave/m_n9_full_int8_artifact_lock.json",
+      "destination": "sources/ondevice_ai/config/mmwave/m_n9_full_int8_artifact_lock.json"
+    },
+    {
+      "source_git_path": "config/mmwave/m_n4_canonical_input_dataset_contract.json",
+      "destination": "sources/ondevice_ai/config/mmwave/m_n4_canonical_input_dataset_contract.json"
+    },
+    {
+      "source_git_path": "scripts/mmwave_m_n4_canonical.py",
+      "destination": "sources/ondevice_ai/scripts/mmwave_m_n4_canonical.py",
+      "adaptation": "ROOT remains sources/ondevice_ai; default CLI is contract self-check only; public A6 freeze inputs and sensors/ drivers were not imported"
+    }
+  ],
+  "intentionally_not_imported": [
+    "sensors/",
+    "archive/",
+    "M-N5 candidate keras family",
+    "M-N6 keras (path string retained in lock file only)",
+    "public raw zip / datasets",
+    "M-N10 capture files",
+    "CO2 / Thermal models"
+  ],
+  "model": {
+    "sensor": "mmwave",
+    "phase": "M-N9",
+    "artifact_id": "MMWAVE_M_N9_FULL_INT8_V1",
+    "contract_id": "MMWAVE_MR60_COMPAT_INPUT_DATASET_V1",
+    "artifact_filename": "MMWAVE_M_N9_FULL_INT8_V1.tflite",
+    "artifact_sha256": "3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4",
+    "artifact_size_bytes": 11816,
+    "source_git_commit": "390f3be3d75987a79a0e0438ba8a9d5e9e19dc97",
+    "source_git_path": "models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite",
+    "destination": "sources/ondevice_ai/models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite",
+    "inventory": "sources/ondevice_ai/models/mmwave/m_n9/artifact_inventory.json",
+    "lock_file": "sources/ondevice_ai/config/mmwave/m_n9_full_int8_artifact_lock.json",
+    "input_contract_file": "sources/ondevice_ai/config/mmwave/m_n4_canonical_input_dataset_contract.json",
+    "input_dtype": "int8",
+    "input_shape": [1, 240, 1],
+    "input_quantization": {
+      "scale": 0.5623255372047424,
+      "zero_point": 4
+    },
+    "output_dtype": "int8",
+    "output_shape": [1, 3],
+    "output_quantization": {
+      "scale": 0.00390625,
+      "zero_point": -128
+    },
+    "class_map": {
+      "0": "NORMAL",
+      "1": "RAPID_OR_ABNORMAL",
+      "2": "APNEA"
+    },
+    "representation": "R2 = Δphase / Δt_update",
+    "smoothing": "NONE",
+    "scale": "WINDOW_LOCAL_MAD",
+    "window_seconds": 30,
+    "rate_hz": 8,
+    "samples": 240,
+    "lineage_float_sha256": "9de3818c0f4854f8512c9d390d290938b6e562d590e0775cb1dab885cc72e2ab",
+    "M_N8_STATUS": "SKIPPED_NOT_JUSTIFIED",
+    "presence_gate": {
+      "PRESENCE_GATE_REQUIRED": "YES",
+      "not_a_neural_network_class": true,
+      "threshold_invented_in_this_import": false,
+      "semantic": "if valid_person_presence == false: SUPPRESS, do not emit physiology"
+    }
+  },
+  "historical_retained": {
+    "v0_1_0": "sources/ondevice_ai/models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
+    "v0_2_0_candidate": "sources/ondevice_ai/models/mmwave/mmwave_resp_int8_v0.2.0_candidate.tflite",
+    "m_b3": "sources/ondevice_ai/models/rp_x0_b_complete/mmwave/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+    "deleted": false,
+    "active_runtime_selector": "MMWAVE_M_N9_FULL_INT8_V1"
+  },
+  "mac_smoke": {
+    "MAC_ISOLATED_LOAD": "PASS",
+    "MAC_ISOLATED_INVOKE": "PASS",
+    "MAC_ARTIFACT_SHA_MATCH": "PASS",
+    "PI_SMOKE": "NOT_PERFORMED",
+    "DEVICE_VALIDATED": "NO",
+    "python_version": "3.9.6 (default, May 22 2026, 11:13:45)  [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "interpreter_package": "tensorflow.lite (2.20.0)",
+    "zero_point_input_invoke_int8": [-128, -128, 127],
+    "note": "quantized-zero canonical input softmax-dequantizes toward APNEA-proxy; presence gate is required later and is not a 4th NN class"
+  }
+}
