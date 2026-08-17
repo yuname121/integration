@@ -56,10 +56,16 @@ constexpr uint32_t THERMAL_SPI_HZ = 8000000;
 // Runtime schedules. SCD4x periodic mode creates a new sample about every 5 s.
 constexpr uint32_t PIR_PERIOD_MS = 20;
 constexpr uint32_t CO2_POLL_PERIOD_MS = 250;
-constexpr uint32_t TELEMETRY_PERIOD_MS = 1000;
+// Publish snapshots at 10 Hz so real MR60 phase samples can be observed at
+// the canonical cadence. TCP writes remain isolated in their own task.
+constexpr uint32_t TELEMETRY_PERIOD_MS = 100;
 constexpr uint32_t HEALTH_LOG_PERIOD_MS = 10000;
 constexpr uint32_t MMWAVE_STALE_MS = 5000;
 constexpr uint32_t CO2_STALE_MS = 15000;
+constexpr uint32_t PHASE_MAX_AGE_MS = 500;
+constexpr char NODE_FIRMWARE_VERSION[] =
+    "safenest-esp32-sensor-node/1.2.0";
+constexpr char MMWAVE_SCHEMA_VERSION[] = "1.2";
 
 // -----------------------------------------------------------------------------
 // Thermal-camera constants (MI48xx + MI0801/MI0802, 80 x 62).
@@ -131,6 +137,12 @@ struct TelemetrySnapshot {
   bool respirationValid;
   bool heartValid;
   bool co2Valid;
+  bool phaseSamplePresent;
+  float totalPhase;
+  float breathPhase;
+  float heartPhase;
+  uint32_t phaseTimestampMs;
+  uint32_t phaseSequence;
   uint32_t co2MeasurementEventId;
   uint32_t co2MeasurementMonotonicMs;
   bool co2MeasurementEventValid;
@@ -174,12 +186,17 @@ bool co2Started = false;
 
 float respirationRate = NAN;
 float heartRate = NAN;
+float totalPhase = NAN;
+float breathPhase = NAN;
+float heartPhase = NAN;
 uint16_t co2Ppm = 0;
 bool pirMotion = false;
 bool pirInitialized = false;
+bool phaseSamplePresent = false;
 
 uint32_t lastRespirationMs = 0;
 uint32_t lastHeartMs = 0;
+uint32_t lastPhaseMs = 0;
 uint32_t lastCo2Ms = 0;
 uint32_t co2MeasurementEventId = 0;
 uint32_t co2MeasurementMonotonicMs = 0;
@@ -192,6 +209,9 @@ uint32_t lastTelemetryMs = 0;
 uint32_t lastHealthLogMs = 0;
 uint32_t telemetrySequence = 0;
 uint32_t thermalSequence = 0;
+uint32_t phaseSequence = 0;
+uint32_t thermalCrcErrors = 0;
+uint32_t thermalRangeErrors = 0;
 uint32_t pirEventId = 0;
 uint32_t pirLastTransitionMonotonicMs = 0;
 volatile uint32_t telemetryQueueOverwrites = 0;
@@ -324,6 +344,26 @@ void initializeThermalCamera() {
                 fw1 & 0x0F, fw2);
 }
 
+// MI48 frame CRC: CRC-16/CCITT-FALSE, polynomial 0x1021, initial 0xFFFF.
+// The vendor driver calculates it over the native uint16 pixel buffer, so
+// each received word is fed low byte first and then high byte.
+uint16_t thermalFrameCrc(const uint16_t *pixels, size_t count) {
+  uint16_t crc = 0xFFFF;
+  for (size_t i = 0; i < count; ++i) {
+    const uint8_t bytes[2] = {
+        static_cast<uint8_t>(pixels[i] & 0xFF),
+        static_cast<uint8_t>(pixels[i] >> 8)};
+    for (uint8_t value : bytes) {
+      crc ^= static_cast<uint16_t>(value) << 8;
+      for (uint8_t bit = 0; bit < 8; ++bit) {
+        crc = (crc & 0x8000) ? static_cast<uint16_t>((crc << 1) ^ 0x1021)
+                             : static_cast<uint16_t>(crc << 1);
+      }
+    }
+  }
+  return crc;
+}
+
 bool thermalDataReady(uint32_t now) {
   if (digitalRead(PIN_THERMAL_READY) == HIGH) return true;
 
@@ -359,7 +399,6 @@ void captureThermalIfReady(uint32_t now) {
   thermalSpi.endTransaction();
 
   ThermalTxFrame &frame = thermalProducerFrame;
-  frame.frameSequence = ++thermalSequence;
   frame.uptimeMs = millis();
   frame.minimumRaw = UINT16_MAX;
   frame.maximumRaw = 0;
@@ -371,6 +410,35 @@ void captureThermalIfReady(uint32_t now) {
     if (raw > frame.maximumRaw) frame.maximumRaw = raw;
   }
 
+  const uint16_t expectedCrc = thermalCapture[7];
+  const uint16_t actualCrc = thermalFrameCrc(
+      thermalCapture + THERMAL_HEADER_WORDS, THERMAL_PIXEL_COUNT);
+  if (actualCrc != expectedCrc) {
+    ++thermalCrcErrors;
+    if (thermalCrcErrors <= 3 || thermalCrcErrors % 25 == 0) {
+      Serial.printf(
+          "[thermal] dropped CRC frame: header=0x%04X calc=0x%04X "
+          "errors=%lu\n",
+          expectedCrc, actualCrc,
+          static_cast<unsigned long>(thermalCrcErrors));
+    }
+    return;
+  }
+
+  if (thermalCapture[5] != frame.maximumRaw ||
+      thermalCapture[6] != frame.minimumRaw) {
+    ++thermalRangeErrors;
+    if (thermalRangeErrors <= 3 || thermalRangeErrors % 25 == 0) {
+      Serial.printf(
+          "[thermal] dropped header-range frame: header=%u..%u "
+          "calc=%u..%u errors=%lu\n",
+          thermalCapture[6], thermalCapture[5], frame.minimumRaw,
+          frame.maximumRaw, static_cast<unsigned long>(thermalRangeErrors));
+    }
+    return;
+  }
+
+  frame.frameSequence = ++thermalSequence;
   lastThermalMs = frame.uptimeMs;
   // Queue length is one, so this replaces an unsent old frame under congestion.
   xQueueOverwrite(thermalQueue, &frame);
@@ -419,6 +487,7 @@ void pollCo2(uint32_t now) {
   co2Ppm = newCo2;
   lastCo2Ms = measurementMonotonicMs;
   ++co2MeasurementEventId;
+  if (co2MeasurementEventId == 0) ++co2MeasurementEventId;
   co2MeasurementMonotonicMs = measurementMonotonicMs;
   co2MeasurementEventValid = true;
 }
@@ -427,6 +496,23 @@ void pollMmWave(uint32_t now) {
   // timeout=0 makes the library consume currently buffered UART data without
   // waiting. Repeated loop calls drain all queued radar frames.
   if (!mmWave.update(0)) return;
+
+  float nextTotalPhase = NAN;
+  float nextBreathPhase = NAN;
+  float nextHeartPhase = NAN;
+  if (mmWave.getHeartBreathPhases(nextTotalPhase, nextBreathPhase,
+                                  nextHeartPhase) &&
+      isfinite(nextTotalPhase) && isfinite(nextBreathPhase) &&
+      isfinite(nextHeartPhase)) {
+    totalPhase = nextTotalPhase;
+    breathPhase = nextBreathPhase;
+    heartPhase = nextHeartPhase;
+    // The library has already consumed and parsed the 0x0A13 frame here;
+    // timestamp the observation separately from the later TCP snapshot send.
+    lastPhaseMs = millis();
+    phaseSamplePresent = true;
+    ++phaseSequence;
+  }
 
   float value = 0.0f;
   if (mmWave.getBreathRate(value)) {
@@ -452,9 +538,22 @@ void publishTelemetrySnapshot(uint32_t now) {
   snapshot.respirationValid = isFresh(lastRespirationMs, now, MMWAVE_STALE_MS);
   snapshot.heartValid = isFresh(lastHeartMs, now, MMWAVE_STALE_MS);
   snapshot.co2Valid = isFresh(lastCo2Ms, now, CO2_STALE_MS);
-  snapshot.co2MeasurementEventId = co2MeasurementEventId;
-  snapshot.co2MeasurementMonotonicMs = co2MeasurementMonotonicMs;
-  snapshot.co2MeasurementEventValid = co2MeasurementEventValid;
+  snapshot.phaseSamplePresent = phaseSamplePresent;
+  snapshot.totalPhase = totalPhase;
+  snapshot.breathPhase = breathPhase;
+  snapshot.heartPhase = heartPhase;
+  snapshot.phaseTimestampMs = phaseSamplePresent ? lastPhaseMs : 0;
+  snapshot.phaseSequence = phaseSequence;
+
+  // The event identity is valid only while the corresponding CO2 sample is
+  // fresh. Once stale, fail closed with the protocol-required zero tuple
+  // instead of republishing an old physical event as current.
+  const bool co2EventFresh = snapshot.co2Valid && co2MeasurementEventValid;
+  snapshot.co2MeasurementEventId = co2EventFresh ? co2MeasurementEventId : 0;
+  snapshot.co2MeasurementMonotonicMs =
+      co2EventFresh ? co2MeasurementMonotonicMs : 0;
+  snapshot.co2MeasurementEventValid = co2EventFresh;
+
   snapshot.pirEventId = pirEventId;
   snapshot.pirLastTransitionMonotonicMs = pirLastTransitionMonotonicMs;
   snapshot.telemetryQueueOverwrites = telemetryQueueOverwrites;
@@ -508,10 +607,19 @@ bool writeAll(WiFiClient &client, const uint8_t *data, size_t length) {
   return sent == length;
 }
 
-void formatNullableFloat(char *output, size_t outputSize, bool valid,
+void formatNullablePhase(char *output, size_t outputSize, bool valid,
                          float value) {
   if (valid && isfinite(value)) {
-    snprintf(output, outputSize, "%.2f", value);
+    snprintf(output, outputSize, "%.6f", value);
+  } else {
+    strlcpy(output, "null", outputSize);
+  }
+}
+
+void formatNullableU32(char *output, size_t outputSize, bool valid,
+                       uint32_t value) {
+  if (valid) {
+    snprintf(output, outputSize, "%lu", static_cast<unsigned long>(value));
   } else {
     strlcpy(output, "null", outputSize);
   }
@@ -519,6 +627,9 @@ void formatNullableFloat(char *output, size_t outputSize, bool valid,
 
 bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
   char respiration[20], heart[20], co2[20];
+  char totalPhaseText[32], breathPhaseText[32], heartPhaseText[32];
+  char breathRateRawText[20], phaseAgeText[20], phaseTimestampText[20];
+  char phaseSequenceText[20];
   formatNullableFloat(respiration, sizeof(respiration),
                       snapshot.respirationValid, snapshot.respirationRate);
   formatNullableFloat(heart, sizeof(heart), snapshot.heartValid,
@@ -529,18 +640,48 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
     strlcpy(co2, "null", sizeof(co2));
   }
 
-  char json[768];
+  // Phase values are only republished while the corresponding 0x0A13 sample
+  // is fresh. Metadata remains available after staleness so the Pi can see
+  // exactly when the last real sample was observed.
+  const uint32_t sendNow = millis();
+  const uint32_t phaseAgeMs = snapshot.phaseSamplePresent
+                                  ? static_cast<uint32_t>(
+                                        sendNow - snapshot.phaseTimestampMs)
+                                  : 0;
+  const bool phaseFresh = snapshot.phaseSamplePresent &&
+                          phaseAgeMs < PHASE_MAX_AGE_MS;
+  formatNullablePhase(totalPhaseText, sizeof(totalPhaseText), phaseFresh,
+                      snapshot.totalPhase);
+  formatNullablePhase(breathPhaseText, sizeof(breathPhaseText), phaseFresh,
+                      snapshot.breathPhase);
+  formatNullablePhase(heartPhaseText, sizeof(heartPhaseText), phaseFresh,
+                      snapshot.heartPhase);
+  formatNullableFloat(breathRateRawText, sizeof(breathRateRawText),
+                      snapshot.respirationValid, snapshot.respirationRate);
+  formatNullableU32(phaseAgeText, sizeof(phaseAgeText),
+                    snapshot.phaseSamplePresent, phaseAgeMs);
+  formatNullableU32(phaseTimestampText, sizeof(phaseTimestampText),
+                    snapshot.phaseSamplePresent, snapshot.phaseTimestampMs);
+  formatNullableU32(phaseSequenceText, sizeof(phaseSequenceText),
+                    snapshot.phaseSamplePresent, snapshot.phaseSequence);
+
+  // Keep this comfortably above the current contract size and fail closed if
+  // a future extension ever makes snprintf truncate the packet.
+  char json[1536];
   const int length = snprintf(
       json, sizeof(json),
       "{\"schema\":\"safenest.telemetry.v1\",\"device_id\":\"%s\","
-      "\"boot_id\":\"%s\","
-      "\"seq\":%lu,\"uptime_ms\":%lu,\"resp_rate_bpm\":%s,"
-      "\"heart_rate_bpm\":%s,\"co2_ppm\":%s,"
+      "\"boot_id\":\"%s\",\"seq\":%lu,\"uptime_ms\":%lu,"
+      "\"resp_rate_bpm\":%s,\"heart_rate_bpm\":%s,\"co2_ppm\":%s,"
       "\"co2_measurement_event_id\":%lu,"
       "\"co2_measurement_monotonic_ms\":%lu,"
       "\"co2_measurement_event_valid\":%s,\"pir_motion\":%s,"
       "\"pir_event_id\":%lu,\"pir_last_transition_monotonic_ms\":%lu,"
       "\"valid\":{\"respiration\":%s,\"heart\":%s,\"co2\":%s},"
+      "\"mmwave\":{\"breath_phase\":%s,\"total_phase\":%s,"
+      "\"heart_phase\":%s,\"breath_rate_raw\":%s,"
+      "\"phase_age_ms\":%s,\"ts_monotonic_ms\":%s,\"seq\":%s,"
+      "\"firmware_version\":\"%s\",\"schema_version\":\"%s\"},"
       "\"health\":{\"telemetry_queue_overwrites\":%lu,"
       "\"thermal_queue_overwrites\":%lu,\"tcp_connection_failures\":%lu,"
       "\"tcp_send_failures\":%lu,\"thermal_udp_frames_sent\":%lu,"
@@ -558,7 +699,10 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
       static_cast<unsigned long>(snapshot.pirLastTransitionMonotonicMs),
       snapshot.respirationValid ? "true" : "false",
       snapshot.heartValid ? "true" : "false",
-      snapshot.co2Valid ? "true" : "false",
+      snapshot.co2Valid ? "true" : "false", breathPhaseText,
+      totalPhaseText, heartPhaseText, breathRateRawText, phaseAgeText,
+      phaseTimestampText, phaseSequenceText, NODE_FIRMWARE_VERSION,
+      MMWAVE_SCHEMA_VERSION,
       static_cast<unsigned long>(snapshot.telemetryQueueOverwrites),
       static_cast<unsigned long>(snapshot.thermalQueueOverwrites),
       static_cast<unsigned long>(snapshot.tcpConnectionFailures),
@@ -718,10 +862,13 @@ void logHealth(uint32_t now) {
   if (!scheduleDue(now, lastHealthLogMs, HEALTH_LOG_PERIOD_MS)) return;
   Serial.printf(
       "[health] wifi=%s rpi=%s resp=%.1f heart=%.1f co2=%u pir=%d "
-      "thermal_frames=%lu udp_sent=%lu udp_failed=%lu free_heap=%u\n",
+      "thermal_frames=%lu crc_errors=%lu range_errors=%lu "
+      "udp_sent=%lu udp_failed=%lu free_heap=%u\n",
       WiFi.status() == WL_CONNECTED ? "up" : "down", RPI_HOST,
       respirationRate, heartRate, co2Ppm, pirMotion,
       static_cast<unsigned long>(thermalSequence),
+      static_cast<unsigned long>(thermalCrcErrors),
+      static_cast<unsigned long>(thermalRangeErrors),
       static_cast<unsigned long>(thermalUdpFramesSent),
       static_cast<unsigned long>(thermalUdpFramesFailed), ESP.getFreeHeap());
 }
