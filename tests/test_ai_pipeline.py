@@ -179,10 +179,19 @@ class AIPipelineTests(unittest.TestCase):
         root = Path(__file__).resolve().parent.parent
         provenance = json.loads((root / "LATEST_SOURCE_PROVENANCE.json").read_text(encoding="utf-8"))
         snapshot = root / "sources" / "ondevice_ai"
+        overlay = snapshot / "models" / "rp_x0_b_complete"
+        frozen = [
+            path
+            for path in snapshot.rglob("*")
+            if path.is_file() and overlay not in path.parents and path != overlay
+        ]
+        overlay_files = [path for path in overlay.rglob("*") if path.is_file()] if overlay.exists() else []
         self.assertEqual(provenance["latest_origin_main"], "fa8cf13")
         self.assertEqual(provenance["latest_component_source"], "77b1695ac66fd595bd037e4574d1626b8917654c")
         self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1069)
-        self.assertEqual(len([path for path in snapshot.rglob("*") if path.is_file()]), 1069)
+        self.assertEqual(len(frozen), 1069)
+        self.assertEqual(provenance["locked_b_stage_overlay"]["file_count"], len(overlay_files))
+        self.assertEqual(len(overlay_files), 19)
 
 
 if __name__ == "__main__":
