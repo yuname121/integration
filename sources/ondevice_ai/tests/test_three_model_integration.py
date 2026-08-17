@@ -10,6 +10,7 @@ import os
 import sys
 from pathlib import Path
 from unittest.mock import MagicMock
+import json
 import unittest
 import numpy as np
 
@@ -128,7 +129,14 @@ class TestThreeModelIntegration(unittest.TestCase):
             self.engine.co2_runner = original_runner
 
     def test_real_mmwave_tflite_runs_after_window_ready(self):
-        """300샘플 window 준비 후 반입된 mmWave TFLite가 fallback 없이 실행되는지 검증"""
+        """Active selector is M-N9 [1,240,1]; frozen 300-sample adapter is historical until Step 3."""
+        manifest = json.loads((PROJECT_ROOT / "models/model_manifest.json").read_text(encoding="utf-8"))
+        active = manifest["models"]["mmwave"]
+        self.assertEqual(active["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertEqual(active["runtime_role"], "ACTIVE_M_N9")
+        self.assertEqual(active["input"]["shape"], [1, 240, 1])
+        self.assertNotEqual(active["path"], "models/mmwave/mmwave_resp_int8_v0.1.0.tflite")
+
         start_ts = 100.0
         res = None
         for i in range(300):
@@ -143,9 +151,11 @@ class TestThreeModelIntegration(unittest.TestCase):
 
         self.assertIsNotNone(res)
         self.assertNotIn("TFLITE_MODEL_FILE_MISSING", res["reasons"])
-        self.assertEqual(res["model_meta"]["mmwave"]["source"], "mmwave_resp_int8")
-        self.assertFalse(res["model_meta"]["mmwave"]["fallback_used"])
-        self.assertEqual(res["model_meta"]["mmwave"]["ai_status"], "OK")
+        self.assertEqual(self.registry.mmwave.model_meta["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertEqual(list(self.registry.mmwave.input_info["shape"]), [1, 240, 1])
+        # Frozen risk-engine adapter still emits a 300-sample window; that is not M-N9 serving.
+        self.assertIn("MMWAVE_MODEL_INVOKE_ERROR", res["reasons"])
+        self.assertNotEqual(res["model_meta"]["mmwave"]["ai_status"], "OK")
 
     def test_scenario_6_real_world_empty_packet_is_fault(self):
         packet = {

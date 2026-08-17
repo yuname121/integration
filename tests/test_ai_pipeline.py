@@ -159,11 +159,19 @@ class AIPipelineTests(unittest.TestCase):
                 model.predict([])
         self.assertEqual(calls, [1])
 
-    def test_latest_manifest_blocks_collapsed_mmwave_release(self):
-        model = LazyModel("mmwave")
-        with self.assertRaisesRegex(ModelRuntimeUnavailable, "MODEL_RELEASE_BLOCKED"):
-            model.predict([0.0] * 300)
-        self.assertIn("CLASS_COLLAPSE_ON_REPOSITORY_NPZ", model.load_error or "")
+    def test_historical_v0_1_0_mmwave_remains_release_blocked(self):
+        root = Path(__file__).resolve().parent.parent / "sources" / "ondevice_ai"
+        manifest = json.loads((root / "models" / "model_manifest.json").read_text(encoding="utf-8"))
+        historical = manifest["models"]["mmwave_v0_1_0"]
+        self.assertFalse(historical["deployment_allowed"])
+        self.assertEqual(historical["block_reason"], "CLASS_COLLAPSE_ON_REPOSITORY_NPZ")
+        self.assertEqual(historical["runtime_role"], "HISTORICAL_V0_1_0")
+        active = manifest["models"]["mmwave"]
+        self.assertEqual(active["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertEqual(active["runtime_role"], "ACTIVE_M_N9")
+        self.assertEqual(active["deployment_scope"], "MAC_INTEGRATION_CANDIDATE")
+        self.assertEqual(active["hardware_validation"], "NOT_PERFORMED")
+        self.assertFalse(active["DEVICE_VALIDATED"])
 
     def test_frozen_model_hashes_match_manifest(self):
         root = Path(__file__).resolve().parent.parent / "sources" / "ondevice_ai"
@@ -188,10 +196,13 @@ class AIPipelineTests(unittest.TestCase):
         overlay_files = [path for path in overlay.rglob("*") if path.is_file()] if overlay.exists() else []
         self.assertEqual(provenance["latest_origin_main"], "fa8cf13")
         self.assertEqual(provenance["latest_component_source"], "77b1695ac66fd595bd037e4574d1626b8917654c")
-        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1069)
-        self.assertEqual(len(frozen), 1069)
+        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1074)
+        self.assertEqual(len(frozen), 1074)
         self.assertEqual(provenance["locked_b_stage_overlay"]["file_count"], len(overlay_files))
         self.assertEqual(len(overlay_files), 19)
+        self.assertEqual(provenance["mmwave_m_n9_import"]["artifact_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertTrue(provenance["mmwave_m_n9_import"]["active_runtime_selector"])
+        self.assertEqual(provenance["integration_policy"]["mmwave_active_selector"], "MMWAVE_M_N9_FULL_INT8_V1")
 
 
 if __name__ == "__main__":

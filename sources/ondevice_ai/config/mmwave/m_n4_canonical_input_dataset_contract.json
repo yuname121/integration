@@ -1,0 +1,170 @@
+{
+  "contract_id": "MMWAVE_MR60_COMPAT_INPUT_DATASET_V1",
+  "phase": "M-N4",
+  "status": "FROZEN_FOR_M_N5",
+  "historical_b_input_inherited": false,
+  "active_canonical_shape_count": 1,
+  "m_n3_fallback_30s_10hz_300": "M_N3_FALLBACK_NOT_ACTIVE",
+  "source_public": {
+    "lineage": [
+      "Zenodo 10.5281/zenodo.18599983",
+      "radar_rFFTs.zlib",
+      "A1 SafeRFFTReader RFFT_DECODER_PROFILE_001",
+      "A2 MMWAVE_PHASE_EXTRACTION_PROFILE_001 native unwrap on reused A6 bin/channel",
+      "M-N4 canonical preprocessing"
+    ],
+    "signal": "A2_NATIVE_UNWRAPPED_PHASE",
+    "range_bin_re_search": false,
+    "historical_bpf_zscore_tensors": false
+  },
+  "source_mr60": {
+    "signal": "0x0A13_BREATH_PHASE",
+    "required_live_fields": ["breath_phase", "ts_monotonic_ms", "phase_age_ms"],
+    "row_count_sampling": false
+  },
+  "timing": {
+    "phase_update_estimate_ms": "ts_monotonic_ms - phase_age_ms",
+    "exact_physical_radar_acquisition_time_claimed": false,
+    "update_advancement_tolerance_ms": 8.0,
+    "update_advancement_compared_against": "LAST_ACCEPTED_UPDATE_ESTIMATE",
+    "update_advancement_rule": "accept event i only if phase_update_estimate_ms[i] > last_accepted_update_estimate_ms + 8; last_accepted is updated only when the event is kept",
+    "update_advancement_tolerance_meaning": "timestamp-quantization/jitter guard against the last accepted update estimate, not against the previous telemetry row",
+    "eight_ms_is_sensor_period": false,
+    "eight_ms_is_minimum_physical_sample_interval": false,
+    "eight_ms_is_physiological_threshold": false,
+    "equal_breath_phase_numeric_value_is_not_republication": true,
+    "production_if_freshness_unavailable": "WINDOW_UNAVAILABLE",
+    "legacy_row_timestamp_fallback_in_production": false
+  },
+  "derivative": {
+    "representation": "TIME_AWARE_FIRST_DERIVATIVE",
+    "formula": "dt_s = (t_update_ms[i] - t_update_ms[i-1]) / 1000; r2[i] = (x[i] - x[i-1]) / dt_s",
+    "timestamp_assigned_to_derivative": "t_update[i] of the later accepted event",
+    "first_event_in_segment": "NO_DERIVATIVE_SAMPLE",
+    "predecessor_phase_event_for_derivative_context": true,
+    "one_predecessor_phase_event_before_window_start": "YES_IF_PRESENT_IN_0.250S_LOOKBACK",
+    "predecessor_scope": "accepted events in [t_start - 0.250 s, t_start) are retained only as left-hand derivative context",
+    "predecessor_rule": "the first in-window R2 sample uses the immediately preceding accepted event as (x[i-1], t[i-1]); this is not an extra tensor channel",
+    "predecessor_count_guarantee": "NOT_A_FIXED_COUNT_OF_EXACTLY_ONE; lookback may contain 0 or more accepted events",
+    "predecessor_if_absent": "if the window starts at a recording or segment start and no predecessor exists, the first event still produces no R2; grid[0] may be filled only by edge hold <= 0.250 s",
+    "after_gap_reset": "first new event starts a new segment and does not produce a cross-gap derivative",
+    "dt_min_s": 1e-6,
+    "noise_handling": "NONE",
+    "historical_b_filter_inherited": false
+  },
+  "gap": {
+    "formula": "reject window if any accepted interval in the completed candidate window exceeds max(0.40 s, 4 * median_update_dt)",
+    "median_update_dt_scope": "accepted update intervals whose later event lies inside the completed candidate 30 s window",
+    "minimum_intervals": 8,
+    "initialization": "if fewer than 8 intervals, reject the window; do not use a recording-wide or future median",
+    "reset": "boot/session discontinuity or large gap starts a new empty interval history",
+    "runtime_completed_window_compatible": true,
+    "whole_future_recording_statistics_required": false,
+    "long_gap_derivative": false,
+    "long_gap_interpolation": false,
+    "window_containing_large_gap": "REJECT_ENTIRE_WINDOW"
+  },
+  "resampling": {
+    "method": "LINEAR",
+    "order": [
+      "identify accepted phase-update events",
+      "segment on gaps/boot boundaries",
+      "calculate R2 at native accepted-event times",
+      "form eligible 30 s interval",
+      "resample R2 to the canonical 8 Hz grid",
+      "apply current-window S1 MAD to the 240 resampled values",
+      "emit [1,240,1] float32 tensor"
+    ],
+    "target_rate_hz": 8.0,
+    "window_seconds": 30.0,
+    "sample_count": 240,
+    "grid": "t[k] = t_start + k / 8 seconds, k = 0 ... 239",
+    "last_sample_offset_s": 29.875,
+    "boundary_convention": "[t_start, t_start+30)",
+    "edge_hold_max_seconds": 0.250,
+    "edge_hold_meaning": "nearest valid derivative value may cover an uncovered window edge only when the uncovered duration is <= 0.250 s; otherwise reject",
+    "input_shape": [1, 240, 1],
+    "input_channels": 1,
+    "channel_meaning": "canonical window-MAD-normalized R2 derivative",
+    "time_ordering": "index 0 is t_start, strictly increasing by 0.125 s",
+    "input_dtype_before_training": "float32",
+    "compute_dtype": "float64",
+    "finite_value_requirement": true
+  },
+  "scale": {
+    "method": "WINDOW_LOCAL_MAD",
+    "mad_formula": "m = median(r); MAD = median(abs(r - m))",
+    "centering_rule": "NONE",
+    "normalization_formula": "r / MAD",
+    "divide_only_no_centering": true,
+    "not_r_minus_median_over_mad": true,
+    "mad_epsilon": 1e-6,
+    "mad_comparison": "MAD < 1e-6",
+    "mad_epsilon_meaning": "NUMERICAL_GUARD_NOT_OCCUPANCY_THRESHOLD",
+    "near_zero_behavior": "ZERO_TENSOR",
+    "applied_to": "the 240 resampled R2 values of the completed window",
+    "order_relative_to_resampling": "AFTER_RESAMPLE"
+  },
+  "boot": {
+    "window_may_cross_boot_or_restart": false,
+    "state_reset_on_boot": true
+  },
+  "target": {
+    "policy_id": "MMWAVE_LABEL_MAPPING_PROFILE_001",
+    "independent_reference_source": "MOVESENSE_CHEST_ACC",
+    "mapper": "scripts/mmwave_label_mapper.py",
+    "window_identity_source": "A6 30 s non-overlapping windows; labels reused, historical BPF_ZSCORE values not reused",
+    "class_mapping": {
+      "0": "NORMAL",
+      "1": "RAPID_OR_ABNORMAL",
+      "2": "APNEA"
+    },
+    "class_semantics": {
+      "NORMAL": "Movesense chest-ACC RR in [10, 25) bpm with zero non-breathing overlap; rest-condition proxy, not a clinical diagnosis",
+      "RAPID_OR_ABNORMAL": "Movesense chest-ACC RR < 10 bpm or >= 25 bpm",
+      "APNEA": "voluntary breath-hold overlap >= 6 s and event duration >= 8 s; SafeNest APNEA proxy, not clinical apnea"
+    },
+    "ambiguous_policy": "excluded from supervised TRAIN/VAL/NEW_MODEL_HELDOUT_TEST metrics; retained in lineage/inventory",
+    "paced_cue_used": false,
+    "mr60_breath_rate_raw_used": false,
+    "empty_room_as_apnea": false,
+    "thresholds_retuned_in_m_n4": false
+  },
+  "public_split": {
+    "profile_id": "MMWAVE_MR60_COMPAT_SUBJECT_SPLIT_V1",
+    "split_unit": "SUBJECT",
+    "method": "SHA256(namespace:seed:subject_id) then largest-remainder counts",
+    "namespace": "MMWAVE_MR60_COMPAT_INPUT_DATASET_V1",
+    "seed": 20260818,
+    "counts": {
+      "TRAIN": 77,
+      "VAL": 17,
+      "NEW_MODEL_HELDOUT_TEST": 16
+    },
+    "heldout_is_project_wide_pristine": false,
+    "m_n5_may_use_heldout_for_selection": false,
+    "historical_a5_assignment_copied": false,
+    "split_file": "datasets/mmwave/splits/mmwave_mr60_compat_subject_split_v1.json",
+    "window_index": "datasets/mmwave/manifests/m_n4_canonical/window_index.jsonl"
+  },
+  "team_mr60": {
+    "supervised_training": "DISALLOWED",
+    "physical_subjects": 1,
+    "independent_respiratory_gt": "ABSENT",
+    "roles": [
+      "MR60_DEVELOPMENT_REFERENCE",
+      "MR60_WEAKLY_LABELED_OR_ADAPTATION_CANDIDATE",
+      "MR60_FAILURE_OR_QA_EVIDENCE",
+      "MR60_HELDOUT_REFERENCE"
+    ],
+    "mr60_heldout_reference": [
+      "LEGACY_2026-07-28_empty_v2_360s",
+      "LEGACY_2026-07-25_occupied_d09_60s",
+      "LEGACY_2026-07-25_occupied_front_d06_60s"
+    ],
+    "mr60_heldout_meaning": "SAME_SUBJECT_LIMITED_DEVICE_REFERENCE",
+    "unseen_person_validation_claimed": false,
+    "recent_pi_role": "RECENT_PI_RUNTIME_REFERENCE"
+  },
+  "derived_payload_policy": "local/gitignored tmp or datasets/processed; do not commit large npy tensors with this freeze"
+}

@@ -17,7 +17,7 @@ PRODUCTION_MANIFEST = ONDEVICE / "models" / "model_manifest.json"
 PROVISIONING_MANIFEST = ROOT / "hil" / "rp_x0_b_complete_provisioning_manifest.json"
 INVENTORY = B_COMPLETE / "artifact_inventory.json"
 
-PRODUCTION_MANIFEST_SHA256 = "ef0946008af944e424a83c1dd53a66c04e9fc71228843a33f3fb79a227a6921d"
+PRODUCTION_MANIFEST_SHA256 = "7186159ffdaee624652791690bbd7990f69ca6822c8ad99a69b471ac1776c1c8"
 
 CO2_ARTIFACT = B_COMPLETE / "co2" / "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite"
 THERMAL_ARTIFACT = B_COMPLETE / "thermal" / "SMALL_CNN_BASELINE_V1_P1_full_int8.tflite"
@@ -76,7 +76,7 @@ def invoke_zero_point(interpreter) -> np.ndarray:
 
 
 class LockedBStageArtifactTests(unittest.TestCase):
-    def test_production_manifest_unchanged(self) -> None:
+    def test_production_manifest_selects_active_m_n9_not_historical_b(self) -> None:
         self.assertTrue(PRODUCTION_MANIFEST.is_file())
         self.assertEqual(sha256(PRODUCTION_MANIFEST), PRODUCTION_MANIFEST_SHA256)
         manifest = load_json(PRODUCTION_MANIFEST)
@@ -85,11 +85,20 @@ class LockedBStageArtifactTests(unittest.TestCase):
             manifest["models"]["thermal"]["path"],
             "models/thermal/thermal_fall_int8_v0.1.0.tflite",
         )
-        self.assertEqual(
-            manifest["models"]["mmwave"]["path"],
-            "models/mmwave/mmwave_resp_int8_v0.1.0.tflite",
-        )
-        self.assertNotIn("rp_x0_b_complete", json.dumps(manifest))
+        active = manifest["models"]["mmwave"]
+        self.assertEqual(active["runtime_role"], "ACTIVE_M_N9")
+        self.assertEqual(active["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertEqual(active["path"], "models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite")
+        self.assertEqual(active["sha256"], "3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4")
+        self.assertEqual(active["input"]["shape"], [1, 240, 1])
+        self.assertEqual(active["hardware_validation"], "NOT_PERFORMED")
+        self.assertFalse(active["DEVICE_VALIDATED"])
+        historical = manifest["models"]["mmwave_v0_1_0"]
+        self.assertEqual(historical["runtime_role"], "HISTORICAL_V0_1_0")
+        self.assertEqual(historical["path"], "models/mmwave/mmwave_resp_int8_v0.1.0.tflite")
+        self.assertFalse(historical["deployment_allowed"])
+        self.assertNotIn("rp_x0_b_complete", active["path"])
+        self.assertNotEqual(active["path"], str(MMWAVE_ARTIFACT.relative_to(ONDEVICE)))
 
     def test_historical_v0_1_0_preserved(self) -> None:
         for sensor, path in HISTORICAL.items():
@@ -217,6 +226,10 @@ class LockedBStageArtifactTests(unittest.TestCase):
             summary["candidate_id"],
             "M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120",
         )
+        production = load_json(PRODUCTION_MANIFEST)["models"]["mmwave"]
+        self.assertEqual(production["runtime_role"], "ACTIVE_M_N9")
+        self.assertNotEqual(production["path"], str(MMWAVE_ARTIFACT.relative_to(ONDEVICE)))
+        self.assertNotEqual(list(production["input"]["shape"]), [1, 300, 1])
 
         interpreter = make_interpreter(MMWAVE_ARTIFACT)
         inp = interpreter.get_input_details()[0]
@@ -241,8 +254,8 @@ class LockedBStageArtifactTests(unittest.TestCase):
             if path.is_file() and overlay not in path.parents and path != overlay
         ]
         overlay_files = [path for path in overlay.rglob("*") if path.is_file()]
-        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1069)
-        self.assertEqual(len(frozen), 1069)
+        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1074)
+        self.assertEqual(len(frozen), 1074)
         self.assertEqual(provenance["locked_b_stage_overlay"]["file_count"], 19)
         self.assertEqual(len(overlay_files), 19)
 
@@ -270,6 +283,9 @@ class LockedBStageArtifactTests(unittest.TestCase):
             "LIVE_B_GATE_CLOSED",
             classified[str(MMWAVE_ARTIFACT.relative_to(ROOT))],
         )
+        active = load_json(PRODUCTION_MANIFEST)["models"]["mmwave"]
+        self.assertEqual(active["runtime_role"], "ACTIVE_M_N9")
+        self.assertNotEqual(active["path"], str(MMWAVE_ARTIFACT.relative_to(ONDEVICE)))
 
 
 if __name__ == "__main__":

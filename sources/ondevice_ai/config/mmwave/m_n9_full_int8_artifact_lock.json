@@ -1,0 +1,101 @@
+{
+  "artifact_id": "MMWAVE_M_N9_FULL_INT8_V1",
+  "phase": "M-N9",
+  "source_selection_id": "MMWAVE_M_N6_SELECTED_FLOAT_V1",
+  "source_float_path": "models/mmwave/m_n6/MMWAVE_M_N6_SELECTED_FLOAT_V1.keras",
+  "source_float_sha256": "9de3818c0f4854f8512c9d390d290938b6e562d590e0775cb1dab885cc72e2ab",
+  "source_architecture": "M-N5_DILATED_CONV1D_GAP_TINY",
+  "source_seed": 2026,
+  "source_parameter_count": 5019,
+  "locked_artifact_path": "models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite",
+  "artifact_sha256": "3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4",
+  "artifact_size_bytes": 11816,
+  "contract_id": "MMWAVE_MR60_COMPAT_INPUT_DATASET_V1",
+  "input_contract": {
+    "name": "serving_default_canonical_r2:0",
+    "dtype": "int8",
+    "shape": [
+      1,
+      240,
+      1
+    ],
+    "scale": 0.5623255372047424,
+    "zero_point": 4,
+    "quantization_formula": "q = clip(round(x / scale + zero_point), -128, 127)"
+  },
+  "output_contract": {
+    "name": "StatefulPartitionedCall_1:0",
+    "dtype": "int8",
+    "shape": [
+      1,
+      3
+    ],
+    "scale": 0.00390625,
+    "zero_point": -128,
+    "dequantization_formula": "x_float = (q - zero_point) * scale"
+  },
+  "quantization": {
+    "mode": "FULL_INT8",
+    "weights": "INT8",
+    "activations": "INT8",
+    "inference_input_type": "int8",
+    "inference_output_type": "int8",
+    "supported_ops": [
+      "TFLITE_BUILTINS_INT8"
+    ],
+    "FULL_INT8_ONLY": true,
+    "float_fallback_ops": false,
+    "opcodes": [
+      "RESHAPE",
+      "CONV_2D",
+      "MEAN",
+      "FULLY_CONNECTED",
+      "SOFTMAX"
+    ],
+    "tensor_dtypes": [
+      "int32",
+      "int8"
+    ],
+    "input_quantization": "q = clip(round(x / scale + zero_point), -128, 127)",
+    "output_dequantization": "x_float = (q - zero_point) * scale"
+  },
+  "calibration": {
+    "INT8_CALIBRATION_SOURCE": "PUBLIC_TRAIN_ONLY",
+    "train_subjects": 77,
+    "train_windows": 337,
+    "representative_windows_used": 337,
+    "val_used_for_calibration": false,
+    "public_heldout_used": false,
+    "mr60_used_for_calibration": false
+  },
+  "presence_gate": {
+    "PRESENCE_GATE_REQUIRED": true,
+    "not_a_neural_network_class": true,
+    "fourth_neural_class_added": false,
+    "model_not_retrained_to_fix_empty_room": true,
+    "semantic": "if valid_person_presence == false: respiratory_classification = SUPPRESSED",
+    "suppressed_states": [
+      "NO_VALID_PERSON",
+      "RESPIRATORY_INFERENCE_SUPPRESSED"
+    ],
+    "must_not_expose_when_no_valid_person": [
+      "NORMAL",
+      "RAPID_OR_ABNORMAL",
+      "APNEA"
+    ],
+    "existing_mr60_presence_field": "human_detected_raw",
+    "threshold_invented_in_m_n9": false,
+    "exact_runtime_implementation": "DEFERRED_TO_INTEGRATION",
+    "source": "M-N7 NO_PERSON_INFERENCE_GATING_HAZARD on empty-room zero canonical input"
+  },
+  "tensorflow_version": "2.20.0",
+  "tflite_litert_version": "2.20.0",
+  "conversion_base_sha": "bee5fd6f1611036d1a5cade29712586bdca4b6bf",
+  "conversion_base_sha_meaning": "HEAD at conversion time (canonical main / M-N7 merge). Not the M-N9 documentation commit.",
+  "artifact_introducing_commit": "a475d06623dd91298a8563924fafaa5fc6d3532b",
+  "NEW_MODEL_HELDOUT_TEST_INFERENCE_M_N9": 0,
+  "M_N8_STATUS": "SKIPPED_NOT_JUSTIFIED",
+  "DEVICE_VALIDATED": false,
+  "PI_INFERENCE_READY_IS_NOT_DEVICE_VALIDATED": true,
+  "production_final_runtime": false
+}

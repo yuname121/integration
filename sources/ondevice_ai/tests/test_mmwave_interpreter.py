@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 import json
 import hashlib
+import tempfile
 import unittest
 import numpy as np
 
@@ -24,17 +25,36 @@ from adapters.mmwave_stream_adapter import MMWaveStreamAdapter
 class TestMMWaveInterpreterAndAdapter(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.runner = MMWaveInterpreter(project_root=PROJECT_ROOT)
+        cls.live_manifest_path = PROJECT_ROOT / "models/model_manifest.json"
+        live_manifest = json.loads(cls.live_manifest_path.read_text(encoding="utf-8"))
+        historical = dict(live_manifest)
+        historical["models"] = dict(live_manifest["models"])
+        historical["models"]["mmwave"] = live_manifest["models"]["mmwave_v0_1_0"]
+        cls._historical_dir = tempfile.TemporaryDirectory()
+        cls.historical_manifest_path = Path(cls._historical_dir.name) / "historical_v0_1_0_manifest.json"
+        cls.historical_manifest_path.write_text(json.dumps(historical), encoding="utf-8")
+        cls.runner = MMWaveInterpreter(
+            project_root=PROJECT_ROOT,
+            manifest_path=str(cls.historical_manifest_path),
+        )
         cls.registry = ModelRegistry(project_root=PROJECT_ROOT)
         cls.stream_adapter = MMWaveStreamAdapter()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls._historical_dir.cleanup()
+
     def test_manifest_entry_exists(self):
-        manifest_path = PROJECT_ROOT / "models/model_manifest.json"
-        self.assertTrue(manifest_path.is_file())
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertTrue(self.live_manifest_path.is_file())
+        manifest = json.loads(self.live_manifest_path.read_text(encoding="utf-8"))
         self.assertIn("mmwave", manifest["models"])
         mmwave_meta = manifest["models"]["mmwave"]
-        self.assertEqual(mmwave_meta["model_id"], "mmwave_resp_int8")
+        self.assertEqual(mmwave_meta["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertEqual(mmwave_meta["runtime_role"], "ACTIVE_M_N9")
+        self.assertEqual(mmwave_meta["path"], "models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite")
+        historical = manifest["models"]["mmwave_v0_1_0"]
+        self.assertEqual(historical["model_id"], "mmwave_resp_int8")
+        self.assertEqual(historical["runtime_role"], "HISTORICAL_V0_1_0")
 
     def test_real_tflite_is_loaded_and_hash_verified(self):
         health = self.registry.health()["mmwave"]
@@ -43,9 +63,21 @@ class TestMMWaveInterpreterAndAdapter(unittest.TestCase):
         self.assertTrue(health["interpreter_loaded"])
         self.assertTrue(health["sha256_matches"])
         self.assertIsNone(health["load_error_reason"])
+        self.assertEqual(health["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
 
-        actual_sha256 = hashlib.sha256(self.runner.model_path.read_bytes()).hexdigest()
-        self.assertEqual(actual_sha256, self.runner.model_meta["sha256"])
+        historical_sha = hashlib.sha256(self.runner.model_path.read_bytes()).hexdigest()
+        self.assertEqual(historical_sha, self.runner.model_meta["sha256"])
+        self.assertEqual(self.runner.model_meta["model_id"], "mmwave_resp_int8")
+
+    def test_active_m_n9_tensor_contract(self):
+        live = self.registry.mmwave
+        self.assertEqual(list(live.input_info["shape"]), [1, 240, 1])
+        self.assertEqual(live.input_info["dtype"], np.int8)
+        self.assertEqual(live.input_info["quantization"], (0.5623255372047424, 4))
+        self.assertEqual(list(live.output_info["shape"]), [1, 3])
+        self.assertEqual(live.output_info["quantization"], (0.00390625, -128))
+        actual = hashlib.sha256(live.model_path.read_bytes()).hexdigest()
+        self.assertEqual(actual, "3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4")
 
     def test_real_tflite_tensor_contract(self):
         input_info = self.runner.input_info

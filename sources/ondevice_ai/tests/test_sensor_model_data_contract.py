@@ -639,11 +639,20 @@ class TestTfliteModelIntegrity(unittest.TestCase):
     def test_tflite_sha256_matches_inventory(self):
         inventory = _load_json(MODEL_INVENTORY_PATH)
         manifest = _load_json(MODEL_MANIFEST_PATH)
-        for model_key in ("thermal", "mmwave", "co2"):
+        for model_key in ("thermal", "co2"):
             inv_sha = inventory["models"][model_key]["sha256"]
             manifest_sha = manifest["models"][model_key]["sha256"]
             self.assertEqual(inv_sha, manifest_sha,
                              f"TFLite {model_key} SHA256: inventory={inv_sha} != manifest={manifest_sha}")
+        self.assertEqual(
+            inventory["models"]["mmwave"]["sha256"],
+            manifest["models"]["mmwave_v0_1_0"]["sha256"],
+        )
+        self.assertEqual(manifest["models"]["mmwave"]["runtime_role"], "ACTIVE_M_N9")
+        self.assertNotEqual(
+            inventory["models"]["mmwave"]["sha256"],
+            manifest["models"]["mmwave"]["sha256"],
+        )
 
 
 if __name__ == "__main__":
