@@ -293,31 +293,35 @@ def _runtime_import_check() -> dict[str, object]:
             required=False,
         )
     try:
-        from backend.runtime import SafeNestRuntime
-        from backend.store import RuntimeStore
-        from backend.views import status_document
-
-        store = RuntimeStore()
-        runtime = SafeNestRuntime(store=store, sensor_port=0, thermal_udp_port=0)
-        publication = runtime.evaluate_once()
-        document = status_document(publication)
-        observed = {
-            "runtime_status": document.get("runtime_status", {}).get("status"),
-            "thermal_ai": document.get("thermal", {}).get("runtime_status", {}).get("ai_status"),
-        }
-        passed = observed["thermal_ai"] == "BLOCKED" and observed["runtime_status"] in {
-            "NOT_READY",
-            "DEGRADED",
-            "READY_WITH_LIMITATIONS",
-        }
-        return _check("runtime_import_construct", passed, observed, required=False)
+        observed, passed = _construct_offline_runtime()
+        return _check("runtime_import_construct", passed, observed)
     except Exception as error:
         return _check(
             "runtime_import_construct",
             False,
             f"{type(error).__name__}: {error}",
-            required=False,
         )
+
+
+def _construct_offline_runtime() -> tuple[dict[str, object], bool]:
+    from backend.runtime import SafeNestRuntime
+    from backend.store import RuntimeStore
+    from backend.views import status_document
+
+    store = RuntimeStore()
+    runtime = SafeNestRuntime(store=store, sensor_port=0, thermal_udp_port=0)
+    publication = runtime.evaluate_once()
+    document = status_document(publication)
+    observed = {
+        "runtime_status": document.get("runtime_status", {}).get("status"),
+        "thermal_ai": document.get("thermal", {}).get("runtime_status", {}).get("ai_status"),
+    }
+    passed = observed["thermal_ai"] == "BLOCKED" and observed["runtime_status"] in {
+        "NOT_READY",
+        "DEGRADED",
+        "READY_WITH_LIMITATIONS",
+    }
+    return observed, passed
 
 
 def _check(name: str, passed: bool, observed: object, *, required: bool = True) -> dict[str, object]:

@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 from pathlib import Path
+from unittest.mock import patch
 import json
+import sys
 import unittest
 
 from backend.runtime_status import runtime_status_document
 from backend.views import status_document
 from deployment.verify_bundle import verify
-from hil.preflight import EXPECTED_ENV_KEYS, offline_preflight_document
+from hil.preflight import EXPECTED_ENV_KEYS, _runtime_import_check, offline_preflight_document
 from tests.test_runtime_status import ai_result, sensor, state
 
 
@@ -88,6 +90,39 @@ class Stage7OfflinePreflightTests(unittest.TestCase):
         result = verify(ROOT)
         self.assertNotIn("backend/runtime_status.py", result["missing"])
         self.assertNotIn("backend/views.py", result["missing"])
+
+    def test_runtime_import_construct_is_optional_only_below_python_3_10(self) -> None:
+        names = {item["name"]: item for item in self.document["checks"]}
+        check = names["runtime_import_construct"]
+        if sys.version_info < (3, 10):
+            self.assertFalse(check["required"])
+            self.assertTrue(check["passed"])
+            self.assertIn("SKIPPED_PYTHON_LT_3_10", str(check["observed"]))
+        else:
+            self.assertTrue(check["required"])
+            self.assertTrue(check["passed"])
+
+    def test_python_lt_3_10_skips_runtime_import_construct(self) -> None:
+        with patch("hil.preflight.sys.version_info", (3, 9, 6)):
+            check = _runtime_import_check()
+        self.assertEqual(check["name"], "runtime_import_construct")
+        self.assertFalse(check["required"])
+        self.assertTrue(check["passed"])
+        self.assertIn("SKIPPED_PYTHON_LT_3_10", str(check["observed"]))
+
+    def test_python_3_10_construction_exception_fails_offline_preflight(self) -> None:
+        with patch("hil.preflight.sys.version_info", (3, 10, 14)):
+            with patch(
+                "hil.preflight._construct_offline_runtime",
+                side_effect=RuntimeError("broken runtime"),
+            ):
+                document = offline_preflight_document(ROOT)
+        names = {item["name"]: item for item in document["checks"]}
+        check = names["runtime_import_construct"]
+        self.assertTrue(check["required"])
+        self.assertFalse(check["passed"])
+        self.assertIn("RuntimeError: broken runtime", str(check["observed"]))
+        self.assertFalse(document["ok"])
 
 
 if __name__ == "__main__":
