@@ -248,9 +248,9 @@ by verified P1 replay. It does not authorize live `HUMAN_FALL`; that remains a
 
 | Stage | Status | Required outcome |
 |---|---|---|
-| 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `IMPLEMENTED / MERGED_PENDING_REVIEW`; actual Pi execution: `PI_REQUIRED / NOT_RUN` | Mac-offline runtime wiring, configuration, parser/backend/API, status/failure isolation, replay/static checks, and deployment preflight are implemented pending review. Deploy a verified commit and verify actual Pi processes/ports only when Pi access is available; do not develop from the frozen snapshot. |
+| 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `IMPLEMENTED / MERGED` (PR #20); actual Pi execution: `PI_REQUIRED / NOT_RUN` | Mac-offline runtime wiring, configuration, parser/backend/API, status/failure isolation, replay/static checks, and deployment preflight are merged. Deploy a verified commit and verify actual Pi processes/ports only when Pi access is available; do not develop from the frozen snapshot. |
 | 8 — mmWave Real-Phase Offline Cadence / Window Audit | `PASS_WITH_LIMITATIONS` | Completed on `20260817_08_mmwave.jsonl`; Stage 8.5 found `MMWAVE_SIGNAL_CONTRACT = MISMATCH`. Keep the historical B gate closed and move MR60-native model work to the AI authority track. |
-| 9 — Minimal Post-Deployment Live Smoke | Tooling preparation: `MAC_OFFLINE_READY`; live smoke: `SENSOR_AND_PI_REQUIRED` as applicable | Prepare runner/tooling, expected status contract, probes, log parsing, pass/fail checks, failure reporting, and checklist on Mac. Check backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition only in the live topology. Do not repeat a 30-minute soak without a regression reason. |
+| 9 — Minimal Post-Deployment Live Smoke | Tooling preparation: `IMPLEMENTED / MERGED_PENDING_REVIEW`; live smoke: `SENSOR_AND_PI_REQUIRED / NOT_RUN` | Runner, probes, evaluator, structured report, and Mac-offline fixture tests are implemented pending review. Execute backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition only in the live topology. Do not repeat a 30-minute soak without a regression reason. Do not mark Stage 9 globally complete from tooling. |
 | 10 — Thermal Physical-Domain Contract | `COMPLETE_FOR_NAMED_SNAPSHOT / EXTERNAL_AI_DEPENDENCY` | O1/O2 established MI48 `uint16` → Celsius → `P1_TRAIN_FITTED_GLOBAL_ZSCORE` → INT8 T-B5 replay for the named snapshot. The current next path is `TRAIN_DOMAIN_RANGE_GAP` in Thermal AI work; do not activate T-B5. |
 | 11 — Further Live-B Gate Reviews | `EVIDENCE_ONLY` | Review any future mmWave path only after MR60-native model handoff and sufficient targeted evidence. The historical `MMWAVE_B_LIVE_GATE` remains closed; no authorization can make its mismatched signal contract valid. |
 | 12 — Repository / Team Handoff | `LATER / AFTER_VERIFIED_INTEGRATION_EVIDENCE` | Keep integration PR #8, embed2 locked-binary policy work, RP-X0 diagnostic docs/tools, and a forward-port of verified integration changes into the team tree as distinct artifacts. |
@@ -300,16 +300,16 @@ mmWave offline phase audit:
 PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
 
 Stage 7 offline preparation:
-IMPLEMENTED / MERGED_PENDING_REVIEW
+IMPLEMENTED / MERGED (PR #20)
 
 Stage 7 actual Pi deployment/execution:
 PI_REQUIRED / NOT_RUN
 
 Stage 9 tooling preparation:
-MAC_OFFLINE_READY
+IMPLEMENTED / MERGED_PENDING_REVIEW
 
 Stage 9 live smoke:
-SENSOR_AND_PI_REQUIRED where the probe needs the live topology
+SENSOR_AND_PI_REQUIRED / NOT_RUN
 
 Repository consolidation:
 LATER
@@ -569,23 +569,24 @@ labels below are offline ordering tags, **not** normal RP phases:
 | O1 | Thermal raw `uint16` physical-domain contract investigation | Complete for the named O2 snapshot replay; historical evidence remains scoped |
 | O2 | Thermal snapshot NPZ replay through verified conversion, P1, and T-B5 | Complete with limitations; O2.5/O2.6 require INT8 quantization review, not T-C validation |
 | O3 | Integration runtime adapter / model-status cleanup | `IMPLEMENTED / MERGED` in integration PR #17; backend/API status projection only, with T-B5 adapter activation out of scope |
-| O4 | Partial-availability runtime semantics and LCD/Web status alignment | `IMPLEMENTED / MERGED_PENDING_REVIEW`; Mac-offline LCD/Web presentation consumes PR #17. Physical Pi LCD / live-sensor UI remains `PI_REQUIRED` |
+| O4 | Partial-availability runtime semantics and LCD/Web status alignment | `IMPLEMENTED / MERGED` in integration PR #19; Mac-offline LCD/Web presentation consumes PR #17. Physical Pi LCD / live-sensor UI remains `PI_REQUIRED` |
 | O5 | MR60-native mmWave redevelopment in `sheepmeat/test` | Parallel AI-authority track |
-| O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Tooling/checklist preparation is `MAC_OFFLINE_READY`; deployment and live smoke remain `PI_REQUIRED` / `SENSOR_AND_PI_REQUIRED` as applicable |
+| O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Stage 9 tooling preparation is `IMPLEMENTED / MERGED_PENDING_REVIEW`; deployment and live smoke remain `PI_REQUIRED` / `SENSOR_AND_PI_REQUIRED / NOT_RUN` as applicable |
 | O7 | Integrate a newly approved MR60-native model and perform a targeted mmWave smoke | Only after full AI handoff |
 | O8 | Forward-port verified integration results to the team repository | Later |
 
 O4 does not change UI risk-decision, alarm, or operational policy. It is limited
 to making sensor/AI availability and blocked-status presentation consistent.
 
-Stage 7 offline preparation is implemented pending review; only actual Pi
-deployment/execution remains `PI_REQUIRED`. Stage 9 remains
-`MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: its runner, expected status contract,
-probe/log parsing, pass/fail checks, and failure reporting are
-`MAC_OFFLINE_READY`, but actual backend/health, TCP `:9000`, UDP `:5005`, ESP
-connection, increasing CO2/Thermal/mmWave/PIR records, and live-topology
-checks remain hardware-gated. Do not repeat a 30-minute soak by default;
-escalate only for a concrete regression/anomaly.
+Stage 7 offline preparation is `IMPLEMENTED / MERGED` (PR #20); only actual Pi
+deployment/execution remains `PI_REQUIRED`. Stage 9 tooling preparation is
+`IMPLEMENTED / MERGED_PENDING_REVIEW`. Stage 9 remains
+`MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: the runner, expected status contract,
+probes, evaluator, and structured report exist on Mac, but actual
+backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing
+CO2/Thermal/mmWave/PIR records, and live-topology checks remain
+`SENSOR_AND_PI_REQUIRED / NOT_RUN`. Do not repeat a 30-minute soak by default;
+escalate only for a concrete regression/anomaly. Do not mark Stage 9 complete.
 
 ```text
 ALREADY_PROVEN
@@ -628,10 +629,10 @@ forward-port → targeted team-tree regression.
 | Mac offline replay | `AUTHORIZED` |
 | Snapshot | `READ_ONLY_FIELD_EVIDENCE` |
 | Integration repository | `ACTIVE_DEVELOPMENT` |
-| Stage 7 offline preparation | `IMPLEMENTED / MERGED_PENDING_REVIEW` |
+| Stage 7 offline preparation | `IMPLEMENTED / MERGED` (PR #20) |
 | Stage 7 Pi execution | `PI_REQUIRED / NOT_RUN` |
-| Stage 9 tooling preparation | `MAC_OFFLINE_READY` |
-| Stage 9 live smoke | `SENSOR_AND_PI_REQUIRED` where applicable |
+| Stage 9 tooling preparation | `IMPLEMENTED / MERGED_PENDING_REVIEW` |
+| Stage 9 live smoke | `SENSOR_AND_PI_REQUIRED / NOT_RUN` |
 | Broad repeated soak | `NOT_REQUIRED_BY_DEFAULT` |
 | Team forward-port | `LATER` |
 
@@ -1590,7 +1591,7 @@ normal RP-A/RP-B phases. Its current order is fixed in Section 0.6:
 2. Keep PR #17 backend/API runtime status cleanup merged; O4 LCD/Web availability-status alignment is implemented pending review and must not change risk policy.
 3. In parallel, await MR60-native redevelopment by AI authority.
 4. Continue Stage 7 offline-preparable integration work on Mac; defer only Pi deployment/execution.
-5. Prepare Stage 9 tooling on Mac; run its minimal live smoke only in the required hardware topology.
+5. Stage 9 tooling is prepared on Mac pending review; run its minimal live smoke only in the required hardware topology after merge.
 6. Later MR60-native model handoff and repository/team forward-port.
 
 No RP-X0 stage authorizes RP-A2, model production selection, a mmWave live-gate
@@ -2163,9 +2164,8 @@ Historical RP-X0 scoped field evidence: YES (recorded; not re-executed here)
 RP-A1 current state:    IMPLEMENTED / UNDER INDEPENDENT REVIEW
 ```
 
-Recommended next action: preserve the snapshot read-only and continue only
-`MAC_OFFLINE_READY` Stage 9 tooling preparation on active integration source.
-Defer actual Pi
-deployment, ARM/process checks, and live smoke to their smallest hardware
-boundary; merge authorization for RP-A1 and every normal-roadmap implementation
-authorization remain separate decisions.
+Recommended next action: preserve the snapshot read-only. Stage 9 tooling
+preparation is `IMPLEMENTED / MERGED_PENDING_REVIEW`; do not treat that as
+live smoke. Defer actual Pi deployment, ARM/process checks, and Stage 9 live
+smoke to their smallest hardware boundary; merge authorization for RP-A1 and
+every normal-roadmap implementation authorization remain separate decisions.

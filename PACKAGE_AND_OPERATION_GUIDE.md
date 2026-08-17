@@ -275,7 +275,7 @@ python3 -m hil.preflight --offline-preflight
 8. `curl -fsS http://127.0.0.1:8000/health` 와 `/api/status`로 backend health를 확인한다.
 9. LCD `http://<pi-ip>:8000/display` 와 Web `http://<pi-ip>:8000/dashboard` 도달을 확인한다.
 
-Live sensor 증가/ESP 연결/실측 smoke는 Stage 9 tooling 이후의 hardware 작업이다.
+Live sensor 증가/ESP 연결/실측 smoke는 아래 Stage 9 tooling의 이후 hardware 작업이다.
 
 ## 12. 긴급 대응 HMI와 환경변수
 
@@ -284,3 +284,41 @@ DANGER 전환 시 터치 화면에 긴급 오버레이가 열리고, 서버의 a
 담당자 SMS와 GPIO 설정은 [`docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md`](docs/EMERGENCY_HMI_AND_OPERATIONS_KO.md)의 `.env` 표를 따른다. 실제 SMS 자격증명이 없을 때는 요청을 성공으로 처리하지 않고 `SMS_NOT_CONFIGURED`를 반환한다. 개발 PC에서는 `SAFENEST_GPIO_MODE=mock`을 사용하고, Raspberry Pi에서는 BCM buzzer 핀과 전원 회로를 실제 배선과 대조한다.
 
 화면에 사용할 한국어 음성 파일의 이름과 위치는 [`web/dashboard/audio/README.md`](web/dashboard/audio/README.md)에 있다. 음성 파일이 없거나 autoplay가 차단되어도 API와 터치 동작은 중단되지 않는다.
+
+## 13. Stage 9 minimal live-smoke tooling
+
+Stage 9 툴링은 배포 후 런타임이 최소로 살아 있는지 관측하기 위한 읽기 전용 probe다. Mac에서 평가기를 완성하며, 실제 live smoke는 하지 않는다.
+
+```bash
+python3 -m hil.stage9_smoke
+python3 -m hil.stage9_smoke --plan
+python3 -m hil.stage9_smoke --evaluate-fixture tests/fixtures/stage9/pass.json
+```
+
+기본 호출은 plan이며 hardware에 접속하지 않는다. fixture PASS는 evaluator 검증일 뿐 `STAGE_9_LIVE_SMOKE = PASS`가 아니다.
+
+미래 Pi에서만, Stage 7 process/port 확인 뒤에 명시적으로:
+
+```bash
+python3 -m hil.stage9_smoke --live
+```
+
+`--live`는 Linux/Pi listener 관측(`ss`)이 필요하다. Mac에서 `--live`를 실행하면 실패로 거절한다. 기본 관측 창은 20초이며 운영 smoke 시간일 뿐 모델/샘플링 계약이 아니다. 30분 soak는 기본이 아니다.
+
+검사하는 것:
+
+- HTTP `:8000` `/health`, `/api/status`
+- TCP `:9000`, UDP `:5005` listener
+- ESP TCP session (`/health` receiver connections vs disconnects)
+- CO2/Thermal/mmWave/PIR identity 진행 (값 변화가 아님; PIR `NO_MOTION` 허용)
+- runtime-status (Thermal AI `BLOCKED`, PIR AI `NOT_APPLICABLE`, mmWave `MODEL_PENDING`)
+- logger drop **증가분** (`/health` `receiver.sensor_logging.dropped`)
+
+검사하지 않는 것:
+
+- 모델 정확도, T-B5 활성화, 옛 mmWave B live gate, Capture, risk 임계값, 합성 패킷 주입
+
+결과: `PASS` / `PASS_WITH_LIMITATIONS` / `FAIL` / plan의 `NOT_RUN`.
+종료코드: `PASS`, `PASS_WITH_LIMITATIONS`, `NOT_RUN` → 0; `FAIL` → 1.
+
+JSON은 stdout. `--output logs/stage9-smoke.json`은 선택이며 `logs/`는 gitignore된다. 실측 리포트를 커밋하지 않는다.
