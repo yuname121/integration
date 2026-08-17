@@ -248,7 +248,7 @@ by verified P1 replay. It does not authorize live `HUMAN_FALL`; that remains a
 
 | Stage | Status | Required outcome |
 |---|---|---|
-| 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `MAC_OFFLINE_READY`; actual Pi execution: `PI_REQUIRED` | Continue authorized runtime wiring, configuration, parser/backend/API work, status/failure isolation, replay regression, and deployment/static checks from active integration. Deploy a verified commit and verify actual Pi processes/ports only when Pi access is available; do not develop from the frozen snapshot. |
+| 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `IMPLEMENTED / MERGED_PENDING_REVIEW`; actual Pi execution: `PI_REQUIRED / NOT_RUN` | Mac-offline runtime wiring, configuration, parser/backend/API, status/failure isolation, replay/static checks, and deployment preflight are implemented pending review. Deploy a verified commit and verify actual Pi processes/ports only when Pi access is available; do not develop from the frozen snapshot. |
 | 8 — mmWave Real-Phase Offline Cadence / Window Audit | `PASS_WITH_LIMITATIONS` | Completed on `20260817_08_mmwave.jsonl`; Stage 8.5 found `MMWAVE_SIGNAL_CONTRACT = MISMATCH`. Keep the historical B gate closed and move MR60-native model work to the AI authority track. |
 | 9 — Minimal Post-Deployment Live Smoke | Tooling preparation: `MAC_OFFLINE_READY`; live smoke: `SENSOR_AND_PI_REQUIRED` as applicable | Prepare runner/tooling, expected status contract, probes, log parsing, pass/fail checks, failure reporting, and checklist on Mac. Check backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition only in the live topology. Do not repeat a 30-minute soak without a regression reason. |
 | 10 — Thermal Physical-Domain Contract | `COMPLETE_FOR_NAMED_SNAPSHOT / EXTERNAL_AI_DEPENDENCY` | O1/O2 established MI48 `uint16` → Celsius → `P1_TRAIN_FITTED_GLOBAL_ZSCORE` → INT8 T-B5 replay for the named snapshot. The current next path is `TRAIN_DOMAIN_RANGE_GAP` in Thermal AI work; do not activate T-B5. |
@@ -294,17 +294,16 @@ PASS_WITH_LIMITATIONS
 
 Immediate non-disruptive next work:
 O3 runtime-status cleanup IMPLEMENTED / MERGED (integration PR #17)
-O4 LCD/Web availability-status alignment IMPLEMENTED / MERGED_PENDING_REVIEW
-Mac-offline LCD/Web semantic alignment complete; physical Pi LCD remains PI_REQUIRED
+O4 LCD/Web availability-status alignment IMPLEMENTED / MERGED (integration PR #19)
 
 mmWave offline phase audit:
 PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
 
 Stage 7 offline preparation:
-MAC_OFFLINE_READY
+IMPLEMENTED / MERGED_PENDING_REVIEW
 
 Stage 7 actual Pi deployment/execution:
-PI_REQUIRED
+PI_REQUIRED / NOT_RUN
 
 Stage 9 tooling preparation:
 MAC_OFFLINE_READY
@@ -320,7 +319,7 @@ The current actionable posture is:
 
 | Work now | Dependency boundary | Explicitly not claimed |
 |---|---|---|
-| Active integration code, backend/API, status/failure isolation, deterministic tests, replay, static deployment checks, and Stage 7/9 tooling | `MAC_OFFLINE_READY` | Pi-runtime or new live-sensor validation |
+| Active integration code, backend/API, status/failure isolation, deterministic tests, replay, static deployment checks, and Stage 9 tooling | `MAC_OFFLINE_READY` | Pi-runtime or new live-sensor validation |
 | Thermal new labeled/device-domain evidence | `SENSOR_REQUIRED` / `EXTERNAL_AI_DEPENDENCY` | T-B5 activation |
 | Stage 7 Pi deployment and process/port/ARM verification | `PI_REQUIRED` | Completion from Mac-only work |
 | Stage 9 real TCP/UDP sensor smoke | `SENSOR_AND_PI_REQUIRED` where applicable | Completion from tooling preparation |
@@ -579,8 +578,8 @@ labels below are offline ordering tags, **not** normal RP phases:
 O4 does not change UI risk-decision, alarm, or operational policy. It is limited
 to making sensor/AI availability and blocked-status presentation consistent.
 
-Stage 7 offline preparation continues on Mac while Pi access is unavailable or
-occupied; only deployment/execution is deferred. Stage 9 remains
+Stage 7 offline preparation is implemented pending review; only actual Pi
+deployment/execution remains `PI_REQUIRED`. Stage 9 remains
 `MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: its runner, expected status contract,
 probe/log parsing, pass/fail checks, and failure reporting are
 `MAC_OFFLINE_READY`, but actual backend/health, TCP `:9000`, UDP `:5005`, ESP
@@ -629,8 +628,8 @@ forward-port → targeted team-tree regression.
 | Mac offline replay | `AUTHORIZED` |
 | Snapshot | `READ_ONLY_FIELD_EVIDENCE` |
 | Integration repository | `ACTIVE_DEVELOPMENT` |
-| Stage 7 offline preparation | `MAC_OFFLINE_READY` |
-| Stage 7 Pi execution | `PI_REQUIRED` |
+| Stage 7 offline preparation | `IMPLEMENTED / MERGED_PENDING_REVIEW` |
+| Stage 7 Pi execution | `PI_REQUIRED / NOT_RUN` |
 | Stage 9 tooling preparation | `MAC_OFFLINE_READY` |
 | Stage 9 live smoke | `SENSOR_AND_PI_REQUIRED` where applicable |
 | Broad repeated soak | `NOT_REQUIRED_BY_DEFAULT` |
@@ -2165,8 +2164,8 @@ RP-A1 current state:    IMPLEMENTED / UNDER INDEPENDENT REVIEW
 ```
 
 Recommended next action: preserve the snapshot read-only and continue only
-`MAC_OFFLINE_READY` integration work (Stage 7/9 tooling preparation) on active
-integration source. Defer actual Pi
+`MAC_OFFLINE_READY` Stage 9 tooling preparation on active integration source.
+Defer actual Pi
 deployment, ARM/process checks, and live smoke to their smallest hardware
 boundary; merge authorization for RP-A1 and every normal-roadmap implementation
 authorization remain separate decisions.
