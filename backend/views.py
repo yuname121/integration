@@ -6,6 +6,8 @@ import copy
 import time
 from typing import Any, Mapping
 
+from backend.runtime_status import runtime_status_document
+
 
 ROUTE_CONTRACTS = {
     "GET /dashboard": "responsive same-origin live monitoring dashboard",
@@ -29,6 +31,7 @@ ROUTE_CONTRACTS = {
 
 def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
     if publication is None:
+        runtime_status = runtime_status_document({}, {})
         return {
             "schema": "safenest.api.status.v1",
             "timestamp": time.time(),
@@ -44,6 +47,7 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
             "co2": None,
             "pir": None,
             "ready": False,
+            "runtime_status": runtime_status,
         }
     state = _mapping(publication.get("state"))
     risk = _mapping(publication.get("risk"))
@@ -51,6 +55,7 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
     ai = _mapping(_mapping(publication.get("ai")).get("ai"))
     sensors = _mapping(state.get("sensors"))
     components = _mapping(risk.get("components"))
+    runtime_status = runtime_status_document(state, ai)
     document: dict[str, Any] = {
         "schema": "safenest.api.status.v1",
         "timestamp": publication.get("timestamp"),
@@ -63,12 +68,14 @@ def status_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
         "emergency": copy.deepcopy(dict(emergency)) if emergency else _empty_emergency(),
         "offline": state.get("system") != "ONLINE" or risk.get("system_health") == "FAILED",
         "ready": True,
+        "runtime_status": copy.deepcopy(runtime_status),
     }
     for sensor_id in ("mmwave", "thermal", "co2", "pir"):
         document[sensor_id] = {
             "state": copy.deepcopy(dict(_mapping(sensors.get(sensor_id)))),
             "ai": copy.deepcopy(dict(_mapping(ai.get(sensor_id)))),
             "risk_component": copy.deepcopy(dict(_mapping(components.get(sensor_id)))),
+            "runtime_status": copy.deepcopy(runtime_status["sensors"][sensor_id]),
         }
     return document
 
@@ -81,6 +88,7 @@ def sensors_document(publication: Mapping[str, Any] | None) -> dict[str, Any]:
         "revision": status["revision"],
         "system": status["system"],
         "device_health": copy.deepcopy(status["device_health"]),
+        "runtime_status": copy.deepcopy(status["runtime_status"]),
         "sensors": {
             sensor_id: status[sensor_id]
             for sensor_id in ("mmwave", "thermal", "co2", "pir")

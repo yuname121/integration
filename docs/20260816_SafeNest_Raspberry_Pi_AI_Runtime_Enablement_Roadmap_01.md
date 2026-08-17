@@ -248,7 +248,7 @@ Thermal READY
 Real B inference:
 CO2 OBSERVED
 mmWave MODEL_PENDING — MR60_NATIVE_RETRAINING
-Thermal BLOCKED BY PHYSICAL-DOMAIN CONTRACT
+Thermal BLOCKED BY INT8_QUANTIZATION_REVIEW_REQUIRED
 
 Real sensor persistence:
 CO2 OBSERVED
@@ -260,7 +260,7 @@ Thermal OBSERVED
 PASS_WITH_LIMITATIONS
 
 Immediate non-disruptive next work:
-Thermal raw uint16 physical-domain contract and snapshot replay
+Integration runtime/status cleanup with Thermal AI still blocked
 
 mmWave offline phase audit:
 PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
@@ -379,7 +379,7 @@ state (`sensor_snapshots`, `risk_events`) and is not Capture v1.
 |---|---|---|
 | mmWave | 7 JSONL files, about 19 MB / 44,975 records. Phase-domain evidence is only `20260817_08_mmwave.jsonl` and `20260817_09_mmwave.jsonl`. The Stage 8 source `20260817_08_mmwave.jsonl` SHA-256 is `0d31bfa7a7e86e3fa03a0421534c96a338e52499c90003314ee71266c0a40b75`. | `MMWAVE_OFFLINE_PHASE_EVIDENCE = 20260817_08 + 20260817_09 only`; earlier files are BPM/PIR telemetry, not phase-domain input. |
 | CO2 | About 5 JSONL files / 949 records with `co2_measurement_event_id`, `co2_measurement_monotonic_ms`, `co2_measurement_event_valid`, `device_id`, and `boot_id`. | Real C-B6 LiteRT invocation is already established; retain the frozen `[CO2, CO2_slope]` contract and regression protection rather than repeat broad validation. |
-| Thermal | 1,979 NPZ files / about 139 MB from approximately 15:55–18:31 KST; `uint16` `(N, 62, 80)` frames with timing, sequence, source uptime, min/max raw, and analysis metadata. | `RAW_UINT16_TO_CELSIUS_CONVERSION = NOT_YET_VERIFIED`; raw frames must not be fed to P1 as though they were proven Celsius. |
+| Thermal | 1,979 NPZ files / about 139 MB from approximately 15:55–18:31 KST; `uint16` `(N, 62, 80)` frames with timing, sequence, source uptime, min/max raw, and analysis metadata. | The historical conversion gap was superseded for offline O2 replay by `physical_C = raw_uint16 / 10.0 - 273.15` (PR #14). O2.5/O2.6 leave `INT8_QUANTIZATION_REVIEW_REQUIRED`; T-B5 stays inactive. |
 | SQLite | `data/safenest.db`, including operational snapshots/events. | Operational state/summary only; do not redefine it as Capture v1. |
 
 #### 0.8.5 Completed mmWave evidence stages and strategic transition
@@ -451,7 +451,7 @@ mmWave blocked_reason = MR60_NATIVE_MODEL_PENDING
 Thermal sensor_status = AVAILABLE
 Thermal artifact_status = PRESENT
 Thermal ai_status = BLOCKED
-Thermal blocked_reason = PHYSICAL_CONVERSION_UNVERIFIED
+Thermal blocked_reason = INT8_QUANTIZATION_REVIEW_REQUIRED
 
 CO2 sensor_status = AVAILABLE
 CO2 artifact_status = PRESENT
@@ -479,9 +479,10 @@ authorized by this document.
 The immediate Pi-side AI gap is Thermal. Its known path is MI48/Thermal
 source → UDP → Pi → `uint16` 62×80 → NPZ persistence; T-B5 is available with
 SHA `fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be`.
-The remaining boundary is physical `uint16` → Celsius/physical temperature.
-`2506 → 25.06 C` may look plausible but is not verified without producer or
-sensor-contract evidence.
+O2 replay established the 0.1 K conversion
+`physical_C = raw_uint16 / 10.0 - 273.15` for the named snapshot evidence.
+O2.5/O2.6 then left `INT8_QUANTIZATION_REVIEW_REQUIRED` and device-domain
+limitations; O3 adapter implementation and production activation remain `NO`.
 
 While sensors are unavailable, work only in active `safenest-integration` and
 keep evidence external to integration Git:
@@ -501,9 +502,9 @@ labels below are offline ordering tags, **not** normal RP phases:
 
 | Order | Work | Status / boundary |
 |---|---|---|
-| O1 | Thermal raw `uint16` physical-domain contract investigation | Immediate offline priority |
-| O2 | Thermal snapshot NPZ replay through a **verified** conversion, P1, and T-B5 | After O1; pipeline compatibility only, not T-C performance validation |
-| O3 | Integration runtime adapter / model-status cleanup | Active integration tree only |
+| O1 | Thermal raw `uint16` physical-domain contract investigation | Complete for the named O2 snapshot replay; historical evidence remains scoped |
+| O2 | Thermal snapshot NPZ replay through verified conversion, P1, and T-B5 | Complete with limitations; O2.5/O2.6 require INT8 quantization review, not T-C validation |
+| O3 | Integration runtime adapter / model-status cleanup | Status cleanup may proceed; T-B5 adapter activation remains out of scope |
 | O4 | Partial-availability runtime semantics and LCD/Web status alignment | Keep sensor and AI status distinct |
 | O5 | MR60-native mmWave redevelopment in `sheepmeat/test` | Parallel AI-authority track |
 | O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Later, when Pi is available |
@@ -556,7 +557,7 @@ forward-port → targeted team-tree regression.
 | MR60-native retraining | `MOVED_TO_AI_AUTHORITY_TRACK` |
 | CO2 C-B6 real Pi path | `PROVEN / MAINTAIN` |
 | Thermal T-B5 artifact | `PRESENT` |
-| Thermal physical conversion | `BLOCKING_GAP` |
+| Thermal physical conversion | `O2_REPLAY_VERIFIED_WITH_LIMITATIONS`; `INT8_QUANTIZATION_REVIEW_REQUIRED` blocks T-B5 activation |
 | Mac offline replay | `AUTHORIZED` |
 | Snapshot | `READ_ONLY_FIELD_EVIDENCE` |
 | Integration repository | `ACTIVE_DEVELOPMENT` |

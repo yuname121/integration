@@ -1,0 +1,112 @@
+from __future__ import annotations
+
+import unittest
+
+from backend.runtime_status import runtime_status_document
+from backend.views import sensors_document, status_document
+
+
+def sensor(status: str = "LIVE", *, motion: bool = False) -> dict[str, object]:
+    return {
+        "status": status,
+        "connected": status != "DISCONNECTED",
+        "stale": status == "STALE",
+        "values": {"motion": motion},
+    }
+
+
+def ai_result(*, available: bool, error: str | None = None) -> dict[str, object]:
+    return {"available": available, "error": error, "state": "OCCUPIED" if available else "INPUT_UNAVAILABLE"}
+
+
+def state(**overrides: dict[str, object]) -> dict[str, object]:
+    sensors = {name: sensor() for name in ("co2", "thermal", "mmwave", "pir")}
+    sensors.update(overrides)
+    return {"system": "ONLINE", "sensors": sensors}
+
+
+class RuntimeStatusTests(unittest.TestCase):
+    def test_co2_active_contract_does_not_require_temperature_or_humidity(self) -> None:
+        document = runtime_status_document(
+            state(co2=sensor()),
+            {"co2": ai_result(available=True)},
+        )
+        co2 = document["sensors"]["co2"]
+        self.assertEqual(co2["sensor_status"], "AVAILABLE")
+        self.assertEqual(co2["data_freshness"], "CURRENT")
+        self.assertEqual(co2["artifact_status"], "PRESENT")
+        self.assertEqual(co2["input_contract_status"], "SATISFIED")
+        self.assertEqual(co2["ai_status"], "ACTIVE")
+        self.assertNotIn("humidity", co2)
+        self.assertNotIn("temperature", co2)
+
+    def test_stale_co2_is_not_collapsed_into_generic_input_unavailable(self) -> None:
+        document = runtime_status_document(
+            state(co2=sensor("STALE")),
+            {"co2": ai_result(available=False, error="INPUT_UNAVAILABLE")},
+        )
+        co2 = document["sensors"]["co2"]
+        self.assertEqual(co2["sensor_status"], "STALE")
+        self.assertEqual(co2["data_freshness"], "STALE")
+        self.assertEqual(co2["blocked_reason"], "SENSOR_STALE")
+
+    def test_thermal_sensor_can_be_available_while_ai_is_intentionally_blocked(self) -> None:
+        document = runtime_status_document(state(thermal=sensor()), {})
+        thermal = document["sensors"]["thermal"]
+        self.assertEqual(thermal["sensor_status"], "AVAILABLE")
+        self.assertEqual(thermal["artifact_status"], "PRESENT")
+        self.assertEqual(thermal["ai_status"], "BLOCKED")
+        self.assertEqual(thermal["blocked_reason"], "INT8_QUANTIZATION_REVIEW_REQUIRED")
+
+    def test_pir_motion_and_no_motion_are_both_valid_without_ai(self) -> None:
+        for motion, expected in ((True, "MOTION"), (False, "NO_MOTION")):
+            with self.subTest(motion=motion):
+                pir = runtime_status_document(state(pir=sensor(motion=motion)), {})["sensors"]["pir"]
+                self.assertEqual(pir["sensor_status"], "AVAILABLE")
+                self.assertEqual(pir["sensor_value_status"], expected)
+                self.assertEqual(pir["ai_status"], "NOT_APPLICABLE")
+
+    def test_partial_availability_is_ready_with_limitations(self) -> None:
+        document = runtime_status_document(
+            state(),
+            {"co2": ai_result(available=True)},
+        )
+        self.assertEqual(document["status"], "READY_WITH_LIMITATIONS")
+        self.assertEqual(document["sensors"]["mmwave"]["ai_status"], "MODEL_PENDING")
+
+    def test_global_status_distinguishes_degraded_from_not_ready(self) -> None:
+        degraded = runtime_status_document(
+            state(thermal=sensor("STALE")), {"co2": ai_result(available=True)}
+        )
+        not_ready = runtime_status_document(
+            state(**{name: sensor("NO_DATA") for name in ("co2", "thermal", "mmwave", "pir")}),
+            {},
+        )
+        self.assertEqual(degraded["status"], "DEGRADED")
+        self.assertEqual(not_ready["status"], "NOT_READY")
+
+    def test_backend_status_exposes_the_derived_contract_without_new_storage(self) -> None:
+        publication = {
+            "timestamp": 100.0,
+            "publication_revision": 1,
+            "state": state(),
+            "ai": {"ai": {"co2": ai_result(available=True)}},
+            "risk": {"system_health": "HEALTHY", "components": {}},
+            "emergency": {},
+        }
+        document = status_document(publication)
+        self.assertEqual(document["runtime_status"]["status"], "READY_WITH_LIMITATIONS")
+        self.assertEqual(document["co2"]["runtime_status"]["ai_status"], "ACTIVE")
+        self.assertEqual(document["thermal"]["runtime_status"]["sensor_status"], "AVAILABLE")
+        self.assertEqual(
+            sensors_document(publication)["runtime_status"]["sensors"]["co2"]["ai_status"],
+            "ACTIVE",
+        )
+
+    def test_offline_documents_keep_a_not_ready_runtime_status(self) -> None:
+        self.assertEqual(status_document(None)["runtime_status"]["status"], "NOT_READY")
+        self.assertEqual(sensors_document(None)["runtime_status"]["status"], "NOT_READY")
+
+
+if __name__ == "__main__":
+    unittest.main()
