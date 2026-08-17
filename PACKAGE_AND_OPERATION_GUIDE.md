@@ -261,21 +261,29 @@ Mac에서 배포 구조만 확인할 때는 Pi를 기다리지 않는다.
 python3 -m hil.preflight --offline-preflight
 ```
 
-이 명령이 PASS여도 Pi 배포, ARM, process/port, 실센서 검증을 의미하지 않는다. `pi_checks`와 `sensor_checks`는 `NOT_RUN`이다.
+이 명령이 PASS여도 Pi 배포, ARM, process/port, 실센서 검증을 의미하지 않는다. `pi_checks`와 `sensor_checks`는 `NOT_RUN`이다. Python 3.10 이상에서 runtime import/construct 실패는 구조적 차단이고, 3.10 미만 skip은 ARM/Pi runtime 검증이 아니다.
+
+```text
+STAGE_7_MAC_OFFLINE_RUNTIME_PREPARATION = PASS_WITH_LIMITATIONS
+PI_DEPLOYMENT = NOT_RUN
+PI_PROCESS_CHECK = NOT_RUN
+PI_PORT_CHECK = NOT_RUN
+PI_ARM_RUNTIME = NOT_RUN
+```
 
 이후 실제 Pi 실행만 남는다. 아래는 Stage 7의 hardware boundary이며 Stage 9 live-sensor smoke가 아니다.
 
-1. 검토된 integration commit을 checkout한다.
+1. 검토된 integration commit을 checkout한다. 현재 권위 저장소는 `yuname121/integration`의 검토된 `main`이다.
 2. Raspberry Pi에서 지원 Python(3.10+)과 `bash deployment/run_pi.sh --install`을 사용한다.
-3. `.env.example`을 참고해 필요한 env/config를 적용한다. 개발자 Mac 절대경로를 넣지 않는다.
-4. production `model_manifest.json`이 바뀌지 않았는지 확인한다. T-B5 자동 선택과 옛 mmWave B 활성화를 하지 않는다.
-5. `bash deployment/run_pi.sh`로 runtime을 시작한다.
+3. `.env.example`을 참고해 필요한 env/config를 적용한다. 개발자 Mac 절대경로를 넣지 않는다. venv 기본은 `<repository>/.venv` (`SAFENEST_VENV_PATH`로 재정의).
+4. Thermal/CO2 production path는 역사적 v0.1.0을 유지한다. T-B5를 켜지 않는다. mmWave primary selector는 PR #22의 M-N9 FULL_INT8이며 옛 B live gate가 아니다. Stage 7 preflight의 `mmwave_primary_deployment_blocked` 검사는 PR #22 이전 가정이다.
+5. `bash deployment/run_pi.sh`로 runtime을 시작한다. 진입점은 `deployment/run_pi.sh → backend/run_backend.py`다.
 6. process가 살아 있는지 확인한다.
 7. 기대 포트: HTTP `:8000`, TCP `:9000`, UDP `:5005`.
 8. `curl -fsS http://127.0.0.1:8000/health` 와 `/api/status`로 backend health를 확인한다.
 9. LCD `http://<pi-ip>:8000/display` 와 Web `http://<pi-ip>:8000/dashboard` 도달을 확인한다.
 
-Live sensor 증가/ESP 연결/실측 smoke는 아래 Stage 9 tooling의 이후 hardware 작업이다.
+그 다음 Stage 9 minimal live smoke만 수행한다. 30분 soak는 기본이 아니다.
 
 ## 12. 긴급 대응 HMI와 환경변수
 
@@ -297,6 +305,10 @@ python3 -m hil.stage9_smoke --evaluate-fixture tests/fixtures/stage9/pass.json
 
 기본 호출은 plan이며 hardware에 접속하지 않는다. fixture PASS는 evaluator 검증일 뿐 `STAGE_9_LIVE_SMOKE = PASS`가 아니다.
 
+```text
+STAGE_9_LIVE_SMOKE = NOT_RUN
+```
+
 미래 Pi에서만, Stage 7 process/port 확인 뒤에 명시적으로:
 
 ```bash
@@ -312,8 +324,8 @@ python3 -m hil.stage9_smoke --live
 - ESP TCP session (`/api/status` TCP 센서 connectivity; receiver counters는 보조)
 - CO2 물리 측정 identity 진행 (`measurement_event_count`; `last_received_at`만으로는 PASS하지 않음)
 - Thermal/mmWave/PIR identity 진행 (값 변화가 아님; PIR `NO_MOTION` 허용)
-- runtime-status (Thermal AI `BLOCKED`, PIR AI `NOT_APPLICABLE`, mmWave `MODEL_PENDING`)
-- logger drop **증가분** (`/health` `receiver.sensor_logging.dropped`)
+- runtime-status (Thermal AI `BLOCKED`, PIR AI `NOT_APPLICABLE`; mmWave는 현재 O3 projection `MODEL_PENDING`을 소비한다. PR #22 M-N9 selector와 혼동하지 않는다)
+- logger drop **증가분** (`/health` `receiver.sensor_logging.dropped`; `new_drops = after - before`. 과거 lifetime count만으로 FAIL하지 않음)
 
 검사하지 않는 것:
 

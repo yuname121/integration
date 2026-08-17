@@ -250,7 +250,7 @@ by verified P1 replay. It does not authorize live `HUMAN_FALL`; that remains a
 |---|---|---|
 | 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `IMPLEMENTED / MERGED` (PR #20); actual Pi execution: `PI_REQUIRED / NOT_RUN` | Mac-offline runtime wiring, configuration, parser/backend/API, status/failure isolation, replay/static checks, and deployment preflight are merged. Deploy a verified commit and verify actual Pi processes/ports only when Pi access is available; do not develop from the frozen snapshot. |
 | 8 — mmWave Real-Phase Offline Cadence / Window Audit | `PASS_WITH_LIMITATIONS` | Completed on `20260817_08_mmwave.jsonl`; Stage 8.5 found `MMWAVE_SIGNAL_CONTRACT = MISMATCH`. Keep the historical B gate closed and move MR60-native model work to the AI authority track. |
-| 9 — Minimal Post-Deployment Live Smoke | Tooling preparation: `IMPLEMENTED / MERGED_PENDING_REVIEW`; live smoke: `SENSOR_AND_PI_REQUIRED / NOT_RUN` | Runner, probes, evaluator, structured report, and Mac-offline fixture tests are implemented pending review. Execute backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition only in the live topology. Do not repeat a 30-minute soak without a regression reason. Do not mark Stage 9 globally complete from tooling. |
+| 9 — Minimal Post-Deployment Live Smoke | Tooling preparation: `IMPLEMENTED / MERGED` (PR #21); live smoke: `SENSOR_AND_PI_REQUIRED / NOT_RUN` | Runner, probes, evaluator, structured report, and Mac-offline fixture tests are merged. Execute backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition only in the live topology. Do not repeat a 30-minute soak without a regression reason. Do not mark Stage 9 globally complete from tooling. |
 | 10 — Thermal Physical-Domain Contract | `COMPLETE_FOR_NAMED_SNAPSHOT / EXTERNAL_AI_DEPENDENCY` | O1/O2 established MI48 `uint16` → Celsius → `P1_TRAIN_FITTED_GLOBAL_ZSCORE` → INT8 T-B5 replay for the named snapshot. The current next path is `TRAIN_DOMAIN_RANGE_GAP` in Thermal AI work; do not activate T-B5. |
 | 11 — Further Live-B Gate Reviews | `EVIDENCE_ONLY` | Review any future mmWave path only after MR60-native model handoff and sufficient targeted evidence. The historical `MMWAVE_B_LIVE_GATE` remains closed; no authorization can make its mismatched signal contract valid. |
 | 12 — Repository / Team Handoff | `LATER / AFTER_VERIFIED_INTEGRATION_EVIDENCE` | Keep integration PR #8, embed2 locked-binary policy work, RP-X0 diagnostic docs/tools, and a forward-port of verified integration changes into the team tree as distinct artifacts. |
@@ -279,7 +279,9 @@ Thermal READY
 
 Real B inference:
 CO2 OBSERVED
-mmWave MODEL_PENDING — MR60_NATIVE_RETRAINING
+mmWave status projection: MODEL_PENDING / MR60_NATIVE_MODEL_PENDING
+mmWave primary selector on main: M-N9 FULL_INT8 (PR #22); not historical B
+mmWave live-sensor AI validation: NOT_RUN
 Thermal BLOCKED BY INT8_QUANTIZATION_REVIEW_REQUIRED
 Thermal next AI validation path: TRAIN_DOMAIN_RANGE_GAP
 
@@ -295,6 +297,8 @@ PASS_WITH_LIMITATIONS
 Immediate non-disruptive next work:
 O3 runtime-status cleanup IMPLEMENTED / MERGED (integration PR #17)
 O4 LCD/Web availability-status alignment IMPLEMENTED / MERGED (integration PR #19)
+Stage 7 offline preparation IMPLEMENTED / MERGED (PR #20)
+Stage 9 tooling preparation IMPLEMENTED / MERGED (PR #21)
 
 mmWave offline phase audit:
 PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
@@ -306,7 +310,7 @@ Stage 7 actual Pi deployment/execution:
 PI_REQUIRED / NOT_RUN
 
 Stage 9 tooling preparation:
-IMPLEMENTED / MERGED_PENDING_REVIEW
+IMPLEMENTED / MERGED (PR #21)
 
 Stage 9 live smoke:
 SENSOR_AND_PI_REQUIRED / NOT_RUN
@@ -319,7 +323,7 @@ The current actionable posture is:
 
 | Work now | Dependency boundary | Explicitly not claimed |
 |---|---|---|
-| Active integration code, backend/API, status/failure isolation, deterministic tests, replay, static deployment checks, and Stage 9 tooling | `MAC_OFFLINE_READY` | Pi-runtime or new live-sensor validation |
+| Remaining Mac-offline RP-X0 Stage 7/9 tooling | `IMPLEMENTED / MERGED` (PRs #20/#21) | Pi-runtime or new live-sensor validation |
 | Thermal new labeled/device-domain evidence | `SENSOR_REQUIRED` / `EXTERNAL_AI_DEPENDENCY` | T-B5 activation |
 | Stage 7 Pi deployment and process/port/ARM verification | `PI_REQUIRED` | Completion from Mac-only work |
 | Stage 9 real TCP/UDP sensor smoke | `SENSOR_AND_PI_REQUIRED` where applicable | Completion from tooling preparation |
@@ -533,8 +537,10 @@ handoff records `TRAIN_DOMAIN_RANGE_GAP` (sheepmeat/test PR #99) as the next
 device-domain data/validation path; this does not authorize a model switch or
 production activation.
 
-Production `model_manifest.json` remains on historical v0.1.0 defaults. No
-silent model switch, T-B5 production replacement, or mmWave B activation is
+Production Thermal and CO2 paths remain historical v0.1.0. Integration PR #22
+points the active mmWave selector at locked M-N9 FULL_INT8; this is not
+historical B live-gate reopening and does not by itself change the O3
+`MODEL_PENDING` status projection. No T-B5 production replacement is
 authorized by this document.
 
 #### 0.8.7 Offline priority and later Pi deployment
@@ -570,8 +576,8 @@ labels below are offline ordering tags, **not** normal RP phases:
 | O2 | Thermal snapshot NPZ replay through verified conversion, P1, and T-B5 | Complete with limitations; O2.5/O2.6 require INT8 quantization review, not T-C validation |
 | O3 | Integration runtime adapter / model-status cleanup | `IMPLEMENTED / MERGED` in integration PR #17; backend/API status projection only, with T-B5 adapter activation out of scope |
 | O4 | Partial-availability runtime semantics and LCD/Web status alignment | `IMPLEMENTED / MERGED` in integration PR #19; Mac-offline LCD/Web presentation consumes PR #17. Physical Pi LCD / live-sensor UI remains `PI_REQUIRED` |
-| O5 | MR60-native mmWave redevelopment in `sheepmeat/test` | Parallel AI-authority track |
-| O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Stage 9 tooling preparation is `IMPLEMENTED / MERGED_PENDING_REVIEW`; deployment and live smoke remain `PI_REQUIRED` / `SENSOR_AND_PI_REQUIRED / NOT_RUN` as applicable |
+| O5 | MR60-native mmWave redevelopment in `sheepmeat/test` | Parallel AI-authority track; M-N9 FULL_INT8 selector imported by integration PR #22. O3 still reports `MODEL_PENDING`. Live mmWave AI smoke remains `NOT_RUN` |
+| O6 | Deploy a verified integration commit and run only a minimal Pi smoke | Stage 9 tooling preparation is `IMPLEMENTED / MERGED` (PR #21); deployment and live smoke remain `PI_REQUIRED` / `SENSOR_AND_PI_REQUIRED / NOT_RUN` as applicable |
 | O7 | Integrate a newly approved MR60-native model and perform a targeted mmWave smoke | Only after full AI handoff |
 | O8 | Forward-port verified integration results to the team repository | Later |
 
@@ -580,7 +586,7 @@ to making sensor/AI availability and blocked-status presentation consistent.
 
 Stage 7 offline preparation is `IMPLEMENTED / MERGED` (PR #20); only actual Pi
 deployment/execution remains `PI_REQUIRED`. Stage 9 tooling preparation is
-`IMPLEMENTED / MERGED_PENDING_REVIEW`. Stage 9 remains
+`IMPLEMENTED / MERGED` (PR #21). Stage 9 remains
 `MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: the runner, expected status contract,
 probes, evaluator, and structured report exist on Mac, but actual
 backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing
@@ -631,7 +637,7 @@ forward-port → targeted team-tree regression.
 | Integration repository | `ACTIVE_DEVELOPMENT` |
 | Stage 7 offline preparation | `IMPLEMENTED / MERGED` (PR #20) |
 | Stage 7 Pi execution | `PI_REQUIRED / NOT_RUN` |
-| Stage 9 tooling preparation | `IMPLEMENTED / MERGED_PENDING_REVIEW` |
+| Stage 9 tooling preparation | `IMPLEMENTED / MERGED` (PR #21) |
 | Stage 9 live smoke | `SENSOR_AND_PI_REQUIRED / NOT_RUN` |
 | Broad repeated soak | `NOT_REQUIRED_BY_DEFAULT` |
 | Team forward-port | `LATER` |
@@ -1588,10 +1594,10 @@ RP-X0 is an out-of-band diagnostic track, not a substitute numbering system for
 normal RP-A/RP-B phases. Its current order is fixed in Section 0.6:
 
 1. Preserve snapshot evidence and retain the completed O1/O2 Thermal contract/replay results without repeating them by default.
-2. Keep PR #17 backend/API runtime status cleanup merged; O4 LCD/Web availability-status alignment is implemented pending review and must not change risk policy.
-3. In parallel, await MR60-native redevelopment by AI authority.
-4. Continue Stage 7 offline-preparable integration work on Mac; defer only Pi deployment/execution.
-5. Stage 9 tooling is prepared on Mac pending review; run its minimal live smoke only in the required hardware topology after merge.
+2. Keep PR #17 backend/API runtime status cleanup and PR #19 LCD/Web O4 merged; do not change risk policy.
+3. In parallel, keep historical mmWave B closed. PR #22 imported the M-N9 FULL_INT8 selector; O3 still reports `MODEL_PENDING` until a later authorized status-contract update.
+4. Stage 7 Mac-offline preparation is merged; defer only Pi deployment/execution.
+5. Stage 9 tooling is merged; run its minimal live smoke only in the required hardware topology.
 6. Later MR60-native model handoff and repository/team forward-port.
 
 No RP-X0 stage authorizes RP-A2, model production selection, a mmWave live-gate
@@ -2165,7 +2171,7 @@ RP-A1 current state:    IMPLEMENTED / UNDER INDEPENDENT REVIEW
 ```
 
 Recommended next action: preserve the snapshot read-only. Stage 9 tooling
-preparation is `IMPLEMENTED / MERGED_PENDING_REVIEW`; do not treat that as
-live smoke. Defer actual Pi deployment, ARM/process checks, and Stage 9 live
+preparation is `IMPLEMENTED / MERGED` (PR #21); do not treat that as live
+smoke. Defer actual Pi deployment, ARM/process checks, and Stage 9 live
 smoke to their smallest hardware boundary; merge authorization for RP-A1 and
 every normal-roadmap implementation authorization remain separate decisions.

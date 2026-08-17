@@ -11,18 +11,19 @@
 > 역사 요약이다. 현재 RP-X0 실행 해석과 상태는 영문 원본 §0의
 > `2026-08-18 RP-X0 STATUS`가 권위 기준이다. Mac에서 가능한 active
 > `yuname121/integration` 개발·replay·backend/API·상태/실패 격리·정적
-> 배포 검사·Stage 9 도구 준비는 `MAC_OFFLINE_READY`로 계속한다. 실제
+> 배포 검사는 병합된 Stage 7/9 툴링으로 이미 `IMPLEMENTED / MERGED`다. 실제
 > Pi 배포/ARM·프로세스 검증은 `PI_REQUIRED`, 실센서 live smoke는 필요한
 > 경우 `SENSOR_AND_PI_REQUIRED`, Thermal 다음 데이터/검증 경로와
-> MR60-native 모델은 각각 `SENSOR_REQUIRED`/`EXTERNAL_AI_DEPENDENCY`다.
+> MR60-native live 검증은 각각 `SENSOR_REQUIRED`/`EXTERNAL_AI_DEPENDENCY`다.
 > `PI_AVAILABLE`와 `SENSOR_AVAILABLE`은 독립 조건이므로, Pi가 없다고
 > Mac 개발이 멈추지 않고 Pi가 있어도 필요한 센서가 없으면 새 센서 증거는
 > 만들 수 없다.
 > 스냅샷은 `READ_ONLY_FIELD_EVIDENCE`이며 개발 체크아웃이 아니다.
-> PR #17 runtime-status, PR #19 LCD/Web O4, PR #20 Stage 7 Mac-offline
-> 준비는 병합되어 있다. Stage 9 툴링 준비는
-> `IMPLEMENTED / MERGED_PENDING_REVIEW`이며 실제 live smoke는
-> `SENSOR_AND_PI_REQUIRED / NOT_RUN`이다. 위험 정책은 바꾸지 않는다.
+> PR #17 runtime-status, PR #19 LCD/Web O4, PR #20 Stage 7 Mac-offline,
+> PR #21 Stage 9 툴링은 병합되어 있다. Stage 9 실제 live smoke는
+> `SENSOR_AND_PI_REQUIRED / NOT_RUN`이다. PR #22는 mmWave primary selector를
+> M-N9 FULL_INT8로 가리키며, O3 status는 아직 `MODEL_PENDING`이다.
+> 위험 정책은 바꾸지 않는다.
 
 **지금 승인된 것:** RP-A0 감사/설계는 문서 기준으로 끝난 상태다. `main`에 이 문서가 들어간 뒤 다음에 구현해도 되는 단계는 **RP-A1만**이다 (Capture 스키마, 세션/이벤트 식별, 합성 fixture, `captures/` gitignore). RP-A1 코드 자체, B-complete 모델 활성화, 이후 RP-B/C/D는 이 문서로 승인되지 않는다.
 
