@@ -9,6 +9,7 @@ from typing import Any, Mapping
 
 ROUTE_CONTRACTS = {
     "GET /dashboard": "responsive same-origin live monitoring dashboard",
+    "GET /display": "same-origin LCD display using the integrated state API",
     "GET /api/status": "full current system, risk, and sensor view",
     "GET /api/sensors": "sensor state with AI and risk component overlays",
     "GET /api/events": "bounded newest-first transition events",

@@ -16,6 +16,9 @@ data/thermal/*
 !data/mmwave/.gitkeep
 !data/co2/.gitkeep
 !data/thermal/.gitkeep
+# RP-X0 field JSONL snapshots (not live thermal npz)
+!data/mmwave/*.jsonl
+!data/co2/*.jsonl
 .venv/
 venv/
 *.log

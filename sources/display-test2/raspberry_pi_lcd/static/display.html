@@ -90,30 +90,145 @@
     const connection = document.getElementById("connection");
     let failed = false;
 
-    function sensorMetrics(sensor) {
-      if (!sensor?.fresh) {
-        return [
-          ["호흡수", "수신 대기"],
-          ["심박수", "수신 대기"],
-          ["CO₂", "수신 대기"],
-          ["움직임", "확인 불가"]
-        ];
+    function legacySensorState(sensor, values, valid) {
+      const statusMap = {
+        live: "LIVE",
+        stale: "STALE",
+        error: "INVALID",
+        waiting: "NO_DATA"
+      };
+      const status = statusMap[sensor?.status] || "NO_DATA";
+      return {
+        status,
+        current: status === "LIVE" && sensor?.fresh === true,
+        connected: sensor?.connected === true,
+        valid: valid === true,
+        values,
+      };
+    }
+
+    function normalizeSensors(sensors) {
+      const integrated = ["mmwave", "thermal", "co2", "pir"]
+        .some((sensorId) => sensors?.[sensorId]?.state);
+      if (integrated) return sensors;
+
+      const legacy = sensors || {};
+      const valid = legacy.valid || {};
+      const mmwaveValid = valid.respiration === true || valid.heart === true;
+      return {
+        mmwave: {
+          state: legacySensorState(
+            legacy,
+            {
+              respiration_rate_bpm: legacy.resp_rate_bpm,
+              heart_rate_bpm: legacy.heart_rate_bpm,
+              respiration_valid: valid.respiration === true,
+              heart_valid: valid.heart === true,
+            },
+            mmwaveValid,
+          ),
+        },
+        thermal: {
+          state: legacySensorState(legacy, {}, false),
+        },
+        co2: {
+          state: legacySensorState(
+            legacy,
+            { ppm: legacy.co2_ppm },
+            valid.co2 === true,
+          ),
+        },
+        pir: {
+          state: legacySensorState(
+            legacy,
+            { motion: legacy.pir_motion },
+            typeof legacy.pir_motion === "boolean",
+          ),
+        },
+      };
+    }
+
+    function sensorState(sensor) {
+      return sensor?.state || {};
+    }
+
+    function sensorValues(sensor) {
+      return sensorState(sensor).values || {};
+    }
+
+    function isCurrent(sensor) {
+      const currentState = sensorState(sensor);
+      return currentState.status === "LIVE" && currentState.current === true;
+    }
+
+    function unavailableValue(sensor, valid) {
+      const currentState = sensorState(sensor);
+      if (currentState.status === "NO_DATA" || !currentState.status) return "수신 대기";
+      if (currentState.status === "STALE" || currentState.status === "DISCONNECTED") {
+        return "연결 끊김";
       }
-      const valid = sensor.valid || {};
-      const numberValue = (value, isValid, digits, unit) =>
-        isValid && typeof value === "number"
-          ? `${value.toFixed(digits)} ${unit}`
-          : "측정 중";
+      if (currentState.status === "INVALID" || valid !== true) return "측정 중";
+      return "측정 중";
+    }
+
+    function numberValue(sensor, value, valid, digits, unit) {
+      return isCurrent(sensor) && valid === true && Number.isFinite(value)
+        ? `${value.toFixed(digits)} ${unit}`
+        : unavailableValue(sensor, valid);
+    }
+
+    function sensorMetrics(sensors) {
+      const normalizedSensors = normalizeSensors(sensors);
+      const mmwave = normalizedSensors.mmwave;
+      const co2 = normalizedSensors.co2;
+      const pir = normalizedSensors.pir;
+      const mmwaveValues = sensorValues(mmwave);
+      const co2Values = sensorValues(co2);
+      const pirValues = sensorValues(pir);
+      const motion = pirValues.motion;
+      const motionValue = isCurrent(pir) && typeof motion === "boolean"
+        ? (motion ? "감지됨" : "감지 안 됨")
+        : unavailableValue(pir, typeof motion === "boolean");
+
       return [
-        ["호흡수", numberValue(sensor.resp_rate_bpm, valid.respiration, 1, "회/분")],
-        ["심박수", numberValue(sensor.heart_rate_bpm, valid.heart, 1, "bpm")],
-        ["CO₂", numberValue(sensor.co2_ppm, valid.co2, 0, "ppm")],
-        ["움직임", sensor.pir_motion ? "감지됨" : "감지 안 됨"]
+        ["호흡수", numberValue(
+          mmwave,
+          mmwaveValues.respiration_rate_bpm,
+          mmwaveValues.respiration_valid,
+          1,
+          "회/분",
+        )],
+        ["심박수", numberValue(
+          mmwave,
+          mmwaveValues.heart_rate_bpm,
+          mmwaveValues.heart_valid,
+          1,
+          "bpm",
+        )],
+        ["CO₂", numberValue(
+          co2,
+          co2Values.ppm,
+          sensorState(co2).valid === true,
+          0,
+          "ppm",
+        )],
+        ["움직임", motionValue]
       ];
     }
 
-    function renderSensorStatus(sensor) {
-      const status = sensor?.status || "waiting";
+    function renderSensorStatus(sensors) {
+      const normalizedSensors = normalizeSensors(sensors);
+      const statuses = Object.values(normalizedSensors)
+        .map((sensor) => sensorState(sensor).status)
+        .filter((status) => typeof status === "string");
+      let status = "waiting";
+      if (statuses.length && statuses.every((item) => item === "LIVE")) {
+        status = "live";
+      } else if (statuses.some((item) => item === "STALE" || item === "DISCONNECTED")) {
+        status = "stale";
+      } else if (statuses.some((item) => item === "INVALID")) {
+        status = "error";
+      }
       const labels = {
         live: "센서 실시간",
         stale: "센서 연결 끊김",
@@ -121,19 +236,22 @@
         waiting: "센서 연결 대기"
       };
       sensorStatus.dataset.status = status;
-      sensorStatus.textContent = labels[status] || labels.waiting;
+      sensorStatus.textContent = labels[status];
     }
 
-    function render(payload) {
-      const scenario = scenarios[payload.state] || scenarios.offline;
-      lcd.dataset.state = payload.state in scenarios ? payload.state : "offline";
-      roomName.textContent = payload.room || "밀폐공간 A-01";
+    function render(payload = {}) {
+      const safePayload = payload && typeof payload === "object" ? payload : {};
+      const stateName = typeof safePayload.state === "string" ? safePayload.state : "offline";
+      const scenario = scenarios[stateName] || scenarios.offline;
+      lcd.dataset.state = stateName in scenarios ? stateName : "offline";
+      roomName.textContent = safePayload.room || "밀폐공간 A-01";
       statusPill.textContent = scenario.pill;
       stateTitle.textContent = scenario.title;
       stateSubtitle.textContent = scenario.subtitle;
       comment.textContent = scenario.comment;
-      renderSensorStatus(payload.sensors);
-      metrics.replaceChildren(...sensorMetrics(payload.sensors).map(([label, value]) => {
+      const sensors = normalizeSensors(safePayload.sensors);
+      renderSensorStatus(sensors);
+      metrics.replaceChildren(...sensorMetrics(sensors).map(([label, value]) => {
         const item = document.createElement("div");
         item.className = "metric";
         const labelElement = document.createElement("span");
@@ -160,6 +278,9 @@
         }
         failed = false;
       } catch (error) {
+        if (!failed) {
+          render({ state: "offline", room: roomName.textContent, sensors: {} });
+        }
         failed = true;
         connection.textContent = "제어 서버 연결 끊김";
         connection.classList.add("visible");

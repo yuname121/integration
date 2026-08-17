@@ -28,6 +28,8 @@ REQUIRED_FILES = (
     "web/dashboard/index.html",
     "web/dashboard/styles.css",
     "web/dashboard/app.js",
+    "sources/display-test2/raspberry_pi_lcd/static/display.html",
+    "sources/display-test2/raspberry_pi_lcd/static/common.css",
     "deployment/run_pi.sh",
     "hil/capture.py",
     "docs/PHASE1_REPOSITORY_AUDIT.md",

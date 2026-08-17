@@ -201,6 +201,7 @@ class FastAPIContractTests(unittest.TestCase):
     def test_route_contracts_are_complete(self):
         self.assertEqual(set(ROUTE_CONTRACTS), {
             "GET /dashboard",
+            "GET /display",
             "GET /api/status",
             "GET /api/sensors",
             "GET /api/events",
@@ -225,7 +226,8 @@ class FastAPIContractTests(unittest.TestCase):
         app = create_app(start_runtime=False)
         paths = {route.path for route in app.routes}
         for path in (
-            "/dashboard", "/dashboard/", "/api/status", "/api/sensors", "/api/events",
+            "/dashboard", "/dashboard/", "/display", "/display/", "/common.css",
+            "/api/status", "/api/sensors", "/api/events",
             "/api/history", "/api/state", "/api/emergency/state",
             "/api/emergency/119/simulation/start", "/api/emergency/119/simulation/complete",
             "/api/emergency/contact", "/api/emergency/acknowledge", "/api/emergency/voice",
