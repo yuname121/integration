@@ -1,0 +1,1596 @@
+{
+  "document_id": "RP-X0-O2-6-THERMAL-FIELD-FLOAT-INT8-EQUIV-01",
+  "dependency_commit": "1929bc33cea1f7004e3d9d19900bf4023e0efb97",
+  "canonical_ai_equivalence_policy": "FOUND",
+  "policy_id": "THERMAL_T_B4_FLOAT_TFLITE_FP32_FULL_INT8_EQUIVALENCE_001",
+  "policy": "EQUIVALENCE_MEASURED_NO_PREEXISTING_ABSOLUTE_ACCEPTANCE_THRESHOLD",
+  "equivalence_contract": "EQUIVALENCE_MEASURED_NO_PREEXISTING_ABSOLUTE_ACCEPTANCE_THRESHOLD",
+  "fallback_95pct_used_as_ai_acceptance": false,
+  "lineage": {
+    "float_sha256": "fbe891520f07e0534b1a7074dc819d8ed44bca58b27e35c78916c3ddae73a779",
+    "int8_sha256": "fa9730c29535477a3994c11e664474a0ca0116afaaa172889f47446ab2ac46be",
+    "same_lineage": true
+  },
+  "preprocessing": {
+    "celsius": "physical_C = raw_uint16 / 10.0 - 273.15",
+    "p1_mean": 22.769290618485442,
+    "p1_std": 2.8684523405441222,
+    "int8_scale": 0.31791284680366516,
+    "int8_zero_point": -125,
+    "reproduced_exactly": true
+  },
+  "corrupted_npz": {
+    "count": 15,
+    "classification": "FIELD_CAPTURE_ARTIFACT",
+    "files": [
+      {
+        "filename": "20260817_084856_282702_0000016034-0000016046.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084858_331567_0000016047-0000016059.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084900_394530_0000016060-0000016072.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084902_480264_0000016073-0000016085.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084904_534436_0000016086-0000016098.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084906_584287_0000016099-0000016111.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084908_644186_0000016112-0000016124.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084910_677181_0000016125-0000016137.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084912_727958_0000016138-0000016149.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084914_664182_0000016150-0000016157.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084917_361049_0000016158-0000016166.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084918_726067_0000016167-0000016179.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084920_819870_0000016180-0000016192.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084922_865196_0000016193-0000016205.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      },
+      {
+        "filename": "20260817_084924_923522_0000016206-0000016210.npz",
+        "classification": "FIELD_CAPTURE_ARTIFACT",
+        "error": "EOFError"
+      }
+    ]
+  },
+  "sampling": {
+    "algorithm": "24_equal_time_bins_x_10_evenly_spaced",
+    "t_min": 1786949724.9392784,
+    "t_max": 1786959085.1944058,
+    "readable_frame_count": 23788,
+    "target_frames": 240,
+    "actual_frames": 154,
+    "bins": [
+      {
+        "bin": 0,
+        "available": 2301,
+        "selected": 10
+      },
+      {
+        "bin": 1,
+        "available": 1706,
+        "selected": 10
+      },
+      {
+        "bin": 2,
+        "available": 4,
+        "selected": 4
+      },
+      {
+        "bin": 3,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 4,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 5,
+        "available": 1116,
+        "selected": 10
+      },
+      {
+        "bin": 6,
+        "available": 697,
+        "selected": 10
+      },
+      {
+        "bin": 7,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 8,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 9,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 10,
+        "available": 947,
+        "selected": 10
+      },
+      {
+        "bin": 11,
+        "available": 2449,
+        "selected": 10
+      },
+      {
+        "bin": 12,
+        "available": 2460,
+        "selected": 10
+      },
+      {
+        "bin": 13,
+        "available": 2362,
+        "selected": 10
+      },
+      {
+        "bin": 14,
+        "available": 2260,
+        "selected": 10
+      },
+      {
+        "bin": 15,
+        "available": 2181,
+        "selected": 10
+      },
+      {
+        "bin": 16,
+        "available": 70,
+        "selected": 10
+      },
+      {
+        "bin": 17,
+        "available": 699,
+        "selected": 10
+      },
+      {
+        "bin": 18,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 19,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 20,
+        "available": 0,
+        "selected": 0
+      },
+      {
+        "bin": 21,
+        "available": 484,
+        "selected": 10
+      },
+      {
+        "bin": 22,
+        "available": 1736,
+        "selected": 10
+      },
+      {
+        "bin": 23,
+        "available": 2316,
+        "selected": 10
+      }
+    ],
+    "identities_frozen_before_inference": true
+  },
+  "summary": {
+    "n": 154,
+    "top1_agree": 139,
+    "top1_disagree": 15,
+    "top1_agreement_rate": 0.9025974025974026,
+    "ranking_agreement_rate": 0.9025974025974026,
+    "mae_median": 0.0013020833333333333,
+    "mae_p90": 0.07700778937402783,
+    "mae_p95": 0.6628249587746748,
+    "mae_max": 0.6653645833333334,
+    "margin_diff_median": -0.00390625,
+    "margin_diff_p95": -0.0039062466918869387,
+    "margin_diff_max": 0.5078124999999838,
+    "low_side_median": 0.4344758064516129,
+    "low_side_p95": 0.8314516129032258,
+    "high_side_max": 0.0,
+    "float_class_counts": {
+      "NOT_HUMAN": 1,
+      "HUMAN_NORMAL": 21,
+      "HUMAN_FALL": 132
+    },
+    "int8_class_counts": {
+      "NOT_HUMAN": 3,
+      "HUMAN_NORMAL": 26,
+      "HUMAN_FALL": 125
+    },
+    "real_device_output_collapse_warning": false,
+    "transition_matrix": {
+      "NOT_HUMAN": {
+        "NOT_HUMAN": 0,
+        "HUMAN_NORMAL": 1,
+        "HUMAN_FALL": 0
+      },
+      "HUMAN_NORMAL": {
+        "NOT_HUMAN": 1,
+        "HUMAN_NORMAL": 17,
+        "HUMAN_FALL": 3
+      },
+      "HUMAN_FALL": {
+        "NOT_HUMAN": 2,
+        "HUMAN_NORMAL": 8,
+        "HUMAN_FALL": 122
+      }
+    },
+    "saturation_bins": [
+      {
+        "label": "0-10%",
+        "frames": 2,
+        "agree": 2,
+        "disagree": 0,
+        "agreement_rate": 1.0
+      },
+      {
+        "label": "10-25%",
+        "frames": 34,
+        "agree": 33,
+        "disagree": 1,
+        "agreement_rate": 0.9705882352941176
+      },
+      {
+        "label": "25-50%",
+        "frames": 48,
+        "agree": 46,
+        "disagree": 2,
+        "agreement_rate": 0.9583333333333334
+      },
+      {
+        "label": "50-75%",
+        "frames": 51,
+        "agree": 43,
+        "disagree": 8,
+        "agreement_rate": 0.8431372549019608
+      },
+      {
+        "label": "75-100%",
+        "frames": 19,
+        "agree": 15,
+        "disagree": 4,
+        "agreement_rate": 0.7894736842105263
+      }
+    ],
+    "saturation_relationship": "STRONG_ASSOCIATION_OBSERVED",
+    "disagreements": [
+      {
+        "filename": "20260817_070525_222075_0000011646-0000011658.npz",
+        "frame_index": 2,
+        "timestamp": 1786950325.5118926,
+        "float_class": "HUMAN_NORMAL",
+        "int8_class": "HUMAN_FALL",
+        "float_output": [
+          0.0,
+          1.0,
+          1.6197097848602397e-14
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.25390625,
+          0.74609375
+        ],
+        "q_minus_128_fraction": 0.20504032258064517,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -7.449981689453125,
+        "celsius_median": 22.550018310546875,
+        "celsius_max": 37.350006103515625,
+        "probability_mae": 0.49739583333332793
+      },
+      {
+        "filename": "20260817_070942_406446_0000013263-0000013263.npz",
+        "frame_index": 0,
+        "timestamp": 1786950582.4064457,
+        "float_class": "HUMAN_NORMAL",
+        "int8_class": "HUMAN_FALL",
+        "float_output": [
+          0.0,
+          0.999997615814209,
+          2.4334572117368225e-06
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.0,
+          0.99609375
+        ],
+        "q_minus_128_fraction": 0.37399193548387094,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -10.149993896484375,
+        "celsius_median": 20.75,
+        "celsius_max": 45.550018310546875,
+        "probability_mae": 0.6653629774523324
+      },
+      {
+        "filename": "20260817_073425_084933_0000001128-0000001140.npz",
+        "frame_index": 0,
+        "timestamp": 1786952065.0849328,
+        "float_class": "HUMAN_NORMAL",
+        "int8_class": "HUMAN_FALL",
+        "float_output": [
+          0.0,
+          1.0,
+          1.4220156085639757e-12
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.0078125,
+          0.9921875
+        ],
+        "q_minus_128_fraction": 0.3199596774193548,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -11.350006103515625,
+        "celsius_median": 21.050018310546875,
+        "celsius_max": 38.050018310546875,
+        "probability_mae": 0.6614583333328593
+      },
+      {
+        "filename": "20260817_073538_080834_0000001589-0000001601.npz",
+        "frame_index": 5,
+        "timestamp": 1786952138.818037,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          1.0589706703493986e-14,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.6276209677419354,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -6.649993896484375,
+        "celsius_median": 18.45001220703125,
+        "celsius_max": 36.25,
+        "probability_mae": 0.6653645833333298
+      },
+      {
+        "filename": "20260817_080530_061583_0000000428-0000000441.npz",
+        "frame_index": 2,
+        "timestamp": 1786953930.3719852,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          1.2898131451777317e-08,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.8359375,
+          0.1640625
+        ],
+        "q_minus_128_fraction": 0.5508064516129032,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -33.75,
+        "celsius_median": 18.95001220703125,
+        "celsius_max": 40.25,
+        "probability_mae": 0.5572916623672896
+      },
+      {
+        "filename": "20260817_082413_127537_0000007454-0000007466.npz",
+        "frame_index": 9,
+        "timestamp": 1786955054.481682,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "NOT_HUMAN",
+        "float_output": [
+          8.788030854783596e-28,
+          1.3003999285790663e-24,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.99609375,
+          0.0,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.6627016129032258,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -50.75,
+        "celsius_median": 17.649993896484375,
+        "celsius_max": 53.350006103515625,
+        "probability_mae": 0.6653645833333334
+      },
+      {
+        "filename": "20260817_082830_583652_0000009003-0000009015.npz",
+        "frame_index": 7,
+        "timestamp": 1786955311.7572927,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          0.016924811527132988,
+          0.9830752015113831
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.8693548387096774,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -44.94999694824219,
+        "celsius_median": 12.95001220703125,
+        "celsius_max": 39.95001220703125,
+        "probability_mae": 0.65408137999475
+      },
+      {
+        "filename": "20260817_082957_837969_0000009510-0000009522.npz",
+        "frame_index": 2,
+        "timestamp": 1786955398.1322925,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.8544354838709678,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -48.54998779296875,
+        "celsius_median": 12.75,
+        "celsius_max": 38.350006103515625,
+        "probability_mae": 0.6653645833333334
+      },
+      {
+        "filename": "20260817_083631_007615_0000011771-0000011786.npz",
+        "frame_index": 10,
+        "timestamp": 1786955792.0916934,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          2.5077569603388e-21,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.8359375,
+          0.1640625
+        ],
+        "q_minus_128_fraction": 0.5504032258064516,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -40.04998779296875,
+        "celsius_median": 19.050018310546875,
+        "celsius_max": 52.45001220703125,
+        "probability_mae": 0.5572916666666666
+      },
+      {
+        "filename": "20260817_083927_639092_0000012767-0000012779.npz",
+        "frame_index": 7,
+        "timestamp": 1786955968.7435937,
+        "float_class": "HUMAN_NORMAL",
+        "int8_class": "NOT_HUMAN",
+        "float_output": [
+          1.6930117384949662e-29,
+          1.0,
+          3.0260156539265427e-22
+        ],
+        "int8_dequantized": [
+          0.99609375,
+          0.0,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.9118951612903226,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -64.34999084472656,
+        "celsius_median": 9.75,
+        "celsius_max": 41.649993896484375,
+        "probability_mae": 0.6653645833333334
+      },
+      {
+        "filename": "20260817_083931_690175_0000012792-0000012804.npz",
+        "frame_index": 5,
+        "timestamp": 1786955972.4092586,
+        "float_class": "NOT_HUMAN",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.9893654584884644,
+          0.010634595528244972,
+          2.1178883646832958e-10
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.5641129032258064,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -59.94999694824219,
+        "celsius_median": 18.649993896484375,
+        "celsius_max": 57.25,
+        "probability_mae": 0.6582748710573361
+      },
+      {
+        "filename": "20260817_091538_965704_0000024767-0000024779.npz",
+        "frame_index": 9,
+        "timestamp": 1786958140.3502269,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.7445564516129032,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -35.649993896484375,
+        "celsius_median": 15.75,
+        "celsius_max": 37.850006103515625,
+        "probability_mae": 0.6653645833333334
+      },
+      {
+        "filename": "20260817_091547_000751_0000024818-0000024830.npz",
+        "frame_index": 12,
+        "timestamp": 1786958148.8822515,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.9765625,
+          0.0234375
+        ],
+        "q_minus_128_fraction": 0.8122983870967742,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -64.34999084472656,
+        "celsius_median": 14.050018310546875,
+        "celsius_max": 38.649993896484375,
+        "probability_mae": 0.6510416666666666
+      },
+      {
+        "filename": "20260817_092318_026942_0000027527-0000027539.npz",
+        "frame_index": 9,
+        "timestamp": 1786958599.450243,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "NOT_HUMAN",
+        "float_output": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.99609375,
+          0.0,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.6691532258064516,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -30.54998779296875,
+        "celsius_median": 17.25,
+        "celsius_max": 51.75,
+        "probability_mae": 0.6653645833333334
+      },
+      {
+        "filename": "20260817_092454_650511_0000028111-0000028123.npz",
+        "frame_index": 4,
+        "timestamp": 1786958695.2710788,
+        "float_class": "HUMAN_FALL",
+        "int8_class": "HUMAN_NORMAL",
+        "float_output": [
+          0.0,
+          4.63779166825742e-20,
+          1.0
+        ],
+        "int8_dequantized": [
+          0.0,
+          0.99609375,
+          0.0
+        ],
+        "q_minus_128_fraction": 0.7054435483870968,
+        "q_plus_127_fraction": 0.0,
+        "celsius_min": -38.149993896484375,
+        "celsius_median": 16.45001220703125,
+        "celsius_max": 48.050018310546875,
+        "probability_mae": 0.6653645833333334
+      }
+    ],
+    "classification": "INT8_QUANTIZATION_REVIEW_REQUIRED",
+    "o3_adapter_implementation": false
+  },
+  "production_thermal_activation": false,
+  "snapshot_modified": false,
+  "models_modified": false,
+  "gate": "PASS_WITH_LIMITATIONS",
+  "selected_identities": [
+    {
+      "filename": "20260817_065524_939278_0000007852-0000007864.npz",
+      "frame_index": 0,
+      "timestamp": 1786949724.9392784,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_065613_457577_0000008158-0000008170.npz",
+      "frame_index": 1,
+      "timestamp": 1786949773.5590887,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_065653_914553_0000008414-0000008426.npz",
+      "frame_index": 0,
+      "timestamp": 1786949813.914553,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_065734_410115_0000008670-0000008682.npz",
+      "frame_index": 0,
+      "timestamp": 1786949854.4101152,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_065812_987366_0000008914-0000008925.npz",
+      "frame_index": 11,
+      "timestamp": 1786949894.729168,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_065853_647082_0000009171-0000009183.npz",
+      "frame_index": 10,
+      "timestamp": 1786949935.187196,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_065934_284327_0000009428-0000009439.npz",
+      "frame_index": 8,
+      "timestamp": 1786949975.5504482,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_070015_017420_0000009685-0000009696.npz",
+      "frame_index": 7,
+      "timestamp": 1786950016.0676773,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_070055_478949_0000009941-0000009952.npz",
+      "frame_index": 6,
+      "timestamp": 1786950056.4272346,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_070153_984546_0000010311-0000010323.npz",
+      "frame_index": 5,
+      "timestamp": 1786950114.7821658,
+      "bin": 0
+    },
+    {
+      "filename": "20260817_070153_984546_0000010311-0000010323.npz",
+      "frame_index": 6,
+      "timestamp": 1786950114.9634762,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070224_515275_0000010504-0000010515.npz",
+      "frame_index": 2,
+      "timestamp": 1786950144.8703291,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070253_024107_0000010684-0000010696.npz",
+      "frame_index": 12,
+      "timestamp": 1786950174.9056952,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070323_552228_0000010877-0000010889.npz",
+      "frame_index": 8,
+      "timestamp": 1786950204.7997987,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070353_952662_0000011069-0000011081.npz",
+      "frame_index": 6,
+      "timestamp": 1786950234.8930094,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070424_299776_0000011261-0000011272.npz",
+      "frame_index": 4,
+      "timestamp": 1786950264.9288983,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070454_703638_0000011453-0000011465.npz",
+      "frame_index": 6,
+      "timestamp": 1786950295.6077216,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070525_222075_0000011646-0000011658.npz",
+      "frame_index": 2,
+      "timestamp": 1786950325.5118926,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070555_602607_0000011838-0000011850.npz",
+      "frame_index": 0,
+      "timestamp": 1786950355.6026068,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070631_089152_0000012056-0000012056.npz",
+      "frame_index": 0,
+      "timestamp": 1786950391.0891519,
+      "bin": 1
+    },
+    {
+      "filename": "20260817_070855_511501_0000012966-0000012966.npz",
+      "frame_index": 0,
+      "timestamp": 1786950535.511501,
+      "bin": 2
+    },
+    {
+      "filename": "20260817_070935_351787_0000013221-0000013221.npz",
+      "frame_index": 0,
+      "timestamp": 1786950575.3517869,
+      "bin": 2
+    },
+    {
+      "filename": "20260817_070938_457884_0000013238-0000013238.npz",
+      "frame_index": 0,
+      "timestamp": 1786950578.4578836,
+      "bin": 2
+    },
+    {
+      "filename": "20260817_070942_406446_0000013263-0000013263.npz",
+      "frame_index": 0,
+      "timestamp": 1786950582.4064457,
+      "bin": 2
+    },
+    {
+      "filename": "20260817_073128_151226_0000000010-0000000010.npz",
+      "frame_index": 0,
+      "timestamp": 1786951888.1512258,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073146_539173_0000000126-0000000138.npz",
+      "frame_index": 8,
+      "timestamp": 1786951907.7739124,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073206_931295_0000000255-0000000267.npz",
+      "frame_index": 3,
+      "timestamp": 1786951927.4336994,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073225_144872_0000000370-0000000382.npz",
+      "frame_index": 12,
+      "timestamp": 1786951947.024233,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073245_415451_0000000498-0000000510.npz",
+      "frame_index": 8,
+      "timestamp": 1786951966.6681316,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073305_640133_0000000626-0000000638.npz",
+      "frame_index": 5,
+      "timestamp": 1786951986.5166793,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073326_070592_0000000755-0000000767.npz",
+      "frame_index": 0,
+      "timestamp": 1786952006.0705924,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073344_419178_0000000871-0000000883.npz",
+      "frame_index": 8,
+      "timestamp": 1786952025.6461987,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073404_675625_0000000999-0000001011.npz",
+      "frame_index": 4,
+      "timestamp": 1786952045.3194065,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073423_037034_0000001115-0000001127.npz",
+      "frame_index": 12,
+      "timestamp": 1786952064.8947175,
+      "bin": 5
+    },
+    {
+      "filename": "20260817_073425_084933_0000001128-0000001140.npz",
+      "frame_index": 0,
+      "timestamp": 1786952065.0849328,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073441_067349_0000001190-0000001241.npz",
+      "frame_index": 17,
+      "timestamp": 1786952081.5595171,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073449_453767_0000001282-0000001293.npz",
+      "frame_index": 3,
+      "timestamp": 1786952089.9324625,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073501_504448_0000001358-0000001370.npz",
+      "frame_index": 4,
+      "timestamp": 1786952102.067708,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073513_632154_0000001435-0000001447.npz",
+      "frame_index": 4,
+      "timestamp": 1786952114.2523952,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073525_979868_0000001513-0000001525.npz",
+      "frame_index": 4,
+      "timestamp": 1786952126.5966978,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073538_080834_0000001589-0000001601.npz",
+      "frame_index": 5,
+      "timestamp": 1786952138.818037,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073550_357690_0000001667-0000001679.npz",
+      "frame_index": 4,
+      "timestamp": 1786952150.9746573,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073602_444240_0000001743-0000001755.npz",
+      "frame_index": 6,
+      "timestamp": 1786952163.293198,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_073614_725894_0000001821-0000001826.npz",
+      "frame_index": 5,
+      "timestamp": 1786952175.4786026,
+      "bin": 6
+    },
+    {
+      "filename": "20260817_080414_543235_0000000004-0000000004.npz",
+      "frame_index": 0,
+      "timestamp": 1786953854.543235,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080439_397516_0000000108-0000000119.npz",
+      "frame_index": 2,
+      "timestamp": 1786953879.7126763,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080455_557595_0000000210-0000000222.npz",
+      "frame_index": 10,
+      "timestamp": 1786953897.2082877,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080511_859468_0000000313-0000000325.npz",
+      "frame_index": 12,
+      "timestamp": 1786953913.71859,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080530_061583_0000000428-0000000441.npz",
+      "frame_index": 2,
+      "timestamp": 1786953930.3719852,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080546_447011_0000000531-0000000542.npz",
+      "frame_index": 5,
+      "timestamp": 1786953947.210088,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080602_630636_0000000634-0000000646.npz",
+      "frame_index": 7,
+      "timestamp": 1786953963.7793112,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080618_913625_0000000737-0000000746.npz",
+      "frame_index": 9,
+      "timestamp": 1786953980.3516486,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080635_205624_0000000840-0000000851.npz",
+      "frame_index": 11,
+      "timestamp": 1786953996.9372158,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080653_419151_0000000946-0000000958.npz",
+      "frame_index": 10,
+      "timestamp": 1786954015.0065827,
+      "bin": 10
+    },
+    {
+      "filename": "20260817_080653_419151_0000000946-0000000958.npz",
+      "frame_index": 11,
+      "timestamp": 1786954015.1108055,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_080740_210873_0000001233-0000001245.npz",
+      "frame_index": 0,
+      "timestamp": 1786954060.2108731,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_080822_924180_0000001503-0000001515.npz",
+      "frame_index": 2,
+      "timestamp": 1786954103.2260845,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_080905_536733_0000001772-0000001784.npz",
+      "frame_index": 5,
+      "timestamp": 1786954146.266777,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_080948_242821_0000002042-0000002054.npz",
+      "frame_index": 7,
+      "timestamp": 1786954189.2876673,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_081031_059123_0000002313-0000002325.npz",
+      "frame_index": 8,
+      "timestamp": 1786954232.379989,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_081113_626512_0000002582-0000002594.npz",
+      "frame_index": 12,
+      "timestamp": 1786954275.5525103,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_081158_263202_0000002864-0000002876.npz",
+      "frame_index": 2,
+      "timestamp": 1786954318.5784247,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_081240_978341_0000003134-0000003146.npz",
+      "frame_index": 5,
+      "timestamp": 1786954361.7793267,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_081323_615261_0000003403-0000003415.npz",
+      "frame_index": 9,
+      "timestamp": 1786954404.9376824,
+      "bin": 11
+    },
+    {
+      "filename": "20260817_081323_615261_0000003403-0000003415.npz",
+      "frame_index": 10,
+      "timestamp": 1786954405.1071167,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081408_463257_0000003686-0000003697.npz",
+      "frame_index": 1,
+      "timestamp": 1786954448.5180185,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081450_854707_0000003955-0000003967.npz",
+      "frame_index": 5,
+      "timestamp": 1786954491.6444147,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081533_613326_0000004225-0000004236.npz",
+      "frame_index": 10,
+      "timestamp": 1786954535.16337,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081618_052300_0000004506-0000004518.npz",
+      "frame_index": 2,
+      "timestamp": 1786954578.3751166,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081700_756861_0000004776-0000004788.npz",
+      "frame_index": 5,
+      "timestamp": 1786954621.5743704,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081743_310832_0000005045-0000005057.npz",
+      "frame_index": 9,
+      "timestamp": 1786954664.7322378,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081828_034723_0000005327-0000005340.npz",
+      "frame_index": 1,
+      "timestamp": 1786954708.1067097,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081910_804214_0000005598-0000005610.npz",
+      "frame_index": 4,
+      "timestamp": 1786954751.4605103,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081953_399768_0000005867-0000005879.npz",
+      "frame_index": 10,
+      "timestamp": 1786954794.9691207,
+      "bin": 12
+    },
+    {
+      "filename": "20260817_081953_399768_0000005867-0000005879.npz",
+      "frame_index": 11,
+      "timestamp": 1786954795.1296191,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082036_739055_0000006132-0000006140.npz",
+      "frame_index": 8,
+      "timestamp": 1786954837.9496555,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082118_625667_0000006397-0000006409.npz",
+      "frame_index": 6,
+      "timestamp": 1786954879.57694,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082201_198680_0000006663-0000006678.npz",
+      "frame_index": 2,
+      "timestamp": 1786954921.2630599,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082245_670368_0000006929-0000006941.npz",
+      "frame_index": 0,
+      "timestamp": 1786954965.6703684,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082328_471149_0000007191-0000007202.npz",
+      "frame_index": 3,
+      "timestamp": 1786955008.9741433,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082413_127537_0000007454-0000007466.npz",
+      "frame_index": 9,
+      "timestamp": 1786955054.481682,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082457_460222_0000007726-0000007738.npz",
+      "frame_index": 0,
+      "timestamp": 1786955097.4602218,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082540_007624_0000007987-0000007999.npz",
+      "frame_index": 2,
+      "timestamp": 1786955140.805351,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082624_751412_0000008252-0000008263.npz",
+      "frame_index": 2,
+      "timestamp": 1786955185.0613728,
+      "bin": 13
+    },
+    {
+      "filename": "20260817_082624_751412_0000008252-0000008263.npz",
+      "frame_index": 3,
+      "timestamp": 1786955185.245235,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_082703_224624_0000008495-0000008507.npz",
+      "frame_index": 11,
+      "timestamp": 1786955224.9756517,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_082747_909729_0000008751-0000008763.npz",
+      "frame_index": 6,
+      "timestamp": 1786955268.8427026,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_082830_583652_0000009003-0000009015.npz",
+      "frame_index": 7,
+      "timestamp": 1786955311.7572927,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_082913_276185_0000009255-0000009268.npz",
+      "frame_index": 6,
+      "timestamp": 1786955354.2118607,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_082957_837969_0000009510-0000009522.npz",
+      "frame_index": 2,
+      "timestamp": 1786955398.1322925,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_083048_465242_0000009811-0000009825.npz",
+      "frame_index": 1,
+      "timestamp": 1786955448.510616,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_083129_197241_0000010061-0000010073.npz",
+      "frame_index": 3,
+      "timestamp": 1786955489.690367,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_083214_318087_0000010307-0000010328.npz",
+      "frame_index": 10,
+      "timestamp": 1786955534.7428484,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_083254_325712_0000010564-0000010575.npz",
+      "frame_index": 4,
+      "timestamp": 1786955575.001587,
+      "bin": 14
+    },
+    {
+      "filename": "20260817_083254_325712_0000010564-0000010575.npz",
+      "frame_index": 5,
+      "timestamp": 1786955575.1256292,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083336_673798_0000010805-0000010817.npz",
+      "frame_index": 6,
+      "timestamp": 1786955617.6913042,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083421_157495_0000011042-0000011053.npz",
+      "frame_index": 11,
+      "timestamp": 1786955662.9481323,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083503_815427_0000011294-0000011305.npz",
+      "frame_index": 2,
+      "timestamp": 1786955704.127674,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083549_098159_0000011536-0000011543.npz",
+      "frame_index": 2,
+      "timestamp": 1786955749.4211085,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083631_007615_0000011771-0000011786.npz",
+      "frame_index": 10,
+      "timestamp": 1786955792.0916934,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083711_601802_0000012013-0000012025.npz",
+      "frame_index": 10,
+      "timestamp": 1786955833.1574898,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083754_227715_0000012256-0000012268.npz",
+      "frame_index": 10,
+      "timestamp": 1786955875.793795,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083836_845347_0000012499-0000012511.npz",
+      "frame_index": 9,
+      "timestamp": 1786955918.2919092,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083923_525582_0000012741-0000012753.npz",
+      "frame_index": 9,
+      "timestamp": 1786955964.9926383,
+      "bin": 15
+    },
+    {
+      "filename": "20260817_083923_525582_0000012741-0000012753.npz",
+      "frame_index": 10,
+      "timestamp": 1786955965.1780095,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083925_586213_0000012754-0000012766.npz",
+      "frame_index": 5,
+      "timestamp": 1786955966.469846,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083925_586213_0000012754-0000012766.npz",
+      "frame_index": 12,
+      "timestamp": 1786955967.51153,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083927_639092_0000012767-0000012779.npz",
+      "frame_index": 7,
+      "timestamp": 1786955968.7435937,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083929_747737_0000012780-0000012791.npz",
+      "frame_index": 2,
+      "timestamp": 1786955970.0115435,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083929_747737_0000012780-0000012791.npz",
+      "frame_index": 9,
+      "timestamp": 1786955971.1151667,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083931_690175_0000012792-0000012804.npz",
+      "frame_index": 5,
+      "timestamp": 1786955972.4092586,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083933_675149_0000012805-0000012817.npz",
+      "frame_index": 0,
+      "timestamp": 1786955973.675149,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083933_675149_0000012805-0000012817.npz",
+      "frame_index": 7,
+      "timestamp": 1786955974.7944462,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_083935_717759_0000012818-0000012820.npz",
+      "frame_index": 2,
+      "timestamp": 1786955976.0342486,
+      "bin": 16
+    },
+    {
+      "filename": "20260817_084652_451376_0000015330-0000015330.npz",
+      "frame_index": 0,
+      "timestamp": 1786956412.451376,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084704_622702_0000015399-0000015411.npz",
+      "frame_index": 10,
+      "timestamp": 1786956426.2093248,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084720_900175_0000015484-0000015496.npz",
+      "frame_index": 2,
+      "timestamp": 1786956441.2064621,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084733_080472_0000015561-0000015573.npz",
+      "frame_index": 3,
+      "timestamp": 1786956453.5525942,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084745_206481_0000015636-0000015648.npz",
+      "frame_index": 5,
+      "timestamp": 1786956466.1241944,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084757_582697_0000015716-0000015727.npz",
+      "frame_index": 6,
+      "timestamp": 1786956478.5239048,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084811_796693_0000015788-0000015799.npz",
+      "frame_index": 11,
+      "timestamp": 1786956493.554276,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084825_838907_0000015868-0000015880.npz",
+      "frame_index": 9,
+      "timestamp": 1786956507.2761438,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084840_198075_0000015950-0000015961.npz",
+      "frame_index": 4,
+      "timestamp": 1786956520.8294582,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_084854_395470_0000016022-0000016033.npz",
+      "frame_index": 11,
+      "timestamp": 1786956536.1355906,
+      "bin": 17
+    },
+    {
+      "filename": "20260817_091438_194525_0000024436-0000024448.npz",
+      "frame_index": 0,
+      "timestamp": 1786958078.194525,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091450_222552_0000024503-0000024515.npz",
+      "frame_index": 5,
+      "timestamp": 1786958090.9891655,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091500_418969_0000024559-0000024562.npz",
+      "frame_index": 2,
+      "timestamp": 1786958100.729582,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091512_525922_0000024609-0000024620.npz",
+      "frame_index": 6,
+      "timestamp": 1786958113.4670365,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091520_581717_0000024660-0000024672.npz",
+      "frame_index": 9,
+      "timestamp": 1786958122.0317757,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091530_849348_0000024716-0000024727.npz",
+      "frame_index": 6,
+      "timestamp": 1786958131.7891715,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091538_965704_0000024767-0000024779.npz",
+      "frame_index": 9,
+      "timestamp": 1786958140.3502269,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091547_000751_0000024818-0000024830.npz",
+      "frame_index": 12,
+      "timestamp": 1786958148.8822515,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091557_173804_0000024877-0000024890.npz",
+      "frame_index": 11,
+      "timestamp": 1786958158.9086847,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_091618_683393_0000025008-0000025011.npz",
+      "frame_index": 3,
+      "timestamp": 1786958178.9991937,
+      "bin": 21
+    },
+    {
+      "filename": "20260817_092012_338675_0000026366-0000026366.npz",
+      "frame_index": 0,
+      "timestamp": 1786958412.3386748,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092045_605689_0000026572-0000026584.npz",
+      "frame_index": 0,
+      "timestamp": 1786958445.6056888,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092116_030605_0000026765-0000026776.npz",
+      "frame_index": 0,
+      "timestamp": 1786958476.0306048,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092144_511682_0000026945-0000026957.npz",
+      "frame_index": 12,
+      "timestamp": 1786958506.4312356,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092217_063077_0000027150-0000027162.npz",
+      "frame_index": 0,
+      "timestamp": 1786958537.0630772,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092247_480514_0000027334-0000027346.npz",
+      "frame_index": 9,
+      "timestamp": 1786958568.9331596,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092318_026942_0000027527-0000027539.npz",
+      "frame_index": 9,
+      "timestamp": 1786958599.450243,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092353_724625_0000027699-0000027754.npz",
+      "frame_index": 29,
+      "timestamp": 1786958634.7770383,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092422_123602_0000027914-0000027926.npz",
+      "frame_index": 7,
+      "timestamp": 1786958663.242757,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092454_650511_0000028111-0000028123.npz",
+      "frame_index": 3,
+      "timestamp": 1786958695.0870852,
+      "bin": 22
+    },
+    {
+      "filename": "20260817_092454_650511_0000028111-0000028123.npz",
+      "frame_index": 4,
+      "timestamp": 1786958695.2710788,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_092537_279668_0000028363-0000028375.npz",
+      "frame_index": 9,
+      "timestamp": 1786958738.7046819,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_092618_113738_0000028621-0000028632.npz",
+      "frame_index": 8,
+      "timestamp": 1786958779.375948,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_092705_020997_0000028882-0000028894.npz",
+      "frame_index": 5,
+      "timestamp": 1786958825.7756453,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_092747_707963_0000029143-0000029155.npz",
+      "frame_index": 1,
+      "timestamp": 1786958867.850437,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_092834_904000_0000029403-0000029412.npz",
+      "frame_index": 0,
+      "timestamp": 1786958914.9040003,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_092914_945761_0000029659-0000029671.npz",
+      "frame_index": 4,
+      "timestamp": 1786958955.5749369,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_093001_850608_0000029920-0000029932.npz",
+      "frame_index": 2,
+      "timestamp": 1786959002.1503372,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_093044_495578_0000030181-0000030192.npz",
+      "frame_index": 0,
+      "timestamp": 1786959044.4955778,
+      "bin": 23
+    },
+    {
+      "filename": "20260817_093125_194406_0000030438-0000030438.npz",
+      "frame_index": 0,
+      "timestamp": 1786959085.1944058,
+      "bin": 23
+    }
+  ]
+}
