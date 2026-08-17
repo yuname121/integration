@@ -3,11 +3,27 @@
 **Document date:** 2026-08-18
 **Document ID:** `RP-X0-O2-6-THERMAL-FIELD-FLOAT-INT8-EQUIV-01`
 **Technical status:** `COMPLETE`
-**Remote delivery:** `DEFERRED_GITHUB_UNAVAILABLE` (local commit only)
 **Gate:** `PASS_WITH_LIMITATIONS`
 **Classification:** `INT8_QUANTIZATION_REVIEW_REQUIRED`
 **O3 adapter implementation:** `NO`
 **Production Thermal activation:** `NO`
+
+```text
+Technical execution delivery at completion:
+DEFERRED_GITHUB_UNAVAILABLE
+
+Remote delivery recovery:
+COMPLETED
+
+PR:
+#16
+
+PR base:
+main
+
+Reason for main base:
+O2 PR #14 and O2.5 PR #15 were merged before remote recovery.
+```
 
 Quantization-equivalence audit only. No accuracy, T-C, fall-detection, or
 production claim. No independent ground truth.
@@ -107,7 +123,11 @@ Dominant disagreement: FLOAT `HUMAN_FALL` → INT8 `HUMAN_NORMAL` (8).
 | low-side p95 | 0.831 |
 | high-side | 0.000 |
 
-| q=−128 bin | n | agree | disagree | rate |
+Bin membership uses the pre-clip low-side clipping fraction
+`(unclipped quantized value < -128)`, not the post-clip represented
+`q=-128` pixel fraction.
+
+| low-side saturation bin | n | agree | disagree | rate |
 |---|---:|---:|---:|---:|
 | 0–10% | 2 | 2 | 0 | 1.000 |
 | 10–25% | 34 | 33 | 1 | 0.971 |
@@ -173,8 +193,28 @@ not override the quantization-association finding.
 
 ---
 
-## 9. Future PR (deferred)
+## 9. Remote delivery recovery
 
-**Title:** RP-X0 O2.6: audit Thermal real-field FLOAT vs INT8 equivalence
-**Base:** O2.5 `audit/rp-x0-o2-5-thermal-quant-compat` @ `1929bc3`
-**Do not invent a PR number while GitHub delivery is deferred.**
+GitHub delivery was deferred when O2.6 technically completed.
+
+Remote delivery was subsequently recovered:
+- PR: #16
+- Head: `audit/rp-x0-o2-6-thermal-field-equivalence`
+- Base: `main`
+- O2 dependency commit: `925330c1c54eb0f5762ae56b6ff6f6a81897aad5`
+- O2.5 dependency commit: `1929bc33cea1f7004e3d9d19900bf4023e0efb97`
+
+The technical O2.6 results were not changed during remote delivery recovery.
+
+---
+
+## 10. Subsequent status
+
+Subsequent Thermal AI investigation established:
+
+`TRAIN_DOMAIN_RANGE_GAP`
+
+in sheepmeat/test PR #99.
+
+This downstream result does not retroactively change the O2.6 measurement
+or gate.
