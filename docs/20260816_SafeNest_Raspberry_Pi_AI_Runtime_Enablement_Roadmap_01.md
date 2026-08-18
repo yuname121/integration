@@ -249,7 +249,7 @@ by verified P1 replay. It does not authorize live `HUMAN_FALL`; that remains a
 
 | Stage | Status | Required outcome |
 |---|---|---|
-| 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `IMPLEMENTED / MERGED` (PR #20); preflight mmWave selector drift: `OPEN / MAC_OFFLINE_FIX_REQUIRED`; actual Pi execution: `PI_REQUIRED / NOT_RUN` | Mac-offline runtime wiring, configuration, parser/backend/API, status/failure isolation, replay/static checks, and deployment preflight are merged. One remaining Mac-only corrective must align `hil.preflight` `mmwave_primary_deployment_blocked` with the PR #22 M-N9 `deployment_allowed=true` selector. That is a tooling-contract fix, not a model/risk/runtime-behavior change. Deploy a verified commit and verify actual Pi processes/ports only after that corrective and when Pi access is available; do not develop from the frozen snapshot. |
+| 7 — Integration RP-X0 Runtime Continuation / Restore | Offline preparation: `IMPLEMENTED / MERGED` (PR #20); preflight mmWave selector drift: `RESOLVED_IN_CODE`; actual Pi execution: `PI_REQUIRED / NOT_RUN` | Mac-offline runtime wiring, configuration, parser/backend/API, status/failure isolation, replay/static checks, and deployment preflight are merged. Stage 7 preflight asserts the PR #22 M-N9 FULL_INT8 selector (`deployment_allowed=true`), keeps historical B inactive, and does not treat that as Pi/device validation. Deploy a verified commit and verify actual Pi processes/ports only when Pi access is available; do not develop from the frozen snapshot. |
 | 8 — mmWave Real-Phase Offline Cadence / Window Audit | `PASS_WITH_LIMITATIONS` | Completed on `20260817_08_mmwave.jsonl`; Stage 8.5 found `MMWAVE_SIGNAL_CONTRACT = MISMATCH`. Keep the historical B gate closed and move MR60-native model work to the AI authority track. |
 | 9 — Minimal Post-Deployment Live Smoke | Tooling preparation: `IMPLEMENTED / MERGED` (PR #21); live smoke: `SENSOR_AND_PI_REQUIRED / NOT_RUN` | Runner, probes, evaluator, structured report, and Mac-offline fixture tests are merged. Execute backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing CO2/Thermal/mmWave/PIR records, expected AI statuses, and no new unexpected logger-drop condition only in the live topology. Do not repeat a 30-minute soak without a regression reason. Do not mark Stage 9 globally complete from tooling. |
 | 10 — Thermal Physical-Domain Contract | `COMPLETE_FOR_NAMED_SNAPSHOT / EXTERNAL_AI_DEPENDENCY` | O1/O2 established MI48 `uint16` → Celsius → `P1_TRAIN_FITTED_GLOBAL_ZSCORE` → INT8 T-B5 replay for the named snapshot. The current next path is `TRAIN_DOMAIN_RANGE_GAP` in Thermal AI work; do not activate T-B5. |
@@ -300,7 +300,7 @@ O3 runtime-status cleanup IMPLEMENTED / MERGED (integration PR #17)
 O4 LCD/Web availability-status alignment IMPLEMENTED / MERGED (integration PR #19)
 Stage 7 offline preparation IMPLEMENTED / MERGED (PR #20)
 Stage 9 tooling preparation IMPLEMENTED / MERGED (PR #21)
-STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = OPEN / MAC_OFFLINE_FIX_REQUIRED
+STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = RESOLVED_IN_CODE
 
 mmWave offline phase audit:
 PASS_WITH_LIMITATIONS — SIGNAL_CONTRACT_MISMATCH
@@ -309,7 +309,7 @@ Stage 7 offline preparation:
 IMPLEMENTED / MERGED (PR #20)
 
 Stage 7 preflight mmWave selector drift:
-OPEN / MAC_OFFLINE_FIX_REQUIRED
+RESOLVED_IN_CODE
 
 Stage 7 actual Pi deployment/execution:
 PI_REQUIRED / NOT_RUN
@@ -328,33 +328,33 @@ The current actionable posture is:
 
 | Work now | Dependency boundary | Explicitly not claimed |
 |---|---|---|
-| Stage 7 preflight mmWave selector-contract corrective | `MAC_OFFLINE_FIX_REQUIRED` | Model/risk/runtime behavior change; historical B reactivation |
-| Remaining Mac-offline RP-X0 Stage 7/9 tooling | `IMPLEMENTED / MERGED` (PRs #20/#21) | Pi-runtime or new live-sensor validation |
+| Remaining Mac-offline RP-X0 Stage 7/9 tooling, including M-N9 preflight selector contract | `IMPLEMENTED / MERGED` (PRs #20/#21) / `RESOLVED_IN_CODE` | Pi-runtime or new live-sensor validation |
 | Thermal new labeled/device-domain evidence | `SENSOR_REQUIRED` / `EXTERNAL_AI_DEPENDENCY` | T-B5 activation |
-| Stage 7 Pi deployment and process/port/ARM verification | `PI_REQUIRED` after the preflight selector corrective | Completion from Mac-only work |
+| Stage 7 Pi deployment and process/port/ARM verification | `PI_REQUIRED` | Completion from Mac-only work |
 | Stage 9 real TCP/UDP sensor smoke | `SENSOR_AND_PI_REQUIRED` where applicable | Completion from tooling preparation |
 | MR60-native replacement model | `EXTERNAL_AI_DEPENDENCY` | Reopening the old mmWave B gate |
 
 ```text
-Further Mac implementation required:
-YES — one Stage 7 preflight selector-contract corrective only.
+Further Mac RP-X0 implementation required:
+NO
 
 FUTURE_OPERATOR_CAN_EXECUTE_WITHOUT_CHAT_HISTORY:
-PARTIAL until that corrective merges.
+YES for Mac-offline RP-X0 integration work
 
 CURRENT EFFECT:
 PR #22 active M-N9 selector = authoritative
 historical B = inactive
 O3 status projection = MODEL_PENDING
-Stage 7 preflight old deployment_allowed=false assertion = stale
-this is a tooling-contract regression, not a model/risk/runtime-behavior regression
-one small Mac-only preflight corrective remains before the hardware boundary
+Stage 7 preflight asserts M-N9 selector identity
+deployment_allowed=true is not device validation
+DEVICE_VALIDATED = false
+PI_SMOKE = NOT_PERFORMED
+PRESENCE_GATE_REQUIRED = true
 
-Stage 7 actual Pi execution = NOT_RUN
-Stage 9 live smoke = NOT_RUN
+Remaining boundary:
+Stage 7 actual Pi execution = PI_REQUIRED / NOT_RUN
+Stage 9 live smoke = SENSOR_AND_PI_REQUIRED / NOT_RUN
 ```
-
-This is not optional later cleanup. Do not say that only Pi work remains yet.
 
 ---
 
@@ -611,13 +611,12 @@ labels below are offline ordering tags, **not** normal RP phases:
 O4 does not change UI risk-decision, alarm, or operational policy. It is limited
 to making sensor/AI availability and blocked-status presentation consistent.
 
-Stage 7 offline preparation is `IMPLEMENTED / MERGED` (PR #20). After PR #22,
-one Mac-only Stage 7 preflight selector-contract corrective remains:
-`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = OPEN / MAC_OFFLINE_FIX_REQUIRED`.
-That corrective must align `hil.preflight` `mmwave_primary_deployment_blocked`
-with the current M-N9 `deployment_allowed=true` contract. After that corrective
-merges, only actual Pi deployment/execution remains `PI_REQUIRED`. Stage 9
-tooling preparation is `IMPLEMENTED / MERGED` (PR #21). Stage 9 remains
+Stage 7 offline preparation is `IMPLEMENTED / MERGED` (PR #20).
+`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = RESOLVED_IN_CODE`: Stage 7 preflight
+asserts the current M-N9 selector (`deployment_allowed=true`), keeps historical B
+inactive, and does not treat that as Pi/device validation. Only actual Pi
+deployment/execution remains `PI_REQUIRED`. Stage 9 tooling preparation is
+`IMPLEMENTED / MERGED` (PR #21). Stage 9 remains
 `MINIMAL_POST_DEPLOYMENT_LIVE_SMOKE`: the runner, expected status contract,
 probes, evaluator, and structured report exist on Mac, but actual
 backend/health, TCP `:9000`, UDP `:5005`, ESP connection, increasing
@@ -667,7 +666,7 @@ forward-port → targeted team-tree regression.
 | Snapshot | `READ_ONLY_FIELD_EVIDENCE` |
 | Integration repository | `ACTIVE_DEVELOPMENT` |
 | Stage 7 offline preparation | `IMPLEMENTED / MERGED` (PR #20) |
-| Stage 7 preflight mmWave selector drift | `OPEN / MAC_OFFLINE_FIX_REQUIRED` |
+| Stage 7 preflight mmWave selector drift | `RESOLVED_IN_CODE` |
 | Stage 7 Pi execution | `PI_REQUIRED / NOT_RUN` |
 | Stage 9 tooling preparation | `IMPLEMENTED / MERGED` (PR #21) |
 | Stage 9 live smoke | `SENSOR_AND_PI_REQUIRED / NOT_RUN` |
@@ -1628,7 +1627,7 @@ normal RP-A/RP-B phases. Its current order is fixed in Section 0.6:
 1. Preserve snapshot evidence and retain the completed O1/O2 Thermal contract/replay results without repeating them by default.
 2. Keep PR #17 backend/API runtime status cleanup and PR #19 LCD/Web O4 merged; do not change risk policy.
 3. In parallel, keep historical mmWave B closed. PR #22 imported the M-N9 FULL_INT8 selector; O3 still reports `MODEL_PENDING` until a later authorized status-contract update.
-4. Stage 7 Mac-offline preparation is merged except one preflight mmWave selector-contract corrective (`OPEN / MAC_OFFLINE_FIX_REQUIRED`). After that corrective merges, defer only Pi deployment/execution.
+4. Stage 7 Mac-offline preparation is merged, including the M-N9 preflight selector contract (`RESOLVED_IN_CODE`). Defer only Pi deployment/execution.
 5. Stage 9 tooling is merged; run its minimal live smoke only in the required hardware topology.
 6. Later MR60-native model handoff and repository/team forward-port.
 
@@ -2103,7 +2102,7 @@ Severity assigned from source evidence, not from the prompt’s guess list alone
 
 ## 32. Deferred Work
 
-- One Mac-only Stage 7 preflight mmWave selector-contract corrective (`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT`); then Stage 7 Pi deployment/execution when the Pi becomes available; team forward-port follows verified integration work
+- Stage 7 Pi deployment/execution when the Pi becomes available; team forward-port follows verified integration work
 - CO₂ identity/Capture contract beyond RP-X0 reference observation
 - MR60-native dataset/model/preprocessing/quantization contract from AI authority; historical B gate remains closed
 - Thermal device-domain data/validation and the approved AI response to `TRAIN_DOMAIN_RANGE_GAP`
@@ -2202,13 +2201,10 @@ Historical RP-X0 scoped field evidence: YES (recorded; not re-executed here)
 RP-A1 current state:    IMPLEMENTED / UNDER INDEPENDENT REVIEW
 ```
 
-Recommended next action: preserve the snapshot read-only. Align Stage 7
-preflight's mmWave selector assertion to the current PR #22 M-N9 contract
-(`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = OPEN / MAC_OFFLINE_FIX_REQUIRED`).
-That is one Mac-only tooling-contract corrective; it is not a new phase, O-stage,
-or runtime/model/risk change. Stage 9 tooling preparation is
-`IMPLEMENTED / MERGED` (PR #21); do not treat that as live smoke. After the
-preflight corrective merges, defer actual Pi deployment, ARM/process checks,
-and Stage 9 live smoke to their smallest hardware boundary; merge authorization
-for RP-A1 and every normal-roadmap implementation authorization remain separate
-decisions.
+Recommended next action: preserve the snapshot read-only.
+`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = RESOLVED_IN_CODE`. Further Mac RP-X0
+implementation is not required. Stage 9 tooling preparation is
+`IMPLEMENTED / MERGED` (PR #21); do not treat that as live smoke. Remaining
+boundary: Stage 7 actual Pi execution = `PI_REQUIRED / NOT_RUN`; Stage 9 live
+smoke = `SENSOR_AND_PI_REQUIRED / NOT_RUN`. Merge authorization for RP-A1 and
+every normal-roadmap implementation authorization remain separate decisions.

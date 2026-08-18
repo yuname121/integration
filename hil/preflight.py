@@ -84,6 +84,12 @@ FORBIDDEN_THERMAL_SELECTORS = (
     "full_int8.tflite",
 )
 
+MN9_MODEL_ID = "MMWAVE_M_N9_FULL_INT8_V1"
+MN9_RUNTIME_ROLE = "ACTIVE_M_N9"
+MN9_RELATIVE_PATH = "models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite"
+HISTORICAL_V010_FILENAME = "mmwave_resp_int8_v0.1.0.tflite"
+HISTORICAL_B_PATH_MARKERS = ("rp_x0_b_complete", "M-B3_")
+
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="SafeNest deployment readiness checks")
@@ -229,25 +235,66 @@ def _artifact_selection_checks(root: Path) -> list[dict[str, object]]:
     mmwave = models.get("mmwave") if isinstance(models.get("mmwave"), dict) else {}
     thermal_path = str(thermal.get("path") or "")
     forbidden = [token for token in FORBIDDEN_THERMAL_SELECTORS if token.lower() in thermal_path.lower()]
-    return [
+    checks = [
         _check(
             "thermal_production_path_is_historical_v0_1_0",
             thermal_path.endswith("thermal_fall_int8_v0.1.0.tflite") and not forbidden,
             {"path": thermal_path, "forbidden_hits": forbidden},
         ),
-        _check(
-            "mmwave_primary_deployment_blocked",
-            mmwave.get("deployment_allowed") is False,
-            {
-                "deployment_allowed": mmwave.get("deployment_allowed"),
-                "block_reason": mmwave.get("block_reason"),
-            },
-        ),
+    ]
+    checks.extend(_mmwave_selector_contract_checks(mmwave if isinstance(mmwave, dict) else {}))
+    checks.append(
         _check(
             "runtime_loads_manifest_sensor_keys_only",
             'self._assert_deployment_allowed()' in (root / "ai" / "runtime.py").read_text(encoding="utf-8"),
             "ai/runtime.py LazyModel",
-        ),
+        )
+    )
+    return checks
+
+
+def _mmwave_selector_contract_checks(mmwave: dict[str, object]) -> list[dict[str, object]]:
+    path = str(mmwave.get("path") or "")
+    path_is_mn9 = path.endswith(MN9_RELATIVE_PATH)
+    path_is_historical_v010 = HISTORICAL_V010_FILENAME in path
+    path_is_historical_b = any(marker in path for marker in HISTORICAL_B_PATH_MARKERS)
+    observed = {
+        "model_id": mmwave.get("model_id"),
+        "runtime_role": mmwave.get("runtime_role"),
+        "active_runtime_selector": mmwave.get("active_runtime_selector"),
+        "deployment_allowed": mmwave.get("deployment_allowed"),
+        "HISTORICAL_B_NOT_ACTIVE": mmwave.get("HISTORICAL_B_NOT_ACTIVE"),
+        "path": path,
+        "DEVICE_VALIDATED": mmwave.get("DEVICE_VALIDATED"),
+        "hardware_validation": mmwave.get("hardware_validation"),
+        "PI_SMOKE": mmwave.get("PI_SMOKE"),
+        "PRESENCE_GATE_REQUIRED": mmwave.get("PRESENCE_GATE_REQUIRED"),
+    }
+    selector_is_mn9 = (
+        mmwave.get("model_id") == MN9_MODEL_ID
+        and mmwave.get("runtime_role") == MN9_RUNTIME_ROLE
+        and mmwave.get("active_runtime_selector") is True
+        and mmwave.get("deployment_allowed") is True
+        and mmwave.get("HISTORICAL_B_NOT_ACTIVE") is True
+        and path_is_mn9
+        and not path_is_historical_v010
+        and not path_is_historical_b
+    )
+    historical_b_inactive = (
+        mmwave.get("HISTORICAL_B_NOT_ACTIVE") is True
+        and not path_is_historical_b
+        and mmwave.get("runtime_role") != "HISTORICAL_B_STAGE"
+    )
+    device_not_overclaimed = (
+        mmwave.get("DEVICE_VALIDATED") is False
+        and mmwave.get("hardware_validation") == "NOT_PERFORMED"
+        and mmwave.get("PI_SMOKE") == "NOT_PERFORMED"
+        and mmwave.get("PRESENCE_GATE_REQUIRED") is True
+    )
+    return [
+        _check("mmwave_primary_selector_is_m_n9", selector_is_mn9, observed),
+        _check("mmwave_historical_b_not_active", historical_b_inactive, observed),
+        _check("mmwave_device_validation_not_overclaimed", device_not_overclaimed, observed),
     ]
 
 
