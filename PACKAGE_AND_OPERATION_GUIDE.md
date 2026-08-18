@@ -265,18 +265,42 @@ python3 -m hil.preflight --offline-preflight
 
 ```text
 STAGE_7_MAC_OFFLINE_RUNTIME_PREPARATION = PASS_WITH_LIMITATIONS
+STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = OPEN / MAC_OFFLINE_FIX_REQUIRED
 PI_DEPLOYMENT = NOT_RUN
 PI_PROCESS_CHECK = NOT_RUN
 PI_PORT_CHECK = NOT_RUN
 PI_ARM_RUNTIME = NOT_RUN
 ```
 
-이후 실제 Pi 실행만 남는다. 아래는 Stage 7의 hardware boundary이며 Stage 9 live-sensor smoke가 아니다.
+PR #22 이후 Stage 7 preflight의 mmWave selector assertion을 현재
+M-N9 contract에 맞추는 작은 Mac-only corrective가 1개 남는다.
+그 corrective가 병합된 뒤에는 실제 Pi 실행만 남는다.
+
+```text
+Further Mac implementation required:
+YES — one Stage 7 preflight selector-contract corrective only.
+
+FUTURE_OPERATOR_CAN_EXECUTE_WITHOUT_CHAT_HISTORY:
+PARTIAL until that corrective merges.
+```
+
+현재 효과:
+
+```text
+PR #22 active M-N9 selector = authoritative
+historical B = inactive
+O3 status projection = MODEL_PENDING
+Stage 7 preflight `mmwave_primary_deployment_blocked` = stale
+this is a tooling-contract regression, not a model/risk/runtime-behavior regression
+one small Mac-only preflight corrective remains before the hardware boundary
+```
+
+아래는 그 Mac-only corrective 이후의 Stage 7 hardware boundary이며 Stage 9 live-sensor smoke가 아니다.
 
 1. 검토된 integration commit을 checkout한다. 현재 권위 저장소는 `yuname121/integration`의 검토된 `main`이다.
 2. Raspberry Pi에서 지원 Python(3.10+)과 `bash deployment/run_pi.sh --install`을 사용한다.
 3. `.env.example`을 참고해 필요한 env/config를 적용한다. 개발자 Mac 절대경로를 넣지 않는다. venv 기본은 `<repository>/.venv` (`SAFENEST_VENV_PATH`로 재정의).
-4. Thermal/CO2 production path는 역사적 v0.1.0을 유지한다. T-B5를 켜지 않는다. mmWave primary selector는 PR #22의 M-N9 FULL_INT8이며 옛 B live gate가 아니다. Stage 7 preflight의 `mmwave_primary_deployment_blocked` 검사는 PR #22 이전 가정이다.
+4. Thermal/CO2 production path는 역사적 v0.1.0을 유지한다. T-B5를 켜지 않는다. mmWave primary selector는 PR #22의 M-N9 FULL_INT8이며 옛 B live gate가 아니다. Stage 7 preflight의 `mmwave_primary_deployment_blocked` (`deployment_allowed=false`) assertion은 PR #22 이전 가정이며 `STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = OPEN / MAC_OFFLINE_FIX_REQUIRED`다. 이 문서는 그 코드를 바꾸지 않는다.
 5. `bash deployment/run_pi.sh`로 runtime을 시작한다. 진입점은 `deployment/run_pi.sh → backend/run_backend.py`다.
 6. process가 살아 있는지 확인한다.
 7. 기대 포트: HTTP `:8000`, TCP `:9000`, UDP `:5005`.
