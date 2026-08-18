@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from backend.runtime import SafeNestRuntime
+from backend.portal import PortalAuth, PortalStore, portal_event, portal_space, thermal_payload
 from backend.store import RuntimeStore
 from backend.views import (
     ROUTE_CONTRACTS,
@@ -42,7 +43,7 @@ def create_app(
         raise ValueError("websocket interval must be positive")
     try:
         from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
-        from fastapi.responses import FileResponse, JSONResponse
+        from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
         from fastapi.staticfiles import StaticFiles
     except ImportError as error:
         raise BackendDependencyError(
@@ -98,14 +99,19 @@ def create_app(
     app.state.safenest_store = selected_store
     app.state.safenest_emergency = selected_emergency
 
-    dashboard_dir = Path(__file__).resolve().parent.parent / "web" / "dashboard"
-    lcd_dir = (
-        Path(__file__).resolve().parent.parent
-        / "sources"
-        / "display-test2"
-        / "raspberry_pi_lcd"
-        / "static"
+    repository_root = Path(__file__).resolve().parent.parent
+    frontend_dir = Path(
+        os.getenv("SAFENEST_WEB_DIR", str(repository_root / "web" / "portal"))
+    ).resolve()
+    portal_store = PortalStore(
+        os.getenv("SAFENEST_SPACES_FILE", str(repository_root / "data" / "web" / "spaces.json"))
     )
+    portal_auth = PortalAuth()
+    offline_grace = _float_env("SAFENEST_PORTAL_OFFLINE_SECONDS", 30.0)
+    app.state.safenest_portal_store = portal_store
+    app.state.safenest_portal_auth = portal_auth
+
+    dashboard_dir = Path(__file__).resolve().parent.parent / "web" / "dashboard"
     app.mount(
         "/dashboard/assets",
         StaticFiles(directory=str(dashboard_dir)),
@@ -117,18 +123,160 @@ def create_app(
     def dashboard() -> Any:
         return FileResponse(dashboard_dir / "index.html")
 
-    @app.get("/display", include_in_schema=False)
-    @app.get("/display/", include_in_schema=False)
-    def lcd_display() -> Any:
-        return FileResponse(lcd_dir / "display.html")
+    def require_admin(request: Request) -> None:
+        authorization = request.headers.get("authorization", "")
+        scheme, _, token = authorization.partition(" ")
+        if scheme.lower() != "bearer" or not portal_auth.verify(token):
+            raise HTTPException(status_code=401, detail="관리자 로그인이 필요합니다.")
 
-    @app.get("/common.css", include_in_schema=False)
-    def lcd_common_css() -> Any:
-        return FileResponse(lcd_dir / "common.css", media_type="text/css")
+    def live_portal_status() -> dict[str, Any]:
+        """Overlay latest sensor state without changing the 15 s risk cadence."""
+        document = status_document(selected_store.latest())
+        snapshot = selected_runtime.manager.snapshot()
+        sensors = snapshot.get("sensors", {})
+        if isinstance(sensors, dict):
+            for sensor_id in ("mmwave", "thermal", "co2", "pir"):
+                if sensor_id in sensors and isinstance(document.get(sensor_id), dict):
+                    document[sensor_id]["state"] = sensors[sensor_id]
+        document["system"] = snapshot.get("system", document.get("system"))
+        document["timestamp"] = snapshot.get("timestamp", document.get("timestamp"))
+        return document
+
+    def frontend_file(name: str) -> Any:
+        path = frontend_dir / name
+        if not path.is_file():
+            raise HTTPException(
+                status_code=503,
+                detail=f"웹 화면 파일을 찾을 수 없습니다: {path}",
+            )
+        return FileResponse(path)
+
+    @app.get("/admin", include_in_schema=False)
+    @app.get("/admin/", include_in_schema=False)
+    def admin_page() -> Any:
+        return frontend_file("preview.html")
+
+    @app.get("/admin-api.js", include_in_schema=False)
+    @app.get("/admin/admin-api.js", include_in_schema=False)
+    def admin_script() -> Any:
+        return frontend_file("admin-api.js")
+
+    @app.get("/thermal-client.js", include_in_schema=False)
+    @app.get("/admin/thermal-client.js", include_in_schema=False)
+    def thermal_script() -> Any:
+        return frontend_file("thermal-client.js")
+
+    @app.get("/guest/dashboard/{space_id}", include_in_schema=False)
+    def guest_dashboard(space_id: str) -> Any:
+        if portal_store.get(space_id) is None:
+            raise HTTPException(status_code=404, detail="등록되지 않은 공간입니다.")
+        return FileResponse(repository_root / "web" / "guest" / "index.html")
 
     @app.get("/")
-    def root() -> dict[str, object]:
-        return {"service": "SafeNest", "routes": ROUTE_CONTRACTS}
+    def root() -> Any:
+        return RedirectResponse(url="/admin", status_code=307)
+
+    @app.post("/api/auth/login")
+    async def api_login(request: Request) -> Any:
+        payload = await json_payload(request)
+        token = portal_auth.login(payload.get("id"), payload.get("password"))
+        if token is None:
+            return JSONResponse(status_code=401, content={"error": "아이디 또는 비밀번호가 올바르지 않습니다."})
+        return {"token": token, "expiresIn": 12 * 60 * 60}
+
+    @app.get("/api/spaces")
+    def api_spaces(request: Request) -> list[dict[str, Any]]:
+        require_admin(request)
+        status = live_portal_status()
+        return [portal_space(item, status, offline_after_seconds=offline_grace) for item in portal_store.list()]
+
+    @app.post("/api/spaces")
+    async def api_create_space(request: Request) -> Any:
+        require_admin(request)
+        payload = await json_payload(request)
+        try:
+            item = portal_store.create(payload)
+        except ValueError as error:
+            return JSONResponse(status_code=422, content={"error": str(error)})
+        selected_store.record_event("SPACE_CREATED", {"space_id": item["id"], "name": item["name"]})
+        return portal_space(item, live_portal_status(), offline_after_seconds=offline_grace)
+
+    @app.patch("/api/spaces/{space_id}")
+    async def api_update_space(space_id: str, request: Request) -> Any:
+        require_admin(request)
+        payload = await json_payload(request)
+        try:
+            item = portal_store.update(space_id, payload)
+        except KeyError:
+            raise HTTPException(status_code=404, detail="등록되지 않은 공간입니다.")
+        except ValueError as error:
+            return JSONResponse(status_code=422, content={"error": str(error)})
+        selected_store.record_event("SPACE_UPDATED", {"space_id": item["id"], "name": item["name"]})
+        return portal_space(item, live_portal_status(), offline_after_seconds=offline_grace)
+
+    @app.delete(
+        "/api/spaces/{space_id}",
+        status_code=204,
+        response_class=Response,
+        response_model=None,
+    )
+    def api_delete_space(space_id: str, request: Request) -> Response:
+        require_admin(request)
+        try:
+            portal_store.delete(space_id)
+        except KeyError:
+            raise HTTPException(status_code=404, detail="등록되지 않은 공간입니다.")
+        except ValueError as error:
+            raise HTTPException(status_code=409, detail=str(error)) from error
+        selected_store.record_event("SPACE_DELETED", {"space_id": space_id})
+        return Response(status_code=204)
+
+    @app.get("/api/portal/events")
+    def api_portal_events(request: Request, limit: int = 100) -> list[dict[str, Any]]:
+        require_admin(request)
+        try:
+            return [portal_event(item) for item in selected_store.events(limit)]
+        except ValueError as error:
+            raise HTTPException(status_code=422, detail=str(error)) from error
+
+    @app.get("/api/guest/spaces/{space_id}")
+    def api_guest_space(space_id: str) -> dict[str, Any]:
+        item = portal_store.get(space_id)
+        if item is None:
+            raise HTTPException(status_code=404, detail="등록되지 않은 공간입니다.")
+        return portal_space(item, live_portal_status(), offline_after_seconds=offline_grace)
+
+    @app.get("/api/thermal/{space_id}")
+    def api_thermal(space_id: str, request: Request) -> Any:
+        if portal_store.get(space_id) is None:
+            raise HTTPException(status_code=404, detail="등록되지 않은 공간입니다.")
+        frame = selected_runtime.manager.latest_thermal_frame() if space_id == "A01" else None
+        if frame is None:
+            return Response(status_code=204)
+        etag = f'"thermal-{frame.frame_sequence}"'
+        if request.headers.get("if-none-match") == etag:
+            return Response(status_code=304, headers={"ETag": etag, "Cache-Control": "no-store"})
+        return Response(
+            content=thermal_payload(frame),
+            media_type="application/octet-stream",
+            headers={"ETag": etag, "Cache-Control": "no-store"},
+        )
+
+    @app.get("/api/qr/{space_id}.png")
+    def api_space_qr(space_id: str, request: Request) -> Any:
+        if portal_store.get(space_id) is None:
+            raise HTTPException(status_code=404, detail="등록되지 않은 공간입니다.")
+        public_base = os.getenv("SAFENEST_PUBLIC_URL", str(request.base_url).rstrip("/"))
+        target = f"{public_base.rstrip('/')}/guest/dashboard/{space_id}"
+        try:
+            import io
+            import qrcode
+            image = qrcode.make(target)
+            output = io.BytesIO()
+            image.save(output, format="PNG")
+        except ImportError as error:
+            raise HTTPException(status_code=503, detail="QR 패키지가 설치되지 않았습니다.") from error
+        return Response(content=output.getvalue(), media_type="image/png", headers={"Cache-Control": "no-store"})
 
     @app.get("/api/status")
     def api_status() -> dict[str, Any]:
