@@ -11,7 +11,12 @@ import unittest
 from backend.runtime_status import runtime_status_document
 from backend.views import status_document
 from deployment.verify_bundle import verify
-from hil.preflight import EXPECTED_ENV_KEYS, _runtime_import_check, offline_preflight_document
+from hil.preflight import (
+    EXPECTED_ENV_KEYS,
+    _mmwave_selector_contract_checks,
+    _runtime_import_check,
+    offline_preflight_document,
+)
 from tests.test_runtime_status import ai_result, sensor, state
 
 
@@ -48,9 +53,74 @@ class Stage7OfflinePreflightTests(unittest.TestCase):
     def test_artifact_selection_does_not_silently_activate_tb5_or_old_b(self) -> None:
         names = {item["name"]: item for item in self.document["checks"]}
         self.assertTrue(names["thermal_production_path_is_historical_v0_1_0"]["passed"])
-        self.assertTrue(names["mmwave_primary_deployment_blocked"]["passed"])
+        self.assertNotIn("mmwave_primary_deployment_blocked", names)
+        self.assertTrue(names["mmwave_primary_selector_is_m_n9"]["passed"])
+        self.assertTrue(names["mmwave_historical_b_not_active"]["passed"])
+        self.assertTrue(names["mmwave_device_validation_not_overclaimed"]["passed"])
         self.assertTrue(names["model_thermal_sha256"]["passed"])
         self.assertTrue(names["model_mmwave_sha256"]["passed"])
+        observed = names["mmwave_primary_selector_is_m_n9"]["observed"]
+        self.assertEqual(observed["model_id"], "MMWAVE_M_N9_FULL_INT8_V1")
+        self.assertEqual(observed["runtime_role"], "ACTIVE_M_N9")
+        self.assertTrue(observed["active_runtime_selector"])
+        self.assertTrue(observed["deployment_allowed"])
+        self.assertTrue(observed["HISTORICAL_B_NOT_ACTIVE"])
+        self.assertFalse(observed["DEVICE_VALIDATED"])
+        self.assertEqual(observed["hardware_validation"], "NOT_PERFORMED")
+        self.assertEqual(observed["PI_SMOKE"], "NOT_PERFORMED")
+        self.assertTrue(observed["PRESENCE_GATE_REQUIRED"])
+        self.assertTrue(str(observed["path"]).endswith("models/mmwave/m_n9/MMWAVE_M_N9_FULL_INT8_V1.tflite"))
+
+    def test_historical_v010_primary_selector_fails_offline_preflight(self) -> None:
+        manifest = json.loads((ROOT / "sources" / "ondevice_ai" / "models" / "model_manifest.json").read_text(encoding="utf-8"))
+        fixture = dict(manifest["models"]["mmwave_v0_1_0"])
+        fixture["active_runtime_selector"] = True
+        checks = _mmwave_selector_contract_checks(fixture)
+        names = {item["name"]: item for item in checks}
+        self.assertFalse(names["mmwave_primary_selector_is_m_n9"]["passed"])
+        self.assertTrue(names["mmwave_primary_selector_is_m_n9"]["required"])
+        with patch("hil.preflight._mmwave_selector_contract_checks", return_value=checks):
+            document = offline_preflight_document(ROOT)
+        self.assertFalse(document["ok"])
+        failed = {item["name"]: item for item in document["checks"] if item["required"] and not item["passed"]}
+        self.assertIn("mmwave_primary_selector_is_m_n9", failed)
+
+    def test_historical_b_active_selector_fails(self) -> None:
+        fixture = {
+            "model_id": "M-B3_CONV1D_GAP_BASELINE",
+            "runtime_role": "HISTORICAL_B_STAGE",
+            "active_runtime_selector": True,
+            "deployment_allowed": True,
+            "HISTORICAL_B_NOT_ACTIVE": False,
+            "path": "models/rp_x0_b_complete/mmwave/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
+            "DEVICE_VALIDATED": False,
+            "hardware_validation": "NOT_PERFORMED",
+            "PI_SMOKE": "NOT_PERFORMED",
+            "PRESENCE_GATE_REQUIRED": True,
+        }
+        checks = _mmwave_selector_contract_checks(fixture)
+        names = {item["name"]: item for item in checks}
+        self.assertFalse(names["mmwave_primary_selector_is_m_n9"]["passed"])
+        self.assertFalse(names["mmwave_historical_b_not_active"]["passed"])
+        self.assertTrue(names["mmwave_historical_b_not_active"]["required"])
+        with patch("hil.preflight._mmwave_selector_contract_checks", return_value=checks):
+            document = offline_preflight_document(ROOT)
+        self.assertFalse(document["ok"])
+
+    def test_device_validation_overclaim_fails_even_when_m_n9_identity_is_correct(self) -> None:
+        manifest = json.loads((ROOT / "sources" / "ondevice_ai" / "models" / "model_manifest.json").read_text(encoding="utf-8"))
+        fixture = dict(manifest["models"]["mmwave"])
+        fixture["DEVICE_VALIDATED"] = True
+        fixture["PI_SMOKE"] = "PASS"
+        fixture["hardware_validation"] = "PASS"
+        checks = _mmwave_selector_contract_checks(fixture)
+        names = {item["name"]: item for item in checks}
+        self.assertTrue(names["mmwave_primary_selector_is_m_n9"]["passed"])
+        self.assertFalse(names["mmwave_device_validation_not_overclaimed"]["passed"])
+        self.assertTrue(names["mmwave_device_validation_not_overclaimed"]["required"])
+        with patch("hil.preflight._mmwave_selector_contract_checks", return_value=checks):
+            document = offline_preflight_document(ROOT)
+        self.assertFalse(document["ok"])
 
     def test_no_developer_absolute_runtime_paths(self) -> None:
         names = {item["name"]: item for item in self.document["checks"]}
@@ -83,8 +153,11 @@ class Stage7OfflinePreflightTests(unittest.TestCase):
         self.assertEqual(document["pir"]["runtime_status"]["ai_status"], "NOT_APPLICABLE")
         self.assertEqual(document["pir"]["runtime_status"]["sensor_value_status"], "NO_MOTION")
         self.assertEqual(document["co2"]["runtime_status"]["ai_status"], "ACTIVE")
+        self.assertEqual(document["mmwave"]["runtime_status"]["ai_status"], "MODEL_PENDING")
+        self.assertEqual(document["mmwave"]["runtime_status"]["blocked_reason"], "MR60_NATIVE_MODEL_PENDING")
         blocked = runtime_status_document(state(), {})
         self.assertNotEqual(blocked["sensors"]["co2"]["ai_status"], "ACTIVE")
+        self.assertEqual(blocked["sensors"]["mmwave"]["ai_status"], "MODEL_PENDING")
 
     def test_bundle_verifier_includes_runtime_status_module(self) -> None:
         result = verify(ROOT)

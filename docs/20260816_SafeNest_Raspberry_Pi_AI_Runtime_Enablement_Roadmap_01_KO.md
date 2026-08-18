@@ -12,12 +12,11 @@
 > `2026-08-18 RP-X0 STATUS`가 권위 기준이다. Mac에서 가능한 active
 > `yuname121/integration` 개발·replay·backend/API·상태/실패 격리·정적
 > 배포 검사는 병합된 Stage 7/9 툴링으로 이미 `IMPLEMENTED / MERGED`다.
-> 다만 PR #22 이후 Stage 7 preflight의 mmWave selector assertion을 현재
-> M-N9 contract에 맞추는 작은 Mac-only corrective가 1개 남는다
-> (`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = OPEN / MAC_OFFLINE_FIX_REQUIRED`).
-> 그 corrective가 병합된 뒤에는 실제 Pi 실행만 남는다. 실제
-> Pi 배포/ARM·프로세스 검증은 `PI_REQUIRED`, 실센서 live smoke는 필요한
-> 경우 `SENSOR_AND_PI_REQUIRED`, Thermal 다음 데이터/검증 경로와
+> Stage 7 preflight mmWave selector contract는 `RESOLVED_IN_CODE`다
+> (`STAGE7_PREFLIGHT_MMWAVE_SELECTOR_DRIFT = RESOLVED_IN_CODE`).
+> 추가 Mac RP-X0 구현은 필요 없다. 남은 경계는 실제
+> Pi 배포/ARM·프로세스 검증 `PI_REQUIRED / NOT_RUN`과, 필요한
+> 경우 실센서 live smoke `SENSOR_AND_PI_REQUIRED / NOT_RUN`이다. Thermal 다음 데이터/검증 경로와
 > MR60-native live 검증은 각각 `SENSOR_REQUIRED`/`EXTERNAL_AI_DEPENDENCY`다.
 > `PI_AVAILABLE`와 `SENSOR_AVAILABLE`은 독립 조건이므로, Pi가 없다고
 > Mac 개발이 멈추지 않고 Pi가 있어도 필요한 센서가 없으면 새 센서 증거는
