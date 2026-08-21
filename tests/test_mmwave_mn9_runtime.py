@@ -274,3 +274,168 @@ class WireRatePhaseAccumulationTests(unittest.TestCase):
         # One publication sees exactly one phase event.
         pipeline.evaluate(manager.snapshot(now=360.0, monotonic_now=270.0))
         self.assertEqual(pipeline._mmwave_window.latest().metadata["accepted_update_count"], 1)
+
+
+
+class Firmware13PresenceFieldTests(unittest.TestCase):
+    """The `human_detected_raw` field emitted by the canonical ESP32 flash source.
+
+    `sources/display-test2/esp32_sensor_node/esp32_sensor_node.ino` v1.3.0 adds
+    the field to its nested `mmwave` object. The MR60 occupancy boolean is
+    tri-state on the wire: true, false, or null when no 0x0F09 report has been
+    parsed recently. null must not collapse to false, because the presence gate
+    reads false as a confirmed empty room and would suppress inference for the
+    wrong reason -- and because a firmware that cannot see occupancy must not be
+    able to assert absence.
+
+    Field order below mirrors the firmware's snprintf template so the fixture
+    stays recognizably the real packet.
+    """
+
+    @staticmethod
+    def _packet(sequence: int, nested: dict) -> object:
+        body = json.dumps(
+            {
+                "schema": "safenest.telemetry.v1",
+                "device_id": "esp32-01",
+                "boot_id": "a" * 32,
+                "seq": sequence,
+                "uptime_ms": 3730,
+                "resp_rate_bpm": 19.0,
+                "heart_rate_bpm": 62.0,
+                "co2_ppm": 800.0,
+                "co2_measurement_event_id": 4,
+                "co2_measurement_monotonic_ms": 3600,
+                "co2_measurement_event_valid": True,
+                "pir_motion": False,
+                "pir_event_id": 2,
+                "pir_last_transition_monotonic_ms": 3000,
+                "valid": {"respiration": True, "heart": True, "co2": True},
+                "mmwave": nested,
+            }
+        ).encode("utf-8")
+        return decode_telemetry(
+            PacketHeader(PACKET_TELEMETRY_JSON, sequence, len(body)), body
+        )
+
+    @staticmethod
+    def _nested(**overrides) -> dict:
+        nested = {
+            "breath_phase": -0.136825,
+            "total_phase": 1.0,
+            "heart_phase": 0.2,
+            "breath_rate_raw": 7.0,
+            "human_detected_raw": True,
+            "phase_age_ms": 12,
+            "ts_monotonic_ms": 3718,
+            "seq": 42,
+            "firmware_version": "safenest-esp32-sensor-node/1.3.0",
+            "schema_version": "1.3",
+        }
+        nested.update(overrides)
+        return nested
+
+    def _values(self, packet) -> dict:
+        manager = SensorStateManager()
+        manager.ingest(
+            packet, ("127.0.0.1", 5000), received_at=100.0, monotonic_at=10.0
+        )
+        state = manager.snapshot(now=100.0, monotonic_now=10.0)
+        return state["sensors"]["mmwave"]["values"]
+
+    def test_nested_true_is_promoted_and_marks_presence_available(self):
+        packet = self._packet(17, self._nested(human_detected_raw=True))
+        self.assertIs(packet.human_detected_raw, True)
+        values = self._values(packet)
+        self.assertIs(values["human_detected_raw"], True)
+        self.assertIs(values["presence"], True)
+        self.assertIs(values["presence_available"], True)
+
+    def test_nested_false_is_a_confirmed_empty_room_not_unknown(self):
+        packet = self._packet(18, self._nested(human_detected_raw=False))
+        self.assertIs(packet.human_detected_raw, False)
+        values = self._values(packet)
+        self.assertIs(values["human_detected_raw"], False)
+        self.assertIs(values["presence"], False)
+        # Available, because the radar did report -- it reported nobody.
+        self.assertIs(values["presence_available"], True)
+
+    def test_nested_null_stays_unknown_and_never_becomes_false(self):
+        packet = self._packet(19, self._nested(human_detected_raw=None))
+        self.assertIsNone(packet.human_detected_raw)
+        values = self._values(packet)
+        self.assertIsNone(values["human_detected_raw"])
+        self.assertIsNone(values["presence"])
+        self.assertIs(values["presence_available"], False)
+        self.assertIsNot(values["presence"], False)
+
+    def test_legacy_packet_without_the_field_still_decodes(self):
+        nested = self._nested()
+        del nested["human_detected_raw"]
+        nested["firmware_version"] = "safenest-esp32-sensor-node/1.2.0"
+        nested["schema_version"] = "1.2"
+        packet = self._packet(20, nested)
+        # Backward-compatible extension: pre-1.3 nodes keep being accepted.
+        self.assertIsNone(packet.human_detected_raw)
+        self.assertAlmostEqual(packet.breath_phase, -0.136825)
+        values = self._values(packet)
+        self.assertIsNone(values["human_detected_raw"])
+        self.assertIs(values["presence_available"], False)
+
+    def test_true_lets_a_ready_window_reach_the_model(self):
+        """The whole point of B1: presence true is what unblocks inference."""
+        model = FakeModel()
+        pipeline = OnDeviceAIPipeline(SensorStateManager(), {"mmwave": model})
+        manager = SensorStateManager()
+        for index in range(260):
+            nested = self._nested(
+                breath_phase=math.sin(index * 0.35) * 0.5,
+                ts_monotonic_ms=1_000 + index * 125,
+                phase_age_ms=3,
+                seq=index + 1,
+                human_detected_raw=True,
+            )
+            packet = self._packet(index + 1, nested)
+            pipeline.observe_telemetry(packet)
+            manager.ingest(
+                packet,
+                ("127.0.0.1", 5000),
+                received_at=100.0 + index * 0.125,
+                monotonic_at=10.0 + index * 0.125,
+            )
+        state = manager.snapshot(now=132.5, monotonic_now=42.5)
+        result = pipeline.evaluate(state)["ai"]["mmwave"]
+        self.assertEqual(
+            result["metadata"]["canonical_window_status"], "CANONICAL_WINDOW_READY"
+        )
+        self.assertNotEqual(result["error"], "PRESENCE_STATE_UNAVAILABLE")
+        self.assertEqual(len(model.calls), 1)
+
+    def test_null_suppresses_the_same_ready_window(self):
+        """Negative control for the test above: only presence differs."""
+        model = FakeModel()
+        pipeline = OnDeviceAIPipeline(SensorStateManager(), {"mmwave": model})
+        manager = SensorStateManager()
+        for index in range(260):
+            nested = self._nested(
+                breath_phase=math.sin(index * 0.35) * 0.5,
+                ts_monotonic_ms=1_000 + index * 125,
+                phase_age_ms=3,
+                seq=index + 1,
+                human_detected_raw=None,
+            )
+            packet = self._packet(index + 1, nested)
+            pipeline.observe_telemetry(packet)
+            manager.ingest(
+                packet,
+                ("127.0.0.1", 5000),
+                received_at=100.0 + index * 0.125,
+                monotonic_at=10.0 + index * 0.125,
+            )
+        state = manager.snapshot(now=132.5, monotonic_now=42.5)
+        result = pipeline.evaluate(state)["ai"]["mmwave"]
+        self.assertEqual(
+            result["metadata"]["canonical_window_status"], "CANONICAL_WINDOW_READY"
+        )
+        self.assertEqual(result["error"], "PRESENCE_STATE_UNAVAILABLE")
+        self.assertEqual(model.calls, [])
