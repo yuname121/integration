@@ -9,6 +9,7 @@ from typing import Mapping
 
 from ai.result import AIResult
 from ai.runtime import LazyModel
+from ai.mmwave_canonical_runtime import MR60CanonicalWindowBuilder
 from gateway.protocol import ThermalFrame
 from state.manager import SensorStateManager
 
@@ -30,6 +31,7 @@ class OnDeviceAIPipeline:
         self._clock = clock
         self._co2_history: deque[tuple[float, float]] = deque(maxlen=30)
         self._last_co2_sequence: int | None = None
+        self._mmwave_window = MR60CanonicalWindowBuilder()
 
     def evaluate(
         self,
@@ -95,37 +97,81 @@ class OnDeviceAIPipeline:
         unavailable = self._sensor_unavailable("mmwave", sensor, now)
         if unavailable:
             return unavailable
-        values = sensor.get("values", {})
-        window = values.get("respiration_phase_window")
-        if not isinstance(window, list) or len(window) != 300 or not _all_finite(window):
+        values = sensor.get("values") if isinstance(sensor.get("values"), dict) else {}
+        missing = _mmwave_missing_fields(values)
+        self._mmwave_window.ingest(sensor)
+        window = self._mmwave_window.latest()
+        diagnostics = {
+            "canonical_window_status": window.status,
+            "missing": missing,
+            **window.metadata,
+        }
+        if window.status != "CANONICAL_WINDOW_READY" or window.tensor is None:
             return self._unavailable(
                 "mmwave",
                 now,
-                "INPUT_UNAVAILABLE",
-                {"missing": ["respiration_phase_window[300]"], "required_sample_rate_hz": 10},
+                window.reason or window.status,
+                diagnostics,
+                state=window.status,
+            )
+        presence = values.get("presence")
+        presence_available = values.get("presence_available") is True
+        if presence_available is not True or not isinstance(presence, bool):
+            return self._suppressed(
+                "mmwave",
+                now,
+                "PRESENCE_STATE_UNAVAILABLE",
+                {
+                    **diagnostics,
+                    "suppressed": True,
+                    "suppression_reason": "PRESENCE_STATE_UNAVAILABLE",
+                },
+            )
+        if presence is False:
+            return self._suppressed(
+                "mmwave",
+                now,
+                "NO_VALID_PERSON",
+                {
+                    **diagnostics,
+                    "suppressed": True,
+                    "suppression_reason": "NO_VALID_PERSON",
+                    "presence_valid": False,
+                },
             )
         try:
-            prediction = self.models["mmwave"].predict(window)
+            prediction = self.models["mmwave"].predict(window.tensor)
             if bool(getattr(prediction, "fallback_used", False)):
                 return self._unavailable(
                     "mmwave",
                     now,
                     "MODEL_RUNTIME_UNAVAILABLE",
                     {
+                        **diagnostics,
                         "heuristic_state": prediction.class_name,
                         "fallback_reason": getattr(prediction, "fallback_reason", None),
                     },
                 )
-            risk = {"NORMAL": 0.0, "RAPID_OR_ABNORMAL": 0.5, "APNEA": 1.0}
+            risk = {"NORMAL": 0.0, "RAPID_OR_ABNORMAL": 0.5, "APNEA-proxy": 1.0}
             return self._prediction_result(
                 "mmwave",
                 prediction,
                 now,
                 score=risk.get(prediction.class_name, 0.5),
-                metadata={"probabilities": list(prediction.probabilities), "apnea_verified": False},
+                metadata={
+                    **diagnostics,
+                    "probabilities": list(prediction.probabilities),
+                    "dequantized_scores": list(prediction.probabilities),
+                    "model_sha256": getattr(prediction, "model_sha256", None),
+                    "contract_id": "MMWAVE_MR60_COMPAT_INPUT_DATASET_V1",
+                    "presence_valid": True,
+                    "suppressed": False,
+                    "canonical_window_status": window.status,
+                    "apnea_verified": False,
+                },
             )
         except Exception as error:
-            return self._model_error("mmwave", now, error)
+            return self._model_error("mmwave", now, error, diagnostics)
 
     def _co2(self, sensor: dict[str, object], now: float) -> AIResult:
         unavailable = self._sensor_unavailable("co2", sensor, now)
@@ -225,16 +271,48 @@ class OnDeviceAIPipeline:
         now: float,
         error: str,
         metadata: dict[str, object] | None = None,
+        *,
+        state: str = "INPUT_UNAVAILABLE",
     ) -> AIResult:
         return AIResult(
             sensor_id=sensor_id,
             timestamp=now,
             available=False,
             source="unavailable",
-            state="INPUT_UNAVAILABLE",
+            state=state,
             error=error,
             metadata=metadata or {},
         )
+
+    @staticmethod
+    def _suppressed(
+        sensor_id: str,
+        now: float,
+        reason: str,
+        metadata: dict[str, object],
+    ) -> AIResult:
+        """Represent an intentional safety gate, not an invalid neural class."""
+        return AIResult(
+            sensor_id=sensor_id,
+            timestamp=now,
+            available=False,
+            source="unavailable",
+            state="RESPIRATORY_INFERENCE_SUPPRESSED",
+            error=reason,
+            metadata=metadata,
+        )
+
+
+def _mmwave_missing_fields(values: dict[str, object]) -> list[str]:
+    missing: list[str] = []
+    for field in ("breath_phase", "ts_monotonic_ms", "phase_age_ms"):
+        if not _finite_number(values.get(field)):
+            missing.append(field)
+    if not isinstance(values.get("human_detected_raw"), bool) and not isinstance(
+        values.get("presence"), bool
+    ):
+        missing.append("human_detected_raw")
+    return missing
 
 
 def _finite_number(value: object) -> bool:

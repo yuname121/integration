@@ -136,7 +136,7 @@ class HILCriteriaTests(unittest.TestCase):
 
     def test_preflight_model_hashes_match_manifest(self):
         checks = _model_hash_checks()
-        self.assertEqual(len(checks), 4)
+        self.assertEqual(len(checks), 5)
         self.assertTrue(all(check["passed"] for check in checks), checks)
 
 

@@ -176,6 +176,53 @@ class ProtocolDecodeTests(unittest.TestCase):
         packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 9, payload))
         self.assertIsNone(packet.boot_id)
         self.assertIsNone(packet.co2_measurement_event_id)
+        self.assertIsNone(packet.breath_phase)
+        self.assertIsNone(packet.ts_monotonic_ms)
+        self.assertIsNone(packet.phase_age_ms)
+        self.assertIsNone(packet.human_detected_raw)
+        self.assertEqual(packet.respiration_rate_bpm, 16.2)
+
+    def test_nested_esp_mmwave_phase_trio_is_promoted(self) -> None:
+        payload = telemetry_payload(
+            11,
+            mmwave={
+                "breath_phase": -0.136825,
+                "total_phase": 1.0,
+                "heart_phase": 0.2,
+                "breath_rate_raw": 7.0,
+                "phase_age_ms": 12,
+                "ts_monotonic_ms": 3718,
+                "seq": 42,
+                "firmware_version": "safenest-esp32-sensor-node/1.2.0",
+                "schema_version": "1.2",
+            },
+        )
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 11, payload))
+        self.assertEqual(packet.header.sequence, 11)
+        self.assertAlmostEqual(packet.breath_phase, -0.136825)
+        self.assertEqual(packet.ts_monotonic_ms, 3718.0)
+        self.assertEqual(packet.phase_age_ms, 12.0)
+        self.assertIsNone(packet.human_detected_raw)
+
+    def test_top_level_phase_fields_win_over_nested_mmwave(self) -> None:
+        payload = telemetry_payload(
+            12,
+            breath_phase=1.5,
+            ts_monotonic_ms=100.0,
+            phase_age_ms=3.0,
+            human_detected_raw=True,
+            mmwave={
+                "breath_phase": 9.9,
+                "ts_monotonic_ms": 1,
+                "phase_age_ms": 1,
+                "human_detected_raw": False,
+            },
+        )
+        packet = decode_from_socket(wire_packet(PACKET_TELEMETRY_JSON, 12, payload))
+        self.assertEqual(packet.breath_phase, 1.5)
+        self.assertEqual(packet.ts_monotonic_ms, 100.0)
+        self.assertEqual(packet.phase_age_ms, 3.0)
+        self.assertTrue(packet.human_detected_raw)
 
     def test_event_provenance_rejects_bad_types_ranges_and_mismatch(self) -> None:
         cases = (

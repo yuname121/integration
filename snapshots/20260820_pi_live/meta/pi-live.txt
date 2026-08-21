@@ -1,0 +1,62 @@
+Thu 20 Aug 00:29:56 KST 2026
+sandi
+192.168.137.249 
+===PROC===
+1772 /home/sandi/safenest-runtime/.venv/bin/python backend/run_backend.py
+1801 /usr/lib/chromium/chromium --force-renderer-accessibility --enable-remote-extensions --show-component-extension-options --enable-gpu-rasterization --no-default-browser-check --disable-pings --media-router=0 --enable-remote-extensions --load-extension --use-angle=gles --ozone-platform=wayland --kiosk --noerrdialogs --disable-session-crashed-bubble --disable-infobars --user-data-dir=/tmp/safenest-lcd-chromium http://127.0.0.1:8000/display
+1826 /usr/lib/chromium/chromium --type=zygote --no-zygote-sandbox --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable
+1827 /usr/lib/chromium/chromium --type=zygote --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable
+1830 /usr/lib/chromium/chromium --type=zygote --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable
+1858 /usr/lib/chromium/chromium --type=gpu-process --enable-gpu-rasterization --ozone-platform=wayland --render-node-override=/dev/dri/card1 --use-angle=gles --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --gpu-preferences=YAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAASAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --metrics-shmem-handle=4,i,13035824512001196070,1043546949761826486,262144 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190708988185955192
+1863 /usr/lib/chromium/chromium --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-GB --service-sandbox-type=none --use-angle=gles --render-node-override=/dev/dri/card1 --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,8975953359573527288,6158924723920028542,524288 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190708989122997041
+1874 /usr/lib/chromium/chromium --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-GB --service-sandbox-type=utility --use-angle=gles --render-node-override=/dev/dri/card1 --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,9589750060647637848,12960247587836854296,524288 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190708990060038890
+1917 /usr/lib/chromium/chromium --type=renderer --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --ozone-platform=wayland --lang=en-GB --num-raster-threads=2 --enable-main-frame-before-activation --renderer-client-id=7 --time-ticks-at-unix-epoch=-1787151537539897 --launch-time-ticks=70636845 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,5969458468540928788,10973584917934563265,2097152 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190708992871164437
+1939 /usr/lib/chromium/chromium --type=renderer --top-chrome-webui --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --ozone-platform=wayland --lang=en-GB --num-raster-threads=2 --enable-main-frame-before-activation --renderer-client-id=9 --time-ticks-at-unix-epoch=-1787151537539897 --launch-time-ticks=71113521 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,13108821277441233623,2507917910102182906,2097152 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190708994745248135
+1948 /usr/lib/chromium/chromium --type=renderer --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --ozone-platform=wayland --lang=en-GB --num-raster-threads=2 --enable-main-frame-before-activation --renderer-client-id=10 --time-ticks-at-unix-epoch=-1787151537539897 --launch-time-ticks=71229044 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,4948358013433711806,9413824271887662225,2097152 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190708995682289984
+2090 /usr/lib/chromium/chromium --type=utility --utility-sub-type=on_device_model.mojom.OnDeviceModelService --lang=en-GB --service-sandbox-type=on_device_model_execution --use-angle=gles --render-node-override=/dev/dri/card1 --crashpad-handler-pid=0 --enable-crash-reporter=,built on Debian GNU/Linux 13 (trixie) --noerrdialogs --user-data-dir=/tmp/safenest-lcd-chromium --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,17026837160935421427,1317071690250884721,524288 --field-trial-handle=3,i,15642765263622743826,619164692813248065,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,9501334158183168354,4767801770456102755,4 --trace-process-track-uuid=3190709012549043266
+===LISTEN===
+LISTEN 0      2048         0.0.0.0:8000      0.0.0.0:*    users:(("python",pid=1772,fd=18))
+LISTEN 0      2            0.0.0.0:9000      0.0.0.0:*    users:(("python",pid=1772,fd=16))
+UNCONN 0      0            0.0.0.0:5005       0.0.0.0:*    users:(("python",pid=1772,fd=17))
+===ESTAB9000===
+none
+===GIT===
+c3f95b80c04b084e32990f464fa6dffba838ec1c
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   RaspberryPi/Runtime/backend/app.py
+	modified:   RaspberryPi/Runtime/data/co2/.gitkeep
+	modified:   RaspberryPi/Runtime/data/mmwave/.gitkeep
+	modified:   RaspberryPi/Runtime/data/thermal/.gitkeep
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	start_runtime_lcd.sh
+	stop_runtime_lcd.sh
+
+no changes added to commit (use "git add" and/or "git commit -a")
+===DIFF_APP===
+diff --git a/RaspberryPi/Runtime/backend/app.py b/RaspberryPi/Runtime/backend/app.py
+index 5cba1a4..94505c2 100644
+--- a/RaspberryPi/Runtime/backend/app.py
++++ b/RaspberryPi/Runtime/backend/app.py
+@@ -129,6 +129,15 @@ def create_app(
+     def display() -> Any:
+         return FileResponse(LCD_STATIC / "display.html")
+ 
++    @app.get("/common.css", include_in_schema=False)
++    def lcd_common_css() -> Any:
++        return FileResponse(LCD_STATIC / "common.css", media_type="text/css")
++
++    @app.get("/control", include_in_schema=False)
++    @app.get("/control/", include_in_schema=False)
++    def lcd_control() -> Any:
++        return FileResponse(LCD_STATIC / "control.html")
++
+     def require_admin(request: Request) -> None:
+         authorization = request.headers.get("authorization", "")
+         scheme, _, token = authorization.partition(" ")

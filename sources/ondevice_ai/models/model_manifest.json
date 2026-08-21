@@ -96,7 +96,7 @@
       "DEVICE_VALIDATED": false,
       "PI_SMOKE": "NOT_PERFORMED",
       "PRESENCE_GATE_REQUIRED": true,
-      "runtime_adapter_compatible": false,
+      "runtime_adapter_compatible": true,
       "runtime_role": "ACTIVE_M_N9",
       "active_runtime_selector": true,
       "HISTORICAL_B_NOT_ACTIVE": true,
@@ -141,7 +141,7 @@
       "class_map": {
         "0": "NORMAL",
         "1": "RAPID_OR_ABNORMAL",
-        "2": "APNEA"
+        "2": "APNEA-proxy"
       },
       "class_semantics": {
         "NORMAL": "SafeNest rest-condition proxy, not a clinical diagnosis",

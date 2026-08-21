@@ -1,0 +1,19 @@
+{
+  "phase": "SafeNest integration mmWave M-N9 runtime wiring",
+  "integration_base_sha": "9b888a9654d73984ea124d8d8f25f26a73df2c8a",
+  "model_id": "MMWAVE_M_N9_FULL_INT8_V1",
+  "model_sha256": "3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4",
+  "contract_id": "MMWAVE_MR60_COMPAT_INPUT_DATASET_V1",
+  "runtime_adapter_compatible": true,
+  "replay_type": "SYNTHETIC_RUNTIME_FIXTURE_ONLY",
+  "real_mr60_replay_available": false,
+  "synthetic_replay_rows": 246,
+  "synthetic_genuine_phase_events": 246,
+  "synthetic_canonical_windows": 2,
+  "synthetic_m_n9_invocations": 2,
+  "presence_suppression_test": "PASS",
+  "raw_freshness_persistence_test": "PASS",
+  "pi_device_smoke": "NOT_PERFORMED_ENVIRONMENT_UNAVAILABLE",
+  "live_mr60_stream": "NOT_PERFORMED",
+  "device_validated": false
+}

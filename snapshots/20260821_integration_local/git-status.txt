@@ -1,0 +1,16 @@
+## feature/mmwave-mn9-nested-runtime-wiring...origin/main [ahead 1]
+ M ai/pipeline.py
+ M backend/runtime_status.py
+ M backend/views.py
+ M gateway/protocol.py
+ M risk/engine.py
+ M tests/test_ai_pipeline.py
+ M tests/test_gateway_protocol.py
+ M tests/test_mmwave_mn9_runtime.py
+ M tests/test_runtime_status.py
+ M tests/test_stage7_offline_preflight.py
+?? "ai/mmwave_canonical_runtime 2.py"
+?? "docs/mmwave/20260818_SafeNest_mmWave_M-N9_Runtime_Wiring_Handoff_KO_01 2.md"
+?? snapshots/
+?? "sources/ondevice_ai/inference/mmwave_m_n9_interpreter 2.py"
+?? "tests/test_mmwave_mn9_runtime 2.py"

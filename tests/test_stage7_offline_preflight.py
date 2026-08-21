@@ -153,11 +153,18 @@ class Stage7OfflinePreflightTests(unittest.TestCase):
         self.assertEqual(document["pir"]["runtime_status"]["ai_status"], "NOT_APPLICABLE")
         self.assertEqual(document["pir"]["runtime_status"]["sensor_value_status"], "NO_MOTION")
         self.assertEqual(document["co2"]["runtime_status"]["ai_status"], "ACTIVE")
-        self.assertEqual(document["mmwave"]["runtime_status"]["ai_status"], "MODEL_PENDING")
-        self.assertEqual(document["mmwave"]["runtime_status"]["blocked_reason"], "MR60_NATIVE_MODEL_PENDING")
+        self.assertEqual(document["mmwave"]["runtime_status"]["ai_status"], "BLOCKED")
+        self.assertEqual(
+            document["mmwave"]["runtime_status"]["blocked_reason"],
+            "CANONICAL_FRESHNESS_METADATA_MISSING",
+        )
         blocked = runtime_status_document(state(), {})
         self.assertNotEqual(blocked["sensors"]["co2"]["ai_status"], "ACTIVE")
-        self.assertEqual(blocked["sensors"]["mmwave"]["ai_status"], "MODEL_PENDING")
+        self.assertEqual(blocked["sensors"]["mmwave"]["ai_status"], "BLOCKED")
+        self.assertEqual(
+            blocked["sensors"]["mmwave"]["blocked_reason"],
+            "CANONICAL_FRESHNESS_METADATA_MISSING",
+        )
 
     def test_bundle_verifier_includes_runtime_status_module(self) -> None:
         result = verify(ROOT)
