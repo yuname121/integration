@@ -2,15 +2,16 @@
 
 from __future__ import annotations
 
-from collections import deque
 import math
 import time
 from typing import Mapping
 
 from ai.result import AIResult
 from ai.runtime import LazyModel
+from ai.co2_canonical_runtime import CO2SlopeWindowBuilder
 from ai.mmwave_canonical_runtime import MR60CanonicalWindowBuilder
-from gateway.protocol import ThermalFrame
+from ai.mmwave_spectral_runtime import estimate_respiration
+from gateway.protocol import TelemetryPayload, ThermalFrame
 from state.manager import SensorStateManager
 
 
@@ -29,9 +30,59 @@ class OnDeviceAIPipeline:
             for sensor_id in ("thermal", "mmwave", "co2")
         }
         self._clock = clock
-        self._co2_history: deque[tuple[float, float]] = deque(maxlen=30)
-        self._last_co2_sequence: int | None = None
         self._mmwave_window = MR60CanonicalWindowBuilder()
+        self._mmwave_wire_observed = False
+        self._co2_window = CO2SlopeWindowBuilder()
+        self._co2_wire_observed = False
+
+    def observe_telemetry(self, packet: TelemetryPayload) -> None:
+        """Accumulate the MR60 phase stream at wire rate, not at publication rate.
+
+        Both accumulators are fed here. The M-N4 canonical window needs 30
+        continuous seconds of ~8 Hz phase events with no gap wider than
+        ``max(400 ms, 4x median dt)``, and the C-B6 CO2 slope needs >=150 s of
+        measurement-event history. Feeding either from ``evaluate`` would sample
+        the stream once per publication interval (15 s by default), which can
+        never satisfy those contracts.
+        """
+
+        self._mmwave_window.ingest(
+            {
+                "sequence": packet.header.sequence,
+                "boot_id": packet.boot_id,
+                "values": {
+                    "breath_phase": packet.breath_phase,
+                    "ts_monotonic_ms": packet.ts_monotonic_ms,
+                    "phase_age_ms": packet.phase_age_ms,
+                    "session_id": packet.session_id,
+                },
+            }
+        )
+        self._mmwave_wire_observed = True
+        self.observe_co2(
+            {
+                "device_id": packet.device_id,
+                "boot_id": packet.boot_id,
+                "values": {
+                    "measurement_event_valid": packet.co2_measurement_event_valid,
+                    "measurement_event_id": packet.co2_measurement_event_id,
+                    "measurement_monotonic_ms": packet.co2_measurement_monotonic_ms,
+                    "latest_measurement_ppm": packet.co2_ppm,
+                },
+            }
+        )
+
+    def observe_co2(self, sensor: Mapping[str, object]) -> None:
+        """Accumulate CO2 measurement events at state-update rate.
+
+        The canonical slope needs >=150 s of source-clock history anchored on
+        ``measurement_event_id``; sampling it from the publication loop would
+        both starve the history and let the 60 s presentation throttle
+        masquerade as the physical measurement cadence.
+        """
+
+        self._co2_window.observe(sensor)
+        self._co2_wire_observed = True
 
     def evaluate(
         self,
@@ -99,7 +150,10 @@ class OnDeviceAIPipeline:
             return unavailable
         values = sensor.get("values") if isinstance(sensor.get("values"), dict) else {}
         missing = _mmwave_missing_fields(values)
-        self._mmwave_window.ingest(sensor)
+        if not self._mmwave_wire_observed:
+            # Snapshot-driven callers (offline replay, unit tests) have no wire
+            # feed; live runtimes use observe_telemetry and must not double-count.
+            self._mmwave_window.ingest(sensor)
         window = self._mmwave_window.latest()
         diagnostics = {
             "canonical_window_status": window.status,
@@ -139,6 +193,19 @@ class OnDeviceAIPipeline:
                     "presence_valid": False,
                 },
             )
+        # Deterministic DSP readout of the same canonical window. It is the
+        # trustworthy respiration signal while M-N9 is DEVICE_VALIDATED: NO, and
+        # it is what contradicts a physically impossible APNEA-proxy class.
+        spectral = estimate_respiration(window.tensor)
+        diagnostics = {
+            **diagnostics,
+            "spectral_status": spectral.status,
+            "spectral_rate_rpm": spectral.rate_rpm,
+            "spectral_band_power_fraction": spectral.band_power_fraction,
+            "spectral_hold_evidence": spectral.hold_evidence,
+            "spectral_contradicts_apnea": spectral.contradicts_apnea,
+            **spectral.metadata,
+        }
         try:
             prediction = self.models["mmwave"].predict(window.tensor)
             if bool(getattr(prediction, "fallback_used", False)):
@@ -151,6 +218,25 @@ class OnDeviceAIPipeline:
                         "heuristic_state": prediction.class_name,
                         "fallback_reason": getattr(prediction, "fallback_reason", None),
                     },
+                )
+            if (
+                str(prediction.class_name) in _APNEA_STATES
+                and spectral.contradicts_apnea
+            ):
+                # The window is periodic in the respiration band and contains no
+                # quiet stretch as long as the 6 s hold the APNEA label requires,
+                # so a breath-hold did not occur. Refuse rather than publish it.
+                return self._unavailable(
+                    "mmwave",
+                    now,
+                    "APNEA_CONTRADICTED_BY_SPECTRUM",
+                    {
+                        **diagnostics,
+                        "refused_class": str(prediction.class_name),
+                        "refused_confidence": float(prediction.confidence),
+                        "refused_probabilities": list(prediction.probabilities),
+                    },
+                    state="RESPIRATORY_INFERENCE_REFUSED",
                 )
             risk = {"NORMAL": 0.0, "RAPID_OR_ABNORMAL": 0.5, "APNEA-proxy": 1.0}
             return self._prediction_result(
@@ -177,35 +263,46 @@ class OnDeviceAIPipeline:
         unavailable = self._sensor_unavailable("co2", sensor, now)
         if unavailable:
             return unavailable
-        values = sensor.get("values", {})
-        ppm = values.get("ppm")
-        humidity = values.get("humidity_percent")
-        if not _finite_number(ppm) or not _finite_number(humidity):
+        if not self._co2_wire_observed:
+            # Snapshot-driven callers (offline replay, unit tests) have no wire feed.
+            self._co2_window.observe(sensor)
+        slope = self._co2_window.latest()
+        diagnostics = dict(slope.metadata)
+        if not slope.ready or slope.ppm is None or slope.slope_ppm_per_min is None:
             return self._unavailable(
-                "co2", now, "INPUT_UNAVAILABLE", {"missing": ["humidity_percent", "co2_slope"]}
+                "co2",
+                now,
+                slope.reason or slope.status,
+                diagnostics,
+                state=slope.status,
             )
-        sequence = sensor.get("sequence")
-        sample_time = sensor.get("last_update")
-        if sequence != self._last_co2_sequence and _finite_number(sample_time):
-            self._co2_history.append((float(sample_time), float(ppm)))
-            self._last_co2_sequence = sequence
-        if len(self._co2_history) < 2:
-            return self._unavailable("co2", now, "WINDOW_WARMING_UP")
-        elapsed_minutes = (self._co2_history[-1][0] - self._co2_history[0][0]) / 60.0
-        if elapsed_minutes <= 0:
-            return self._unavailable("co2", now, "WINDOW_WARMING_UP")
-        slope = (self._co2_history[-1][1] - self._co2_history[0][1]) / elapsed_minutes
+        diagnostics["co2_slope_ppm_per_min"] = slope.slope_ppm_per_min
         try:
-            prediction = self.models["co2"].predict(slope, float(humidity), float(ppm))
+            # C-B6 reduced contract: ppm and ppm/min only. Humidity and
+            # temperature are in forbidden_additional_inputs.
+            prediction = self.models["co2"].predict(slope.ppm, slope.slope_ppm_per_min)
             return self._prediction_result(
                 "co2",
                 prediction,
                 now,
-                score=1.0 if prediction.class_name == "OCCUPIED" else 0.0,
-                metadata={"probabilities": list(prediction.probabilities), "co2_slope_ppm_per_min": slope},
+                # class_map declares risk_semantic NONE / safety_semantic NONE, so
+                # occupancy must not enter the safety score as a hazard weight.
+                score=0.0,
+                metadata={
+                    **diagnostics,
+                    "probabilities": list(prediction.probabilities),
+                    "occupancy_probability": getattr(prediction, "occupancy_probability", None),
+                    "threshold": getattr(prediction, "threshold", None),
+                    "contract_id": getattr(prediction, "contract_id", None),
+                    "model_sha256": getattr(prediction, "model_sha256", None),
+                    "risk_semantic": getattr(prediction, "risk_semantic", "NONE"),
+                    "safety_semantic": getattr(prediction, "safety_semantic", "NONE"),
+                    "risk_contribution_deferred": True,
+                    "humidity_required": False,
+                },
             )
         except Exception as error:
-            return self._model_error("co2", now, error)
+            return self._model_error("co2", now, error, diagnostics)
 
     @staticmethod
     def _pir(sensor: dict[str, object], now: float) -> AIResult:
@@ -301,6 +398,9 @@ class OnDeviceAIPipeline:
             error=reason,
             metadata=metadata,
         )
+
+
+_APNEA_STATES = frozenset({"APNEA", "APNEA-proxy"})
 
 
 def _mmwave_missing_fields(values: dict[str, object]) -> list[str]:

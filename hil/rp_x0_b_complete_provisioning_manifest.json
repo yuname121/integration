@@ -1,7 +1,7 @@
 {
   "classification": "INTEGRATION_B_STAGE_ARTIFACT_SYNC",
   "not_a_production_model_manifest": true,
-  "production_selection_changed": false,
+  "production_selection_changed": true,
   "live_device_validation_claimed": false,
   "mmwave_live_b_gate": "CLOSED",
   "thermal44_deployment_validated": false,
@@ -30,14 +30,32 @@
       "source_git_commit": "1e6f2604dec31ac7fa6c82ddcb47ad1a60a7c216",
       "source_git_path": "models/co2/candidates/c_b6/full_integer_int8.tflite",
       "destination": "sources/ondevice_ai/models/rp_x0_b_complete/co2/C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite",
-      "input_shape": [1, 2],
+      "input_shape": [
+        1,
+        2
+      ],
       "input_dtype": "int8",
-      "input_quantization": {"scale": 0.03921568766236305, "zero_point": 0},
-      "output_shape": [1, 1],
+      "input_quantization": {
+        "scale": 0.03921568766236305,
+        "zero_point": 0
+      },
+      "output_shape": [
+        1,
+        1
+      ],
       "output_dtype": "int8",
-      "output_quantization": {"scale": 0.00390625, "zero_point": -128},
-      "feature_order": ["CO2", "CO2_slope"],
-      "forbidden_additional_inputs": ["Temperature", "Humidity"],
+      "output_quantization": {
+        "scale": 0.00390625,
+        "zero_point": -128
+      },
+      "feature_order": [
+        "CO2",
+        "CO2_slope"
+      ],
+      "forbidden_additional_inputs": [
+        "Temperature",
+        "Humidity"
+      ],
       "preprocessing_profile_id": "CO2_C_B6_TRAIN_ONLY_STANDARD_SCALER_001",
       "slope_profile_id": "CO2_SLOPE_FEATURE_PROFILE_001",
       "slope_method": "ENDPOINT_DIFFERENCE",
@@ -45,17 +63,28 @@
       "history_seconds": 150.0,
       "minimum_source_samples": 2,
       "max_internal_gap_seconds": 90.0,
-      "scaler_mean": [606.5058118345612, 0.011527303414630624],
-      "scaler_scale": [314.3524240597083, 5.661675596121919],
+      "scaler_mean": [
+        606.5058118345612,
+        0.011527303414630624
+      ],
+      "scaler_scale": [
+        314.3524240597083,
+        5.661675596121919
+      ],
       "threshold": 0.43,
       "historical_b5_threshold_not_inherited": 0.58,
-      "deployment_status": "AVAILABLE_NOT_PRODUCTION_SELECTED",
-      "runtime_adapter_compatible": false,
+      "deployment_status": "PRODUCTION_SELECTED_C_B6",
+      "runtime_adapter_compatible": true,
       "live_sensor_contract_validated": false,
       "known_limitations": [
-        "production adapter still uses historical [CO2_slope, humidity, CO2] v0.1.0",
-        "physical-event SCD4x fields still required before live C-B6"
-      ]
+        "physical-event SCD4x fields are now supplied by the ESP telemetry contract (co2_measurement_event_id / co2_measurement_monotonic_ms / co2_measurement_event_valid), which the runtime slope builder anchors on",
+        "threshold 0.43 is TRAIN_INTERNAL_ONLY and not device validated",
+        "scaler and calibration are UCI-domain; SCD40 alignment remains phase C-C",
+        "occupancy output carries risk_semantic NONE / safety_semantic NONE and must not be fused into the safety risk score"
+      ],
+      "runtime_adapter": "sources/ondevice_ai/inference/co2_c_b6_interpreter.py::CB6Interpreter",
+      "runtime_slope_builder": "ai/co2_canonical_runtime.py::CO2SlopeWindowBuilder",
+      "manifest_selector_key": "co2_occupancy_c_b6"
     },
     {
       "sensor": "thermal",
@@ -70,12 +99,26 @@
       "source_git_path": "models/thermal/candidates/t_b5/SMALL_CNN_BASELINE_V1_P1_full_int8.tflite",
       "destination": "sources/ondevice_ai/models/rp_x0_b_complete/thermal/SMALL_CNN_BASELINE_V1_P1_full_int8.tflite",
       "do_not_substitute": "sources/ondevice_ai/models/thermal/thermal_fall_int8_v0.1.0.tflite",
-      "input_shape": [1, 62, 80, 1],
+      "input_shape": [
+        1,
+        62,
+        80,
+        1
+      ],
       "input_dtype": "int8",
-      "input_quantization": {"scale": 0.31791284680366516, "zero_point": -125},
-      "output_shape": [1, 3],
+      "input_quantization": {
+        "scale": 0.31791284680366516,
+        "zero_point": -125
+      },
+      "output_shape": [
+        1,
+        3
+      ],
       "output_dtype": "int8",
-      "output_quantization": {"scale": 0.00390625, "zero_point": -128},
+      "output_quantization": {
+        "scale": 0.00390625,
+        "zero_point": -128
+      },
       "class_map": {
         "0": "NOT_HUMAN",
         "1": "HUMAN_NORMAL",
@@ -106,12 +149,25 @@
       "source_git_commit": "94d1a22844aff8eea22cdc3cf6f0c634a6b12aa2",
       "source_git_path": "models/mmwave/experiments/M-B6_stage_equivalence/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
       "destination": "sources/ondevice_ai/models/rp_x0_b_complete/mmwave/M-B3_CONV1D_GAP_BASELINE_seed42_M-B5_CAL_CLASS_BALANCED_120_int8.tflite",
-      "input_shape": [1, 300, 1],
+      "input_shape": [
+        1,
+        300,
+        1
+      ],
       "input_dtype": "int8",
-      "input_quantization": {"scale": 0.041720833629369736, "zero_point": -3},
-      "output_shape": [1, 3],
+      "input_quantization": {
+        "scale": 0.041720833629369736,
+        "zero_point": -3
+      },
+      "output_shape": [
+        1,
+        3
+      ],
       "output_dtype": "int8",
-      "output_quantization": {"scale": 0.00390625, "zero_point": -128},
+      "output_quantization": {
+        "scale": 0.00390625,
+        "zero_point": -128
+      },
       "preprocessing_profile_id": "M-B1_D0_B1_Z1",
       "preprocessing_profile_name": "BPF_ZSCORE",
       "execution_preprocessing_contract_id": "M-B10B_SELECTED_REAL_CANDIDATE_BPF_ZSCORE_V1",
@@ -134,5 +190,11 @@
         "real breath_phase cadence/unit/window compatibility still requires evidence review"
       ]
     }
+  ],
+  "production_selection_change_scope": "CO2_ONLY_C_B6_REDUCED_FEATURE",
+  "production_selection_change_notes": [
+    "Only the CO2 selector is promoted. mmwave_live_b_gate stays CLOSED and the mmWave M-B3 artifact stays HISTORICAL_B_NOT_ACTIVE.",
+    "thermal44_deployment_validated stays false; the thermal selector is unchanged.",
+    "C-B6 remains DEVICE_VALIDATED=NO with TRAIN_INTERNAL_ONLY threshold and UCI-domain calibration; SCD40 domain alignment remains phase C-C."
   ]
 }

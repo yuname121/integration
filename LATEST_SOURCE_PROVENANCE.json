@@ -10,10 +10,16 @@
   "latest_component_source": "77b1695ac66fd595bd037e4574d1626b8917654c",
   "ondevice_ai_snapshot": {
     "source": "origin/main:ondevice_ai",
-      "tracked_file_count": 1075,
+    "tracked_file_count": 1076,
     "intermediate_release_changes": 489,
     "copied_without_source_edits": false,
-    "file_count_excludes": ["models/rp_x0_b_complete"]
+    "file_count_excludes": [
+      "models/rp_x0_b_complete"
+    ],
+    "snapshot_additions": [
+      "inference/mmwave_m_n9_interpreter.py",
+      "inference/co2_c_b6_interpreter.py"
+    ]
   },
   "locked_b_stage_overlay": {
     "source": "https://github.com/sheepmeat/test.git",
@@ -21,7 +27,7 @@
     "not_part_of_frozen_ondevice_ai_snapshot": true,
     "production_model_manifest_unchanged": false,
     "file_count": 19,
-    "runtime_role": "HISTORICAL_B_STAGE"
+    "runtime_role": "HISTORICAL_B_STAGE_EXCEPT_CO2_C_B6"
   },
   "mmwave_m_n9_import": {
     "source_ai_sha": "390f3be3d75987a79a0e0438ba8a9d5e9e19dc97",
@@ -32,6 +38,23 @@
     "PI_SMOKE": "NOT_PERFORMED",
     "layout": "sources/ondevice_ai/models/mmwave/m_n9"
   },
+  "esp32_firmware_presence_field": {
+    "node_firmware_version": "safenest-esp32-sensor-node/1.3.0",
+    "mmwave_schema_version": "1.3",
+    "added_field": "mmwave.human_detected_raw",
+    "wire_semantics": "TRI_STATE_TRUE_FALSE_NULL",
+    "null_means": "NO_RECENT_0x0F09_REPORT_NOT_ABSENCE",
+    "source": "MR60BHA2 0x0F09 ReportHumanDetection, verbatim boolean",
+    "presence_stabilization_applied": false,
+    "occupancy_threshold_invented": false,
+    "library_getter_rejected": "SEEED_MR60BHA2::isHumanDetected() conflates unknown with absent",
+    "acquisition": "SafeNestMR60BHA2::handleType override, post-checksum",
+    "backward_compatible": true,
+    "committed_captures_contain_field": false,
+    "audit_inject_presence_still_required": true,
+    "DEVICE_VALIDATED": "NO",
+    "PI_SMOKE": "NOT_PERFORMED"
+  },
   "integration_policy": {
     "sources_display_test2_esp32_sensor_node": "maintained_active_flash_source_exception",
     "sources_ondevice_ai": "frozen_upstream_snapshot",
@@ -41,6 +64,25 @@
     "mmwave_primary_v0_1_0": "historical_retained_not_active",
     "mmwave_offline_candidate_lock_v1": "included_for_provenance_not_promoted",
     "co2_c_b5_candidate": "included_for_provenance_not_promoted",
-    "runtime_failure_mode": "rule_based_fallback"
+    "runtime_failure_mode": "rule_based_fallback",
+    "co2_c_b6_candidate": "promoted_active_reduced_feature_selector",
+    "co2_humidity_contract": "forbidden_by_c_b6_input_contract"
+  },
+  "co2_c_b6_promotion": {
+    "artifact_id": "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001",
+    "artifact_sha256": "c5969b367f5b5e28c4d27f1bdd6220f7d02da92e99604e3f85c9f1291e98dd3b",
+    "manifest_selector_key": "co2_occupancy_c_b6",
+    "active_runtime_selector": true,
+    "supersedes": "co2_occupancy_int8_v0.1.0 (co2_slope_humidity_co2_ppm)",
+    "input_contract": "CO2 ppm + CO2_slope ppm/min; humidity and temperature forbidden",
+    "slope_profile": "CO2_SLOPE_FEATURE_PROFILE_001",
+    "runtime_adapter": "inference/co2_c_b6_interpreter.py::CB6Interpreter",
+    "runtime_slope_builder": "ai/co2_canonical_runtime.py::CO2SlopeWindowBuilder",
+    "risk_semantic": "NONE",
+    "safety_semantic": "NONE",
+    "DEVICE_VALIDATED": "NO",
+    "PI_SMOKE": "NOT_PERFORMED",
+    "HISTORICAL_B_MMWAVE_STILL_NOT_ACTIVE": true,
+    "layout": "sources/ondevice_ai/models/rp_x0_b_complete/co2"
   }
 }

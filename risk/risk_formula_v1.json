@@ -1,0 +1,134 @@
+{
+  "formula_id": "SAFENEST_RISK_V1",
+  "formula_version": "1.0.0",
+  "authored_at": "2026-08-21",
+  "owner": "integration repository (not the frozen sources/ondevice_ai snapshot)",
+  "status": "first_pass_pre_sensor_connection",
+  "rationale": [
+    "Weights follow current evidence maturity, not the legacy V4 split.",
+    "CO2 is the only continuously trustworthy live signal and is the primary enclosed-space hazard.",
+    "Thermal INT8 has a real-field FLOAT/INT8 equivalence audit, so it is trusted equally with CO2.",
+    "mmWave M-N9 is DEVICE_VALIDATED=NO and emits an APNEA-proxy class, so it may raise WARNING but never DANGER on its own.",
+    "PIR is corroborating only and is unavailable, not zero, when presence is unconfirmed.",
+    "A weighted sum alone dilutes a single severe hazard, so per-signal escalation floors are applied on top of the score.",
+    "Reporting NORMAL from a small fraction of the sensor set is unsafe, so an evidence-sufficiency gate emits INDETERMINATE instead.",
+    "mmWave neural output is OBSERVE_ONLY by default; the respiration component is driven by a deterministic spectral readout of the same canonical window, which is exact on periodic signals and does not depend on an unvalidated model."
+  ],
+  "formula": "R = 100 * sum(w_i * s_i for available i) / sum(w_i for available i); level = max(level(R), escalation_floors)",
+  "weights": {
+    "mmwave": 0.25,
+    "co2": 0.3,
+    "pir": 0.15,
+    "thermal": 0.3
+  },
+  "thresholds": {
+    "warning_min": 30.0,
+    "danger_min": 65.0
+  },
+  "evidence": {
+    "minimum_effective_weight": 0.5,
+    "insufficient_evidence_level": "INDETERMINATE"
+  },
+  "ai_acceptance": {
+    "minimum_confidence": 0.4,
+    "minimum_top_two_margin": 0.15,
+    "comment": "A 3-class INT8 head near uniform output is not a decision; it is refused instead of scored."
+  },
+  "thermal": {
+    "fall_score_high_confidence": 1.0,
+    "fall_score_medium_confidence": 0.7,
+    "fall_score_low_confidence": 0.4,
+    "fall_high_confidence_min": 0.8,
+    "fall_medium_confidence_min": 0.6,
+    "emergency_confidence_min": 0.8,
+    "human_states": [
+      "HUMAN_NORMAL",
+      "HUMAN_FALL"
+    ],
+    "class_scores": {
+      "NOT_HUMAN": 0.0,
+      "NO_HUMAN": 0.0,
+      "HUMAN_NORMAL": 0.0
+    }
+  },
+  "mmwave": {
+    "neural_trust": "OBSERVE_ONLY",
+    "neural_trust_options": [
+      "OBSERVE_ONLY",
+      "TRUSTED"
+    ],
+    "neural_trust_reason": "MMWAVE_M_N9_FULL_INT8_V1 is DEVICE_VALIDATED: NO / PI_SMOKE: NOT_PERFORMED, was trained on 337 public windows with mr60_used_for_calibration false, and on the committed 20260817 capture emits high-confidence APNEA-proxy over a signal carrying 82% of its power in the respiration band with a clean 20 rpm peak. Until a device smoke or retrain lands, the neural class is recorded but does not score. Set TRUSTED only after DEVICE_VALIDATED becomes true.",
+    "respiration_rate_source_priority": [
+      "SPECTRAL_CANONICAL_WINDOW",
+      "MR60_BREATH_RATE_RAW"
+    ],
+    "spectral_min_band_power_fraction": 0.3,
+    "class_scores": {
+      "NORMAL": 0.0,
+      "RAPID_OR_ABNORMAL": 0.5,
+      "APNEA-proxy": 0.9,
+      "APNEA": 0.9
+    },
+    "apnea_states": [
+      "APNEA",
+      "APNEA-proxy"
+    ],
+    "apnea_warning_persistence": 2,
+    "respiration_normal_min_rpm": 10.0,
+    "respiration_normal_max_rpm": 24.0,
+    "respiration_abnormal_score": 0.5,
+    "respiration_abnormal_sustained_score": 0.75,
+    "respiration_abnormal_persistence": 3
+  },
+  "co2": {
+    "curve_ppm_to_score": [
+      [
+        600.0,
+        0.0
+      ],
+      [
+        1000.0,
+        0.15
+      ],
+      [
+        2000.0,
+        0.5
+      ],
+      [
+        5000.0,
+        0.9
+      ],
+      [
+        10000.0,
+        1.0
+      ]
+    ],
+    "warning_ppm": 1000.0,
+    "danger_ppm": 2500.0,
+    "immediate_danger_ppm": 5000.0,
+    "slope_warning_ppm_per_min": 15.0,
+    "slope_danger_ppm_per_min": 50.0,
+    "slope_warning_bonus": 0.1,
+    "slope_danger_bonus": 0.25,
+    "history_samples": 30
+  },
+  "pir": {
+    "no_motion_grace_seconds": 30.0,
+    "no_motion_danger_seconds": 180.0
+  },
+  "escalation_floors": {
+    "thermal_fall_confident": "DANGER",
+    "co2_immediate_danger": "DANGER",
+    "co2_danger": "WARNING",
+    "co2_fast_rise": "WARNING",
+    "pir_long_no_motion": "WARNING",
+    "mmwave_apnea_proxy_sustained": "WARNING",
+    "mmwave_apnea_hardware_verified": "DANGER"
+  },
+  "emergency_overrides": {
+    "thermal_fall_confident": true,
+    "mmwave_apnea_hardware_verified": true,
+    "mmwave_apnea_proxy": false,
+    "co2_immediate_danger": true
+  }
+}
