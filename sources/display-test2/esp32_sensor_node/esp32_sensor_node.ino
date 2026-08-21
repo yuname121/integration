@@ -63,9 +63,16 @@ constexpr uint32_t HEALTH_LOG_PERIOD_MS = 10000;
 constexpr uint32_t MMWAVE_STALE_MS = 5000;
 constexpr uint32_t CO2_STALE_MS = 15000;
 constexpr uint32_t PHASE_MAX_AGE_MS = 500;
+// The MR60 reports 0x0F09 occupancy on its own cadence, independent of the
+// 0x0A13 phase stream. This bound only has to outlive normal report gaps; once
+// it lapses the field goes null (unknown), which suppresses mmWave inference
+// rather than asserting an empty room.
+constexpr uint32_t PRESENCE_MAX_AGE_MS = 5000;
 constexpr char NODE_FIRMWARE_VERSION[] =
-    "safenest-esp32-sensor-node/1.2.0";
-constexpr char MMWAVE_SCHEMA_VERSION[] = "1.2";
+    "safenest-esp32-sensor-node/1.3.0";
+// 1.3 adds the optional nested mmwave.human_detected_raw field. Consumers that
+// predate it keep working: safenest.telemetry.v1 treats it as optional.
+constexpr char MMWAVE_SCHEMA_VERSION[] = "1.3";
 
 // -----------------------------------------------------------------------------
 // Thermal-camera constants (MI48xx + MI0801/MI0802, 80 x 62).
@@ -138,6 +145,11 @@ struct TelemetrySnapshot {
   bool heartValid;
   bool co2Valid;
   bool phaseSamplePresent;
+  // Tri-state MR60 occupancy. `humanDetectedKnown == false` must serialize as
+  // JSON null, never false: the Pi presence gate treats false as "room empty"
+  // and would then suppress mmWave inference for the wrong reason.
+  bool humanDetectedRaw;
+  bool humanDetectedKnown;
   float totalPhase;
   float breathPhase;
   float heartPhase;
@@ -169,7 +181,44 @@ struct ThermalTxFrame {
 
 SensirionI2cScd4x scd4x;
 HardwareSerial mmWaveSerial(2);
-SEEED_MR60BHA2 mmWave;
+
+// The library's own SEEED_MR60BHA2::isHumanDetected() cannot express "unknown":
+// it returns false both when the room is empty and when no 0x0F09 report has
+// been parsed yet, and it self-clears its validity flag on read. Overriding
+// handleType() captures the report itself, so an absent report stays
+// distinguishable from a negative one. The base implementation is still
+// invoked, leaving library state untouched, and the base class has already
+// verified both frame checksums before dispatching here.
+class SafeNestMR60BHA2 : public SEEED_MR60BHA2 {
+ public:
+  bool handleType(uint16_t type, const uint8_t *data,
+                  size_t dataLength) override {
+    if (type == static_cast<uint16_t>(
+                    TypeHeartBreath::ReportHumanDetection)) {
+      // The vendor handler reads data[0] unguarded; refuse a truncated report
+      // here instead of letting it read out of bounds.
+      if (dataLength < 1) return false;
+      presenceRaw_ = data[0] != 0;
+      presencePending_ = true;
+    }
+    return SEEED_MR60BHA2::handleType(type, data, dataLength);
+  }
+
+  // Same one-shot out-parameter idiom as getBreathRate()/getHeartRate(): the
+  // return value means "a new report was parsed", never "nobody is present".
+  bool takePresence(bool &value) {
+    if (!presencePending_) return false;
+    presencePending_ = false;
+    value = presenceRaw_;
+    return true;
+  }
+
+ private:
+  bool presenceRaw_ = false;
+  bool presencePending_ = false;
+};
+
+SafeNestMR60BHA2 mmWave;
 SPIClass thermalSpi(VSPI);
 
 QueueHandle_t telemetryQueue = nullptr;
@@ -193,10 +242,12 @@ uint16_t co2Ppm = 0;
 bool pirMotion = false;
 bool pirInitialized = false;
 bool phaseSamplePresent = false;
+bool humanDetectedRaw = false;
 
 uint32_t lastRespirationMs = 0;
 uint32_t lastHeartMs = 0;
 uint32_t lastPhaseMs = 0;
+uint32_t lastPresenceMs = 0;
 uint32_t lastCo2Ms = 0;
 uint32_t co2MeasurementEventId = 0;
 uint32_t co2MeasurementMonotonicMs = 0;
@@ -523,6 +574,17 @@ void pollMmWave(uint32_t now) {
     heartRate = value;
     lastHeartMs = now;
   }
+
+  // MR60's own normalized occupancy boolean. It is recorded verbatim: no
+  // occupancy threshold is derived from breath rate or any other signal, and
+  // no majority-vote smoothing is applied, because the wire contract carries
+  // human_detected_raw only. Staleness is judged at publish time so a radar
+  // that stops reporting eventually degrades this to null.
+  bool presenceValue = false;
+  if (mmWave.takePresence(presenceValue)) {
+    humanDetectedRaw = presenceValue;
+    lastPresenceMs = millis();
+  }
 }
 
 void publishTelemetrySnapshot(uint32_t now) {
@@ -539,6 +601,11 @@ void publishTelemetrySnapshot(uint32_t now) {
   snapshot.heartValid = isFresh(lastHeartMs, now, MMWAVE_STALE_MS);
   snapshot.co2Valid = isFresh(lastCo2Ms, now, CO2_STALE_MS);
   snapshot.phaseSamplePresent = phaseSamplePresent;
+  // isFresh() also rejects the never-observed case (lastPresenceMs == 0), so a
+  // node whose radar never reported occupancy publishes null rather than false.
+  snapshot.humanDetectedRaw = humanDetectedRaw;
+  snapshot.humanDetectedKnown = isFresh(lastPresenceMs, now,
+                                        PRESENCE_MAX_AGE_MS);
   snapshot.totalPhase = totalPhase;
   snapshot.breathPhase = breathPhase;
   snapshot.heartPhase = heartPhase;
@@ -607,6 +674,20 @@ bool writeAll(WiFiClient &client, const uint8_t *data, size_t length) {
   return sent == length;
 }
 
+// Respiration/heart rates keep two decimals; the M-N4 phase trio below needs
+// six. Commit 177db97 renamed this helper to formatNullablePhase for the phase
+// precision change but left these three rate call sites behind, which left the
+// canonical flash source unbuildable. Restored rather than repointed, so rate
+// precision stays at %.2f.
+void formatNullableFloat(char *output, size_t outputSize, bool valid,
+                         float value) {
+  if (valid && isfinite(value)) {
+    snprintf(output, outputSize, "%.2f", value);
+  } else {
+    strlcpy(output, "null", outputSize);
+  }
+}
+
 void formatNullablePhase(char *output, size_t outputSize, bool valid,
                          float value) {
   if (valid && isfinite(value)) {
@@ -625,11 +706,23 @@ void formatNullableU32(char *output, size_t outputSize, bool valid,
   }
 }
 
+// A boolean the Pi must be able to read as tri-state. `known == false` emits
+// null so the presence gate suppresses inference on "unknown" instead of
+// misreading it as a confirmed empty room.
+void formatNullableBool(char *output, size_t outputSize, bool known,
+                        bool value) {
+  if (!known) {
+    strlcpy(output, "null", outputSize);
+    return;
+  }
+  strlcpy(output, value ? "true" : "false", outputSize);
+}
+
 bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
   char respiration[20], heart[20], co2[20];
   char totalPhaseText[32], breathPhaseText[32], heartPhaseText[32];
   char breathRateRawText[20], phaseAgeText[20], phaseTimestampText[20];
-  char phaseSequenceText[20];
+  char phaseSequenceText[20], humanDetectedText[8];
   formatNullableFloat(respiration, sizeof(respiration),
                       snapshot.respirationValid, snapshot.respirationRate);
   formatNullableFloat(heart, sizeof(heart), snapshot.heartValid,
@@ -664,6 +757,8 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
                     snapshot.phaseSamplePresent, snapshot.phaseTimestampMs);
   formatNullableU32(phaseSequenceText, sizeof(phaseSequenceText),
                     snapshot.phaseSamplePresent, snapshot.phaseSequence);
+  formatNullableBool(humanDetectedText, sizeof(humanDetectedText),
+                     snapshot.humanDetectedKnown, snapshot.humanDetectedRaw);
 
   // Keep this comfortably above the current contract size and fail closed if
   // a future extension ever makes snprintf truncate the packet.
@@ -680,6 +775,7 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
       "\"valid\":{\"respiration\":%s,\"heart\":%s,\"co2\":%s},"
       "\"mmwave\":{\"breath_phase\":%s,\"total_phase\":%s,"
       "\"heart_phase\":%s,\"breath_rate_raw\":%s,"
+      "\"human_detected_raw\":%s,"
       "\"phase_age_ms\":%s,\"ts_monotonic_ms\":%s,\"seq\":%s,"
       "\"firmware_version\":\"%s\",\"schema_version\":\"%s\"},"
       "\"health\":{\"telemetry_queue_overwrites\":%lu,"
@@ -700,9 +796,9 @@ bool sendTelemetry(WiFiClient &client, const TelemetrySnapshot &snapshot) {
       snapshot.respirationValid ? "true" : "false",
       snapshot.heartValid ? "true" : "false",
       snapshot.co2Valid ? "true" : "false", breathPhaseText,
-      totalPhaseText, heartPhaseText, breathRateRawText, phaseAgeText,
-      phaseTimestampText, phaseSequenceText, NODE_FIRMWARE_VERSION,
-      MMWAVE_SCHEMA_VERSION,
+      totalPhaseText, heartPhaseText, breathRateRawText, humanDetectedText,
+      phaseAgeText, phaseTimestampText, phaseSequenceText,
+      NODE_FIRMWARE_VERSION, MMWAVE_SCHEMA_VERSION,
       static_cast<unsigned long>(snapshot.telemetryQueueOverwrites),
       static_cast<unsigned long>(snapshot.thermalQueueOverwrites),
       static_cast<unsigned long>(snapshot.tcpConnectionFailures),

@@ -138,6 +138,88 @@ median 140 ms는 약 7.1 Hz로 8 Hz 계약과 정합한다. 갭 15회는 정상 
 
 ---
 
+## 4-1. B1 수정 (완료) — 펌웨어 1.3.0이 `human_detected_raw`를 발행한다
+
+`sources/display-test2/esp32_sensor_node/esp32_sensor_node.ino`를 `1.3.0` /
+mmWave 스키마 `1.3`으로 올리고, 중첩 `mmwave` 객체에 `human_detected_raw`를 추가했다.
+`safenest.telemetry.v1`의 선택 필드이므로 후방 호환 확장이다.
+
+### 함정 1 — 라이브러리의 `isHumanDetected()`는 그대로 쓸 수 없다
+
+설치 라이브러리(`Love4yzp/Seeed-mmWave-library`, `name=Seeed Arduino mmWave`)의
+`SEEED_MR60BHA2::isHumanDetected()`는 **"빈 방"과 "아직 보고 없음"을 둘 다 `false`로
+반환**하고, 읽는 순간 유효 플래그를 스스로 지운다.
+
+```cpp
+bool SEEED_MR60BHA2::isHumanDetected() {
+  if (!_isHumanDetectionValid) return false;   // <-- 미보고도 false
+  _isHumanDetectionValid = false;
+  return _isHumanDetected;                     // <-- 실제 부재도 false
+}
+```
+
+이걸 그대로 JSON에 넣으면 계약이 요구하는 3-상태(`true` / `false` / `null`)를 표현할 수
+없고, "모름"이 "사람 없음"으로 새어 나간다. 다른 게터(`getBreathRate` 등)는 값을
+out-파라미터로 넘기고 반환값을 "새 값이 있었는가"로만 쓰기 때문에 이 문제가 없다.
+
+### 해결 — `handleType()` 오버라이드로 0x0F09를 직접 받는다
+
+`SEEED_MR60BHA2::handleType()`은 `public virtual`이고, 기반 클래스
+`SeeedmmWave::processFrame()`이 **헤더·데이터 체크섬을 모두 검증한 뒤에** 호출한다.
+따라서 서브클래스에서 0x0F09만 가로채면 UART 프레이밍을 재구현하지 않고도
+모호성 없는 3-상태를 얻는다. 기반 구현도 그대로 호출해 라이브러리 상태를 보존한다.
+
+```cpp
+class SafeNestMR60BHA2 : public SEEED_MR60BHA2 {
+  bool handleType(uint16_t type, const uint8_t *data, size_t len) override {
+    if (type == (uint16_t)TypeHeartBreath::ReportHumanDetection) {
+      if (len < 1) return false;        // 벤더 핸들러는 data[0]을 무검사로 읽는다
+      presenceRaw_ = data[0] != 0;
+      presencePending_ = true;
+    }
+    return SEEED_MR60BHA2::handleType(type, data, len);
+  }
+  bool takePresence(bool &value);      // getBreathRate와 같은 out-파라미터 관용구
+};
+```
+
+`PRESENCE_MAX_AGE_MS = 5000`을 넘겨 보고가 끊기면 `null`로 떨어진다(부재 주장 아님).
+`isFresh()`가 `timestamp != 0`도 검사하므로 **한 번도 보고가 없던 노드는 `false`가
+아니라 `null`을 발행한다.** 참조 펌웨어의 `updateStablePresence()` 다수결 안정화는
+**도입하지 않았다** — 와이어 계약은 raw 불리언만 요구한다.
+
+### 함정 2 — 이 파일은 2026-08-17부터 컴파일이 안 되고 있었다
+
+커밋 `177db97`이 `formatNullableFloat` → `formatNullablePhase`로 이름을 바꾸면서
+(정밀도 `%.2f` → `%.6f`) **호출 지점 3곳을 남겨 두었다.** 즉 `canonical_flash_source`가
+미정의 함수를 호출하는 상태였고 플래시 자체가 불가능했다. `%.2f` 헬퍼를 복원했다
+(호출부를 `formatNullablePhase`로 돌리면 호흡·심박 정밀도가 조용히 바뀌므로).
+
+### 검증 (하드웨어 없이)
+
+`.ino`에서 헬퍼 4개와 `sendTelemetry()`를 **텍스트로 추출해** 호스트에서 컴파일했다.
+포맷 문자열이 실물과 어긋날 수 없다.
+
+- `g++ -Wformat=2 -Werror` 통과 → 포맷/인자 목록 일치
+- 최악 길이 **1109 B** < `char json[1536]` → 절단 없음 (`length >= sizeof(json)` 방어 유지)
+- 컴파일된 실물 빌더가 낸 바이트를 `decode_telemetry` → `SensorStateManager`에 통과시켜
+  `true` / `false` / `null` 3-상태가 `presence_available`로 정확히 사상되는 것을 확인
+
+### 남은 제약 — 감사 도구는 여전히 `--inject-presence`가 필요하다
+
+커밋된 캡처는 전부 `firmware_version: safenest-esp32-sensor-node/1.2.0`,
+`schema_version: 1.2` 스탬프이고 `human_detected_raw`가 **0/1200**건이다. 펌웨어를
+고쳐도 2026-08-17에 뜬 파일이 소급해서 필드를 갖지는 않는다. 따라서
+
+> `--inject-presence` 없이 전 게이트 PASS는 **코드 변경으로 달성 불가**이며,
+> `>=1.3.0` 펌웨어로 mmWave를 재캡처해야 한다 (§9 항목 6b).
+
+스키마 버전을 올린 이유가 이것이다. 이제 캡처만 보고 그 캡처가 재실 게이트를 만족시킬
+수 있는지 기계적으로 판정할 수 있다 — B1이 오래 눈에 띄지 않은 원인이 정확히 이
+구분이 불가능했다는 점이었다.
+
+---
+
 ## 5. 정정 및 수정 P0-2 — CO₂ 입력 계약은 이미 `[CO2, CO2_slope]`였고, 런타임만 안 붙어 있었다
 
 초기 검수에서 이 항목을 "습도가 와이어 스키마에 없어서 CO₂ AI 도달 불가"로 보고했는데,
@@ -589,10 +671,11 @@ CO₂가 `FEATURE_UNAVAILABLE_GAP_RESTART`로 남고, 3200 부근은 캡처의 2
 | 1 | 위상 윈도우 와이어 레이트 누적 | Pi 런타임 | **완료** (§2) |
 | 2 | CO₂ C-B6 어댑터 + 캐노니컬 슬로프 + 선택자 승격 | 온디바이스 AI / Pi 런타임 | **완료** (§5) |
 | 3 | 위험도 산식 v1 | Pi 런타임 | **완료** (§7) |
-| 4 | `human_detected_raw` 펌웨어 추가 | ESP32 `.ino` | **미착수 — mmWave AI 최대 블로커** (§4) |
+| 4 | `human_detected_raw` 펌웨어 추가 | ESP32 `.ino` | **완료** (§4-1). 단 감사 도구의 `--inject-presence` 제거는 실기 재캡처가 선행 조건 |
 | 5 | mmWave 호흡 신호 (스펙트럼 판독) | 온디바이스 AI / Pi 런타임 | **완료 — 오늘 적용** (§6-1) |
 | 5b | M-N9 오탐 해소 | 모델 재학습 / 실기 스모크 | **미착수** (§6). 선행 조건: MR60 + 독립 기준(MOVESENSE_CHEST_ACC) 동시 수집 라벨 |
 | 6 | 실측 thermal 캡처 커밋 | 데이터 | 미착수 (`data/thermal/` 비어 있음, 합성 프레임으로 대체 중) |
+| 6b | **`human_detected_raw` 포함 mmWave 재캡처** | 데이터 / 실기 | 미착수. 커밋된 캡처는 전부 firmware `1.2.0` 스탬프로 이 필드가 없다. 감사 도구를 `--inject-presence` 없이 통과시키려면 `>=1.3.0` 펌웨어로 다시 떠야 한다 (§4-1) |
 | 7 | C-B6 SCD40 도메인 정렬 (C-C) + 임계 재선정 | 온디바이스 AI | 미착수. 현 임계 0.43은 `TRAIN_INTERNAL_ONLY`, 캘리브레이션은 UCI 도메인 |
 | 8 | 대시보드 O4 요소 복구 | 웹 | 미착수 — `runtimeBadge`, `thermalSensor`, `thermalAiStatus`, `co2Ai`, `pirAi`가 새 `web/dashboard/`에 없어 기계판독 계약이 깨짐 |
 | 9 | 비상 시 SMS/119 자동 연동 | 서비스 | 설계상 수동. `is_emergency`는 부저 래치와 이벤트 로그까지만 자동 |

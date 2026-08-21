@@ -653,7 +653,11 @@ def main(argv: list[str] | None = None) -> int:
                         help="comma-separated record limits; reports model behaviour across "
                              "independent windows of the same capture")
     parser.add_argument("--inject-presence", action="store_true",
-                        help="synthesize mmwave.human_detected_raw=true (field captures lack it)")
+                        help="synthesize mmwave.human_detected_raw=true. The committed "
+                             "captures predate firmware 1.3.0, which is what added the "
+                             "field; this compensates for the capture, not for the "
+                             "firmware. Retiring this flag needs a re-capture on >=1.3.0 "
+                             "hardware, not a code change.")
     parser.add_argument("--inject-humidity", type=float, default=None,
                         help="synthesize humidity_percent; the C-B6 contract forbids it, so this "
                              "only demonstrates that it is ignored")

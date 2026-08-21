@@ -38,6 +38,23 @@
     "PI_SMOKE": "NOT_PERFORMED",
     "layout": "sources/ondevice_ai/models/mmwave/m_n9"
   },
+  "esp32_firmware_presence_field": {
+    "node_firmware_version": "safenest-esp32-sensor-node/1.3.0",
+    "mmwave_schema_version": "1.3",
+    "added_field": "mmwave.human_detected_raw",
+    "wire_semantics": "TRI_STATE_TRUE_FALSE_NULL",
+    "null_means": "NO_RECENT_0x0F09_REPORT_NOT_ABSENCE",
+    "source": "MR60BHA2 0x0F09 ReportHumanDetection, verbatim boolean",
+    "presence_stabilization_applied": false,
+    "occupancy_threshold_invented": false,
+    "library_getter_rejected": "SEEED_MR60BHA2::isHumanDetected() conflates unknown with absent",
+    "acquisition": "SafeNestMR60BHA2::handleType override, post-checksum",
+    "backward_compatible": true,
+    "committed_captures_contain_field": false,
+    "audit_inject_presence_still_required": true,
+    "DEVICE_VALIDATED": "NO",
+    "PI_SMOKE": "NOT_PERFORMED"
+  },
   "integration_policy": {
     "sources_display_test2_esp32_sensor_node": "maintained_active_flash_source_exception",
     "sources_ondevice_ai": "frozen_upstream_snapshot",
