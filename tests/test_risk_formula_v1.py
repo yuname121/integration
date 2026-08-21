@@ -4,7 +4,24 @@ from __future__ import annotations
 
 import unittest
 
-from risk.formula_v1 import SafeNestRiskFormulaV1
+import copy
+import json
+import tempfile
+from pathlib import Path
+
+from risk.formula_v1 import CONFIG_PATH, SafeNestRiskFormulaV1
+
+
+def _trusted_engine() -> SafeNestRiskFormulaV1:
+    """Engine with mmwave.neural_trust flipped to TRUSTED, for neural-path tests."""
+
+    config = json.loads(Path(CONFIG_PATH).read_text(encoding="utf-8"))
+    config = copy.deepcopy(config)
+    config["mmwave"]["neural_trust"] = "TRUSTED"
+    handle = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8")
+    json.dump(config, handle)
+    handle.close()
+    return SafeNestRiskFormulaV1(handle.name)
 
 
 def sensor(status="LIVE", values=None, *, last_update=1000.0, sequence=1, ttl=3.0):
@@ -173,7 +190,8 @@ class EscalationFloorTests(unittest.TestCase):
         self.assertEqual(result.risk_level, "DANGER")
 
     def test_unverified_apnea_proxy_raises_warning_but_never_danger(self):
-        engine = SafeNestRiskFormulaV1()
+        # neural_trust must be TRUSTED for the neural class to score at all.
+        engine = _trusted_engine()
         mm = sensor(values={"presence": True, "presence_available": True,
                             "respiration_rate_bpm": 16.0, "respiration_valid": True})
         apnea = ai_entry(state="APNEA-proxy", confidence=0.71,
@@ -188,8 +206,77 @@ class EscalationFloorTests(unittest.TestCase):
         self.assertEqual(second.risk_level, "WARNING")
         self.assertFalse(second.is_emergency)
 
-    def test_hardware_verified_apnea_is_an_emergency(self):
+    def test_observe_only_keeps_the_neural_class_out_of_the_score(self):
         engine = SafeNestRiskFormulaV1()
+        self.assertEqual(engine.mmwave_neural_trust, "OBSERVE_ONLY")
+        mm = sensor(values={"presence": True, "presence_available": True,
+                            "respiration_rate_bpm": 16.0, "respiration_valid": True})
+        apnea = ai_entry(
+            state="APNEA-proxy", confidence=0.99, probabilities=(0.005, 0.005, 0.99),
+            extra={"spectral_status": "SPECTRAL_ESTIMATE_READY",
+                   "spectral_rate_rpm": 18.4, "spectral_band_power_fraction": 0.86},
+        )
+        state, ai = scene(mmwave=mm, mmwave_ai=apnea, co2=sensor(values={"ppm": 500.0}))
+        for _ in range(4):
+            result = engine.evaluate(state, ai)
+        component = result.components["mmwave"]
+        self.assertEqual(result.component_status["mmwave"], "RULE_FALLBACK")
+        self.assertEqual(component["metadata"]["observed_neural_state"], "APNEA-proxy")
+        self.assertEqual(component["metadata"]["neural_trust"], "OBSERVE_ONLY")
+        # Spectral rate wins over the MR60 scalar and 18.4 rpm is in band.
+        self.assertEqual(component["metadata"]["respiration_rate_source"],
+                         "SPECTRAL_CANONICAL_WINDOW")
+        self.assertEqual(component["metadata"]["respiration_rate_bpm"], 18.4)
+        self.assertEqual(component["score"], 0.0)
+        self.assertFalse(result.is_emergency)
+        self.assertEqual(result.escalation_floors, ())
+
+    def test_observe_only_still_honours_hardware_verified_apnea(self):
+        engine = SafeNestRiskFormulaV1()
+        mm = sensor(values={"presence": True, "presence_available": True})
+        apnea = ai_entry(state="APNEA", confidence=0.9,
+                         probabilities=(0.05, 0.05, 0.90),
+                         extra={"apnea_verified": True})
+        state, ai = scene(mmwave=mm, mmwave_ai=apnea)
+        result = engine.evaluate(state, ai)
+        self.assertTrue(result.is_emergency)
+        self.assertEqual(result.risk_level, "DANGER")
+
+    def test_spectral_rate_is_preferred_over_the_mr60_scalar(self):
+        engine = SafeNestRiskFormulaV1()
+        # MR60 reports 0.0 rpm on a window the spectrum reads as 20.6 rpm; this
+        # is the exact pattern observed in the committed 20260817 capture.
+        mm = sensor(values={"presence": True, "presence_available": True,
+                            "respiration_rate_bpm": 0.0, "respiration_valid": True})
+        entry = ai_entry(
+            available=False, state="RESPIRATORY_INFERENCE_REFUSED",
+            extra={"spectral_status": "SPECTRAL_ESTIMATE_READY",
+                   "spectral_rate_rpm": 20.6, "spectral_band_power_fraction": 0.87},
+        )
+        entry["metadata"]["probabilities"] = []
+        state, ai = scene(mmwave=mm, mmwave_ai=entry, co2=sensor(values={"ppm": 500.0}))
+        component = engine.evaluate(state, ai).components["mmwave"]
+        self.assertEqual(component["metadata"]["respiration_rate_source"],
+                         "SPECTRAL_CANONICAL_WINDOW")
+        self.assertEqual(component["metadata"]["respiration_rate_bpm"], 20.6)
+        self.assertEqual(component["metadata"]["mr60_breath_rate_raw"], 0.0)
+        self.assertEqual(component["score"], 0.0)  # 20.6 rpm is inside 10-24
+
+    def test_mr60_scalar_is_used_only_when_no_spectral_estimate_exists(self):
+        engine = SafeNestRiskFormulaV1()
+        mm = sensor(values={"presence": True, "presence_available": True,
+                            "respiration_rate_bpm": 30.0, "respiration_valid": True})
+        entry = ai_entry(available=False, state="INPUT_UNAVAILABLE")
+        entry["metadata"]["probabilities"] = []
+        state, ai = scene(mmwave=mm, mmwave_ai=entry, co2=sensor(values={"ppm": 500.0}))
+        component = engine.evaluate(state, ai).components["mmwave"]
+        self.assertEqual(component["metadata"]["respiration_rate_source"],
+                         "MR60_BREATH_RATE_RAW")
+        self.assertEqual(component["metadata"]["respiration_rate_bpm"], 30.0)
+        self.assertGreater(component["score"], 0.0)  # 30 rpm is outside 10-24
+
+    def test_hardware_verified_apnea_is_an_emergency(self):
+        engine = _trusted_engine()
         mm = sensor(values={"presence": True, "presence_available": True})
         apnea = ai_entry(state="APNEA", confidence=0.9,
                          probabilities=(0.05, 0.05, 0.90),

@@ -10,6 +10,7 @@ from ai.result import AIResult
 from ai.runtime import LazyModel
 from ai.co2_canonical_runtime import CO2SlopeWindowBuilder
 from ai.mmwave_canonical_runtime import MR60CanonicalWindowBuilder
+from ai.mmwave_spectral_runtime import estimate_respiration
 from gateway.protocol import TelemetryPayload, ThermalFrame
 from state.manager import SensorStateManager
 
@@ -192,6 +193,19 @@ class OnDeviceAIPipeline:
                     "presence_valid": False,
                 },
             )
+        # Deterministic DSP readout of the same canonical window. It is the
+        # trustworthy respiration signal while M-N9 is DEVICE_VALIDATED: NO, and
+        # it is what contradicts a physically impossible APNEA-proxy class.
+        spectral = estimate_respiration(window.tensor)
+        diagnostics = {
+            **diagnostics,
+            "spectral_status": spectral.status,
+            "spectral_rate_rpm": spectral.rate_rpm,
+            "spectral_band_power_fraction": spectral.band_power_fraction,
+            "spectral_hold_evidence": spectral.hold_evidence,
+            "spectral_contradicts_apnea": spectral.contradicts_apnea,
+            **spectral.metadata,
+        }
         try:
             prediction = self.models["mmwave"].predict(window.tensor)
             if bool(getattr(prediction, "fallback_used", False)):
@@ -204,6 +218,25 @@ class OnDeviceAIPipeline:
                         "heuristic_state": prediction.class_name,
                         "fallback_reason": getattr(prediction, "fallback_reason", None),
                     },
+                )
+            if (
+                str(prediction.class_name) in _APNEA_STATES
+                and spectral.contradicts_apnea
+            ):
+                # The window is periodic in the respiration band and contains no
+                # quiet stretch as long as the 6 s hold the APNEA label requires,
+                # so a breath-hold did not occur. Refuse rather than publish it.
+                return self._unavailable(
+                    "mmwave",
+                    now,
+                    "APNEA_CONTRADICTED_BY_SPECTRUM",
+                    {
+                        **diagnostics,
+                        "refused_class": str(prediction.class_name),
+                        "refused_confidence": float(prediction.confidence),
+                        "refused_probabilities": list(prediction.probabilities),
+                    },
+                    state="RESPIRATORY_INFERENCE_REFUSED",
                 )
             risk = {"NORMAL": 0.0, "RAPID_OR_ABNORMAL": 0.5, "APNEA-proxy": 1.0}
             return self._prediction_result(
@@ -365,6 +398,9 @@ class OnDeviceAIPipeline:
             error=reason,
             metadata=metadata,
         )
+
+
+_APNEA_STATES = frozenset({"APNEA", "APNEA-proxy"})
 
 
 def _mmwave_missing_fields(values: dict[str, object]) -> list[str]:

@@ -451,16 +451,40 @@ def build_verdict(report: dict[str, Any]) -> list[dict[str, str]]:
          f"status={mm_meta.get('canonical_window_status')}, "
          f"span={mm_meta.get('continuous_span_ms')} ms")
 
-    tflite = [s for s in ("thermal", "mmwave", "co2") if ai[s]["source"] == "tflite"]
-    gate("Q2 real TFLite inference", len(tflite) == 3,
-         f"tflite={sorted(tflite)} of ['co2','mmwave','thermal']")
+    # thermal and co2 score from their heads; mmwave's head is observe-only while
+    # MMWAVE_M_N9_FULL_INT8_V1 is DEVICE_VALIDATED: NO, so the gate checks that it
+    # was invoked and adjudicated rather than that it was trusted.
+    scoring = [s for s in ("thermal", "co2") if ai[s]["source"] == "tflite"]
+    gate("Q2 thermal + co2 TFLite scoring", len(scoring) == 2,
+         f"tflite={sorted(scoring)} of ['co2','thermal']")
+
+    mm_invoked = (
+        ai["mmwave"]["source"] == "tflite"
+        or mm_meta.get("refused_class") is not None
+        or mm_meta.get("probabilities") is not None
+    )
+    gate("Q2 mmwave M-N9 invoked + adjudicated", mm_invoked,
+         f"state={ai['mmwave'].get('state')}, error={ai['mmwave'].get('error')}")
+
+    spectral_ready = mm_meta.get("spectral_status") == "SPECTRAL_ESTIMATE_READY"
+    gate("Q2 mmwave respiration signal usable", spectral_ready,
+         f"spectral={mm_meta.get('spectral_status')}, "
+         f"rate={mm_meta.get('spectral_rate_rpm')} rpm, "
+         f"band={mm_meta.get('spectral_band_power_fraction')}")
 
     gate("Q3 risk score published", risk["risk_score"] is not None and risk["risk_level"] is not None,
          f"score={risk['risk_score']}, level={risk['risk_level']}")
     gate("Q3 all components contribute", "UNAVAILABLE" not in risk["component_status"].values(),
          f"status={risk['component_status']}")
-    gate("Q3 no degraded mode", not risk["degraded_mode"],
-         f"health={risk['system_health']}")
+
+    # DEGRADED is the correct published health while the mmWave head is
+    # observe-only; FAILED or a missing level would not be.
+    component = ((risk.get("components") or {}).get("mmwave") or {})
+    observe_only = (component.get("metadata") or {}).get("neural_trust") == "OBSERVE_ONLY"
+    expected_health = {"DEGRADED"} if observe_only else {"HEALTHY"}
+    gate("Q3 health matches trust policy", risk["system_health"] in expected_health,
+         f"health={risk['system_health']}, expected={sorted(expected_health)}"
+         f" (neural_trust={'OBSERVE_ONLY' if observe_only else 'TRUSTED'})")
 
     persistence = report["persistence"]
     stored = persistence.get("sqlite_latest") or {}
@@ -551,28 +575,35 @@ def run_audit(args, limit: int, mmwave_path: Path, co2_index, mm_all) -> dict[st
 def render_sweep(rows: list[dict[str, Any]]) -> str:
     """Model behaviour across independent replay windows of the same capture."""
 
-    lines = ["=" * 96,
-             "M-N9 / C-B6 behaviour sweep over independent windows of one committed capture",
-             "=" * 96,
-             f"{'records':>8} {'mmwave class':<16} {'conf':>6} {'margin':>7} {'decisive':>8}"
-             f"  {'co2':<12} {'risk':>8} {'level':<14} health"]
+    lines = ["=" * 108,
+             "mmWave behaviour sweep over independent windows of one committed capture",
+             "=" * 108,
+             f"{'records':>8} {'M-N9 class':<18} {'conf':>6} {'margin':>7}"
+             f" {'spectral rpm':>12} {'band':>6} {'hold':>5}"
+             f"  {'risk src':<10} {'risk':>7} {'level':<10} health"]
     for row in rows:
         lines.append(
-            f"{row['records']:>8} {row['mmwave_state'][:16]:<16} {row['mmwave_confidence']:>6}"
-            f" {row['mmwave_margin']:>7} {row['mmwave_decisive']:>8}"
-            f"  {row['co2_state'][:12]:<12} {row['risk_score']:>8} {row['risk_level'][:14]:<14}"
-            f" {row['system_health']}"
+            f"{row['records']:>8} {row['mmwave_state'][:18]:<18} {row['mmwave_confidence']:>6}"
+            f" {row['mmwave_margin']:>7} {row['spectral_rate_rpm']:>12}"
+            f" {row['spectral_band_power_fraction']:>6} {str(row['spectral_hold_evidence'])[:5]:>5}"
+            f"  {row['respiration_rate_source'][:10]:<10} {row['risk_score']:>7}"
+            f" {row['risk_level'][:10]:<10} {row['system_health']}"
         )
-    decisive = [r for r in rows if r["mmwave_decisive"] == "yes"]
-    apnea = [r for r in decisive if "APNEA" in r["mmwave_state"]]
+    published = [r for r in rows if "APNEA" in r["mmwave_state"]]
+    refused = [r for r in rows if r["mmwave_error"] == "APNEA_CONTRADICTED_BY_SPECTRUM"]
+    spectral = [r for r in rows if r["spectral_rate_rpm"] not in ("-", None)]
     lines.append("")
-    lines.append(f"  decisive mmwave windows      : {len(decisive)} / {len(rows)}")
-    lines.append(f"  decisive and APNEA-proxy     : {len(apnea)} / {len(decisive) or 1}")
-    lines.append("  NOTE respiration_valid is true across this whole capture with rates in")
-    lines.append("       4-27 rpm, so high-confidence APNEA-proxy here is a false positive,")
-    lines.append("       not a detection. This is why formula v1 caps unverified APNEA-proxy")
-    lines.append("       at WARNING and requires persistence before escalating at all.")
-    lines.append("=" * 96)
+    lines.append(f"  windows                              : {len(rows)}")
+    lines.append(f"  APNEA-proxy refused by spectrum      : {len(refused)}")
+    lines.append(f"  APNEA-proxy still published          : {len(published)}"
+                 "   (window contains a quiet stretch, so a real hold cannot be excluded)")
+    lines.append(f"  spectral estimate available          : {len(spectral)} / {len(rows)}")
+    lines.append("")
+    lines.append("  The spectral column is a deterministic DSP readout of the same canonical")
+    lines.append("  window, not a model. It is what the risk engine uses for the respiration")
+    lines.append("  rule while M-N9 stays DEVICE_VALIDATED: NO, and it is what refuses an")
+    lines.append("  APNEA-proxy class on a window that has no quiet stretch at all.")
+    lines.append("=" * 108)
     return "\n".join(lines)
 
 
@@ -580,7 +611,10 @@ def sweep_row(report: dict[str, Any]) -> dict[str, Any]:
     mm = report["ai"]["ai"]["mmwave"]
     co2 = report["ai"]["ai"]["co2"]
     risk = report["risk"]
-    probabilities = ((mm.get("metadata") or {}).get("probabilities")) or []
+    meta = mm.get("metadata") or {}
+    mm_component = ((risk.get("components") or {}).get("mmwave") or {})
+    component_meta = mm_component.get("metadata") or {}
+    probabilities = meta.get("probabilities") or meta.get("refused_probabilities") or []
     ordered = sorted((float(p) for p in probabilities), reverse=True)
     margin = round(ordered[0] - ordered[1], 4) if len(ordered) >= 2 else None
     return {
@@ -590,6 +624,14 @@ def sweep_row(report: dict[str, Any]) -> dict[str, Any]:
         "mmwave_margin": "-" if margin is None else f"{margin:.3f}",
         "mmwave_decisive": "yes" if margin is not None and margin >= 0.15 else "no",
         "mmwave_probabilities": [round(float(p), 5) for p in probabilities],
+        "mmwave_error": str(mm.get("error")) if mm.get("error") else None,
+        "spectral_rate_rpm": _num(meta.get("spectral_rate_rpm")),
+        "spectral_band_power_fraction": _num(meta.get("spectral_band_power_fraction")),
+        "spectral_hold_evidence": meta.get("spectral_hold_evidence"),
+        "spectral_contradicts_apnea": meta.get("spectral_contradicts_apnea"),
+        "respiration_rate_source": str(
+            component_meta.get("respiration_rate_source") or mm_component.get("source") or "-"
+        ),
         "co2_state": str(co2.get("state")),
         "co2_source": str(co2.get("source")),
         "risk_score": _num(risk.get("risk_score")),

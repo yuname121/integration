@@ -324,6 +324,117 @@ v1 산식이 이 오탐에 대해 걸어 둔 방어 3중:
 해소는 재학습 / 실기 스모크 과제이며 런타임 배선 과제가 아니다. 재실 게이트는
 절대 끄지 말아야 한다 — 게이트가 없으면 빈 방의 zero 입력이 이 경로로 APNEA를 낸다.
 
+## 6-1. 즉시 사용 가능한 대안 — 캐노니컬 윈도우 스펙트럼 판독 (오늘 적용)
+
+재학습은 라벨이 없어 오늘 불가능하다(§6 하단). 그래서 **재학습 없이 오늘 쓸 수 있는**
+결정론적 DSP 판독을 붙였다. `ai/mmwave_spectral_runtime.py`.
+
+모델이 아니다. **M-N9가 먹는 것과 정확히 같은 동결된 `[1,240,1]` 캐노니컬 윈도우**를
+읽는다. 새 센서 필드도, 새 전처리 계약도, 새 잠금 아티팩트도 생기지 않는다.
+
+### 산출물 2개
+
+**`rate_rpm`** — 호흡대역 최대 피크에서 구한 호흡수. 240샘플/8 Hz의 원 빈 간격은 2.0 rpm이고,
+로그 파워 포물선 보간으로 사실상 제거한다.
+
+| 검증 | 결과 |
+|---|---|
+| 합성 정현파 8–30 rpm | 오차 **0.00 rpm** |
+| 노이즈 sd 0.15 추가 | 오차 ±0.04 rpm |
+| 비대칭 파형(빠른 날숨) | 오차 0.00 rpm |
+| 2차 고조파 60·100% | 오차 ≤0.5 rpm (하위고조파 보정 적용) |
+| 36개 합성 케이스 중 오차 >2.5 rpm | **0개** |
+
+**`hold_evidence`** — APNEA 라벨 정의가 요구하는 6 s 숨참기만큼 조용한 구간이 윈도우 안에
+있는지. 대역 파워만으로는 판별 불가능하다(30 s 중 22 s 호흡 + 8 s 정지도 여전히 강하게 주기적).
+6 s 슬라이딩 RMS의 최솟값이 윈도우 중앙값 RMS의 45% 이하면 정지 구간이 있다고 본다.
+
+### 고조파 함정 (실제로 밟았고 고쳤음)
+
+캐노니컬 채널은 R2 **미분**이고 미분은 n차 고조파를 n배 증폭한다. 순수 정현파만으로
+검증했을 때는 안 보였는데, 위상에 2차 고조파가 60% 섞이면 피크가 **2배 주파수로 점프**한다
+(12 rpm → 24.00 rpm 보고). 피치 검출의 표준 하위고조파 검사를 넣었다: 피크의 절반
+주파수가 대역 안에 있고 피크 파워의 15% 이상을 가지면 그쪽을 기본파로 택한다.
+
+**실측 6346개 윈도우 중 54.5%가 이 보정을 받는다.** 즉 절반 이상이 보정 전에는 2배 값을
+보고하고 있었다. 보정 후 평균이 20.56 → **15.37 rpm**으로 내려갔고, 안정 성인으로 훨씬
+타당하다. 보정이 대역을 벗어나지 못하도록 in-band 빈만 후보로 둔다.
+
+### MR60 자체 스칼라보다 신뢰할 수 있다
+
+동일한 6346개 윈도우에서:
+
+| | 평균 | 표준편차 | 최소 | 최대 |
+|---|---|---|---|---|
+| 스펙트럼 판독 | **15.37** | 4.98 | 5.28 | 30.19 |
+| MR60 `breath_rate_raw` | 10.21 | 9.17 | **0.00** | 29.00 |
+
+호흡대역 파워 비율 평균 0.869. MR60 스칼라는 같은 윈도우에서 0.00 rpm까지 떨어진다.
+그래서 v1의 호흡 규칙 성분이 **스펙트럼을 1순위, MR60 스칼라를 최후 수단**으로 쓴다
+(`respiration_rate_source`에 출처 기록).
+
+### APNEA 반증 게이트
+
+호흡대역에 주기성이 있고 **6 s 정지 구간이 전혀 없으면** 숨참기는 일어나지 않았다.
+이때 M-N9의 APNEA-proxy는 물리적으로 성립할 수 없으므로 발행을 거부하고
+`APNEA_CONTRADICTED_BY_SPECTRUM` / 상태 `RESPIRATORY_INFERENCE_REFUSED`를 남긴다.
+
+극성이 안전 방향인지 확인했다.
+
+| 시나리오 | hold_evidence | APNEA 반증 |
+|---|---|---|
+| 연속 20 rpm 호흡 | False | **반증함** |
+| 20 rpm + 6·8·10·15 s 숨참기 | True | 반증 안 함 (실제 무호흡 보존) |
+| 30 s 전체 정지 | — (not ready) | 반증 안 함 |
+| 백색소음 | — (not ready) | 반증 안 함 |
+
+즉 **반증은 "정지 없음"이라는 적극적 증거가 있을 때만** 발동한다. 실측 7개 윈도우 중
+6개가 APNEA-proxy였고 4개가 반증으로 거부됐다. 나머지 2개는 정지 구간이 있어 거부하지 않는다.
+
+### `neural_trust: OBSERVE_ONLY` (오늘 기본값)
+
+`risk_formula_v1.json`의 `mmwave.neural_trust`를 추가했다. 기본 `OBSERVE_ONLY`.
+M-N9의 클래스는 `observed_neural_state`로 **기록되지만 점수에 들어가지 않고**,
+호흡 성분은 스펙트럼 규칙이 낸다. `DEVICE_VALIDATED`가 true가 된 뒤 `TRUSTED`로 바꾸면 된다.
+
+한 가지 예외를 명시적으로 뒀다 — **하드웨어로 확인된 `apnea_verified: true`는 이 스위치가
+억제하지 않는다.** 그건 모델 의견이 아니라 장비 출처이기 때문이다. 초기 구현에서 이것까지
+같이 막혀 있었고 자체 테스트 2건이 그 안전 퇴행을 잡아냈다.
+
+### 적용 후 실측 (7개 윈도우 전부)
+
+```
+python hil/preconnect_runtime_audit.py --inject-presence --sweep 1200,2400,4000,4800,5600,6400,7000
+
+ records M-N9 class           conf  margin spectral rpm   band  hold  risk src      risk level
+    1200 RESPIRATORY_INFERE      -   0.059       12.304  0.758 False  SPECTRAL_C   6.054 NORMAL
+    2400 RESPIRATORY_INFERE      -   0.707       12.914  0.909 False  SPECTRAL_C   6.149 NORMAL
+    4000 RESPIRATORY_INFERE      -   0.996       23.715  0.832 False  SPECTRAL_C   6.138 NORMAL
+    4800 APNEA-proxy         0.824   0.695       15.000  0.917  True  SPECTRAL_C   6.054 NORMAL
+    5600 NORMAL              0.492   0.070       20.074  0.805 False  SPECTRAL_C   6.085 NORMAL
+    6400 APNEA-proxy         0.957   0.922       10.159  0.834  True  SPECTRAL_C   6.075 NORMAL
+    7000 RESPIRATORY_INFERE      -   0.953       14.976  0.818 False  SPECTRAL_C   6.096 NORMAL
+
+  spectral estimate available : 7 / 7      APNEA-proxy refused by spectrum : 4
+```
+
+7개 전 윈도우가 `SPECTRAL_CANONICAL_WINDOW`를 쓰고, 호흡수 10.2–23.7 rpm 전부 v1 정상
+대역(10–24) 안이며, 위험도가 6.05–6.15로 안정된다. 적용 전에는 APNEA-proxy가 통과한
+윈도우에서 28.5까지 튀었다(WARNING 경계 30 바로 아래).
+
+낙상 비상 경로는 그대로다: `--thermal-shape lying` → score 100.0 / DANGER /
+`is_emergency True` / `FLOOR_THERMAL_FALL_CONFIDENT` → SQLite 저장.
+
+### 한계 (명시)
+
+- 이건 호흡수 추정과 무호흡 **반증**이다. 무호흡 **검출**이 아니다. 그건 여전히 M-N9의
+  일이고 M-N9는 아직 신뢰할 수 없다.
+- 30 s 창에서 6 rpm은 3주기뿐이라 그 이하는 분해되지 않는다. 대역은 6–36 rpm이다.
+- `hold_evidence`가 True인 윈도우에서는 반증하지 않으므로 M-N9의 오탐이 통과할 수 있다.
+  현재 v1의 `OBSERVE_ONLY`가 그걸 점수에서 막고 있다.
+- `system_health`는 계속 `DEGRADED`다. 검증된 호흡 모델 없이 운영 중이라는 뜻이고
+  정직한 표시다.
+
 ## 7. 신규 위험도 산식 v1 (`SAFENEST_RISK_V1`)
 
 구 V4(`sources/ondevice_ai/risk/risk_config.json`, 가중치 0.35/0.35/0.15/0.15,
@@ -479,7 +590,8 @@ CO₂가 `FEATURE_UNAVAILABLE_GAP_RESTART`로 남고, 3200 부근은 캡처의 2
 | 2 | CO₂ C-B6 어댑터 + 캐노니컬 슬로프 + 선택자 승격 | 온디바이스 AI / Pi 런타임 | **완료** (§5) |
 | 3 | 위험도 산식 v1 | Pi 런타임 | **완료** (§7) |
 | 4 | `human_detected_raw` 펌웨어 추가 | ESP32 `.ino` | **미착수 — mmWave AI 최대 블로커** (§4) |
-| 5 | M-N9 오탐 해소 | 모델 재학습 / 실기 스모크 | **미착수** (§6) |
+| 5 | mmWave 호흡 신호 (스펙트럼 판독) | 온디바이스 AI / Pi 런타임 | **완료 — 오늘 적용** (§6-1) |
+| 5b | M-N9 오탐 해소 | 모델 재학습 / 실기 스모크 | **미착수** (§6). 선행 조건: MR60 + 독립 기준(MOVESENSE_CHEST_ACC) 동시 수집 라벨 |
 | 6 | 실측 thermal 캡처 커밋 | 데이터 | 미착수 (`data/thermal/` 비어 있음, 합성 프레임으로 대체 중) |
 | 7 | C-B6 SCD40 도메인 정렬 (C-C) + 임계 재선정 | 온디바이스 AI | 미착수. 현 임계 0.43은 `TRAIN_INTERNAL_ONLY`, 캘리브레이션은 UCI 도메인 |
 | 8 | 대시보드 O4 요소 복구 | 웹 | 미착수 — `runtimeBadge`, `thermalSensor`, `thermalAiStatus`, `co2Ai`, `pirAi`가 새 `web/dashboard/`에 없어 기계판독 계약이 깨짐 |
@@ -503,7 +615,7 @@ CO₂가 `FEATURE_UNAVAILABLE_GAP_RESTART`로 남고, 3200 부근은 캡처의 2
 
 ## 10. 변경 파일 전체 목록
 
-### 수정 (13)
+### 수정 (15)
 
 | 파일 | 변경 내용 |
 |---|---|
@@ -523,7 +635,7 @@ CO₂가 `FEATURE_UNAVAILABLE_GAP_RESTART`로 남고, 3200 부근은 캡처의 2
 | `tests/test_hil_criteria.py` | 프리플라이트 모델 해시 검사 수 5→6. |
 | `tests/test_mmwave_mn9_runtime.py` | `WireRatePhaseAccumulationTests` 추가 (2건). ① 런타임 수신 경로만으로 260 패킷을 넣으면 추가 발행 없이 `CANONICAL_WINDOW_READY`가 되고 텐서가 `(1,240,1)`이며 presence 부재로 추론은 게이트된다. ② 네거티브 — 상태 매니저에 260 패킷을 넣고 발행을 1회만 하면 `accepted_update_count == 1`이다(회귀 방지). |
 
-### 신규 (8)
+### 신규 (10)
 
 | 파일 | 역할 |
 |---|---|
@@ -532,6 +644,8 @@ CO₂가 `FEATURE_UNAVAILABLE_GAP_RESTART`로 남고, 3200 부근은 캡처의 2
 | `tests/test_risk_formula_v1.py` | v1 행위 계약 17건. 설정 계약, 판별력 게이트(균등분포 거부·저신뢰 거부·TTL 초과 거부), 플로어(낙상 비상·CO₂ 희석 방지·즉시위험·미검증 APNEA는 WARNING 상한·하드웨어 확인 APNEA는 비상), 증거 충분성(가중치 소수 → `INDETERMINATE`·전부 불가용 → fail-closed·과반 → NORMAL 허용), PIR 의미론, CO₂ 곡선 단조성. |
 | `hil/preconnect_runtime_audit.py` | 센서 연결 전 감사 도구. 실측 캡처를 실제 `safenest.telemetry.v1` TCP 프레임으로 재생해 루프백 소켓으로 살아있는 `SafeNestRuntime`에 주입하고, `state → AI → risk → store → SQLite` 전 구간을 관통시켜 Q1/Q2/Q3 판정표를 낸다. 스텁 모델 없음. thermal만 합성이며 `SYNTHETIC_*`로 명시. |
 | `sources/ondevice_ai/inference/co2_c_b6_interpreter.py` | `CB6Interpreter`. C-B6 축소 특성 CO₂ 점유 어댑터. SHA-256·텐서 `[1,2]` int8·양자화·스케일러 지문·특성 순서·임계·클래스 맵을 전부 검증하고, `humidity_included`가 false가 아니거나 `risk_semantic`이 NONE이 아니면 로드를 거부한다. `predict(ppm, slope)` 2-인자. |
+| `ai/mmwave_spectral_runtime.py` | `estimate_respiration`. 동결된 캐노니컬 윈도우의 결정론적 스펙트럼 판독 — 호흡대역 피크 + 로그파워 포물선 보간(합성 오차 0.00 rpm), 미분이 만드는 2차 고조파 함정을 막는 하위고조파 보정(실측 54.5%에 적용), 6 s 숨참기 탐색(`hold_evidence`). 모델이 아니고 새 잠금 아티팩트가 없다. |
+| `tests/test_mmwave_spectral_runtime.py` | 15건 + 서브테스트 31건. 정확도(정현파·노이즈·비대칭·2차 고조파 60/100%), 대역 이탈 금지, 소음·평탄·길이오류 거부, **APNEA 반증 극성**(연속 호흡만 반증, 6/8/10/15 s 숨참기는 전부 보존), 실측 캡처 통계 및 MR60 스칼라 대비 안정성. |
 | `ai/co2_canonical_runtime.py` | `CO2SlopeWindowBuilder`. `CO2_SLOPE_FEATURE_PROFILE_001` 구현 — ppm/min, ENDPOINT_DIFFERENCE, age ≥ 150 s 과거 endpoint, SOURCE_ACQUISITION_CLOCK(`measurement_monotonic_ms`), 측정 이벤트 기준 전진, 90 s 갭·boot 경계·비단조 시계 재시작, 보간 금지, float64. 미확보를 0.0으로 보고하지 않고 프로파일 상태 코드로 노출. |
 | `tests/test_co2_c_b6_runtime.py` | 슬로프 계약 9건 + 어댑터 계약 5건. 단위·부호·warm-up·갭 재시작과 복구·재발행 무시·무효 이벤트·boot 경계·비단조 시계, 어댑터 식별·2-인자 강제(3-인자는 `TypeError`)·ppm 단조성·빈 방 VACANT·비유한 fail-closed. |
 | `docs/20260821_Preconnect_Runtime_Audit_And_Risk_Formula_V1_KO.md` | 본 문서. |

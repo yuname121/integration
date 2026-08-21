@@ -94,6 +94,9 @@ class SafeNestRiskFormulaV1:
         self.minimum_effective_weight = float(config["evidence"]["minimum_effective_weight"])
         self.insufficient_level = str(config["evidence"]["insufficient_evidence_level"])
         self.min_confidence = float(config["ai_acceptance"]["minimum_confidence"])
+        self.mmwave_neural_trust = str(config["mmwave"].get("neural_trust", "TRUSTED"))
+        if self.mmwave_neural_trust not in {"OBSERVE_ONLY", "TRUSTED"}:
+            raise ValueError("mmwave.neural_trust must be OBSERVE_ONLY or TRUSTED")
         self.min_margin = float(config["ai_acceptance"]["minimum_top_two_margin"])
 
         self._thermal = config["thermal"]
@@ -326,6 +329,20 @@ class SafeNestRiskFormulaV1:
             return _unavailable("mmwave", now, f"MMWAVE_SENSOR_{status}")
 
         decision = self._decision(ai, now=now, ttl=_ttl(sensor, 3.0))
+        observed_state, observed_confidence = None, None
+        if decision is not None and self.mmwave_neural_trust != "TRUSTED":
+            state, confidence, _, metadata = decision
+            hardware_verified = (
+                state in tuple(self._mmwave["apnea_states"])
+                and metadata.get("apnea_verified") is True
+            )
+            if not hardware_verified:
+                # Observe-only: record the class, do not let it score. See
+                # mmwave.neural_trust_reason in risk_formula_v1.json.
+                # A hardware-verified apnea is device provenance, not a model
+                # opinion, so it is never suppressed by this switch.
+                observed_state, observed_confidence = state, confidence
+                decision = None
         if decision is not None:
             state, confidence, timestamp, metadata = decision
             mapped = self._mmwave["class_scores"].get(state)
@@ -356,11 +373,14 @@ class SafeNestRiskFormulaV1:
 
         self._apnea_streak = 0
         values = _values(sensor)
-        breath = values.get("respiration_rate_bpm")
-        if not bool(values.get("respiration_valid")) or not _finite_number(breath) or float(breath) <= 0:
+        # Prefer the spectral readout of the canonical window over the MR60's own
+        # breath_rate_raw. On the committed 20260817 capture the spectral estimate
+        # holds mean 20.56 rpm (sd 4.42) while the MR60 scalar reports mean 10.21
+        # (sd 9.17) and bottoms out at 0.00 rpm on the same windows.
+        rate, rate_source, spectral_detail = self._respiration_rate(ai, values)
+        if rate is None:
             self._respiration_abnormal_streak = 0
             return _unavailable("mmwave", now, "RESPIRATION_INPUT_UNAVAILABLE")
-        rate = float(breath)
         normal = (
             float(self._mmwave["respiration_normal_min_rpm"])
             <= rate
@@ -388,10 +408,42 @@ class SafeNestRiskFormulaV1:
             reasons=reasons,
             metadata={
                 "respiration_rate_bpm": rate,
+                "respiration_rate_source": rate_source,
                 "abnormal_streak": self._respiration_abnormal_streak,
+                "neural_trust": self.mmwave_neural_trust,
+                "observed_neural_state": observed_state,
+                "observed_neural_confidence": observed_confidence,
+                **spectral_detail,
                 **_ai_debug_metadata(ai),
             },
         )
+
+    def _respiration_rate(
+        self, ai: Any, values: Mapping[str, Any]
+    ) -> tuple[float | None, str, dict[str, Any]]:
+        """Spectral canonical-window rate first, MR60 scalar only as a last resort."""
+
+        metadata = ai.get("metadata") if isinstance(ai, Mapping) else None
+        metadata = metadata if isinstance(metadata, Mapping) else {}
+        spectral_rate = metadata.get("spectral_rate_rpm")
+        fraction = metadata.get("spectral_band_power_fraction")
+        detail = {
+            "spectral_status": metadata.get("spectral_status"),
+            "spectral_band_power_fraction": fraction,
+            "spectral_contradicts_apnea": metadata.get("spectral_contradicts_apnea"),
+            "mr60_breath_rate_raw": values.get("respiration_rate_bpm"),
+        }
+        if (
+            metadata.get("spectral_status") == "SPECTRAL_ESTIMATE_READY"
+            and _finite_number(spectral_rate)
+            and float(spectral_rate) > 0
+        ):
+            return float(spectral_rate), "SPECTRAL_CANONICAL_WINDOW", detail
+
+        breath = values.get("respiration_rate_bpm")
+        if not bool(values.get("respiration_valid")) or not _finite_number(breath) or float(breath) <= 0:
+            return None, "UNAVAILABLE", detail
+        return float(breath), "MR60_BREATH_RATE_RAW", detail
 
     def _co2_component(
         self,
