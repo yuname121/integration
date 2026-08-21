@@ -1,0 +1,11 @@
+SafeNest Pi snapshot
+captured: 2026-08-20 00:29 KST
+source: sandi@192.168.137.249:/home/sandi/safenest-runtime
+git: c3f95b8 (team main) + local LCD CSS/control routes + start_runtime_lcd.sh
+excluded: .venv, archive (partial leftover if present), .env secrets
+live APIs: api/health.json api/status.json api/sensors.json api/state.json
+see meta/pi-live.txt and meta/env.redacted
+
+data/mmwave: 10 files
+data/co2: 8 files
+data/thermal: 2701 files

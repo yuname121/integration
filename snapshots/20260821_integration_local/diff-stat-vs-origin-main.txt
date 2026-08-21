@@ -1,0 +1,24 @@
+ LATEST_SOURCE_PROVENANCE.json                      |   2 +-
+ ai/mmwave_canonical_runtime.py                     | 144 +++++++++++++++
+ ai/pipeline.py                                     |  98 +++++++++--
+ ai/runtime.py                                      |   2 +-
+ backend/runtime_status.py                          |  52 +++++-
+ backend/views.py                                   |   9 +
+ ...est_mmWave_M-N9_Runtime_Wiring_Handoff_KO_01.md |  26 +++
+ .../runtime/20260818_m_n9_runtime_readiness.json   |  19 ++
+ gateway/protocol.py                                |  74 ++++++++
+ risk/engine.py                                     |  18 +-
+ .../inference/mmwave_m_n9_interpreter.py           |  79 +++++++++
+ sources/ondevice_ai/models/model_manifest.json     |   4 +-
+ state/manager.py                                   |  11 +-
+ storage/sensor_logger.py                           |   7 +
+ tests/test_ai_pipeline.py                          |  26 +--
+ tests/test_gateway_protocol.py                     |  47 +++++
+ tests/test_hil_criteria.py                         |   2 +-
+ tests/test_locked_b_stage_artifacts.py             |   9 +-
+ tests/test_mmwave_m_n9_int8.py                     |   1 +
+ tests/test_mmwave_mn9_runtime.py                   | 195 +++++++++++++++++++++
+ tests/test_runtime_status.py                       |  37 +++-
+ tests/test_sensor_data_logger.py                   |  29 +++
+ tests/test_stage7_offline_preflight.py             |  13 +-
+ 23 files changed, 860 insertions(+), 44 deletions(-)
