@@ -263,7 +263,10 @@ class SafeNestRiskEngine:
             "mmwave", True, 0.0 if normal else 0.75, "rule_fallback",
             "RESPIRATION_NORMAL" if normal else "RESPIRATION_ABNORMAL", now,
             reasons=() if normal else ("ABNORMAL_RESPIRATION_RPM",),
-            metadata={"respiration_rate_bpm": float(breath), "ai_error": _error(ai)},
+            metadata={
+                "respiration_rate_bpm": float(breath),
+                **_ai_debug_metadata(ai),
+            },
         )
 
     def _co2_component(self, sensor: Any, ai: Any, now: float) -> RiskComponent:
@@ -401,6 +404,19 @@ def _values(sensor: Any) -> Mapping[str, Any]:
 
 def _error(ai: Any) -> str | None:
     return str(ai.get("error")) if isinstance(ai, Mapping) and ai.get("error") else None
+
+
+def _ai_debug_metadata(ai: Any) -> dict[str, Any]:
+    metadata = ai.get("metadata") if isinstance(ai, Mapping) else None
+    if not isinstance(metadata, Mapping):
+        metadata = {}
+    missing = metadata.get("missing")
+    return {
+        "ai_error": _error(ai),
+        "canonical_window_status": metadata.get("canonical_window_status"),
+        "suppression_reason": metadata.get("suppression_reason"),
+        "missing": list(missing) if isinstance(missing, list) else missing,
+    }
 
 
 def _ttl(sensor: Any, default: float) -> float:

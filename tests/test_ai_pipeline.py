@@ -108,6 +108,10 @@ class AIPipelineTests(unittest.TestCase):
         pipeline = OnDeviceAIPipeline(self.manager, {"mmwave": mmwave})
         missing = pipeline.evaluate(snapshot())["ai"]["mmwave"]
         self.assertEqual(missing["error"], "CANONICAL_FRESHNESS_METADATA_MISSING")
+        self.assertEqual(missing["state"], "WINDOW_UNAVAILABLE")
+        self.assertEqual(missing["metadata"]["canonical_window_status"], "WINDOW_UNAVAILABLE")
+        self.assertIn("breath_phase", missing["metadata"]["missing"])
+        self.assertIn("human_detected_raw", missing["metadata"]["missing"])
         self.assertEqual(mmwave.calls, [])
 
     def test_mmwave_heuristic_fallback_is_not_reported_as_ai(self):
@@ -167,6 +171,7 @@ class AIPipelineTests(unittest.TestCase):
         self.assertEqual(active["deployment_scope"], "MAC_INTEGRATION_CANDIDATE")
         self.assertEqual(active["hardware_validation"], "NOT_PERFORMED")
         self.assertFalse(active["DEVICE_VALIDATED"])
+        self.assertEqual(LazyModel._ADAPTERS["mmwave"], ("mmwave_m_n9_interpreter.py", "MN9Interpreter"))
 
     def test_frozen_model_hashes_match_manifest(self):
         root = Path(__file__).resolve().parent.parent / "sources" / "ondevice_ai"

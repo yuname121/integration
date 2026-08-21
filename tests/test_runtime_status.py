@@ -72,7 +72,11 @@ class RuntimeStatusTests(unittest.TestCase):
             {"co2": ai_result(available=True)},
         )
         self.assertEqual(document["status"], "READY_WITH_LIMITATIONS")
-        self.assertEqual(document["sensors"]["mmwave"]["ai_status"], "MODEL_PENDING")
+        self.assertEqual(document["sensors"]["mmwave"]["ai_status"], "BLOCKED")
+        self.assertEqual(
+            document["sensors"]["mmwave"]["blocked_reason"],
+            "CANONICAL_FRESHNESS_METADATA_MISSING",
+        )
 
     def test_global_status_distinguishes_degraded_from_not_ready(self) -> None:
         degraded = runtime_status_document(
@@ -102,6 +106,37 @@ class RuntimeStatusTests(unittest.TestCase):
             sensors_document(publication)["runtime_status"]["sensors"]["co2"]["ai_status"],
             "ACTIVE",
         )
+
+    def test_mmwave_projects_live_tflite_result_as_active(self) -> None:
+        document = runtime_status_document(
+            state(),
+            {"mmwave": ai_result(available=True)},
+        )
+        mmwave = document["sensors"]["mmwave"]
+        self.assertEqual(mmwave["artifact_status"], "PRESENT")
+        self.assertEqual(mmwave["ai_status"], "ACTIVE")
+        self.assertIsNone(mmwave["blocked_reason"])
+
+    def test_mmwave_presence_gap_is_a_specific_block_not_model_pending(self) -> None:
+        document = runtime_status_document(
+            state(),
+            {
+                "mmwave": {
+                    "available": False,
+                    "error": "PRESENCE_STATE_UNAVAILABLE",
+                    "state": "RESPIRATORY_INFERENCE_SUPPRESSED",
+                    "metadata": {
+                        "canonical_window_status": "CANONICAL_WINDOW_READY",
+                        "suppression_reason": "PRESENCE_STATE_UNAVAILABLE",
+                        "missing": ["human_detected_raw"],
+                    },
+                }
+            },
+        )
+        mmwave = document["sensors"]["mmwave"]
+        self.assertEqual(mmwave["ai_status"], "BLOCKED")
+        self.assertEqual(mmwave["blocked_reason"], "PRESENCE_STATE_UNAVAILABLE")
+        self.assertEqual(mmwave["input_contract_status"], "UNSATISFIED")
 
     def test_offline_documents_keep_a_not_ready_runtime_status(self) -> None:
         self.assertEqual(status_document(None)["runtime_status"]["status"], "NOT_READY")

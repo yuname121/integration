@@ -109,14 +109,49 @@ def _thermal_status(sensor: Mapping[str, Any], _result: Mapping[str, Any]) -> di
     return status
 
 
-def _mmwave_status(sensor: Mapping[str, Any], _result: Mapping[str, Any]) -> dict[str, Any]:
+def _mmwave_status(sensor: Mapping[str, Any], result: Mapping[str, Any]) -> dict[str, Any]:
     status = _sensor_base(sensor)
+    status["artifact_status"] = "PRESENT"
+    if status["sensor_status"] != "AVAILABLE":
+        return _blocked_for_sensor(status)
+
+    if bool(result.get("available")):
+        status.update(
+            {
+                "input_contract_status": "SATISFIED",
+                "ai_status": "ACTIVE",
+                "blocked_reason": None,
+                "output_status": "AVAILABLE",
+            }
+        )
+        return status
+
+    error = str(result.get("error") or "")
+    metadata = result.get("metadata") if isinstance(result.get("metadata"), Mapping) else {}
+    window_status = str(metadata.get("canonical_window_status") or "")
+    if error == "CANONICAL_FRESHNESS_METADATA_MISSING" or window_status == "WINDOW_UNAVAILABLE":
+        contract, reason = "UNSATISFIED", error or "CANONICAL_FRESHNESS_METADATA_MISSING"
+    elif error == "INSUFFICIENT_CONTINUOUS_DURATION" or window_status == "RESPIRATORY_WINDOW_WARMING_UP":
+        contract, reason = "WARMING_UP", error or "INPUT_WARMUP"
+    elif error == "PRESENCE_STATE_UNAVAILABLE":
+        contract, reason = "UNSATISFIED", error
+    elif error == "NO_VALID_PERSON":
+        contract, reason = "SATISFIED", error
+    elif error:
+        contract, reason = "UNKNOWN", error
+    else:
+        values = _mapping(sensor.get("values"))
+        if not _finite_trio(values, ("breath_phase", "ts_monotonic_ms", "phase_age_ms")):
+            contract, reason = "UNSATISFIED", "CANONICAL_FRESHNESS_METADATA_MISSING"
+        elif values.get("presence_available") is not True:
+            contract, reason = "UNSATISFIED", "PRESENCE_STATE_UNAVAILABLE"
+        else:
+            contract, reason = "UNKNOWN", "MODEL_RUNTIME_UNAVAILABLE"
     status.update(
         {
-            "artifact_status": "PRESENT_HISTORICAL_ONLY",
-            "input_contract_status": "SIGNAL_CONTRACT_MISMATCH",
-            "ai_status": "MODEL_PENDING",
-            "blocked_reason": "MR60_NATIVE_MODEL_PENDING",
+            "input_contract_status": contract,
+            "ai_status": "BLOCKED",
+            "blocked_reason": reason,
             "output_status": "NOT_AVAILABLE",
         }
     )
@@ -205,3 +240,10 @@ def _global_status(projected: Mapping[str, Mapping[str, Any]]) -> str:
 
 def _mapping(value: object) -> Mapping[str, Any]:
     return value if isinstance(value, Mapping) else {}
+
+
+def _finite_trio(values: Mapping[str, Any], fields: tuple[str, ...]) -> bool:
+    return all(
+        isinstance(values.get(name), (int, float)) and not isinstance(values.get(name), bool)
+        for name in fields
+    )

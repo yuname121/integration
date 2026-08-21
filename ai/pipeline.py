@@ -97,29 +97,47 @@ class OnDeviceAIPipeline:
         unavailable = self._sensor_unavailable("mmwave", sensor, now)
         if unavailable:
             return unavailable
+        values = sensor.get("values") if isinstance(sensor.get("values"), dict) else {}
+        missing = _mmwave_missing_fields(values)
         self._mmwave_window.ingest(sensor)
         window = self._mmwave_window.latest()
+        diagnostics = {
+            "canonical_window_status": window.status,
+            "missing": missing,
+            **window.metadata,
+        }
         if window.status != "CANONICAL_WINDOW_READY" or window.tensor is None:
             return self._unavailable(
                 "mmwave",
                 now,
                 window.reason or window.status,
-                {"canonical_window_status": window.status, **window.metadata},
+                diagnostics,
+                state=window.status,
             )
-        values = sensor.get("values", {})
-        presence = values.get("presence") if isinstance(values, dict) else None
-        presence_available = values.get("presence_available") is True if isinstance(values, dict) else False
+        presence = values.get("presence")
+        presence_available = values.get("presence_available") is True
         if presence_available is not True or not isinstance(presence, bool):
             return self._suppressed(
-                "mmwave", now, "PRESENCE_STATE_UNAVAILABLE",
-                {"canonical_window_status": window.status, "suppressed": True,
-                 "suppression_reason": "PRESENCE_STATE_UNAVAILABLE", **window.metadata},
+                "mmwave",
+                now,
+                "PRESENCE_STATE_UNAVAILABLE",
+                {
+                    **diagnostics,
+                    "suppressed": True,
+                    "suppression_reason": "PRESENCE_STATE_UNAVAILABLE",
+                },
             )
         if presence is False:
             return self._suppressed(
-                "mmwave", now, "NO_VALID_PERSON",
-                {"canonical_window_status": window.status, "suppressed": True,
-                 "suppression_reason": "NO_VALID_PERSON", "presence_valid": False, **window.metadata},
+                "mmwave",
+                now,
+                "NO_VALID_PERSON",
+                {
+                    **diagnostics,
+                    "suppressed": True,
+                    "suppression_reason": "NO_VALID_PERSON",
+                    "presence_valid": False,
+                },
             )
         try:
             prediction = self.models["mmwave"].predict(window.tensor)
@@ -129,6 +147,7 @@ class OnDeviceAIPipeline:
                     now,
                     "MODEL_RUNTIME_UNAVAILABLE",
                     {
+                        **diagnostics,
                         "heuristic_state": prediction.class_name,
                         "fallback_reason": getattr(prediction, "fallback_reason", None),
                     },
@@ -140,6 +159,7 @@ class OnDeviceAIPipeline:
                 now,
                 score=risk.get(prediction.class_name, 0.5),
                 metadata={
+                    **diagnostics,
                     "probabilities": list(prediction.probabilities),
                     "dequantized_scores": list(prediction.probabilities),
                     "model_sha256": getattr(prediction, "model_sha256", None),
@@ -148,11 +168,10 @@ class OnDeviceAIPipeline:
                     "suppressed": False,
                     "canonical_window_status": window.status,
                     "apnea_verified": False,
-                    **window.metadata,
                 },
             )
         except Exception as error:
-            return self._model_error("mmwave", now, error)
+            return self._model_error("mmwave", now, error, diagnostics)
 
     def _co2(self, sensor: dict[str, object], now: float) -> AIResult:
         unavailable = self._sensor_unavailable("co2", sensor, now)
@@ -252,13 +271,15 @@ class OnDeviceAIPipeline:
         now: float,
         error: str,
         metadata: dict[str, object] | None = None,
+        *,
+        state: str = "INPUT_UNAVAILABLE",
     ) -> AIResult:
         return AIResult(
             sensor_id=sensor_id,
             timestamp=now,
             available=False,
             source="unavailable",
-            state="INPUT_UNAVAILABLE",
+            state=state,
             error=error,
             metadata=metadata or {},
         )
@@ -280,6 +301,18 @@ class OnDeviceAIPipeline:
             error=reason,
             metadata=metadata,
         )
+
+
+def _mmwave_missing_fields(values: dict[str, object]) -> list[str]:
+    missing: list[str] = []
+    for field in ("breath_phase", "ts_monotonic_ms", "phase_age_ms"):
+        if not _finite_number(values.get(field)):
+            missing.append(field)
+    if not isinstance(values.get("human_detected_raw"), bool) and not isinstance(
+        values.get("presence"), bool
+    ):
+        missing.append("human_detected_raw")
+    return missing
 
 
 def _finite_number(value: object) -> bool:

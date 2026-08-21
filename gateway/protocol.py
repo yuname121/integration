@@ -239,13 +239,16 @@ def decode_telemetry(header: PacketHeader, payload: bytes) -> TelemetryPayload:
         boot_id=boot_id,
     )
     health = _optional_health(decoded.get("health"))
-    breath_phase = _optional_finite(decoded.get("breath_phase"), "breath_phase")
-    ts_monotonic_ms = _optional_finite(decoded.get("ts_monotonic_ms"), "ts_monotonic_ms")
-    phase_age_ms = _optional_finite(decoded.get("phase_age_ms"), "phase_age_ms")
-    human_detected_raw = decoded.get("human_detected_raw")
-    if human_detected_raw is not None and not isinstance(human_detected_raw, bool):
-        raise ProtocolError("human_detected_raw must be boolean when present")
-    session_id = _optional_identifier(decoded.get("session_id"), "session_id")
+    nested_mmwave = _optional_mmwave_object(decoded.get("mmwave"))
+    # Live ESP packets nest the M-N4 phase trio under `mmwave`. Top-level
+    # keys win when both are present so v1 fixtures stay authoritative.
+    breath_phase = _promoted_optional_finite(decoded, nested_mmwave, "breath_phase")
+    ts_monotonic_ms = _promoted_optional_finite(decoded, nested_mmwave, "ts_monotonic_ms")
+    phase_age_ms = _promoted_optional_finite(decoded, nested_mmwave, "phase_age_ms")
+    human_detected_raw = _promoted_optional_bool(
+        decoded, nested_mmwave, "human_detected_raw"
+    )
+    session_id = _promoted_optional_identifier(decoded, nested_mmwave, "session_id")
 
     return TelemetryPayload(
         header=header,
@@ -354,6 +357,58 @@ def _optional_finite(value: object, field: str) -> float | None:
     if not math.isfinite(converted):
         raise ProtocolError(f"{field} must be finite")
     return converted
+
+
+def _optional_mmwave_object(value: object) -> dict[str, object] | None:
+    if value is None:
+        return None
+    if not isinstance(value, dict):
+        raise ProtocolError("mmwave must be an object when present")
+    return value
+
+
+def _promoted_optional_finite(
+    decoded: dict[str, object],
+    nested: dict[str, object] | None,
+    field: str,
+) -> float | None:
+    if field in decoded:
+        return _optional_finite(decoded.get(field), field)
+    if nested is not None and field in nested:
+        return _optional_finite(nested.get(field), f"mmwave.{field}")
+    return None
+
+
+def _promoted_optional_bool(
+    decoded: dict[str, object],
+    nested: dict[str, object] | None,
+    field: str,
+) -> bool | None:
+    if field in decoded:
+        value = decoded[field]
+        path = field
+    elif nested is not None and field in nested:
+        value = nested[field]
+        path = f"mmwave.{field}"
+    else:
+        return None
+    if value is None:
+        return None
+    if not isinstance(value, bool):
+        raise ProtocolError(f"{path} must be boolean when present")
+    return value
+
+
+def _promoted_optional_identifier(
+    decoded: dict[str, object],
+    nested: dict[str, object] | None,
+    field: str,
+) -> str | None:
+    if field in decoded:
+        return _optional_identifier(decoded.get(field), field)
+    if nested is not None and field in nested:
+        return _optional_identifier(nested.get(field), f"mmwave.{field}")
+    return None
 
 
 def _optional_identifier(value: object, field: str) -> str | None:
