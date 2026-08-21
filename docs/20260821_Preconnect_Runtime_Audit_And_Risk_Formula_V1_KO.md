@@ -4,7 +4,7 @@
 검증 환경: Linux x86_64 / Python 3.12.3 / `ai_edge_litert` (실제 TFLite invoke 수행)
 하드웨어: 미사용 (Raspberry Pi, ESP32, MR60BHA2, MLX90640 모두 불필요)
 
-검수 도구: `hil/preconnect_runtime_audit.py`
+검수 도구: `hil/preconnect_runtime_audit.py` (신규)
 - `data/mmwave/*.jsonl`, `data/co2/*.jsonl` 실측 필드 캡처를 실제 `safenest.telemetry.v1`
   TCP 프레임으로 재생하고, 실제 루프백 소켓으로 살아있는 `SafeNestRuntime`에 주입한다.
 - 스텁 모델을 쓰지 않는다. `LazyModel` → `sources/ondevice_ai/inference/*` → 실제 `.tflite`.
@@ -26,12 +26,14 @@ python hil/preconnect_runtime_audit.py --risk legacy            # 구 V4 산식�
 
 | 질문 | 결과 | 근거 |
 |---|---|---|
-| AI가 읽을 수 있는 데이터가 오는가 | **통과** (수정 후) | 4개 센서 전부 `LIVE`, `system=ONLINE`, M-N4 캐노니컬 윈도우 `CANONICAL_WINDOW_READY` (연속 구간 31,160 ms / 채택 업데이트 266개) |
-| AI가 그것을 연산하는가 | **부분 통과** | thermal·mmWave는 실제 TFLite invoke 성공. **CO₂는 구조적으로 불가** (`humidity_percent`가 와이어 스키마에 없음) |
-| 위험도 산식이 통과하는가 | **통과** | 신규 `SAFENEST_RISK_V1`이 점수·등급·비상 판정을 산출하고 `publish → SQLite`까지 저장 확인 |
+| AI가 읽을 수 있는 데이터가 오는가 | **통과** (수정 후) | 4개 센서 전부 `LIVE`, `system=ONLINE`, M-N4 캐노니컬 윈도우 `CANONICAL_WINDOW_READY` (연속 구간 31,180 ms / 채택 업데이트 266개), C-B6 CO₂ 슬로프 `CO2_SLOPE_READY` |
+| AI가 그것을 연산하는가 | **통과** (수정 후) | thermal·mmWave·CO₂ 3개 모델 전부 실제 TFLite invoke 성공, `all_models_available=True` |
+| 위험도 산식이 통과하는가 | **통과** | 신규 `SAFENEST_RISK_V1`이 점수·등급·비상 판정을 산출하고 `publish → SQLite`까지 저장 확인, `system_health=HEALTHY` |
 
-오늘 작업 중 **수정 1건, 신규 2건**을 반영했고, 남은 블로커 3건은 코드가 아니라
-펌웨어/와이어 스키마와 모델 품질 문제다.
+`python hil/preconnect_runtime_audit.py --inject-presence --limit 4000` 기준 7개 게이트 전부 PASS.
+
+수정 P0 2건(위상 윈도우 계층, CO₂ 선택자·어댑터), 신규 위험도 산식 v1을 반영했다.
+남은 블로커는 펌웨어 필드 1건(B1)과 모델 품질 1건(B3)이다.
 
 ---
 
@@ -136,46 +138,172 @@ median 140 ms는 약 7.1 Hz로 8 Hz 계약과 정합한다. 갭 15회는 정상 
 
 ---
 
-## 5. 블로커 B2 — `humidity_percent` 경로가 어디에도 없음 → CO₂ AI 도달 불가
+## 5. 정정 및 수정 P0-2 — CO₂ 입력 계약은 이미 `[CO2, CO2_slope]`였고, 런타임만 안 붙어 있었다
 
-CO₂ 모델(`co2_occupancy_int8_v0.1.0.tflite`)의 입력 계약은
-`[CO2_slope, Humidity, CO2]` 3-피처 `[1,3]` int8이다
-(`sources/ondevice_ai/inference/co2_interpreter.py:125-126`).
+초기 검수에서 이 항목을 "습도가 와이어 스키마에 없어서 CO₂ AI 도달 불가"로 보고했는데,
+**틀렸다.** 잠긴 계약은 습도를 요구하지 않는다. 오히려 금지한다.
 
-- ESP 펌웨어는 SCD40에서 습도를 **실제로 읽는다** (`esp32_sensor_node.ino:479-480`).
-- 그러나 텔레메트리 JSON에 담지 않는다.
-- `gateway/protocol.py`의 `safenest.telemetry.v1` 스키마에 `humidity_percent`가 없다.
-- `state/manager.py::_ingest_co2`도 습도를 쓰지 않는다.
+`sources/ondevice_ai/models/rp_x0_b_complete/co2/input_contract.json`:
 
-검증: `--inject-humidity 45`로 최상위에 필드를 넣어도 디코더가 무시하므로
-결과가 변하지 않는다 (`INPUT_UNAVAILABLE`, `missing: ['humidity_percent','co2_slope']` 유지).
-
-필요 조치 (3파일):
-1. `.ino` 텔레메트리 JSON에 `"humidity_percent"` 추가 (값은 이미 읽고 있음)
-2. `gateway/protocol.py` — 선택 유한 실수 필드로 디코딩
-3. `state/manager.py::_ingest_co2` — `values["humidity_percent"]`에 반영
-
-참고: 위험도 자체는 CO₂ AI 없이도 산출된다. v1의 CO₂ 성분은 규칙 기반 ppm 곡선이며
-모델은 재실(occupancy) 판정 보조용이다. 따라서 B2는 위험도 산식의 블로커가 아니라
-"3-모델 전부 가동" 목표의 블로커다.
-
----
-
-## 6. 블로커 B3 — M-N9 모델 출력이 판별력이 없음
-
-presence를 보정해 실제 필드 위상 데이터로 M-N9 invoke를 성공시킨 결과:
-
-```
-mmwave  True  tflite  APNEA-proxy  conf=0.418
-  probabilities: [0.22265625, 0.359375, 0.41796875]
-  model_sha256: 3b008af4be0facc4037c2afd3fe39292fb794208eb4370dbe6916b2d15aa38a4
+```json
+{
+  "candidate_id": "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001",
+  "feature_count": 2,
+  "feature_order": ["CO2", "CO2_slope"],
+  "forbidden_additional_inputs": ["Temperature", "Humidity", "Light", "time_of_day", ...],
+  "humidity_included": false,
+  "temperature_included": false,
+  "history_seconds": 150.0,
+  "max_internal_gap_seconds": 90.0,
+  "slope_method": "ENDPOINT_DIFFERENCE",
+  "causality": "PAST_ONLY"
+}
 ```
 
-3클래스 헤드에서 1위 0.418, 2위 0.359 — 마진 0.059다. 균등분포(0.333)와 거의 구분되지
-않으며, 그 상태로 최고 위험 클래스 `APNEA-proxy`를 선택했다. `LATEST_SOURCE_PROVENANCE.json`의
-`DEVICE_VALIDATED: "NO"`, `PI_SMOKE: "NOT_PERFORMED"`와 일치하는 상태다.
+즉 습도는 미사용이 아니라 **금지 입력**이다. 특성 순서도 구 3-특성
+(`[CO2_slope, humidity, CO2]`)과 달리 `[CO2, CO2_slope]`로 역순이다.
 
-thermal 모델은 대비적으로 정상 판별력을 보인다 (동일 런타임에서 직접 확인):
+### 실제 결손 지점
+
+`hil/rp_x0_b_complete_provisioning_manifest.json`의 CO₂ 항목이 정확히 지목하고 있었다.
+
+```json
+"deployment_status": "AVAILABLE_NOT_PRODUCTION_SELECTED",
+"runtime_adapter_compatible": false,
+"known_limitations": [
+  "production adapter still uses historical [CO2_slope, humidity, CO2] v0.1.0",
+  "physical-event SCD4x fields still required before live C-B6"
+]
+```
+
+- `runtime_adapter_compatible: false` — **C-B6 어댑터가 런타임에 없었다.**
+- `models.co2` 선택자가 여전히 구 3-특성 v0.1.0을 가리켰다 → 그래서 런타임이 습도를 요구했다.
+- 캐노니컬 슬로프 빌더도 없었다. `ai/pipeline.py::_co2`는 30-샘플 deque에
+  임의 구간 endpoint difference를 썼고, 150 s 계약·90 s 갭 정책·SOURCE_ACQUISITION_CLOCK
+  기준을 전혀 따르지 않았다.
+- 두 번째 제약 "physical-event SCD4x fields"는 **이미 충족되어 있었다.** ESP가
+  `co2_measurement_event_id` / `co2_measurement_monotonic_ms` /
+  `co2_measurement_event_valid`를 보내고 있고 필드 캡처에도 전부 들어 있다.
+
+따라서 이건 펌웨어 과제가 아니라 온디바이스 AI + 파이 런타임 배선 과제였다.
+
+### 수정 내용
+
+1. **신규 어댑터** `sources/ondevice_ai/inference/co2_c_b6_interpreter.py` (`CB6Interpreter`).
+   M-N9 어댑터와 같은 엄격도로 아티팩트 SHA-256, 텐서 `[1,2]` int8, 양자화
+   `(0.03921568766236305, 0)`, 출력 `[1,1]` int8 `(0.00390625, -128)`,
+   스케일러 지문·특성 순서, 임계 0.43, 클래스 맵을 전부 검증한다.
+   `humidity_included`가 `false`가 아니면 로드를 거부한다.
+   `predict(co2_ppm, co2_slope_ppm_per_min)` — 인자 2개다. 구 3-인자 호출은 `TypeError`.
+
+2. **신규 슬로프 빌더** `ai/co2_canonical_runtime.py` (`CO2SlopeWindowBuilder`).
+   `CO2_SLOPE_FEATURE_PROFILE_001`을 그대로 구현한다.
+   - 단위 ppm/min, `(co2_now - co2_history_start) / (elapsed_s / 60.0)`
+   - endpoint = 소스 시계 기준 age ≥ 150 s인 **가장 오래된 과거** 샘플
+   - 시계 기준은 ESP의 `co2_measurement_monotonic_ms` (파이 벽시계 아님)
+   - `measurement_event_id`가 바뀔 때만 이력 전진 — 펌웨어가 매 패킷 재발행하고
+     런타임이 표시값을 60초로 스로틀하므로, 다른 키로 세면 평평한 가짜 슬로프가 만들어진다
+   - 갭 > 90 s, boot 경계, 비단조 시계 → 이력 재시작
+   - 보간·미래 샘플·중심 윈도우 금지, float64
+   - 상태 코드를 프로파일 어휘로 노출: `CO2_SLOPE_READY` /
+     `FEATURE_UNAVAILABLE_WARMUP` / `FEATURE_UNAVAILABLE_GAP_RESTART` /
+     `NO_CANONICAL_SLOPE` / `CO2_MEASUREMENT_CLOCK_UNAVAILABLE`.
+     **슬로프 미확보를 0.0 ppm/min으로 보고하지 않는다.**
+
+3. **선택자 승격**: 매니페스트에 `co2_occupancy_c_b6` 항목 추가
+   (`runtime_role: ACTIVE_C_B6`). 구 `co2` 항목은 `HISTORICAL_CO2_V0_1_0` /
+   `HISTORICAL_NOT_ACTIVE: true` / `superseded_by: co2_occupancy_c_b6`로 표기만 하고
+   `deployment_allowed`는 건드리지 않아 프리즈 스냅샷 자체 도구가 계속 동작한다.
+
+4. **`ai/runtime.py`**: `_ADAPTERS`를 3-튜플
+   `(파일, 클래스, 매니페스트 선택자 키)`로 확장. CO₂만 선택자 키가 `co2`와 다르기 때문이다.
+   `_assert_deployment_allowed`도 선택자 키로 조회한다.
+
+5. **와이어 레이트 누적**: `observe_telemetry`가 mmWave 위상과 함께 CO₂ 측정 이벤트도
+   먹인다. 150 s 이력을 15초 발행 루프로 채우려 하면 §2와 같은 실패가 재현된다.
+
+6. **점유(occupancy)는 위험 점수가 아니다.** `class_map.json`이
+   `risk_semantic: NONE` / `safety_semantic: NONE`이라고 선언하므로, AI 결과의
+   `score`는 0.0 + `risk_contribution_deferred: True`로 두고 v1의 CO₂ 성분은
+   계속 ppm 규칙으로 계산한다. 점유 확률은 메타데이터로만 노출한다.
+   어댑터도 `risk_semantic`이 `NONE`이 아니면 로드를 거부한다.
+
+### 잠금 장부 변경 (확인 필요)
+
+C-B6 아티팩트는 물리적으로 `rp_x0_b_complete` 오버레이 안에 있고, 그 오버레이는
+`runtime_role: HISTORICAL_B_STAGE`로 표기되어 있었다. 선택자를 그쪽으로 돌리면
+`production_selection_changed`가 `false → true`로 바뀐다. 다음 파일을 일관되게 갱신했다.
+
+| 파일 | 변경 |
+|---|---|
+| `hil/rp_x0_b_complete_provisioning_manifest.json` | `production_selection_changed: true`, `production_selection_change_scope: "CO2_ONLY_C_B6_REDUCED_FEATURE"`, CO₂ 항목 `PRODUCTION_SELECTED_C_B6` / `runtime_adapter_compatible: true` |
+| `.../rp_x0_b_complete/artifact_inventory.json` | C-B6 CO₂ → `LOCKED_B_STAGE, PRODUCTION_SELECTED, ACTIVE_C_B6, OCCUPANCY_ONLY_RISK_SEMANTIC_NONE`. 구 v0.1.0 → `SUPERSEDED_BY_C_B6_REDUCED_FEATURE` |
+| `LATEST_SOURCE_PROVENANCE.json` | `tracked_file_count` 1075→1076, `co2_c_b6_promotion` 블록 추가, 오버레이 `runtime_role: HISTORICAL_B_STAGE_EXCEPT_CO2_C_B6` |
+
+**mmWave와 thermal의 B-stage 잠금은 손대지 않았다.**
+`mmwave_live_b_gate: "CLOSED"` 유지, mmWave 매니페스트 `HISTORICAL_B_NOT_ACTIVE: true` 유지,
+`thermal44_deployment_validated: false` 유지, M-B3 아티팩트는 계속 `LIVE_B_GATE_CLOSED`.
+승격 범위는 CO₂ 단독이다.
+
+C-B6 자체의 미검증 항목은 그대로 남는다: `DEVICE_VALIDATED: NO`,
+`PI_SMOKE: NOT_PERFORMED`, 임계 0.43은 `TRAIN_INTERNAL_ONLY`, 스케일러·캘리브레이션은
+UCI 도메인이며 SCD40 정렬은 C-C 단계 미착수.
+
+### 실측 검증
+
+```
+co2  True  tflite  OCCUPIED  conf 0.996  0.046 ms
+  probabilities: [0.00390625, 0.99609375]
+  model_sha256: c5969b367f5b5e28c4d27f1bdd6220f7d02da92e99604e3f85c9f1291e98dd3b
+```
+
+필드 캡처의 실제 SCD40 측정 이벤트 간격은 median 4,750 ms (min 4,739 / p95 5,000)로
+90 s 갭 한도 안에 충분히 들어온다. 세션 중 220 s 단절이 1회 있고, 빌더가 그 지점에서
+`FEATURE_UNAVAILABLE_GAP_RESTART`를 내고 이후 150 s가 다시 모이면 복구한다.
+
+어댑터 단독 응답 곡선 (임계 0.43):
+
+| ppm | slope | P(OCCUPIED) | 판정 |
+|---|---|---|---|
+| 300 | 0.0 | 0.012 | VACANT |
+| 420 | 0.0 | 0.059 | VACANT |
+| 600 | 0.0 | 0.305 | VACANT |
+| 800 | 2.0 | 0.914 | OCCUPIED |
+| 1184 | 1.0 | 0.996 | OCCUPIED |
+| 600 | -5.0 | 0.078 | VACANT |
+
+빈 방 수준(300–420 ppm)에서 VACANT, 재실 수준에서 OCCUPIED로 단조 증가한다.
+
+## 6. 블로커 B3(정정) — M-N9는 판별력이 없는 게 아니라, 호흡 중인 구간에 고신뢰 APNEA-proxy를 낸다
+
+초기 검수에서 단일 윈도우(레코드 1200)만 보고 "판별력 없음"으로 보고했는데, 표본이
+부족했다. 같은 캡처의 독립 윈도우 7개를 훑으면 실제 양상은 더 나쁘다.
+
+```
+python hil/preconnect_runtime_audit.py --inject-presence --sweep 1200,2400,4000,4800,5600,6400,7000
+```
+
+| 레코드 | 클래스 | 신뢰도 | 1·2위 마진 | 판별력 | 위험도 | health |
+|---|---|---|---|---|---|---|
+| 1200 | APNEA-proxy | 0.418 | 0.059 | **아니오** | 18.56 NORMAL | DEGRADED |
+| 2400 | APNEA-proxy | 0.836 | 0.707 | 예 | 28.64 NORMAL | HEALTHY |
+| 4000 | APNEA-proxy | 0.996 | 0.996 | 예 | 28.64 NORMAL | HEALTHY |
+| 4800 | APNEA-proxy | 0.824 | 0.695 | 예 | 28.55 NORMAL | HEALTHY |
+| 5600 | NORMAL | 0.492 | 0.070 | **아니오** | 8.11 NORMAL | DEGRADED |
+| 6400 | APNEA-proxy | 0.957 | 0.922 | 예 | 28.58 NORMAL | HEALTHY |
+| 7000 | APNEA-proxy | 0.973 | 0.953 | 예 | 28.60 NORMAL | HEALTHY |
+
+판별 가능한 윈도우 5개 중 **5개 전부 APNEA-proxy**, 최고 신뢰도 0.996.
+
+그런데 이 캡처는 전 구간 `respiration_valid=true`이고 호흡수가 4–27 rpm으로 관측된다.
+즉 호흡이 관측되는 구간에 대해 모델이 **고신뢰 무호흡 오탐**을 내고 있다.
+"판별력 없음"보다 안전상 더 위험한 양상이다. 무비판적으로 융합하면
+`APNEA-proxy → score 0.9 → 가중치 0.25`가 상시 켜진 채로 운영된다.
+
+`LATEST_SOURCE_PROVENANCE.json`의 `DEVICE_VALIDATED: "NO"`,
+`PI_SMOKE: "NOT_PERFORMED"`와 정합하는 상태다.
+
+thermal 모델은 대비적으로 정상이다 (동일 런타임 직접 호출).
 
 | 합성 입력 | 결과 | 신뢰도 |
 |---|---|---|
@@ -183,11 +311,18 @@ thermal 모델은 대비적으로 정상 판별력을 보인다 (동일 런타�
 | 세로 블롭(직립) | `HUMAN_NORMAL` | 1.000 |
 | 가로 블롭(누움) | `HUMAN_FALL` | 1.000 |
 
-이 때문에 v1 산식은 (a) 판별력 게이트로 무의미한 출력을 채점하지 않고,
-(b) mmWave 가중치를 낮추고, (c) 미검증 `APNEA-proxy`가 단독으로 DANGER를 만들지
-못하게 한다(§7). B3 해소는 재학습/실기 검증 과제이며 런타임 배선 과제가 아니다.
+v1 산식이 이 오탐에 대해 걸어 둔 방어 3중:
 
----
+1. 판별력 게이트 — 마진 < 0.15인 윈도우(1200, 5600)는 AI 채점 자체를 거부하고
+   규칙 폴백으로 내린다.
+2. 지속성 — `APNEA-proxy`가 2회 연속이어야 에스컬레이션 후보가 된다.
+   1회는 `APNEA_PROXY_AWAITING_PERSISTENCE`만 기록한다.
+3. 등급 상한 — 미검증 `APNEA-proxy`는 **WARNING까지만**. 위 표에서
+   판별 성공 + score 0.9인데도 최종 등급이 NORMAL/WARNING을 넘지 않는 이유다.
+   하드웨어로 확인된 `apnea_verified=true`만 DANGER + 비상으로 간다.
+
+해소는 재학습 / 실기 스모크 과제이며 런타임 배선 과제가 아니다. 재실 게이트는
+절대 끄지 말아야 한다 — 게이트가 없으면 빈 방의 zero 입력이 이 경로로 APNEA를 낸다.
 
 ## 7. 신규 위험도 산식 v1 (`SAFENEST_RISK_V1`)
 
@@ -255,6 +390,12 @@ v1은 개별 신호가 등급 하한을 강제한다.
 - **co2**: ppm 구간 선형 곡선 `600→0.0, 1000→0.15, 2000→0.50, 5000→0.90, 10000→1.00`
   (5000 ppm은 OSHA 8시간 TWA 기준선). 상승률 ≥15 ppm/min 시 +0.10, ≥50 시 +0.25, 1.0 클립.
   실측 1184 ppm → 0.202 (구 산식은 0.346으로 과대평가).
+  상승률은 **C-B6 캐노니컬 슬로프를 우선 사용**한다
+  (`ai.metadata.co2_slope_ppm_per_min`, `slope_source`에 출처 기록). 런타임에 슬로프
+  정의가 둘 존재하지 않도록 하기 위함이고, 캐노니컬 슬로프가 warm-up이면
+  `RISK_LOCAL_ENDPOINT` 폴백으로만 내려간다.
+  C-B6 점유 출력은 `risk_semantic: NONE`이므로 위험 가중치가 되지 않고
+  `occupancy_state` / `occupancy_probability` 메타데이터로만 노출된다.
 - **pir**: 움직임 0.0. **presence 미확인 시 0.0이 아니라 불가용** — 0.0을 주면 총점을
   조용히 끌어내린다. presence 확인 + 무움직임은 유예 30 s부터 위험 180 s까지 선형 상승.
   (구 V4는 15 s에 곧바로 1.0으로, 가만히 앉아있는 사람에게도 최대 점수를 줬다.)
@@ -266,6 +407,9 @@ v1은 개별 신호가 등급 하한을 강제한다.
   v1은 두 문자열을 모두 처리한다.
 - `sources/ondevice_ai/config/risk_rules.json`과 `risk_rules.yaml`은 어떤 코드도
   읽지 않는다(문서·해시감사 전용). v1은 이들을 대체하지 않고 무시한다.
+- `sources/ondevice_ai/config/models.yaml`도 런타임이 로드하지 않는다. CO₂ 항목은
+  아직 3-특성 v0.1.0을 기술하고 있으나 실제 선택은 `model_manifest.json`이 한다.
+  혼동을 피하려면 별도로 정리가 필요하다.
 - `INDETERMINATE`는 `backend/views.py:114-127`의 등급 분기에 없어 표시 상태가
   `offline`로 떨어진다. fail-closed이므로 안전하지만, 대시보드 문구 보강이 필요하다.
 
@@ -273,22 +417,44 @@ v1은 개별 신호가 등급 하한을 강제한다.
 
 ## 8. 실측 재생 최종 결과
 
-`python hil/preconnect_runtime_audit.py --inject-presence` (presence 결손만 보정)
+`python hil/preconnect_runtime_audit.py --inject-presence --limit 4000`
 
 ```
+[SOURCE]     data/mmwave/20260817_09_mmwave.jsonl + data/co2/20260817_09_co2.jsonl
+             thermal은 SYNTHETIC_UPRIGHT (실측 캡처 미커밋)
+
 [Q1 INGEST]  mmwave/thermal/co2/pir 전부 LIVE,  system = ONLINE
-[Q2 COMPUTE] thermal  tflite  HUMAN_NORMAL   conf 1.000   0.146 ms
-             mmwave   tflite  APNEA-proxy    conf 0.418   0.145 ms
-             co2      unavailable  INPUT_UNAVAILABLE (missing humidity_percent)
+             mmwave CANONICAL_WINDOW_READY (연속 31180 ms / 채택 266 / MAD 0.0307)
+             co2    CO2_SLOPE_READY
+
+[Q2 COMPUTE] thermal  tflite  HUMAN_NORMAL   conf 1.000   0.099 ms  [0.0, 1.0, 0.0]
+             mmwave   tflite  APNEA-proxy    conf 0.996   0.060 ms  [0.0, 0.0, 0.996]
+             co2      tflite  OCCUPIED       conf 0.996   0.046 ms  [0.004, 0.996]
              pir      rule    NO_MOTION
-[Q3 RISK]    SAFENEST_RISK_V1  score 18.5645  level NORMAL
-             effective_weight 1.0  evidence_sufficient True
-             component_status {mmwave: RULE_FALLBACK, co2: RULE, pir: RULE, thermal: AI}
-             reasons [PRESENCE_FROM_MMWAVE, ABNORMAL_RESPIRATION_RPM, HIGH_CO2_WARNING]
-[Q3 PERSIST] publish -> SQLite 저장 확인 (score 18.5645 / level NORMAL)
+             all_models_available = True     degraded = False
+
+[Q3 RISK]    SAFENEST_RISK_V1  score 28.638  level NORMAL
+             system_health HEALTHY   effective_weight 1.0
+             component_status {mmwave: AI, co2: RULE, pir: RULE, thermal: AI}
+             reasons [PRESENCE_FROM_MMWAVE, APNEA_PROXY_AWAITING_PERSISTENCE,
+                      HIGH_CO2_WARNING]
+
+[Q3 PERSIST] publish -> SQLite  score 28.638 / level NORMAL / health HEALTHY
+
+[VERDICT]    7 / 7 PASS
+  Q1 wire decode + state LIVE      PASS   LIVE=[co2, mmwave, pir, thermal] of 4
+  Q1 mmwave canonical window       PASS   CANONICAL_WINDOW_READY, span 31180 ms
+  Q2 real TFLite inference         PASS   tflite=[co2, mmwave, thermal] of 3
+  Q3 risk score published          PASS   score 28.638, level NORMAL
+  Q3 all components contribute     PASS   no UNAVAILABLE component
+  Q3 no degraded mode              PASS   health HEALTHY
+  Q3 risk persisted to SQLite      PASS   rows 1, level NORMAL
 ```
 
-`--thermal-shape lying` (낙상 형상) 추가 시 비상 경로까지 관통:
+`component_status.co2`가 `RULE`인 것은 정상이다. C-B6 점유는
+`risk_semantic: NONE`이라 위험 성분이 되지 않고, CO₂ 위험 점수는 ppm 규칙이 낸다.
+
+`--thermal-shape lying` (낙상 형상) 추가 시 비상 경로까지 관통한다.
 
 ```
 thermal  tflite  HUMAN_FALL  conf 1.000  probabilities [0.0, 0.0, 1.0]
@@ -299,23 +465,27 @@ SAFENEST_RISK_V1  score 100.0  level DANGER  is_emergency True
 SQLite 저장: score 100.0 / level DANGER
 ```
 
-`degraded_mode`는 계속 `True`다. mmWave가 규칙 폴백이고 CO₂ AI가 불가용인 한 정상적인
-표시이며, B2·B3가 해소되어야 `HEALTHY`가 된다.
-
----
+기본 `--limit`은 2400이다. 커밋된 20260817 캡처에서 M-N4의 30 s 윈도우와
+C-B6의 150 s CO₂ 이력을 동시에 채우는 최소 지점이기 때문이다. 그보다 작으면
+CO₂가 `FEATURE_UNAVAILABLE_GAP_RESTART`로 남고, 3200 부근은 캡처의 221.5 s 단절
+(레코드 인덱스 807)과 겹쳐 mmWave가 `WINDOW_CONTAINS_LARGE_GAP`이 된다. 둘 다
+계약대로 거부한 결과이고 결함이 아니다.
 
 ## 9. 남은 작업 (센서 연결 전)
 
 | # | 항목 | 담당 영역 | 상태 |
 |---|---|---|---|
 | 1 | 위상 윈도우 와이어 레이트 누적 | Pi 런타임 | **완료** (§2) |
-| 2 | 위험도 산식 v1 | Pi 런타임 | **완료** (§7) |
-| 3 | `human_detected_raw` 펌웨어 추가 | ESP32 `.ino` | **미착수 — mmWave AI 최대 블로커** |
-| 4 | `humidity_percent` 3파일 배선 | ESP32 + protocol + state | **미착수 — CO₂ AI 블로커** |
-| 5 | M-N9 판별력 확보 | 모델 재학습/실기 검증 | **미착수** (§6) |
+| 2 | CO₂ C-B6 어댑터 + 캐노니컬 슬로프 + 선택자 승격 | 온디바이스 AI / Pi 런타임 | **완료** (§5) |
+| 3 | 위험도 산식 v1 | Pi 런타임 | **완료** (§7) |
+| 4 | `human_detected_raw` 펌웨어 추가 | ESP32 `.ino` | **미착수 — mmWave AI 최대 블로커** (§4) |
+| 5 | M-N9 오탐 해소 | 모델 재학습 / 실기 스모크 | **미착수** (§6) |
 | 6 | 실측 thermal 캡처 커밋 | 데이터 | 미착수 (`data/thermal/` 비어 있음, 합성 프레임으로 대체 중) |
-| 7 | 대시보드 O4 요소 복구 | 웹 | 미착수 — `runtimeBadge`, `thermalSensor`, `thermalAiStatus`, `co2Ai`, `pirAi`가 새 `web/dashboard/`에 없어 기계판독 계약이 깨짐 |
-| 8 | 비상 시 SMS/119 자동 연동 | 서비스 | 설계상 수동. `is_emergency`는 부저 래치와 이벤트 로그까지만 자동 |
+| 7 | C-B6 SCD40 도메인 정렬 (C-C) + 임계 재선정 | 온디바이스 AI | 미착수. 현 임계 0.43은 `TRAIN_INTERNAL_ONLY`, 캘리브레이션은 UCI 도메인 |
+| 8 | 대시보드 O4 요소 복구 | 웹 | 미착수 — `runtimeBadge`, `thermalSensor`, `thermalAiStatus`, `co2Ai`, `pirAi`가 새 `web/dashboard/`에 없어 기계판독 계약이 깨짐 |
+| 9 | 비상 시 SMS/119 자동 연동 | 서비스 | 설계상 수동. `is_emergency`는 부저 래치와 이벤트 로그까지만 자동 |
+| 10 | Stage 9 파이 스모크 / 30분 soak → `DEVICE_VALIDATED=true` | 실기 | 미착수. mmWave·CO₂ 모두 `DEVICE_VALIDATED: NO` 유지 |
+| 11 | 팀 저장소 `RaspberryPi/Runtime` 이식 + 파이 재배포 | 배포 | 미착수. `/api/status`에서 `canonical_window_status=CANONICAL_WINDOW_READY`, `component_status.mmwave=AI` 확인 필요 |
 
 ### 기존 테스트 실패 22건에 대하여
 
@@ -333,7 +503,7 @@ SQLite 저장: score 100.0 / level DANGER
 
 ## 10. 변경 파일 전체 목록
 
-### 수정 (6)
+### 수정 (13)
 
 | 파일 | 변경 내용 |
 |---|---|
@@ -342,9 +512,18 @@ SQLite 저장: score 100.0 / level DANGER
 | `backend/runtime.py` | `_on_packet`에서 `TelemetryPayload`일 때 `ai_pipeline.observe_telemetry(packet)` 호출, 예외는 `mmwave_phase_window` 런타임 에러로 기록. 기본 위험도 엔진을 `SafeNestRiskEngine` → `SafeNestRiskFormulaV1`로 교체. `risk_engine` 파라미터 타입을 주입 가능한 `object | None`으로 완화. |
 | `gateway/run_risk_gateway.py` | 위상 와이어 레이트 누적 배선 + 위험도 엔진 v1 적용. |
 | `gateway/run_ai_gateway.py` | 위상 와이어 레이트 누적 배선. |
+| `ai/runtime.py` | `_ADAPTERS`를 3-튜플 `(파일, 클래스, 매니페스트 선택자 키)`로 확장하고 `_assert_deployment_allowed`를 선택자 키로 조회. CO₂ 어댑터를 `co2_c_b6_interpreter.py::CB6Interpreter` / 선택자 `co2_occupancy_c_b6`으로 교체. |
+| `sources/ondevice_ai/models/model_manifest.json` | `co2_occupancy_c_b6` 항목 추가(`ACTIVE_C_B6`, `[1,2]` int8, `feature_order ["CO2","CO2_slope"]`, `risk_semantic NONE`). 구 `co2` 항목에 `HISTORICAL_CO2_V0_1_0` / `HISTORICAL_NOT_ACTIVE` / `superseded_by` 표기 추가(플래그 미변경). |
+| `hil/rp_x0_b_complete_provisioning_manifest.json` | CO₂ 단독 승격 기록. `production_selection_changed: true` + `production_selection_change_scope: CO2_ONLY_C_B6_REDUCED_FEATURE`, CO₂ 항목 `runtime_adapter_compatible: true`. mmWave 게이트·thermal 플래그 미변경. |
+| `sources/.../rp_x0_b_complete/artifact_inventory.json` | C-B6 CO₂ 분류에 `PRODUCTION_SELECTED, ACTIVE_C_B6, OCCUPANCY_ONLY_RISK_SEMANTIC_NONE` 추가, 구 v0.1.0에 `SUPERSEDED_BY_C_B6_REDUCED_FEATURE`. |
+| `LATEST_SOURCE_PROVENANCE.json` | `tracked_file_count` 1075→1076, `snapshot_additions`, `co2_c_b6_promotion` 블록, 오버레이 `runtime_role: HISTORICAL_B_STAGE_EXCEPT_CO2_C_B6`. |
+| `risk/formula_v1.py` | `_co2_component`가 C-B6 캐노니컬 슬로프를 우선 사용(`slope_source` 기록)하고, 점유는 `risk_semantic NONE`을 지켜 메타데이터로만 노출. |
+| `tests/test_ai_pipeline.py` | `test_co2_requires_humidity_and_history`를 C-B6 계약 테스트 2건으로 교체(150 s 이력·90 s 갭 재시작·2-인자 호출·점유 비가중). `_ADAPTERS` 3-튜플, 프리즈 파일 수 1076으로 갱신. |
+| `tests/test_locked_b_stage_artifacts.py` | 매니페스트 SHA 핀, CO₂ 선택자 승격 단정, 프리즈 파일 수, CO₂ 단독 승격 범위 단정 갱신. |
+| `tests/test_hil_criteria.py` | 프리플라이트 모델 해시 검사 수 5→6. |
 | `tests/test_mmwave_mn9_runtime.py` | `WireRatePhaseAccumulationTests` 추가 (2건). ① 런타임 수신 경로만으로 260 패킷을 넣으면 추가 발행 없이 `CANONICAL_WINDOW_READY`가 되고 텐서가 `(1,240,1)`이며 presence 부재로 추론은 게이트된다. ② 네거티브 — 상태 매니저에 260 패킷을 넣고 발행을 1회만 하면 `accepted_update_count == 1`이다(회귀 방지). |
 
-### 신규 (5)
+### 신규 (8)
 
 | 파일 | 역할 |
 |---|---|
@@ -352,21 +531,28 @@ SQLite 저장: score 100.0 / level DANGER
 | `risk/risk_formula_v1.json` | v1 설정. 가중치·임계·CO₂ 곡선·판별력 기준·플로어·비상 오버라이드. 프리즈된 `sources/ondevice_ai/` 트리 밖, 이 저장소 소유. 각 값의 채택 근거를 `rationale`에 기록. |
 | `tests/test_risk_formula_v1.py` | v1 행위 계약 17건. 설정 계약, 판별력 게이트(균등분포 거부·저신뢰 거부·TTL 초과 거부), 플로어(낙상 비상·CO₂ 희석 방지·즉시위험·미검증 APNEA는 WARNING 상한·하드웨어 확인 APNEA는 비상), 증거 충분성(가중치 소수 → `INDETERMINATE`·전부 불가용 → fail-closed·과반 → NORMAL 허용), PIR 의미론, CO₂ 곡선 단조성. |
 | `hil/preconnect_runtime_audit.py` | 센서 연결 전 감사 도구. 실측 캡처를 실제 `safenest.telemetry.v1` TCP 프레임으로 재생해 루프백 소켓으로 살아있는 `SafeNestRuntime`에 주입하고, `state → AI → risk → store → SQLite` 전 구간을 관통시켜 Q1/Q2/Q3 판정표를 낸다. 스텁 모델 없음. thermal만 합성이며 `SYNTHETIC_*`로 명시. |
+| `sources/ondevice_ai/inference/co2_c_b6_interpreter.py` | `CB6Interpreter`. C-B6 축소 특성 CO₂ 점유 어댑터. SHA-256·텐서 `[1,2]` int8·양자화·스케일러 지문·특성 순서·임계·클래스 맵을 전부 검증하고, `humidity_included`가 false가 아니거나 `risk_semantic`이 NONE이 아니면 로드를 거부한다. `predict(ppm, slope)` 2-인자. |
+| `ai/co2_canonical_runtime.py` | `CO2SlopeWindowBuilder`. `CO2_SLOPE_FEATURE_PROFILE_001` 구현 — ppm/min, ENDPOINT_DIFFERENCE, age ≥ 150 s 과거 endpoint, SOURCE_ACQUISITION_CLOCK(`measurement_monotonic_ms`), 측정 이벤트 기준 전진, 90 s 갭·boot 경계·비단조 시계 재시작, 보간 금지, float64. 미확보를 0.0으로 보고하지 않고 프로파일 상태 코드로 노출. |
+| `tests/test_co2_c_b6_runtime.py` | 슬로프 계약 9건 + 어댑터 계약 5건. 단위·부호·warm-up·갭 재시작과 복구·재발행 무시·무효 이벤트·boot 경계·비단조 시계, 어댑터 식별·2-인자 강제(3-인자는 `TypeError`)·ppm 단조성·빈 방 VACANT·비유한 fail-closed. |
 | `docs/20260821_Preconnect_Runtime_Audit_And_Risk_Formula_V1_KO.md` | 본 문서. |
 
 무변경: `gateway/protocol.py`, `state/manager.py`, `risk/engine.py`, `backend/store.py`,
-`backend/views.py`, `database/*`, `sources/**` (프리즈 스냅샷), ESP32 펌웨어.
+`backend/views.py`, `database/*`, ESP32 펌웨어, 그리고 mmWave·thermal의 B-stage 잠금
+(`mmwave_live_b_gate: CLOSED`, mmWave `HISTORICAL_B_NOT_ACTIVE: true`,
+`thermal44_deployment_validated: false`).
 
 ### 회귀 확인
 
 `git stash` 대조로 변경 전후 실패 집합이 **문자열 단위로 동일**함을 확인했다
-(22 failed / 1 skipped). 신규 통과 19건(v1 17 + 위상 회귀 2)만 증가.
+(22 failed / 1 skipped). 
 
 ```
-before: 22 failed, 234 passed
-after : 22 failed, 253 passed
+before: 22 failed, 234 passed,  1 skipped
+after : 22 failed, 268 passed,  1 skipped
 diff(FAILED 목록) = 빈 집합
 ```
+
+신규 통과 34건: 위험도 v1 17 + 위상 회귀 2 + CO₂ C-B6 14 + CO₂ 파이프라인 계약 1.
 
 ---
 
@@ -389,11 +575,15 @@ curl -sSLO https://bootstrap.pypa.io/get-pip.py && .venv/bin/python get-pip.py
 .venv/bin/python -m pytest tests -q
 
 # 센서 연결 전 감사
-.venv/bin/python hil/preconnect_runtime_audit.py
-.venv/bin/python hil/preconnect_runtime_audit.py --inject-presence
+.venv/bin/python hil/preconnect_runtime_audit.py --inject-presence --limit 4000    # 7/7 PASS
+.venv/bin/python hil/preconnect_runtime_audit.py                                   # 캡처 그대로
 .venv/bin/python hil/preconnect_runtime_audit.py --inject-presence --thermal-shape lying
 .venv/bin/python hil/preconnect_runtime_audit.py --risk legacy --inject-presence   # 구 V4 비교
 .venv/bin/python hil/preconnect_runtime_audit.py --json /tmp/audit.json            # 증거 저장
+
+# 모델 거동 스윕 (M-N9 오탐 재현)
+.venv/bin/python hil/preconnect_runtime_audit.py --inject-presence \
+    --sweep 1200,2400,4000,4800,5600,6400,7000
 ```
 
 감사 도구 옵션:
@@ -401,9 +591,10 @@ curl -sSLO https://bootstrap.pypa.io/get-pip.py && .venv/bin/python get-pip.py
 | 옵션 | 의미 |
 |---|---|
 | `--mmwave` / `--co2` | 재생할 캡처 파일 지정 (기본: `data/` 내 최신) |
-| `--limit N` | 재생 레코드 수 (기본 1200 ≈ 8 Hz로 2.5분) |
+| `--limit N` | 재생 레코드 수 (기본 2400 — M-N4 30 s 윈도우와 C-B6 150 s 이력을 동시에 채우는 최소 지점) |
+| `--sweep a,b,c` | 같은 캡처의 독립 윈도우별 모델 거동 표 (§6) |
 | `--inject-presence` | 결손된 `mmwave.human_detected_raw=true`만 합성 (B1 격리 검증용) |
-| `--inject-humidity P` | `humidity_percent` 합성 시도 — **와이어 스키마에 없어서 무효임을 보이는 용도** (B2 증명) |
+| `--inject-humidity P` | `humidity_percent` 합성 시도 — C-B6 계약이 금지 입력으로 지정했으므로 **무시됨을 보이는 용도** |
 | `--thermal-shape` | `upright` / `lying` / `flat` 합성 thermal 형상 |
 | `--risk` | `v1`(기본, 런타임 기본값과 동일) / `legacy`(구 V4 비교) |
 | `--json PATH` | 전체 증거 문서 저장 |

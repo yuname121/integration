@@ -338,7 +338,7 @@ def render(report: dict[str, Any]) -> str:
     add(f"  thermal file         : {cap['thermal_file']}")
     add(f"  thermal frame        : {cap['thermal_frame']}")
     stats = cap["mmwave_stats"]
-    add(f"  records replayed     : {stats['record_count']}")
+    add(f"  records replayed     : {stats['record_count']} (limit {cap['record_limit']})")
     add(f"  breath_phase samples : {stats['breath_phase_present']}"
         f"  range [{stats['breath_phase_min']}, {stats['breath_phase_max']}]")
     add(f"  device-time span     : {stats['monotonic_span_seconds']} s"
@@ -471,34 +471,8 @@ def build_verdict(report: dict[str, Any]) -> list[dict[str, str]]:
 
 
 # --------------------------------------------------------------------------- #
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mmwave", type=Path, default=None)
-    parser.add_argument("--co2", type=Path, default=None)
-    parser.add_argument("--limit", type=int, default=1200,
-                        help="max telemetry records to replay (default 1200 ~= 2 min @10Hz)")
-    parser.add_argument("--inject-presence", action="store_true",
-                        help="synthesize mmwave.human_detected_raw=true (field captures lack it)")
-    parser.add_argument("--inject-humidity", type=float, default=None,
-                        help="synthesize humidity_percent (field captures and firmware lack it)")
-    parser.add_argument("--thermal-shape", choices=("upright", "lying", "flat"),
-                        default="upright",
-                        help="synthetic thermal geometry (no real capture is committed)")
-    parser.add_argument("--risk", choices=("legacy", "v1"), default="v1",
-                        help="risk formula under audit (runtime default is v1)")
-    parser.add_argument("--json", type=Path, default=None)
-    args = parser.parse_args(argv)
-
-    mmwave_path = args.mmwave or newest_capture(MMWAVE_DIR, "_mmwave")
-    co2_path = args.co2 or newest_capture(CO2_DIR, "_co2")
-    if mmwave_path is None:
-        print("no committed mmwave field capture found under data/mmwave", file=sys.stderr)
-        return 2
-    thermal_files = sorted((REPO_ROOT / "data" / "thermal").glob("*"))
-
-    mm_records = load_capture(mmwave_path)[: args.limit]
-    co2_index = co2_by_sequence(load_capture(co2_path)) if co2_path else {}
-
+def run_audit(args, limit: int, mmwave_path: Path, co2_index, mm_all) -> dict[str, Any]:
+    mm_records = mm_all[:limit]
     risk_engine = None
     if args.risk == "legacy":
         from risk.engine import SafeNestRiskEngine
@@ -510,8 +484,9 @@ def main(argv: list[str] | None = None) -> int:
         inject_humidity=args.inject_humidity,
         risk_engine=risk_engine,
     ) as audit:
-        audit.send_thermal(mm_records[0]["sequence"] if mm_records else 1,
-                           shape=args.thermal_shape)
+        audit.send_thermal(
+            mm_records[0]["sequence"] if mm_records else 1, shape=args.thermal_shape
+        )
 
         # The firmware republishes the last valid CO2 reading on every packet;
         # the per-sensor log files only record the sequences where a new
@@ -529,7 +504,7 @@ def main(argv: list[str] | None = None) -> int:
                     inject_humidity=args.inject_humidity,
                 )
 
-        def evaluate_live() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
+        def evaluate_live():
             # Refresh thermal so its 3 s TTL has not expired at evaluation time.
             audit.send_thermal(int(mm_records[-1]["sequence"]) + 1, shape=args.thermal_shape)
             # Drive the production path: state -> AI -> risk -> store -> SQLite.
@@ -548,15 +523,17 @@ def main(argv: list[str] | None = None) -> int:
 
         state, ai, risk, persistence = audit.replay(frames(), evaluate_live)
 
+    thermal_files = sorted((REPO_ROOT / "data" / "thermal").glob("*"))
     report: dict[str, Any] = {
         "generated_at": time.time(),
         "capture": {
             "mmwave_file": str(mmwave_path.relative_to(REPO_ROOT)),
-            "co2_file": str(co2_path.relative_to(REPO_ROOT)) if co2_path else "NONE",
+            "co2_file": args.resolved_co2_file,
             "thermal_file": (
                 str(thermal_files[0]) if thermal_files
                 else "NONE (synthetic frame used; no real MLX90640 capture committed)"
             ),
+            "record_limit": limit,
             "mmwave_stats": summarize_capture(mm_records),
             "injected_presence": bool(args.inject_presence),
             "injected_humidity": args.inject_humidity,
@@ -568,6 +545,111 @@ def main(argv: list[str] | None = None) -> int:
         "persistence": persistence,
     }
     report["verdict"] = build_verdict(report)
+    return report
+
+
+def render_sweep(rows: list[dict[str, Any]]) -> str:
+    """Model behaviour across independent replay windows of the same capture."""
+
+    lines = ["=" * 96,
+             "M-N9 / C-B6 behaviour sweep over independent windows of one committed capture",
+             "=" * 96,
+             f"{'records':>8} {'mmwave class':<16} {'conf':>6} {'margin':>7} {'decisive':>8}"
+             f"  {'co2':<12} {'risk':>8} {'level':<14} health"]
+    for row in rows:
+        lines.append(
+            f"{row['records']:>8} {row['mmwave_state'][:16]:<16} {row['mmwave_confidence']:>6}"
+            f" {row['mmwave_margin']:>7} {row['mmwave_decisive']:>8}"
+            f"  {row['co2_state'][:12]:<12} {row['risk_score']:>8} {row['risk_level'][:14]:<14}"
+            f" {row['system_health']}"
+        )
+    decisive = [r for r in rows if r["mmwave_decisive"] == "yes"]
+    apnea = [r for r in decisive if "APNEA" in r["mmwave_state"]]
+    lines.append("")
+    lines.append(f"  decisive mmwave windows      : {len(decisive)} / {len(rows)}")
+    lines.append(f"  decisive and APNEA-proxy     : {len(apnea)} / {len(decisive) or 1}")
+    lines.append("  NOTE respiration_valid is true across this whole capture with rates in")
+    lines.append("       4-27 rpm, so high-confidence APNEA-proxy here is a false positive,")
+    lines.append("       not a detection. This is why formula v1 caps unverified APNEA-proxy")
+    lines.append("       at WARNING and requires persistence before escalating at all.")
+    lines.append("=" * 96)
+    return "\n".join(lines)
+
+
+def sweep_row(report: dict[str, Any]) -> dict[str, Any]:
+    mm = report["ai"]["ai"]["mmwave"]
+    co2 = report["ai"]["ai"]["co2"]
+    risk = report["risk"]
+    probabilities = ((mm.get("metadata") or {}).get("probabilities")) or []
+    ordered = sorted((float(p) for p in probabilities), reverse=True)
+    margin = round(ordered[0] - ordered[1], 4) if len(ordered) >= 2 else None
+    return {
+        "records": report["capture"]["record_limit"],
+        "mmwave_state": str(mm.get("state")),
+        "mmwave_confidence": _num(mm.get("confidence")),
+        "mmwave_margin": "-" if margin is None else f"{margin:.3f}",
+        "mmwave_decisive": "yes" if margin is not None and margin >= 0.15 else "no",
+        "mmwave_probabilities": [round(float(p), 5) for p in probabilities],
+        "co2_state": str(co2.get("state")),
+        "co2_source": str(co2.get("source")),
+        "risk_score": _num(risk.get("risk_score")),
+        "risk_level": str(risk.get("risk_level")),
+        "system_health": str(risk.get("system_health")),
+        "component_status": risk.get("component_status"),
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--mmwave", type=Path, default=None)
+    parser.add_argument("--co2", type=Path, default=None)
+    parser.add_argument("--limit", type=int, default=2400,
+                        help="max telemetry records to replay. The default clears both the "
+                             "M-N4 30 s window and the C-B6 150 s CO2 history in the "
+                             "committed 20260817 capture.")
+    parser.add_argument("--sweep", default=None,
+                        help="comma-separated record limits; reports model behaviour across "
+                             "independent windows of the same capture")
+    parser.add_argument("--inject-presence", action="store_true",
+                        help="synthesize mmwave.human_detected_raw=true (field captures lack it)")
+    parser.add_argument("--inject-humidity", type=float, default=None,
+                        help="synthesize humidity_percent; the C-B6 contract forbids it, so this "
+                             "only demonstrates that it is ignored")
+    parser.add_argument("--thermal-shape", choices=("upright", "lying", "flat"),
+                        default="upright",
+                        help="synthetic thermal geometry (no real capture is committed)")
+    parser.add_argument("--risk", choices=("legacy", "v1"), default="v1",
+                        help="risk formula under audit (runtime default is v1)")
+    parser.add_argument("--json", type=Path, default=None)
+    args = parser.parse_args(argv)
+
+    mmwave_path = args.mmwave or newest_capture(MMWAVE_DIR, "_mmwave")
+    co2_path = args.co2 or newest_capture(CO2_DIR, "_co2")
+    if mmwave_path is None:
+        print("no committed mmwave field capture found under data/mmwave", file=sys.stderr)
+        return 2
+    args.resolved_co2_file = str(co2_path.relative_to(REPO_ROOT)) if co2_path else "NONE"
+
+    mm_all = load_capture(mmwave_path)
+    co2_index = co2_by_sequence(load_capture(co2_path)) if co2_path else {}
+
+    if args.sweep:
+        limits = [int(item) for item in args.sweep.split(",") if item.strip()]
+        rows, reports = [], []
+        for limit in limits:
+            report = run_audit(args, limit, mmwave_path, co2_index, mm_all)
+            rows.append(sweep_row(report))
+            reports.append(report)
+        print(render_sweep(rows))
+        if args.json:
+            args.json.write_text(
+                json.dumps({"sweep": rows, "reports": reports}, indent=2, default=str),
+                encoding="utf-8",
+            )
+            print(f"\nwrote {args.json}")
+        return 0
+
+    report = run_audit(args, args.limit, mmwave_path, co2_index, mm_all)
     print(render(report))
     if args.json:
         args.json.write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")

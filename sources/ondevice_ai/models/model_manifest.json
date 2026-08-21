@@ -82,7 +82,11 @@
       "class_map": {
         "0": "VACANT",
         "1": "OCCUPIED"
-      }
+      },
+      "runtime_role": "HISTORICAL_CO2_V0_1_0",
+      "HISTORICAL_NOT_ACTIVE": true,
+      "superseded_by": "co2_occupancy_c_b6",
+      "not_active_reason": "THREE_FEATURE_CONTRACT_REQUIRES_HUMIDITY_WHICH_IS_FORBIDDEN_BY_C_B6"
     },
     "mmwave": {
       "model_id": "MMWAVE_M_N9_FULL_INT8_V1",
@@ -338,6 +342,70 @@
       },
       "runtime_role": "HISTORICAL_V0_2_0_CANDIDATE",
       "active_runtime_selector": false
+    },
+    "co2_occupancy_c_b6": {
+      "model_id": "C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001",
+      "version": "c_b6_reduced_int8_v1",
+      "status": "candidate",
+      "artifact_status": "CONFIRMED",
+      "validation_status": "C_B6_PASS_WITH_LIMITATIONS",
+      "deployment_allowed": true,
+      "runtime_role": "ACTIVE_C_B6",
+      "HISTORICAL_B_NOT_ACTIVE": null,
+      "DEVICE_VALIDATED": "NO",
+      "PI_SMOKE": "NOT_PERFORMED",
+      "role": "co2_occupancy_classification",
+      "framework": "TensorFlow Lite",
+      "quantization": "full_int8",
+      "path": "models/rp_x0_b_complete/co2/C_B6_REDUCED_CO2_SLOPE_CANDIDATE_001_full_integer_int8.tflite",
+      "contract_dir": "models/rp_x0_b_complete/co2",
+      "size_bytes": 1552,
+      "sha256": "c5969b367f5b5e28c4d27f1bdd6220f7d02da92e99604e3f85c9f1291e98dd3b",
+      "input": {
+        "shape": [
+          1,
+          2
+        ],
+        "dtype": "int8",
+        "scale": 0.03921568766236305,
+        "zero_point": 0,
+        "semantic": "co2_ppm_co2_slope",
+        "feature_order": [
+          "CO2",
+          "CO2_slope"
+        ],
+        "feature_units": [
+          "ppm",
+          "ppm/min"
+        ],
+        "humidity_included": false,
+        "temperature_included": false
+      },
+      "output": {
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "int8",
+        "scale": 0.00390625,
+        "zero_point": -128,
+        "semantic": "sigmoid_occupancy_probability"
+      },
+      "threshold": 0.43,
+      "threshold_source": "TRAIN_INTERNAL_ONLY",
+      "class_map": {
+        "0": "VACANT",
+        "1": "OCCUPIED"
+      },
+      "risk_semantic": "NONE",
+      "safety_semantic": "NONE",
+      "slope_profile": "CO2_SLOPE_FEATURE_PROFILE_001",
+      "notes": [
+        "Reduced feature contract: humidity and temperature are in forbidden_additional_inputs.",
+        "Occupancy only. risk_semantic and safety_semantic are NONE, so this output must not be fused into the safety risk score.",
+        "Artifact physically resides in the rp_x0_b_complete overlay; only this CO2 entry is promoted. The mmWave M-B3 entry stays HISTORICAL_B_NOT_ACTIVE.",
+        "Scaler fitted on public TRAIN only; SCD40 domain alignment remains phase C-C."
+      ]
     }
   }
 }

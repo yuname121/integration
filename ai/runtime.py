@@ -20,10 +20,13 @@ class ModelRuntimeUnavailable(RuntimeError):
 class LazyModel:
     """Load a frozen interpreter only when a complete input first arrives."""
 
+    # sensor_id -> (adapter filename, adapter class, manifest selector key)
+    # The manifest key is separate because the CO2 selector was promoted to the
+    # C-B6 reduced-feature contract while models.co2 is retained as history.
     _ADAPTERS = {
-        "thermal": ("thermal_interpreter.py", "ThermalInterpreter"),
-        "mmwave": ("mmwave_m_n9_interpreter.py", "MN9Interpreter"),
-        "co2": ("co2_interpreter.py", "CO2Interpreter"),
+        "thermal": ("thermal_interpreter.py", "ThermalInterpreter", "thermal"),
+        "mmwave": ("mmwave_m_n9_interpreter.py", "MN9Interpreter", "mmwave"),
+        "co2": ("co2_c_b6_interpreter.py", "CB6Interpreter", "co2_occupancy_c_b6"),
     }
 
     def __init__(self, sensor_id: str, factory: Callable[[], object] | None = None) -> None:
@@ -69,7 +72,7 @@ class LazyModel:
 
     def _load_frozen_adapter(self) -> object:
         self._assert_deployment_allowed()
-        filename, class_name = self._ADAPTERS[self.sensor_id]
+        filename, class_name, _ = self._ADAPTERS[self.sensor_id]
         adapter_path = VENDOR_ROOT / "inference" / filename
         module_name = f"_safenest_frozen_{self.sensor_id}_interpreter"
         module = sys.modules.get(module_name)
@@ -90,13 +93,15 @@ class LazyModel:
     def _assert_deployment_allowed(self) -> None:
         manifest_path = VENDOR_ROOT / "models" / "model_manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        metadata = manifest.get("models", {}).get(self.sensor_id)
+        selector = self._ADAPTERS[self.sensor_id][2]
+        metadata = manifest.get("models", {}).get(selector)
         if not isinstance(metadata, dict):
             raise ModelRuntimeUnavailable(
-                f"MODEL_MANIFEST_ENTRY_MISSING: sensor={self.sensor_id}"
+                f"MODEL_MANIFEST_ENTRY_MISSING: sensor={self.sensor_id}, selector={selector}"
             )
         if metadata.get("deployment_allowed") is False:
             reason = metadata.get("block_reason", "UNSPECIFIED")
             raise ModelRuntimeUnavailable(
-                f"MODEL_RELEASE_BLOCKED: sensor={self.sensor_id}, reason={reason}"
+                f"MODEL_RELEASE_BLOCKED: sensor={self.sensor_id}, selector={selector},"
+                f" reason={reason}"
             )

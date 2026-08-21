@@ -124,19 +124,78 @@ class AIPipelineTests(unittest.TestCase):
         self.assertFalse(result["available"])
         self.assertEqual(result["error"], "CANONICAL_FRESHNESS_METADATA_MISSING")
 
-    def test_co2_requires_humidity_and_history(self):
+    def test_co2_uses_the_c_b6_reduced_contract_without_humidity(self):
+        """C-B6 takes ppm and ppm/min only; humidity is a forbidden input."""
+
         co2 = FakeModel(prediction("OCCUPIED", [0.1, 0.9]))
         pipeline = OnDeviceAIPipeline(self.manager, {"co2": co2})
         result = pipeline.evaluate(snapshot())["ai"]["co2"]
-        self.assertEqual(result["error"], "INPUT_UNAVAILABLE")
+        self.assertFalse(result["available"])
+        self.assertEqual(result["state"], "CO2_MEASUREMENT_CLOCK_UNAVAILABLE")
         self.assertEqual(co2.calls, [])
 
-        first = snapshot(co2=sensor(values={"ppm": 800.0, "humidity_percent": 50.0}, sequence=1))
-        second = snapshot(co2=sensor(values={"ppm": 830.0, "humidity_percent": 50.0}, sequence=2, last_update=160.0))
-        self.assertEqual(pipeline.evaluate(first)["ai"]["co2"]["error"], "WINDOW_WARMING_UP")
-        result = pipeline.evaluate(second)["ai"]["co2"]
-        self.assertTrue(result["available"])
-        self.assertAlmostEqual(co2.calls[0][0], 30.0)
+        def measurement(event_id: int, clock_ms: float, ppm: float):
+            return sensor(
+                values={
+                    "ppm": ppm,
+                    "latest_measurement_ppm": ppm,
+                    "measurement_event_valid": True,
+                    "measurement_event_id": event_id,
+                    "measurement_monotonic_ms": clock_ms,
+                },
+                sequence=event_id,
+            )
+
+        # One event: warming up, never a fabricated 0.0 ppm/min slope.
+        warming = pipeline.evaluate(snapshot(co2=measurement(1, 0.0, 800.0)))["ai"]["co2"]
+        self.assertEqual(warming["state"], "FEATURE_UNAVAILABLE_WARMUP")
+        self.assertIsNone(warming["metadata"].get("slope_ppm_per_min"))
+        self.assertEqual(co2.calls, [])
+
+        # Nominal SCD40 cadence is 60 s, inside max_internal_gap_seconds = 90 s.
+        # Under the 150 s history requirement it is still warming up.
+        for event_id, clock_ms, ppm in ((2, 60_000.0, 830.0), (3, 120_000.0, 860.0)):
+            early = pipeline.evaluate(snapshot(co2=measurement(event_id, clock_ms, ppm)))["ai"]["co2"]
+            self.assertEqual(early["state"], "FEATURE_UNAVAILABLE_WARMUP", early)
+            self.assertEqual(co2.calls, [])
+
+        # 180 s endpoint span: (890 - 800) / 3 min = 30.0 ppm/min
+        ready = pipeline.evaluate(snapshot(co2=measurement(4, 180_000.0, 890.0)))["ai"]["co2"]
+        self.assertTrue(ready["available"], ready)
+        self.assertEqual(ready["metadata"]["endpoint_span_seconds"], 180.0)
+        self.assertEqual(len(co2.calls[0]), 2)  # ppm, slope - no humidity argument
+        self.assertAlmostEqual(co2.calls[0][0], 890.0)
+        self.assertAlmostEqual(co2.calls[0][1], 30.0)
+        self.assertAlmostEqual(ready["metadata"]["co2_slope_ppm_per_min"], 30.0)
+        self.assertEqual(ready["metadata"]["slope_unit"], "ppm/min")
+        self.assertEqual(ready["metadata"]["slope_method"], "ENDPOINT_DIFFERENCE")
+        self.assertFalse(ready["metadata"]["humidity_required"])
+        # Occupancy is not a hazard weight.
+        self.assertEqual(ready["score"], 0.0)
+        self.assertTrue(ready["metadata"]["risk_contribution_deferred"])
+
+    def test_co2_restarts_history_after_a_forbidden_gap(self):
+        co2 = FakeModel(prediction("OCCUPIED", [0.1, 0.9]))
+        pipeline = OnDeviceAIPipeline(self.manager, {"co2": co2})
+
+        def measurement(event_id: int, clock_ms: float, ppm: float):
+            return sensor(
+                values={
+                    "ppm": ppm,
+                    "latest_measurement_ppm": ppm,
+                    "measurement_event_valid": True,
+                    "measurement_event_id": event_id,
+                    "measurement_monotonic_ms": clock_ms,
+                },
+                sequence=event_id,
+            )
+
+        pipeline.evaluate(snapshot(co2=measurement(1, 0.0, 800.0)))
+        # 120 s gap exceeds max_internal_gap_seconds = 90 s -> history restarts.
+        after_gap = pipeline.evaluate(snapshot(co2=measurement(2, 300_000.0, 900.0)))["ai"]["co2"]
+        self.assertFalse(after_gap["available"])
+        self.assertGreaterEqual(after_gap["metadata"]["gap_restarts"], 1)
+        self.assertEqual(co2.calls, [])
 
     def test_result_rejects_nan_and_output_is_strict_json(self):
         with self.assertRaises(ValueError):
@@ -171,7 +230,10 @@ class AIPipelineTests(unittest.TestCase):
         self.assertEqual(active["deployment_scope"], "MAC_INTEGRATION_CANDIDATE")
         self.assertEqual(active["hardware_validation"], "NOT_PERFORMED")
         self.assertFalse(active["DEVICE_VALIDATED"])
-        self.assertEqual(LazyModel._ADAPTERS["mmwave"], ("mmwave_m_n9_interpreter.py", "MN9Interpreter"))
+        self.assertEqual(
+            LazyModel._ADAPTERS["mmwave"],
+            ("mmwave_m_n9_interpreter.py", "MN9Interpreter", "mmwave"),
+        )
 
     def test_frozen_model_hashes_match_manifest(self):
         root = Path(__file__).resolve().parent.parent / "sources" / "ondevice_ai"
@@ -196,8 +258,8 @@ class AIPipelineTests(unittest.TestCase):
         overlay_files = [path for path in overlay.rglob("*") if path.is_file()] if overlay.exists() else []
         self.assertEqual(provenance["latest_origin_main"], "fa8cf13")
         self.assertEqual(provenance["latest_component_source"], "77b1695ac66fd595bd037e4574d1626b8917654c")
-        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1075)
-        self.assertEqual(len(frozen), 1075)
+        self.assertEqual(provenance["ondevice_ai_snapshot"]["tracked_file_count"], 1076)
+        self.assertEqual(len(frozen), 1076)
         self.assertEqual(provenance["locked_b_stage_overlay"]["file_count"], len(overlay_files))
         self.assertEqual(len(overlay_files), 19)
         self.assertEqual(provenance["mmwave_m_n9_import"]["artifact_id"], "MMWAVE_M_N9_FULL_INT8_V1")

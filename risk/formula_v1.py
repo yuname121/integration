@@ -137,7 +137,9 @@ class SafeNestRiskFormulaV1:
         mmwave = self._mmwave_component(
             sensors.get("mmwave", {}), ai_results.get("mmwave", {}), now, floors, emergencies
         )
-        co2 = self._co2_component(sensors.get("co2", {}), now, floors, emergencies)
+        co2 = self._co2_component(
+            sensors.get("co2", {}), ai_results.get("co2", {}), now, floors, emergencies
+        )
         presence, presence_source, presence_reasons = self._presence(
             sensors.get("mmwave", {}), thermal
         )
@@ -394,6 +396,7 @@ class SafeNestRiskFormulaV1:
     def _co2_component(
         self,
         sensor: Any,
+        ai: Any,
         now: float,
         floors: list[str],
         emergencies: list[str],
@@ -407,16 +410,11 @@ class SafeNestRiskFormulaV1:
             return _unavailable("co2", now, "CO2_INPUT_UNAVAILABLE")
         ppm = float(ppm)
 
-        sample_time = sensor.get("last_update") if isinstance(sensor, Mapping) else None
-        sequence = sensor.get("sequence") if isinstance(sensor, Mapping) else None
-        if sequence != self._last_co2_sequence and _finite_number(sample_time):
-            self._co2_history.append((float(sample_time), ppm))
-            self._last_co2_sequence = sequence
-        slope = None
-        if len(self._co2_history) >= 2:
-            elapsed = (self._co2_history[-1][0] - self._co2_history[0][0]) / 60.0
-            if elapsed > 0:
-                slope = (self._co2_history[-1][1] - self._co2_history[0][1]) / elapsed
+        # Prefer the canonical CO2_SLOPE_FEATURE_PROFILE_001 slope produced by the
+        # AI pipeline so there is exactly one slope definition in the runtime.
+        slope, slope_source = self._canonical_slope(ai)
+        if slope is None:
+            slope, slope_source = self._local_slope(sensor, ppm), "RISK_LOCAL_ENDPOINT"
 
         score = _piecewise(self._co2_curve, ppm)
         reasons: list[str] = []
@@ -446,15 +444,48 @@ class SafeNestRiskFormulaV1:
                 reasons.append("FAST_CO2_RISE")
         score = min(1.0, max(0.0, score))
 
+        # Occupancy from the C-B6 head is informational only: its class_map
+        # declares risk_semantic NONE and safety_semantic NONE, and SCD40 domain
+        # alignment is still an open phase, so it never becomes a hazard weight.
+        occupancy = _occupancy_metadata(ai)
+
         return RiskComponent(
             "co2", True, score, "rule", state, now,
             reasons=tuple(reasons),
             metadata={
                 "ppm": ppm,
                 "slope_ppm_per_min": slope,
-                "model_input_unavailable": "humidity_percent",
+                "slope_source": slope_source,
+                "slope_unit": "ppm/min",
+                **occupancy,
             },
         )
+
+    @staticmethod
+    def _canonical_slope(ai: Any) -> tuple[float | None, str]:
+        metadata = ai.get("metadata") if isinstance(ai, Mapping) else None
+        if not isinstance(metadata, Mapping):
+            return None, "UNAVAILABLE"
+        value = metadata.get("co2_slope_ppm_per_min")
+        if _finite_number(value):
+            profile = metadata.get("slope_profile_id")
+            return float(value), str(profile or "CANONICAL")
+        return None, "UNAVAILABLE"
+
+    def _local_slope(self, sensor: Any, ppm: float) -> float | None:
+        """Endpoint-difference fallback when the canonical slope is warming up."""
+
+        sample_time = sensor.get("last_update") if isinstance(sensor, Mapping) else None
+        sequence = sensor.get("sequence") if isinstance(sensor, Mapping) else None
+        if sequence != self._last_co2_sequence and _finite_number(sample_time):
+            self._co2_history.append((float(sample_time), ppm))
+            self._last_co2_sequence = sequence
+        if len(self._co2_history) < 2:
+            return None
+        elapsed = (self._co2_history[-1][0] - self._co2_history[0][0]) / 60.0
+        if elapsed <= 0:
+            return None
+        return (self._co2_history[-1][1] - self._co2_history[0][1]) / elapsed
 
     def _pir_component(
         self, sensor: Any, presence: bool, now: float, floors: list[str]
@@ -593,6 +624,26 @@ def _values(sensor: Any) -> Mapping[str, Any]:
 
 def _error(ai: Any) -> str | None:
     return str(ai.get("error")) if isinstance(ai, Mapping) and ai.get("error") else None
+
+
+def _occupancy_metadata(ai: Any) -> dict[str, Any]:
+    """Surface C-B6 occupancy without letting it act as a hazard weight."""
+
+    if not isinstance(ai, Mapping):
+        return {"occupancy_state": None, "occupancy_available": False}
+    metadata = ai.get("metadata")
+    metadata = metadata if isinstance(metadata, Mapping) else {}
+    available = ai.get("available") is True
+    probability = metadata.get("occupancy_probability")
+    return {
+        "occupancy_state": str(ai.get("state")) if available else None,
+        "occupancy_available": available,
+        "occupancy_probability": float(probability) if _finite_number(probability) else None,
+        "occupancy_risk_semantic": str(metadata.get("risk_semantic", "NONE")),
+        "occupancy_contract_id": metadata.get("contract_id"),
+        "co2_ai_error": _error(ai),
+        "co2_slope_status": str(ai.get("state")) if not available else None,
+    }
 
 
 def _ai_debug_metadata(ai: Any) -> dict[str, Any]:
