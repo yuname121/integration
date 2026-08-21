@@ -11,6 +11,7 @@ import importlib.util
 import math
 from pathlib import Path
 import sys
+import threading
 from typing import Any, Mapping
 
 import numpy as np
@@ -40,9 +41,14 @@ class CanonicalRuntimeResult:
 
 
 class MR60CanonicalWindowBuilder:
-    """Accumulate freshness-aware MR60 events and build the newest 30 s window."""
+    """Accumulate freshness-aware MR60 events and build the newest 30 s window.
+
+    ``ingest`` is driven by the receiver thread at wire rate while ``latest`` is
+    read by the publication thread, so the accumulator state is lock-protected.
+    """
 
     def __init__(self) -> None:
+        self._lock = threading.RLock()
         self._events: list[tuple[float, float, str | None, str | None, int | None]] = []
         self._last_update_ms: float | None = None
         self._last_source_key: tuple[str | None, str | None, int | None] | None = None
@@ -52,13 +58,18 @@ class MR60CanonicalWindowBuilder:
         self._freshness_missing = False
 
     def reset(self, reason: str = "EXPLICIT_STREAM_RESET") -> None:
-        self._events.clear()
-        self._last_update_ms = None
-        self._last_source_key = None
-        self._republication_count = 0
-        self._freshness_missing = reason == "CANONICAL_FRESHNESS_METADATA_MISSING"
+        with self._lock:
+            self._events.clear()
+            self._last_update_ms = None
+            self._last_source_key = None
+            self._republication_count = 0
+            self._freshness_missing = reason == "CANONICAL_FRESHNESS_METADATA_MISSING"
 
     def ingest(self, sensor: Mapping[str, object]) -> None:
+        with self._lock:
+            self._ingest_locked(sensor)
+
+    def _ingest_locked(self, sensor: Mapping[str, object]) -> None:
         values = sensor.get("values")
         if not isinstance(values, Mapping):
             self._freshness_missing = True
@@ -95,6 +106,10 @@ class MR60CanonicalWindowBuilder:
         self._events = [event for event in self._events if event[0] >= cutoff]
 
     def latest(self) -> CanonicalRuntimeResult:
+        with self._lock:
+            return self._latest_locked()
+
+    def _latest_locked(self) -> CanonicalRuntimeResult:
         base = {
             "contract_id": CONTRACT_ID,
             "accepted_update_count": len(self._events),

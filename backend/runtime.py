@@ -9,10 +9,10 @@ import time
 
 from ai.pipeline import OnDeviceAIPipeline
 from backend.store import RuntimeStore
-from gateway.protocol import ConnectionClosed, ProtocolError, ThermalFrame
+from gateway.protocol import ConnectionClosed, ProtocolError, TelemetryPayload, ThermalFrame
 from gateway.receiver import SafeNestTCPServer
 from gateway.thermal_udp import ThermalUDPServer
-from risk.engine import SafeNestRiskEngine
+from risk.formula_v1 import SafeNestRiskFormulaV1
 from state.manager import SensorStateManager
 from storage.sensor_logger import SensorDataLogger, SensorStorageConfig
 
@@ -31,7 +31,7 @@ class SafeNestRuntime:
         evaluation_interval_seconds: float = 15.0,
         manager: SensorStateManager | None = None,
         ai_pipeline: OnDeviceAIPipeline | None = None,
-        risk_engine: SafeNestRiskEngine | None = None,
+        risk_engine: object | None = None,
         store: RuntimeStore | None = None,
         sensor_data_logger: SensorDataLogger | None = None,
         storage_config: SensorStorageConfig | None = None,
@@ -54,7 +54,7 @@ class SafeNestRuntime:
             co2_update_interval_seconds=selected_storage_config.co2_interval_seconds
         )
         self.ai_pipeline = ai_pipeline or OnDeviceAIPipeline(self.manager)
-        self.risk_engine = risk_engine or SafeNestRiskEngine()
+        self.risk_engine = risk_engine or SafeNestRiskFormulaV1()
         self.store = store or RuntimeStore()
         self.evaluation_interval_seconds = float(evaluation_interval_seconds)
         self.server = SafeNestTCPServer(
@@ -157,6 +157,14 @@ class SafeNestRuntime:
             received_at=wall,
             monotonic_at=monotonic,
         )
+        if isinstance(packet, TelemetryPayload):
+            # The MR60 breathing-phase window must accumulate at wire rate; the
+            # publication loop is far too slow to satisfy the 30 s continuity
+            # contract on its own.
+            try:
+                self.ai_pipeline.observe_telemetry(packet)
+            except Exception as error:
+                self.store.record_runtime_error("mmwave_phase_window", error)
         try:
             self.sensor_data_logger.submit(
                 packet,

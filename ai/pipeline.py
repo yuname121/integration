@@ -10,7 +10,7 @@ from typing import Mapping
 from ai.result import AIResult
 from ai.runtime import LazyModel
 from ai.mmwave_canonical_runtime import MR60CanonicalWindowBuilder
-from gateway.protocol import ThermalFrame
+from gateway.protocol import TelemetryPayload, ThermalFrame
 from state.manager import SensorStateManager
 
 
@@ -32,6 +32,30 @@ class OnDeviceAIPipeline:
         self._co2_history: deque[tuple[float, float]] = deque(maxlen=30)
         self._last_co2_sequence: int | None = None
         self._mmwave_window = MR60CanonicalWindowBuilder()
+        self._mmwave_wire_observed = False
+
+    def observe_telemetry(self, packet: TelemetryPayload) -> None:
+        """Accumulate the MR60 phase stream at wire rate, not at publication rate.
+
+        The M-N4 canonical window needs 30 continuous seconds of ~8 Hz phase
+        events with no gap wider than ``max(400 ms, 4x median dt)``.  Feeding it
+        only from ``evaluate`` would sample the stream once per publication
+        interval (15 s by default), which can never satisfy that contract.
+        """
+
+        self._mmwave_window.ingest(
+            {
+                "sequence": packet.header.sequence,
+                "boot_id": packet.boot_id,
+                "values": {
+                    "breath_phase": packet.breath_phase,
+                    "ts_monotonic_ms": packet.ts_monotonic_ms,
+                    "phase_age_ms": packet.phase_age_ms,
+                    "session_id": packet.session_id,
+                },
+            }
+        )
+        self._mmwave_wire_observed = True
 
     def evaluate(
         self,
@@ -99,7 +123,10 @@ class OnDeviceAIPipeline:
             return unavailable
         values = sensor.get("values") if isinstance(sensor.get("values"), dict) else {}
         missing = _mmwave_missing_fields(values)
-        self._mmwave_window.ingest(sensor)
+        if not self._mmwave_wire_observed:
+            # Snapshot-driven callers (offline replay, unit tests) have no wire
+            # feed; live runtimes use observe_telemetry and must not double-count.
+            self._mmwave_window.ingest(sensor)
         window = self._mmwave_window.latest()
         diagnostics = {
             "canonical_window_status": window.status,

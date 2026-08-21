@@ -16,9 +16,9 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from ai.pipeline import OnDeviceAIPipeline
-from gateway.protocol import ProtocolError
+from gateway.protocol import ProtocolError, TelemetryPayload
 from gateway.receiver import SafeNestTCPServer
-from risk.engine import SafeNestRiskEngine
+from risk.formula_v1 import SafeNestRiskFormulaV1
 from state.manager import SensorStateManager
 
 
@@ -34,10 +34,13 @@ def main() -> int:
 
     manager = SensorStateManager()
     ai_pipeline = OnDeviceAIPipeline(manager)
-    risk_engine = SafeNestRiskEngine()
+    risk_engine = SafeNestRiskFormulaV1()
 
     def on_packet(packet, peer) -> None:
         manager.ingest(packet, peer)
+        if isinstance(packet, TelemetryPayload):
+            # The MR60 phase window must accumulate at wire rate, not per evaluation.
+            ai_pipeline.observe_telemetry(packet)
 
     def on_error(error: Exception, peer) -> None:
         if peer is not None and isinstance(error, ProtocolError):

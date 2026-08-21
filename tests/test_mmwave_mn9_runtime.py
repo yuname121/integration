@@ -193,3 +193,84 @@ class MN9PipelineRuntimeTests(unittest.TestCase):
             "PRESENCE_STATE_UNAVAILABLE",
         })
         self.assertEqual(model.calls, [])
+
+
+
+class WireRatePhaseAccumulationTests(unittest.TestCase):
+    """The canonical window must accumulate per received packet, not per publication.
+
+    The M-N4 contract needs 30 continuous seconds of ~8 Hz phase events with no
+    gap wider than max(400 ms, 4x median dt). Sampling the phase stream from the
+    publication loop (15 s by default) can never satisfy that, so the runtime
+    feeds the accumulator from the receive path.
+    """
+
+    @staticmethod
+    def _telemetry(index: int) -> object:
+        ts_ms = 1_000 + index * 125
+        body = json.dumps(
+            {
+                "schema": "safenest.telemetry.v1",
+                "device_id": "esp32-01",
+                "boot_id": "boot-a",
+                "seq": index + 1,
+                "uptime_ms": ts_ms + 10,
+                "resp_rate_bpm": 16.0,
+                "heart_rate_bpm": 62.0,
+                "co2_ppm": 800.0,
+                "pir_motion": False,
+                "valid": {"respiration": True, "heart": True, "co2": True},
+                "mmwave": {
+                    "breath_phase": math.sin(2 * math.pi * 0.25 * ts_ms / 1000.0),
+                    "phase_age_ms": 5,
+                    "ts_monotonic_ms": ts_ms,
+                    "seq": index + 1,
+                },
+            }
+        ).encode("utf-8")
+        return decode_telemetry(
+            PacketHeader(PACKET_TELEMETRY_JSON, index + 1, len(body)), body
+        )
+
+    def test_runtime_receive_path_builds_the_window_without_extra_evaluations(self):
+        from backend.runtime import SafeNestRuntime
+        from storage.sensor_logger import SensorStorageConfig
+
+        model = FakeModel()
+        manager = SensorStateManager()
+        pipeline = OnDeviceAIPipeline(manager, {"mmwave": model})
+        runtime = SafeNestRuntime(
+            sensor_host="127.0.0.1",
+            sensor_port=0,
+            thermal_udp_host="127.0.0.1",
+            thermal_udp_port=0,
+            evaluation_interval_seconds=3600.0,
+            manager=manager,
+            ai_pipeline=pipeline,
+            storage_config=SensorStorageConfig(root=".", enabled=False),
+        )
+
+        for index in range(260):
+            runtime._on_packet(self._telemetry(index), ("127.0.0.1", 5000))
+
+        window = pipeline._mmwave_window.latest()
+        self.assertEqual(window.status, "CANONICAL_WINDOW_READY")
+        self.assertGreaterEqual(window.metadata["continuous_span_ms"], 30_000)
+        self.assertEqual(window.tensor.shape, (1, 240, 1))
+        # Presence is absent from this firmware contract, so inference stays gated.
+        result = pipeline.evaluate(manager.snapshot())["ai"]["mmwave"]
+        self.assertEqual(result["metadata"]["canonical_window_status"], "CANONICAL_WINDOW_READY")
+        self.assertEqual(result["error"], "PRESENCE_STATE_UNAVAILABLE")
+        self.assertEqual(model.calls, [])
+
+    def test_single_publication_cannot_build_a_window_on_its_own(self):
+        pipeline = OnDeviceAIPipeline(SensorStateManager(), {"mmwave": FakeModel()})
+        manager = SensorStateManager()
+        for index in range(260):
+            manager.ingest(
+                self._telemetry(index), ("127.0.0.1", 5000),
+                received_at=100.0 + index, monotonic_at=10.0 + index,
+            )
+        # One publication sees exactly one phase event.
+        pipeline.evaluate(manager.snapshot(now=360.0, monotonic_now=270.0))
+        self.assertEqual(pipeline._mmwave_window.latest().metadata["accepted_update_count"], 1)
